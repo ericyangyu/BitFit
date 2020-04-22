@@ -60,7 +60,7 @@ Running the actual Project:
 
 We almost there y'all! 
 
-8. Open up your terminal and cd into the directory that has your project.
+8. Open up your terminal, clone the code from Github, and cd into the directory that has your project.
 
 9. Open up your emulator by clicking the phone icon on the top-right of your VS Code project.
 
