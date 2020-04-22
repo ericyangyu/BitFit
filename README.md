@@ -1,6 +1,6 @@
 # BitFit
 
-Hi Guys! Here is instructions on how to set up the front-end for our app. This is the hardest part you'll have to do and then
+Hi Guys! Here are instructions on how to set up the front-end for our app. This is the hardest part you'll have to do and then
 you can chill with your dope ass setup writing frontend like a G in Javascript. I know it's a lot of steps but you will
 likely have a lot of these things already downloaded!
 
