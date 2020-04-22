@@ -62,10 +62,11 @@ We almost there y'all!
 
 8. Open up your terminal, clone the code from Github, and cd into the directory that has your project.
 
-9. Open up your emulator by clicking the phone icon on the top-right of your VS Code project.
+9. Open the code up on VS Code so you can edit the files on there. Open up your emulator by clicking the 
+phone icon on the top-right of your VS Code project.
 
-9.1 (Extra Step) To verify that your emulator is connected, type "adb devices" into the terminal and you will see a list of emulators attached.
-If you see an emulator there, you are set.
+    9.1 (Extra Step) To verify that your emulator is connected, type "adb devices" into the terminal and you will see a list of       emulators attached.
+    If you see an emulator there, you are set.
 
 10. Type "npx react-native run-android" in your terminal to run your app! A separate terminal will pop up that connects the emulator to the code. 
 This way you can directly make changes to your files and you will the changes RIGHT AWAY on the emulator instead of having to build 
