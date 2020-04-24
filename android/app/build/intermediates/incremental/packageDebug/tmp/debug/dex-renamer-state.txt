@@ -1,4 +1,4 @@
-#Tue Apr 21 16:46:22 PDT 2020
-base.0=/Users/sharankaur/BitFit/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Fri Apr 24 00:24:55 PDT 2020
+base.0=/Users/nouryehia/BitFit/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
