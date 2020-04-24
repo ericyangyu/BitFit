@@ -47,31 +47,35 @@ fuck your project won't build):
      export PATH=$PATH:$ANDROID_HOME/tools
      export PATH=$PATH:$ANDROID_HOME/tools/bin
      export PATH=$PATH:$ANDROID_HOME/platform-tools
-     
-7. Type "source $HOME/.bash_profile" to load the config into your current shell. 
-Verify that ANDROID_HOME has been added to your path by running "echo $PATH"
 
-8. Install one last thing to make life easier (This will help you check and make sure your emulator works):
+7. Install one last thing to make life easier (This will help you check and make sure your emulator works):
 
     * brew cask install android-platform-tools
     
+8. Set up SDK Manager (You only have to do this once)
+    * Open Android Studio
+    * Go to Tools > Android SDK Manager
+    * Click the "SDK Tools" tab
+    * Check the "Show Package Details" box at the bottom right
+    * Check the 28.0.3 option under "Android SDK Build-Tools"
+    4. Click Apply and accept the license.
 
 Running the actual Project:
 
 We almost there y'all! 
 
-8. Open up your terminal, clone the code from Github, and cd into the directory that has your project.
+9. Open up your terminal, clone the code from Github, and cd into the directory that has your project.
 
-9. Open the code up on VS Code so you can edit the files on there. Open up your emulator by clicking the 
+10. Open the code up on VS Code so you can edit the files on there. Open up your emulator by clicking the 
 phone icon on the top-right of your VS Code project.
 
     9.1 (Extra Step) To verify that your emulator is connected, type "adb devices" into the terminal and you will see a list of       emulators attached.
     If you see an emulator there, you are set.
 
-10. Type "npx react-native run-android" in your terminal to run your app! A separate terminal will pop up that connects the emulator to the code. 
+11. Type "npx react-native run-android" in your terminal to run your app! A separate terminal will pop up that connects the emulator to the code. 
 This way you can directly make changes to your files and you will the changes RIGHT AWAY on the emulator instead of having to build 
 and run over and over again (biggg time saver). 
 
-11. You know it all went well if you see a page that says "Hello World" :-)
+12. You know it all went well if you see a page that says "Hello World" :-)
 
-
+13. If it does not work, verify that ANDROID_HOME has been added to your path by running "echo $PATH"
