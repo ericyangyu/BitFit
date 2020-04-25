@@ -40,7 +40,7 @@ it already):
       * brew cask install adoptopenjdk/openjdk/adoptopenjdk8
       
 6. Add this shit to your $HOME/.bash_profile or $HOME/.bashrc config file (or you will spend hours like me wondering why the
-fuck your project won't build):
+fuck your project won't build): NOTE: Only works for linux and mac systems. also depends on where you installed these things. so make sure they are correct.
 
      export ANDROID_HOME=$HOME/Library/Android/sdk
      export PATH=$PATH:$ANDROID_HOME/emulator
