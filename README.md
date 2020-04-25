@@ -97,6 +97,7 @@ and run over and over again (biggg time saver).
      * Add it to path. Go to your "system environment variables". Control Panel > System and Security > System > Advanced system settings > Environment Variables
      * Under system variables find "Path" and click edit.
      * Add the directory where watchman was installed for example: C:\Users\<YOUR_USERNAME>\AppData\Local\watchman
+     * Click OK
      
 4. Install Gradle 6.3 https://gradle.org/install/#manually
      * Download the complete version and follow the instructions under "Microsoft Windows users" for adding gradle to your path, similar to what you did for watchman.
