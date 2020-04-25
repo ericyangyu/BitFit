@@ -1,5 +1,8 @@
 # BitFit
 
+
+# Mac Instructions
+
 Hi Guys! Here are instructions on how to set up the front-end for our app. This is the hardest part you'll have to do and then
 you can chill with your dope ass setup writing frontend like a G in Javascript. I know it's a lot of steps but you will
 likely have a lot of these things already downloaded!
@@ -79,3 +82,49 @@ and run over and over again (biggg time saver).
 12. You know it all went well if you see a page that says "Hello World" :-)
 
 13. If it does not work, verify that ANDROID_HOME has been added to your path by running "echo $PATH"
+
+
+# Windows Instruction
+
+1. Install JDK 8 https://www.oracle.com/java/technologies/javase-jdk8-downloads.html
+
+2. Install npm and Node https://nodejs.org/en/
+
+3. Install Watchman: https://github.com/facebook/watchman/actions/runs/32012692
+     * Click on "watchman" under Artifacts.
+     * Go to C:\Users\<YOUR USERNAME>\AppData\Local\ and make a directory "watchman". You can actually make this directory anywhere just change things accordingly.
+     * Move the content of the bin folder from the installed watchman zip file and put it into C:\Users\<YOUR_USERNAME>\AppData\Local\watchman or wherever you created your watchman directory.
+     * Add it to path. Go to your "system environment variables". Control Panel > System and Security > System > Advanced system settings > Environment Variables
+     * Under system variables find "Path" and click edit.
+     * Add the directory where watchman was installed for example: C:\Users\<YOUR_USERNAME>\AppData\Local\watchman
+     
+4. Install Gradle 6.3 https://gradle.org/install/#manually
+     * Download the complete version and follow the instructions under "Microsoft Windows users" for adding gradle to your path, similar to what you did for watchman.
+
+5. Download settings.zip https://drive.google.com/file/d/10v9BbrzefCpikOtBaMKXmq987s6QbuXy/view?usp=sharing
+
+6. Open Android Studio and go to File > Import Settings and select the settings.zip file
+
+7. If JDK 8 is not automatically found you may need to specify the path to it in Android Studio
+     * Likely path: C:\Program Files\Java\jdk1.8.0_251
+     
+8. Set up SDK Manager (You only have to do this once)
+    * Open Android Studio
+    * Go to Tools > Android SDK Manager
+    * Click the "SDK Tools" tab
+    * Check the "Show Package Details" box at the bottom right
+    * Check the 28.0.3 option under "Android SDK Build-Tools"
+    * Click Apply and accept the license.
+    
+9. Go here https://reactnative.dev/docs/environment-setup and go to the tab "React Native CLI Quickstart". Make sure you're on the Windows tab.
+     * Skip to step 3.
+     * Configure the ANDROID_HOME environment variable under system variables. The path should be similar to the example provided.
+     * Step 4: Add platform-tools to the Path variable. It's likely already installed under "C:\Users\<YOUR_USERNAME>\AppData\Local\Android\Sdk\platform-tools" (verify this in your terminal). If you can't find it you can download it here: https://developer.android.com/studio/releases/platform-tools.
+
+9. Install Python for windows. https://www.python.org/downloads/release/python-382/
+     * Make sure when going through the installer you check the box that'll have it automatically register python in your environment variables. It should be checked by default.
+
+10. Bring up your command prompt and go to the BitFit directory (assuming you've already cloned it, if not clone the directory now). Run "npx react-native run-android". The emulator should be running now.
+     * If you don't have an emulator installed let me know and I'll add the instructions for that to the readme also, but you should have a working emulator from the 110 lab.
+     
+Make a post in the group chat if you're still having errors.
