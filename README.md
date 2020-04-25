@@ -58,7 +58,7 @@ fuck your project won't build):
     * Click the "SDK Tools" tab
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
-    4. Click Apply and accept the license.
+    * Click Apply and accept the license.
 
 Running the actual Project:
 
