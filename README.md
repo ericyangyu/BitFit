@@ -122,7 +122,7 @@ and run over and over again (biggg time saver).
      * Configure the ANDROID_HOME environment variable under system variables. The path should be similar to the example provided.
      * Step 4: Add platform-tools to the Path variable. It's likely already installed under "C:\Users\<YOUR_USERNAME>\AppData\Local\Android\Sdk\platform-tools" (verify this in your terminal). If you can't find it you can download it here: https://developer.android.com/studio/releases/platform-tools.
 
-9. Install Python for windows. https://www.python.org/downloads/release/python-382/
+9. Install Python for Windows. https://www.python.org/downloads/release/python-382/ if you don't have it already.
      * Make sure when going through the installer you check the box that'll have it automatically register python in your environment variables. It should be checked by default.
 
 10. Bring up your command prompt and go to the BitFit directory (assuming you've already cloned it, if not clone the directory now). Run "npx react-native run-android". The emulator should be running now.
