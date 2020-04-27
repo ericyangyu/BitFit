@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/nouryehia/BitFit/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-am/values-am.xml",
+            "outputFile": "/Users/nouryehia/Documents/Academics/CSE 110/BitFit/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-am/values-am.xml",
             "map": [
                 {
                     "source": "/Users/nouryehia/.gradle/caches/transforms-2/files-2.1/2b7e6ebaa515cd43f42fb356f0d1941c/appcompat-1.1.0/res/values-am/values-am.xml",
