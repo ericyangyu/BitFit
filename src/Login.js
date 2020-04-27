@@ -7,6 +7,21 @@
  */
 
 import React from 'react';
+import {View, Text} from 'react-native';
+
+const Login = () => {
+  return (
+    <View style={{flex: 1, justifyContent: "center", alignItems: "center",
+                  backgroundColor: '#f3ebe1'}}>
+      <Text>Hello, world!</Text>
+    </View>
+  )
+}
+
+export default Login;
+
+/*
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -112,3 +127,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+*/
