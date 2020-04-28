@@ -94,8 +94,7 @@ and run over and over again (biggg time saver).
 
 2. Install npm and Node https://nodejs.org/en/
 
-3. Install Watchman: https://github.com/facebook/watchman/actions/runs/32012692
-     * Click on "watchman" under Artifacts.
+3. Install Watchman: https://drive.google.com/file/d/1LMy_1DurMRVmkgHJyDZbrfgkbOXGTvfW/view?usp=sharing
      * Go to C:\Users\<YOUR USERNAME>\AppData\Local\ and make a directory "watchman". You can actually make this directory anywhere just change things accordingly.
      * Move the content of the bin folder from the installed watchman zip file and put it into C:\Users\<YOUR_USERNAME>\AppData\Local\watchman or wherever you created your watchman directory.
      * Add it to path. Go to your "system environment variables". Control Panel > System and Security > System > Advanced system settings > Environment Variables
