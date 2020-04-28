@@ -75,13 +75,15 @@ phone icon on the top-right of your VS Code project.
     9.1 (Extra Step) To verify that your emulator is connected, type "adb devices" into the terminal and you will see a list of       emulators attached.
     If you see an emulator there, you are set.
 
-11. Type "npx react-native run-android" in your terminal to run your app! A separate terminal will pop up that connects the emulator to the code. 
+11. Run "npm install" to download node_module dependencies
+
+12. Type "npx react-native run-android" in your terminal to run your app! A separate terminal will pop up that connects the emulator to the code. 
 This way you can directly make changes to your files and you will the changes RIGHT AWAY on the emulator instead of having to build 
 and run over and over again (biggg time saver). 
 
-12. You know it all went well if you see a page that says "Hello World" :-)
+13. You know it all went well if you see a page that says "Hello World" :-)
 
-13. Here are some solutions to common problems:
+14. Here are some solutions to common problems:
 * if doesn't work in general: verify that ANDROID_HOME has been added to your path by running "echo $PATH"
 * If you're still getting installDebug error, try this: https://github.com/facebook/react-native/issues/24715
 * If your emulator is stuck in loading screen, try this: https://stackoverflow.com/questions/36753354/avd-emulator-stuck-on-loading-screen-in-android-studio
@@ -127,7 +129,7 @@ and run over and over again (biggg time saver).
 9. Install Python for Windows. https://www.python.org/downloads/release/python-382/ if you don't have it already.
      * Make sure when going through the installer you check the box that'll have it automatically register python in your environment variables. It should be checked by default.
 
-10. Bring up your command prompt and go to the BitFit directory (assuming you've already cloned it, if not clone the directory now). Run "npx react-native run-android". The emulator should be running now.
+10. Bring up your command prompt and go to the BitFit directory (assuming you've already cloned it, if not clone the directory now). Run "npm install", then "npx react-native run-android". The emulator should be running now.
      * If you don't have an emulator installed let me know and I'll add the instructions for that to the readme also, but you should have a working emulator from the 110 lab.
      
 Make a post in the group chat if you're still having errors.
