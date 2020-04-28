@@ -81,8 +81,10 @@ and run over and over again (biggg time saver).
 
 12. You know it all went well if you see a page that says "Hello World" :-)
 
-13. If it does not work, verify that ANDROID_HOME has been added to your path by running "echo $PATH"
-
+13. Here are some solutions to common problems:
+* if doesn't work in general: verify that ANDROID_HOME has been added to your path by running "echo $PATH"
+* If you're still getting installDebug error, try this: https://github.com/facebook/react-native/issues/24715
+* If your emulator is stuck in loading screen, try this: https://stackoverflow.com/questions/36753354/avd-emulator-stuck-on-loading-screen-in-android-studio
 
 # Windows Instruction
 
