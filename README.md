@@ -114,7 +114,7 @@ and run over and over again (biggg time saver).
      
 8. Set up SDK Manager (You only have to do this once)
     * Open Android Studio
-    * Go to Tools > Android SDK Manager
+    * Go to Tools > SDK Manager (or search for the action "SDK Manager" from "Help")
     * Click the "SDK Tools" tab
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
