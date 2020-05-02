@@ -32,28 +32,30 @@ have it (for MacOs & Linux: https://brew.sh/) **
 
 4. Install Node, Watchman, and npx using Homebrew. Run the following commands in a Terminal after installing Homebrew (if you don't have 
 it already):
-
-      * brew install node
-      * brew install watchman
-      * brew install npx 
+     ```
+     brew install node
+     brew install watchman
+     brew install npx 
+     ```
       
 5. Install JDK using Homebrew (if you don't have it already)
    Run the following commands in a Terminal after installing Homebrew:
 
-      * brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+      * `brew cask install adoptopenjdk/openjdk/adoptopenjdk8`
       
 6. Add this shit to your $HOME/.bash_profile or $HOME/.bashrc config file (or you will spend hours like me wondering why the
 fuck your project won't build): NOTE: Only works for linux and mac systems. also depends on where you installed these things. so make sure they are correct.
-
+     ```
      export ANDROID_HOME=$HOME/Library/Android/sdk
      export PATH=$PATH:$ANDROID_HOME/emulator
      export PATH=$PATH:$ANDROID_HOME/tools
      export PATH=$PATH:$ANDROID_HOME/tools/bin
      export PATH=$PATH:$ANDROID_HOME/platform-tools
+     ```
 
 7. Install one last thing to make life easier (This will help you check and make sure your emulator works):
 
-    * brew cask install android-platform-tools
+    * `brew cask install android-platform-tools`
     
 8. Set up SDK Manager (You only have to do this once)
     * Open Android Studio
@@ -62,6 +64,15 @@ fuck your project won't build): NOTE: Only works for linux and mac systems. also
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
     * Click Apply and accept the license.
+
+9. Install Java 8 from this [link](https://www.oracle.com/java/technologies/javase-jdk8-downloads.html).
+     * Create an account if necessary
+     * Download `jdk-8u251-macosx-x64.dmg`
+     * Follow installation wizard
+     * Confirm `jdk1.8.0_251.jdk` was installed at `/Library/Java/JavaVirtualMachines/`
+     * Add `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home` to your `~/.bash_profile`
+     * Reload the file with `source ~/.bash_profile`
+
 
 Running the actual Project:
 
