@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react'
+import React, { Component } from 'react'
 import {
   StyleSheet, Text, View, ScrollView, TouchableOpacity
   } from 'react-native'
@@ -17,6 +17,7 @@ function Timer({ interval, style }) {
   )
 }
 
+// Describes how the buttons look and function
 function RoundButton({ title, color, background, onPress, disabled }) {
   return (
     <TouchableOpacity
@@ -31,51 +32,13 @@ function RoundButton({ title, color, background, onPress, disabled }) {
   )
 }
 
-//function Lap({ number, interval, fastest, slowest }) {
-//  const lapStyle = [
-//    styles.lapText,
-//    fastest && styles.fastest,
-//    slowest && styles.slowest,
-//  ]
-//  return (
-//    <View style={styles.lap}>
-//      <Text style={lapStyle}>Lap {number}</Text>
-//      <Timer style={[lapStyle, styles.lapTimer]} interval={interval}/>
-//    </View>
-//  )
-//}
-
-//function LapsTable({ laps, timer }) {
-//  const finishedLaps = laps.slice(1)
-//  let min = Number.MAX_SAFE_INTEGER
-//  let max = Number.MIN_SAFE_INTEGER
-//  if (finishedLaps.length >= 2) {
-//    finishedLaps.forEach(lap => {
-//      if (lap < min) min = lap
-//      if (lap > max) max = lap
-//    })
-//  }
-//  return (
-//    <ScrollView style={styles.scrollView}>
-//      {laps.map((lap, index) => (
-//        <Lap
-//          number={laps.length - index}
-//          key={laps.length - index}
-//          interval={index === 0 ? timer + lap : lap}
-//          fastest={lap === min}
-//          slowest={lap === max}
-//        />
-//      ))}
-//    </ScrollView>
-//  )
-//}
-
 function ButtonsRow({ children }) {
   return (
     <View style={styles.buttonsRow}>{children}</View>
   )
 }
-export default class App extends Component {
+
+export default class WorkoutTimer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -89,6 +52,7 @@ export default class App extends Component {
     clearInterval(this.timer)
   }
 
+  // Describe what each button does
   start = () => {
     const now = new Date().getTime()
     this.setState({
@@ -110,6 +74,8 @@ export default class App extends Component {
       //start: timestamp,
       //now: timestamp,
     //})
+
+    // send data somewhere, end timer, then return to homepage
   }
 
   stop = () => {
