@@ -131,3 +131,8 @@ and run over and over again (biggg time saver).
      * If you don't have an emulator installed let me know and I'll add the instructions for that to the readme also, but you should have a working emulator from the 110 lab.
      
 Make a post in the group chat if you're still having errors.
+
+
+
+## FRONT-END DEV
+* Use grids: https://www.npmjs.com/package/react-native-easy-grid
