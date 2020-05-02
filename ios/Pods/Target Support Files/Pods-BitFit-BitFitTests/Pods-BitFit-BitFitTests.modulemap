@@ -1,6 +1,0 @@
-module Pods_BitFit_BitFitTests {
-  umbrella header "Pods-BitFit-BitFitTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
