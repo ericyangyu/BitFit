@@ -18,6 +18,23 @@ const Login = () => {
   )
 }
 
+const Profile = () => {
+  return (
+    <View style={styles.profile_view}>
+
+      <Image style={styles.profile_photo}
+          source={require('../../images/profile.png')} alt='Profile Photo' />
+      <Text> Total Hrs: </Text>
+      <Text> No. of sessions: </Text>
+      <Button  title="Click to Reset"/>
+      <TextInput defaultValue="UserName"/>
+      <TextInput defaultValue="Full Name"/>
+      <Text>Email@id.com</Text>
+      <Button title="Click to Save"/>
+
+    </View>
+  )
+}
 export default Login;
 
 /*import React from 'react';
