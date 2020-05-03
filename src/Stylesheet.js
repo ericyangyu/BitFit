@@ -1,18 +1,55 @@
-const styles = StyleSheet.create({
-  profile_view: {
+import {StyleSheet} from 'react-native';
+
+export default StyleSheet.create({
+  // Profile
+  profileContainer: {
     flex: 1,
-    alignItems: 'center',
-    padding: 50,
-    backgroundColor: '#f3ebe1'
+    backgroundColor: "#f3ebe1",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
-  profile_photo: {
-    width: 250,
-    height: 250
+  photo: {
+    flex: 1,
+    width: "50%",
+    resizeMode: "contain",
+    alignSelf: "center"
   },
-  login_view: {
+  form: {
     flex: 1,
     justifyContent: "center",
+    width: "80%"
+  },
+
+  //Input
+  input: {
+    height: 40,
+    borderColor: "#C0C0C0",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 10
+  },
+
+  // Button
+  buttonContainer: {
+    width: "100%",
     alignItems: "center",
-    backgroundColor: '#f3ebe1'
+    justifyContent: "center",
+    backgroundColor: "#02075d",
+    marginBottom: 12,
+    paddingVertical: 12,
+    borderRadius: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "rgba(255,255,255,0.7)"
+  },
+  text: {
+    color: "#ffffff",
+    textAlign: "center",
+    height: 20
+  },
+  
+  //TextField
+  textField: {
+    height: 30,
+    color: "#434343",
+    marginBottom: 10
   }
 });

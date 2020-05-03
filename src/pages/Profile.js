@@ -1,118 +1,93 @@
-import React, { useState } from 'react';
-import {View, Text, TextInput, Image, StyleSheet, Button, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {View, Image} from "react-native";
 
-/*
- NEEDS FIXING:
- - Values need to be updated only when save is pressed, not on text change
- - Keyboard hides text input
- - Text fields can only input one letter (Nour only)
- - Make page look better
+import styles from "../StyleSheet";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import TextField from "../components/Text";
+import profilePhoto from "../../images/profile.png";
+
+/* 
+TODO:
+- disable save button if no changes made OR if one field is emty
+- edit password field
 */
 
-const styles = StyleSheet.create({
-  profile_view: {
-    flex: 1,
-    // justifyContent: 'center' ,
-    alignItems: 'center',
-    padding: 50,
-    backgroundColor: '#f3ebe1'
-  },
-  profile_photo: {
-    width: 250,
-    height: 250,
-    marginBottom: 10
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#f3ebe1',
-    padding: 10,
-    marginBottom: 10
-  }
-})
-
 export default function Profile() {
-  const [usernameActual, setUsernameActual] = useState('Username');
-  const [emailIdActual, setEmailActual] = useState('Email@id.com');
-  const [nameActual, setNameActual] = useState('Full Name');
-  const [username, setUsername] = useState(usernameActual);
-  const [emailId, setEmail] = useState(emailIdActual);
-  const [name, setName] = useState(nameActual);
-  const [hrs, setHrs] = useState(20);
-  const [sesh, setSesh] = useState(5);
+  const [name, setName] = useState('First Last');
+  const [username, setUsername] = useState('username');
+  const [email, setEmail] = useState('user@email.com');
+  const [sessions, setSessions] = useState(5);
+  const [hours, setHours] = useState(20);
   const [editMode, setEditMode] = useState(false);
 
+  // D for displayed
+  const [nameD, setNameD] = useState(name);
+  const [usernameD, setUsernameD] = useState(username);
+  const [emailD, setEmailD] = useState(email);
+  const [sessionsD, setSessionsD] = useState(sessions);
+  const [hoursD, setHoursD] = useState(hours);
+
   return (editMode ? (
-    <View style={styles.profile_view}>
-      <Image style={styles.profile_photo}
-        source={require('../../images/profile.png')} alt='Profile Photo' />
-      <Button title='edit photo' />
+    <View style={styles.profileContainer}>
+      <View style={styles.form}>
+        <Image source={profilePhoto} style={styles.photo}/>
+          <Button label='EDIT PHOTO'/>
 
-      <Text> Workout Time: {hrs} </Text>
-      <Text> Number of Sessions: {sesh} </Text>
-      <Button title='reset your stats' onPress={() => {
-        Alert.alert(
-          'ARE YOU SURE?',
-          'This action is not revertible.',
-          [
-            {
-              text: 'Cancel',
-            },
-            { text: 'OK', 
-              onPress: () => { 
-                setHrs(0);
-                setSesh(0);
-              }
-            }
-          ],
-          { cancelable: false }
-        );  
-      }} />
+          <TextField>
+            Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
+          </TextField>
+          <Button label='RESET STATS' onPress={() => {
+            setSessionsD(0); 
+            setHoursD(0);
+          }}/>
 
-      <TextInput 
-        placeholder={'Enter Username'}
-        onChangeText={username => setUsername(username)}
-        defaultValue={username}
-      />
-      <TextInput
-        placeholder={'Enter email id'}
-        onChangeText={emailId => setEmail(emailId)}
-        defaultValue={emailId}
-      />
-      <TextInput
-        placeholder={'Enter full name'}
-        onChangeText={name => setName(name)}
-        defaultValue={name}
-      />
-      <Button 
-        title="Save" 
-        onPress={() => {
-          setNameActual(name);
-          setUsernameActual(username);
-          setEmailActual(emailId);
+        <Input 
+          placeholder={name}
+          onChangeText={name => setNameD(name)}
+          defaultValue={name}/>
+        <Input
+          placeholder={username} 
+          onChangeText={username => setUsernameD(username)}
+          defaultValue={username}/>
+        <Input
+          placeholder={email} 
+          onChangeText={email => setEmailD(email)}
+          defaultValue={email}/>
+
+        <Button label='SAVE' onPress={() => {
+          setName(nameD);
+          setUsername(usernameD);
+          setEmail(emailD);
+          setSessions(sessionsD)
+          setHours(hoursD)
           setEditMode(false);
-        }}
-      />
-      <Button title='Cancel' onPress={() => {
-          setUsername(usernameActual);
-          setEmail(emailIdActual);
-          setName(nameActual);
-          setEditMode(false); 
-        }} />
+        }}/>
+        <Button label='CANCEL' onPress={() => {
+          setNameD(name);
+          setUsernameD(username);
+          setEmailD(email);
+          setSessionsD(sessions)
+          setHoursD(hours)
+          setEditMode(false);
+        }}/>
+      </View>
     </View>
 
-    ) : (
+  ) : (
+    <View style={styles.profileContainer}>
+      <View style={styles.form}>
+        <Image source={profilePhoto} style={styles.photo} />
+        <TextField>
+          Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
+        </TextField>
 
-    <View style={styles.profile_view}>
-      <Image style={styles.profile_photo}
-        source={require('../../images/profile.png')} alt='Profile Photo' />
+        <TextField> Name: {nameD} </TextField>
+        <TextField> Username: {usernameD} </TextField>
+        <TextField> E-mail: {emailD} </TextField>
 
-      <Text> Workout Time: {hrs} </Text>
-      <Text> Number of Sessions: {sesh} </Text>
-      <Text> Name: {name} </Text>
-      <Text> Username: {username} </Text>
-      <Text> E-mail: {emailId} </Text>
-
-      <Button title='edit profile' onPress={() => { setEditMode(true) }} />
+        <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }}/>
+      </View>
     </View>
   ));
 }
