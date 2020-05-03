@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import {
-	StyleSheet, Text, View, ScrollView, TouchableOpacity, Button, Image
+	StyleSheet, Text, View, ScrollView, TouchableOpacity, Image
 } from 'react-native'
 // import { Dropdown } from 'react-native-material-dropdown';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
+import Button from '../components/Button';
+// import styles from "../StyleSheet";
 
 function MainFocusPage() {
 	return (
@@ -88,6 +90,7 @@ function MainFocusPage() {
 			<Row></Row>
 			<Row></Row>
 			<Row>
+				<Col></Col>
 				<Col>
 					<View style={{
 						flexDirection: 'row',
@@ -95,13 +98,11 @@ function MainFocusPage() {
 						marginVertical: 0,
 					}}>
 						<Button
-							title="Continue"
-							// color="blue"
-							color="#212143"
-							style={{ borderRadius: 40 }}
+							label="Continue"
 						/>
 					</View>
 				</Col>
+				<Col></Col>
 			</Row>
 			<Row></Row>
 		</Grid>
@@ -189,6 +190,7 @@ function SuggestedWorkoutsPage() {
 			<Row></Row>
 			<Row></Row>
 			<Row>
+				<Col></Col>
 				<Col>
 					<View style={{
 						flexDirection: 'row',
@@ -196,13 +198,11 @@ function SuggestedWorkoutsPage() {
 						marginVertical: 0,
 					}}>
 						<Button
-							title="Continue"
-							// color="blue"
-							color="#212143"
-							style={{ borderRadius: 40 }}
+							label="Begin Workout"
 						/>
 					</View>
 				</Col>
+				<Col></Col>
 			</Row>
 			<Row></Row>
 		</Grid>
