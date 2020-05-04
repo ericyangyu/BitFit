@@ -7,19 +7,19 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Text } from "react-native";
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import imageLogo from "../components/Logo.png";
-// import PhotoUpload from 'react-native-photo-upload'
-
+import PhotoUpload from 'react-native-photo-upload'
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 
 
 class SignUp extends React.Component {
 
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       email: "",
@@ -50,35 +50,35 @@ class SignUp extends React.Component {
 
   render() {
     return (
-
-
-
+      
       <View style={styles.container}>
-         {/* <PhotoUpload 
-   onPhotoSelect={avatar => {
-     if (avatar) {
-       console.log('Image base64 string: ', avatar)
-     }
-   }}
- >  */}
-   {/* <Image
-    style={{
-      paddingVertical: 30,
-      width: 150,
-      height: 150,
-      borderRadius: 75
-    }}
-    resizeMode='cover'
-    source={{
-      uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
-    }}
-  />
-</PhotoUpload> */}
+        <PhotoUpload style={{margin:0}}
+          onPhotoSelect={avatar => {
+            if (avatar) {
+              console.log('Image base64 string: ', avatar)
+            }
+          }}
+        >
+          <Image
+            style={{
+              paddingVertical: 0,
+              width: 150,
+              height: 150,
+              borderRadius: 5
+            }}
+            resizeMode='cover'
+            source={{
+              uri: 'https://i.stack.imgur.com/l60Hf.png'
+            }}
+          />
+        </PhotoUpload>
+        <Text title="upload image">Click the above image to upload a profile picture.</Text>
+
         <View style={styles.form}>
           <FormTextInput
             value={this.state.username}
             onChangeText={this.handleUserNameChange}
-            placeholder={"username ..."}
+            placeholder={"Username..."}
           />
           <FormTextInput
             value={this.state.fullname}
@@ -100,7 +100,7 @@ class SignUp extends React.Component {
             onPress={this.handleSignUpPress}
           />
         </View>
-      </View>
+        </View>
     );
   }
 }
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
-    justifyContent: "space-between"
+    // justifyContent: "space-between"
   },
   logo: {
     flex: 1,
