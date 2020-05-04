@@ -62,6 +62,8 @@ fuck your project won't build): NOTE: Only works for linux and mac systems. also
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
     * Click Apply and accept the license.
+    
+9.5. Make sure to set JAVA_HOME variable to point to Java 8.
 
 Running the actual Project:
 
@@ -81,8 +83,10 @@ and run over and over again (biggg time saver).
 
 12. You know it all went well if you see a page that says "Hello World" :-)
 
-13. If it does not work, verify that ANDROID_HOME has been added to your path by running "echo $PATH"
-
+13. Here are some solutions to common problems:
+* if doesn't work in general: verify that ANDROID_HOME has been added to your path by running "echo $PATH"
+* If you're still getting installDebug error, try this: https://github.com/facebook/react-native/issues/24715
+* If your emulator is stuck in loading screen, try this: https://stackoverflow.com/questions/36753354/avd-emulator-stuck-on-loading-screen-in-android-studio
 
 # Windows Instruction
 
@@ -129,3 +133,8 @@ and run over and over again (biggg time saver).
      * If you don't have an emulator installed let me know and I'll add the instructions for that to the readme also, but you should have a working emulator from the 110 lab.
      
 Make a post in the group chat if you're still having errors.
+
+
+
+## FRONT-END DEV
+* Use grids: https://www.npmjs.com/package/react-native-easy-grid
