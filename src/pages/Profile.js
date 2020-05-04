@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image} from "react-native";
 
-import styles from "../StyleSheet";
+import styles from "../Stylesheet";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextField from "../components/Text";
@@ -11,6 +11,9 @@ import profilePhoto from "../../images/profile.png";
 TODO:
 - disable save button if no changes made OR if one field is emty
 - edit password field
+- edit photo fnality
+- Make all text centered
+- Add logout fnality
 */
 
 export default function Profile() {
@@ -82,11 +85,12 @@ export default function Profile() {
           Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
         </TextField>
 
-        <TextField> Name: {nameD} </TextField>
-        <TextField> Username: {usernameD} </TextField>
-        <TextField> E-mail: {emailD} </TextField>
+        <TextField>                             Name: {nameD} </TextField>
+        <TextField>                            Username: {usernameD} </TextField>
+        <TextField>                          E-mail: {emailD} </TextField>
 
         <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }}/>
+        <Button label='LOGOUT'/>
       </View>
     </View>
   ));

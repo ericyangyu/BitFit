@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Text, TouchableOpacity} from 'react-native';
 
-import styles from "../StyleSheet";
+import styles from "../Stylesheet";
 
 class Button extends React.Component {
   render() {

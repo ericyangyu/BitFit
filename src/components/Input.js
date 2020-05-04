@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-import styles from "../StyleSheet";
+import styles from "../Stylesheet";
 
 class Input extends React.Component {
   render() {
