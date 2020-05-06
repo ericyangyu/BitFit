@@ -62,6 +62,8 @@ fuck your project won't build): NOTE: Only works for linux and mac systems. also
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
     * Click Apply and accept the license.
+    
+9.5. Make sure to set JAVA_HOME variable to point to Java 8.
 
 Running the actual Project:
 
