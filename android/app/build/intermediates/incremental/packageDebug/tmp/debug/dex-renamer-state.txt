@@ -1,4 +1,0 @@
-#Fri May 01 20:41:22 PDT 2020
-base.0=C\:\\Users\\jeremy\\Desktop\\cse110\\BitFit\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
