@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { StyleSheet, TextInput, TextInputProps } from "react-native";
 
 // We support all the TextInput props
@@ -20,6 +21,7 @@ class Input extends React.Component {
         // custom one
         style={[styles.textInput, style]}
         // ...and then spread all the other props
+
         {...otherProps}
       />
     );

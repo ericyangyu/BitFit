@@ -62,6 +62,8 @@ fuck your project won't build): NOTE: Only works for linux and mac systems. also
     * Check the "Show Package Details" box at the bottom right
     * Check the 28.0.3 option under "Android SDK Build-Tools"
     * Click Apply and accept the license.
+    
+9.5. Make sure to set JAVA_HOME variable to point to Java 8.
 
 Running the actual Project:
 
@@ -131,3 +133,8 @@ and run over and over again (biggg time saver).
      * If you don't have an emulator installed let me know and I'll add the instructions for that to the readme also, but you should have a working emulator from the 110 lab.
      
 Make a post in the group chat if you're still having errors.
+
+
+
+## FRONT-END DEV
+* Use grids: https://www.npmjs.com/package/react-native-easy-grid
