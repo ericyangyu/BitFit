@@ -1,7 +1,9 @@
 import * as React from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-import styles from "../Stylesheet";
+
+import styles from "../StyleSheet";
+
 
 class Input extends React.Component {
   render() {
@@ -18,3 +20,4 @@ class Input extends React.Component {
 }
 
 export default Input;
+

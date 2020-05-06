@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Text} from "react-native";
 
-import styles from "../Stylesheet";
+import styles from "../StyleSheet";
 
 class TextField extends React.Component {
   render() {
@@ -17,4 +17,6 @@ class TextField extends React.Component {
   }
 }
 
+
 export default TextField;
+
