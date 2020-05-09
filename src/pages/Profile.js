@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image} from "react-native";
 
-import styles from "../Stylesheet";
+import styles from "../StyleSheet";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextField from "../components/Text";
