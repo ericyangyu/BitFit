@@ -8,6 +8,9 @@ import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
 import Button from '../components/Button';
 // import styles from "../StyleSheet";
+import {db} from '../config';
+
+let itemsRef = db.ref('/items');
 
 function MainFocusPage() {
 	return (
