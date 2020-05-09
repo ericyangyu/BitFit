@@ -1,28 +1,38 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import {
 	StyleSheet, Text, View, ScrollView, TouchableOpacity, Image
 } from 'react-native'
-// import { Dropdown } from 'react-native-material-dropdown';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
 import Button from '../components/Button';
-// import styles from "../StyleSheet";
-import {db} from '../config';
+import { db } from '../config';
 import firebase from 'firebase';
 
-let itemsRef = db.ref('/items');
+var globalSelectedFocus = 'legs'
 
-function readUserData() {
-    firebase.database().ref('body_parts/').on('value', function (snapshot) {
-		console.log(snapshot.val())
+function readUserData(key) {
+	let tmp = 0
+	firebase.database().ref(key).on('value', function (snapshot) {
+		// console.log(snapshot.val())
+		tmp = snapshot.val()
 	});
+	return tmp
 }
 
 function MainFocusPage() {
 	// let tmp = readUserData()
 	// console.log("NOTICE: " + tmp)
-	readUserData()
+	let tmp = readUserData('body_parts/')
+	let keys = []
+	for (let k in tmp) {
+		keys.push(k)
+	}
+
+	const [selectedFocus, setSelectedFocus] = useState("Select a focus.");
+
+	globalSelectedFocus = selectedFocus
+
 	return (
 		<Grid>
 			<Row>
@@ -85,17 +95,23 @@ function MainFocusPage() {
 					<View style={{
 						flexDirection: 'row',
 						alignSelf: 'center',
-						marginVertical: 0
+						marginVertical: 0,
+						alignItems: "center"
 					}}>
-						<Picker
-							selectedValue={'java'}
-							style={{ height: 50, width: 100 }}
-						// onValueChange={(itemValue, itemIndex) =>
-						// this.setState({ language: itemValue })
-						// }>
-						>
-							<Picker.Item label="Option 1" value="java" />
-							<Picker.Item label="Option 2" value="js" />
+
+							<Picker
+								style={styles.picker}
+								selectedFocus={selectedFocus}
+								mode="dropdown"
+								itemStyle={styles.itemStyle}
+								onValueChange={(itemValue, itemIndex) => setSelectedFocus(itemValue)}>
+							{
+								keys.map((item) => {
+									return (
+										<Picker.Item label={item} value={item} key={item} />
+									);
+								})
+							}
 						</Picker>
 					</View>
 				</Col>
@@ -122,7 +138,16 @@ function MainFocusPage() {
 	);
 }
 
+
 function SuggestedWorkoutsPage() {
+	let tmp = readUserData('body_parts/' + globalSelectedFocus)
+	let keys = []
+	for (let k in tmp) {
+		keys.push(k)
+	}
+
+	const [selectedWorkouts, setSelectedWorkouts] = useState("Select a Workout.");
+
 	return (
 		<Grid>
 			<Row>
@@ -188,14 +213,18 @@ function SuggestedWorkoutsPage() {
 						marginVertical: 0
 					}}>
 						<Picker
-							selectedValue={'java'}
-							style={{ height: 50, width: 100 }}
-						// onValueChange={(itemValue, itemIndex) =>
-						// this.setState({ language: itemValue })
-						// }>
-						>
-							<Picker.Item label="Option 1" value="java" />
-							<Picker.Item label="Option 2" value="js" />
+								style={styles.picker}
+								selectedValue={selectedWorkouts}
+								mode="dropdown"
+								itemStyle={styles.itemStyle}
+								onValueChange={(itemValue, itemIndex) => setSelectedWorkouts(itemValue)}>
+							{
+								keys.map((item) => {
+									return (
+										<Picker.Item label={item} value={item} key={item} />
+									);
+								})
+							}
 						</Picker>
 					</View>
 				</Col>
@@ -246,5 +275,23 @@ class SuggestedWorkouts extends Component {
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: 40,
+		alignItems: "center"
+	},
+	itemStyle: {
+		fontSize: 15,
+		height: 75,
+		color: 'black',
+		textAlign: 'center',
+		fontWeight: 'bold'
+	},
+	picker: {
+		width: 100
+	},
+});
 
 export { MainFocus, SuggestedWorkouts }
