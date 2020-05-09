@@ -9,10 +9,20 @@ import BackgroundColor from 'react-native-background-color';
 import Button from '../components/Button';
 // import styles from "../StyleSheet";
 import {db} from '../config';
+import firebase from 'firebase';
 
 let itemsRef = db.ref('/items');
 
+function readUserData() {
+    firebase.database().ref('body_parts/').on('value', function (snapshot) {
+		console.log(snapshot.val())
+	});
+}
+
 function MainFocusPage() {
+	// let tmp = readUserData()
+	// console.log("NOTICE: " + tmp)
+	readUserData()
 	return (
 		<Grid>
 			<Row>
