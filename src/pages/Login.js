@@ -7,7 +7,8 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import imageLogo from "../components/Logo.png";
@@ -54,6 +55,12 @@ class Login extends React.Component {
             label={"Login"}
             onPress={this.handleLoginPress}
           />
+
+          <TouchableOpacity>
+              <Text style={styles.buttonTextStyle}>
+                  Do not have an account? Register here.     
+                </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -69,10 +76,17 @@ const styles = StyleSheet.create({
   },
   logo: {
     flex: 1,
-    width: "100%",
+    width: "80%",
     resizeMode: "contain",
     alignSelf: "center"
   },
+  buttonTextStyle: {
+    fontSize: 15,
+    textAlign: 'center',
+    fontWeight: '100',
+    marginBottom: 0,
+    color: '#3498eb'
+},
   form: {
     flex: 1,
     justifyContent: "center",
