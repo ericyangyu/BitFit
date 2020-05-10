@@ -13,7 +13,7 @@ export default StyleSheet.create({
     width: "50%",
     resizeMode: "contain",
     alignSelf: "center",
-    borderRadius: 100
+    borderRadius: 150
   },
   form: {
     flex: 1,

@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet, View, Text, KeyboardAvoidingView } from "react-native";
+import { Image, StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity} from "react-native";
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import PhotoUpload from 'react-native-photo-upload'
@@ -28,6 +28,10 @@ class SignUp extends React.Component {
       username: "",
       imageClick: true
     }
+  }
+
+  goToLogIn = () => {
+    Actions.login()
   }
 
   handleEmailChange = (email) => {
@@ -110,7 +114,13 @@ class SignUp extends React.Component {
             onPress={this.handleSignUpPress}
           />
         </View>
+        <TouchableOpacity onPress={this.goToLogIn} >
+              <Text style={styles.buttonTextStyle}>
+                  Already have an account? Login here.     
+              </Text>
+        </TouchableOpacity>
         </KeyboardAvoidingView>
+        
         </View>
     );
   }
@@ -121,13 +131,20 @@ const styles = StyleSheet.create({
      paddingVertical: 0,
      width: 230,
      height: 230,
-     borderRadius: 100
+     borderRadius: 150
    },
   container: {
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
   },
+  buttonTextStyle: {
+    fontSize: 15,
+    textAlign: 'center',
+    fontWeight: '100',
+    marginBottom: 0,
+    color: '#3498eb'
+},
   logo: {
     flex: 1,
     width: "100%",

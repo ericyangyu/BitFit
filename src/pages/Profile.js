@@ -36,6 +36,11 @@ export default function Profile() {
     Actions.progress()
   }
 
+  const goToLogIn = () => {
+    Actions.login()
+ } 
+
+
   return (editMode ? (
     <View style={styles.profileContainer}>
       <View style={styles.form}>
@@ -103,7 +108,10 @@ export default function Profile() {
         <TextField>                          E-mail: {emailD} </TextField>
 
         <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }}/>
-        <Button label='LOGOUT'/>
+        <Button 
+          label={'LOGOUT'} 
+          onPress={() => goToLogIn()}
+          />
       </View>
     </View>
   ));
