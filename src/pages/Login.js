@@ -4,10 +4,14 @@
  *
  * @format
  * @flow strict-local
+ * 
+ * 
+ * 
  */
 
 import React from 'react';
 import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { Actions } from 'react-native-router-flux';
 
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
@@ -23,7 +27,10 @@ class Login extends React.Component {
       password: ""
     }
   }
-
+  
+  goToSignUp = () => {
+    Actions.signup()
+ }
   handleEmailChange = (email) => {
     this.setState({ email: email });
   };
@@ -34,6 +41,7 @@ class Login extends React.Component {
 
   handleLoginPress = () => {
     console.log("Login button pressed");
+    Actions.progress()
   };
 
   render() {
@@ -56,10 +64,10 @@ class Login extends React.Component {
             onPress={this.handleLoginPress}
           />
 
-          <TouchableOpacity>
+         <TouchableOpacity onPress={this.goToSignUp} >
               <Text style={styles.buttonTextStyle}>
                   Do not have an account? Register here.     
-                </Text>
+              </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,15 +1,21 @@
 /**
  * @format
  */
-
+import React, { Component } from 'react';
 import {AppRegistry} from 'react-native';
-import Profile from './src/pages/Profile';
 import {name as appName} from './app.json';
-import {SuggestedWorkouts} from './src/pages/Workouts'
-import Login from './src/pages/Login'
-import SignUp from './src/pages/SignUp'
-import Progress from './src/pages/Progress'
+import Routes from './src/pages/Routes'
 
-AppRegistry.registerComponent(appName, () => Login);
+class BitFit extends React.Component {
+    render() {
+       return (
+          <Routes />
+       )
+    }
+ }
+ export default BitFit
+ AppRegistry.registerComponent(appName, () => BitFit)
+
+// AppRegistry.registerComponent(appName, () => Login);
 // AppRegistry.registerComponent(appName, () => Progress);
 // AppRegistry.registerComponent(appName, () => SuggestedWorkouts);

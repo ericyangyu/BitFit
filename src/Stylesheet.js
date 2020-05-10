@@ -12,7 +12,8 @@ export default StyleSheet.create({
     flex: 1,
     width: "50%",
     resizeMode: "contain",
-    alignSelf: "center"
+    alignSelf: "center",
+    borderRadius: 100
   },
   form: {
     flex: 1,
@@ -33,7 +34,7 @@ export default StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#02075d",
+    backgroundColor: "#243454",
     marginBottom: 12,
     paddingVertical: 12,
     borderRadius: 4,

@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {View, Image} from "react-native";
+import {View, Image, TouchableOpacity} from "react-native";
 
 import styles from "../StyleSheet";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextField from "../components/Text";
-import profilePhoto from "../../images/profile.png";
+import profilePhoto from "../resources/profile.png";
+import { Actions } from 'react-native-router-flux';
 
 /* 
 TODO:
@@ -30,6 +31,10 @@ export default function Profile() {
   const [emailD, setEmailD] = useState(email);
   const [sessionsD, setSessionsD] = useState(sessions);
   const [hoursD, setHoursD] = useState(hours);
+
+  const goBack = () => {
+    Actions.progress()
+  }
 
   return (editMode ? (
     <View style={styles.profileContainer}>
@@ -79,6 +84,14 @@ export default function Profile() {
 
   ) : (
     <View style={styles.profileContainer}>
+      <View style={{marginRight: 310 }}>
+						<TouchableOpacity onPress={() => goBack()}>
+							<Image
+								style={{ width: 75, height: 75 }}
+								source={require('../resources/backbutton.png')}
+							/>
+						</TouchableOpacity>
+					</View>
       <View style={styles.form}>
         <Image source={profilePhoto} style={styles.photo} />
         <TextField>

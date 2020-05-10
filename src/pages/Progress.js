@@ -5,28 +5,26 @@ import {
 // import { ProgressBar, Colors } from 'react-native-paper';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import { Actions } from 'react-native-router-flux';
 
  class Progress extends React.Component {
+    goToProfile = () => {
+        Actions.profile()
+     }
+     goToMainFocus = () => {
+         Actions.mainfocus()
+     }
     render() {
         const barWidth = 150;
         return (
             <Grid style={styles.container}>
                 <Row>
-                    <Col>
-                        <View>
-                            <TouchableOpacity>
-                                <Image
-                                    style={{ width: 75, height: 75 }}
-                                    source={require('../resources/backbutton.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    </Col>
+                    <Col></Col>
                     <Col></Col>
                     <Col></Col>
                     <Col>
                         <View>
-                            <TouchableOpacity>
+                            <TouchableOpacity style ={{margin: 10}} onPress={this.goToProfile}>
                                 <Image
                                     style={{ width: 75, height: 75 }}
                                     source={require('../resources/profilepic.png')}
@@ -115,7 +113,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
                 </Row>
                 <Row>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToMainFocus}>
                             <Text style={styles.buttonTextStyle}>
                                 Start a New Workout
                 </Text>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {
-  StyleSheet, Text, View, ScrollView, TouchableOpacity
+  StyleSheet, Text, View, ScrollView, TouchableOpacity, Button
   } from 'react-native'
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux';
 
 function Timer({ interval, style }) {
   const pad = (n) => n < 10 ? '0' + n : n
@@ -105,6 +106,9 @@ export default class WorkoutTimer extends Component {
       this.setState({ now: new Date().getTime()})
     }, 100)
   }
+  goToProgress = () => {
+    Actions.progress()
+  }
   render() {
     const { now, start, laps } = this.state
     const timer = now - start
@@ -162,6 +166,13 @@ export default class WorkoutTimer extends Component {
             />
           </ButtonsRow>
         )}
+        <View style={{paddingTop: 150}}>
+        <Button
+          title='Cancel Workout'
+          color='#E33935'
+          onPress={this.goToProgress}
+         />
+        </View>
       </View>
     )
   }

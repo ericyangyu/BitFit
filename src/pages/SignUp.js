@@ -7,10 +7,13 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View, Text, KeyboardAvoidingView } from "react-native";
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import PhotoUpload from 'react-native-photo-upload'
+import { Actions } from 'react-native-router-flux';
+import profilePhoto from "../resources/profile.png";
+import profile from '../resources/tanBackground.png'
 
 
 class SignUp extends React.Component {
@@ -22,34 +25,44 @@ class SignUp extends React.Component {
       email: "",
       password: "",
       fullname: "",
-      username: ""
+      username: "",
+      imageClick: true
     }
   }
 
   handleEmailChange = (email) => {
-    this.setState({ email: email });
+    this.setState({ email: email, imageClick: false });
   };
 
   handlePasswordChange = (password) => {
-    this.setState({ password: password });
+    this.setState({ password: password, imageClick: false });
   };
 
   handleSignUpPress = () => {
+    Actions.progress();
     console.log("Sign Up button pressed");
   };
 
   handleUserNameChange = (username) => {
-    this.setState({ username: username });
+    this.setState({ username: username, imageClick: false });
   };
   handleFullNameChange = (fullname) => {
-    this.setState({ fullname: fullname });
+    this.setState({ fullname: fullname, imageClick: false});
   };
+
+  endUserNameChange = () => {
+    this.setState({ imageClick: true });
+  }
 
   render() {
     return (
-      
       <View style={styles.container}>
-        <PhotoUpload style={{margin:0}}
+        <KeyboardAvoidingView style={styles.container}> 
+        {(this.state.imageClick) ?
+        <PhotoUpload
+          maxHeight={200}
+
+          photoPickerTitle={'Upload a Profile Picture: '}
           onPhotoSelect={avatar => {
             if (avatar) {
               console.log('Image base64 string: ', avatar)
@@ -57,57 +70,63 @@ class SignUp extends React.Component {
           }}
         >
           <Image
-            style={{
-              paddingVertical: 0,
-              width: 150,
-              height: 150,
-              borderRadius: 5
-            }}
+            style={styles.photoStyle}
             resizeMode='cover'
-            source={{
-              uri: 'https://i.stack.imgur.com/l60Hf.png'
-            }}
+            source={profilePhoto}
           />
-        </PhotoUpload>
-        <Text title="upload image">Click the above image to upload a profile picture.</Text>
+        </PhotoUpload> : null 
+        }
+        </KeyboardAvoidingView>
 
-        <View style={styles.form}>
+        <KeyboardAvoidingView style={styles.form} >
+        <View>
           <FormTextInput
             value={this.state.username}
-            onChangeText={this.handleUserNameChange}
+            onFocus={this.handleUserNameChange}
             placeholder={"Username..."}
+            onSubmitEditing={this.endUserNameChange}
           />
           <FormTextInput
             value={this.state.fullname}
-            onChangeText={this.handleFullNameChange}
+            onFocus={this.handleFullNameChange}
             placeholder={"Full name..."}
+            onSubmitEditing={this.endUserNameChange}
           />
           <FormTextInput
             value={this.state.email}
-            onChangeText={this.handleEmailChange}
+            onFocus={this.handleEmailChange}
             placeholder={"Email..."}
+            onSubmitEditing={this.endUserNameChange}
           />
           <FormTextInput
             value={this.state.password}
-            onChangeText={this.handlePasswordChange}
+            onFocus={this.handlePasswordChange}
             placeholder={"Password..."}
+            onSubmitEditing={this.endUserNameChange}
           />
+          <View></View>
           <Button
             label={"Sign Up"}
             onPress={this.handleSignUpPress}
           />
         </View>
+        </KeyboardAvoidingView>
         </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+    photoStyle : {
+     paddingVertical: 0,
+     width: 230,
+     height: 230,
+     borderRadius: 100
+   },
   container: {
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
-    // justifyContent: "space-between"
   },
   logo: {
     flex: 1,
@@ -118,7 +137,7 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     justifyContent: "center",
-    width: "80%"
+    width: "75%"
   }
 });
 

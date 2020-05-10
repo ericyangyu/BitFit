@@ -7,15 +7,23 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
 import Button from '../components/Button';
+import { throwStatement } from '@babel/types';
 // import styles from "../StyleSheet";
+import { Actions } from 'react-native-router-flux';
 
 function MainFocusPage() {
+	const goToSuggestedWorkouts = () => {
+		Actions.suggestedworkouts()
+	}
+	const goBackProgress = () => {
+		Actions.progress()
+	}
 	return (
-		<Grid>
+		<Grid style={{backgroundColor: '#f3ebe1'}}>
 			<Row>
 				<Col>
-					<View>
-						<TouchableOpacity>
+					<View style={{backgroundColor: '#f3ebe1'}}>
+						<TouchableOpacity onPress={() => goBackProgress()}>
 							<Image
 								style={{ width: 75, height: 75 }}
 								source={require('../resources/backbutton.png')}
@@ -25,7 +33,7 @@ function MainFocusPage() {
 				</Col>
 				<Col></Col>
 				<Col></Col>
-				<Col>
+				{/* <Col>
 					<View>
 						<TouchableOpacity>
 							<Image
@@ -34,13 +42,14 @@ function MainFocusPage() {
 							/>
 						</TouchableOpacity>
 					</View>
-				</Col>
+				</Col> */}
 			</Row>
 			<Row>
 				<Col>
 					<View style={{
 						flexDirection: 'row',
 						alignSelf: 'center',
+						backgroundColor: '#f3ebe1'
 					}}>
 						<Text style={{
 							fontSize: 30
@@ -97,7 +106,7 @@ function MainFocusPage() {
 						alignSelf: 'center',
 						marginVertical: 0,
 					}}>
-						<Button
+						<Button onPress={() => goToSuggestedWorkouts()}
 							label="Continue"
 						/>
 					</View>
@@ -110,12 +119,18 @@ function MainFocusPage() {
 }
 
 function SuggestedWorkoutsPage() {
+	const goToTimer = () => {
+		Actions.timer()
+	}
+	const goBack = () => {
+		Actions.mainfocus()
+	}
 	return (
-		<Grid>
+		<Grid style={{backgroundColor: '#f3ebe1'}}>
 			<Row>
 				<Col>
-					<View>
-						<TouchableOpacity>
+					<View style={{backgroundColor: '#f3ebe1'}}>
+						<TouchableOpacity onPress={() => goBack()}>
 							<Image
 								style={{ width: 75, height: 75 }}
 								source={require('../resources/backbutton.png')}
@@ -125,7 +140,7 @@ function SuggestedWorkoutsPage() {
 				</Col>
 				<Col></Col>
 				<Col></Col>
-				<Col>
+				{/* <Col>
 					<View>
 						<TouchableOpacity>
 							<Image
@@ -134,7 +149,7 @@ function SuggestedWorkoutsPage() {
 							/>
 						</TouchableOpacity>
 					</View>
-				</Col>
+				</Col> */}
 			</Row>
 			<Row>
 				<Col>
@@ -197,7 +212,7 @@ function SuggestedWorkoutsPage() {
 						alignSelf: 'center',
 						marginVertical: 0,
 					}}>
-						<Button
+						<Button onPress={() => goToTimer()}
 							label="Begin Workout"
 						/>
 					</View>
