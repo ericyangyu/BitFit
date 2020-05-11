@@ -1,4 +1,9 @@
-import {StyleSheet} from 'react-native';
+/**
+ * NOTE: Change file name to StyleSheet.js.
+ * 
+*/
+
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   // Profile
@@ -46,7 +51,7 @@ export default StyleSheet.create({
     textAlign: "center",
     height: 20
   },
-  
+
   //TextField
   textField: {
     height: 30,

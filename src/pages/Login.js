@@ -17,20 +17,22 @@ import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import imageLogo from "../components/Logo.png";
 
+import database from '@react-native-firebase/database';
+
 class Login extends React.Component {
 
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       email: "",
       password: ""
     }
   }
-  
+
   goToSignUp = () => {
     Actions.signup()
- }
+  }
   handleEmailChange = (email) => {
     this.setState({ email: email });
   };
@@ -41,6 +43,8 @@ class Login extends React.Component {
 
   handleLoginPress = () => {
     console.log("Login button pressed");
+    const data = { name: "imran" }
+    database().ref('/testing').push(data);
     Actions.progress()
   };
 
@@ -64,9 +68,9 @@ class Login extends React.Component {
             onPress={this.handleLoginPress}
           />
 
-         <TouchableOpacity onPress={this.goToSignUp} >
-              <Text style={styles.buttonTextStyle}>
-                  Do not have an account? Register here.     
+          <TouchableOpacity onPress={this.goToSignUp} >
+            <Text style={styles.buttonTextStyle}>
+              Do not have an account? Register here.
               </Text>
           </TouchableOpacity>
         </View>
@@ -94,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     marginBottom: 0,
     color: '#3498eb'
-},
+  },
   form: {
     flex: 1,
     justifyContent: "center",
