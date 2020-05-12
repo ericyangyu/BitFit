@@ -15,7 +15,7 @@ def create_user():
 
     user = User.create_user(username, name, email, photo)
 
-    return jsonify({'reason': 'User created', 'result': user.to_json})
+    return jsonify({'reason': 'User created', 'result': user.to_json()})
 
 @user_api.route('/get_username', method=['GET'])
 def get_username():
