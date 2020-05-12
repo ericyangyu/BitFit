@@ -1,9 +1,9 @@
 {
-  "name": "Frontend",
-  "displayName": "Frontend",
+  "name": "BitFit",
+  "displayName": "BitFit",
   "expo": {
-    "name": "Frontend",
-    "slug": "Frontend",
+    "name": "BitFit",
+    "slug": "BitFit",
     "version": "1.0.0",
     "platforms": [
       "ios",
