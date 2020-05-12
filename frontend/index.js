@@ -1,9 +1,15 @@
-/**
- * @format
- */
-
+import React, { Component } from 'react';
 import {AppRegistry} from 'react-native';
-import App from './app';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
+import Routes from './src/routes/routes'
+
+class BitFit extends React.Component {
+    render() {
+        return <Routes />
+    }
+}
+
+AppRegistry.registerComponent(appName, () => BitFit);
+
+export default BitFit;

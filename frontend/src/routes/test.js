@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View} from "react-native";
+import {View} from 'react-native';
 
-import styles from "../style/r_test";
-import Button from "./src/components/button";
-import TextField from "./src/components/text_field";
+import styles from '../style/r_test';
+import Button from '../components/button';
+import TextField from '../components/text_field';
 
 export default function test() {
     const [username, setUsername] = useState('Username will apear here')
