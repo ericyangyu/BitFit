@@ -1,4 +1,7 @@
+from flask import Flask
 import pyrebase
+
+app = Flask(__name__)
 
 firebase = pyrebase.initialize_app({
     "apiKey": "AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk",

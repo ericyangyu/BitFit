@@ -1,4 +1,6 @@
-from ..firebase import db
+from __future__ import annotations
+
+from backend.src.setup import db
 
 class User():
     def __init__(self, username: str, name: str, email: str, photo: str):
