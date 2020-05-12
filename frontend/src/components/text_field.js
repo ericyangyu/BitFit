@@ -1,20 +1,20 @@
 import * as React from "react";
 import {Text} from "react-native";
 
-import styles from "../stylesheet";
+import styles from "../style/c_text_field";
 
 class TextField extends React.Component {
-  render() {
-    const { style, ...otherProps } = this.props;
+    render() {
+        const { style, ...otherProps } = this.props;
 
-    return (
-      <Text
-        selectionColor={"#02075d"}
-        style={[styles.textField, style]}
-        {...otherProps}
-      />
-    );
-  }
+        return (
+            <Text
+                selectionColor={"#02075d"}
+                style={[styles.textField, style]}
+                {...otherProps}
+            />
+        );
+    }
 }
 
 export default TextField;
