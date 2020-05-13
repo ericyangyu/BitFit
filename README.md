@@ -11,7 +11,8 @@ when implemented (hopefully lol)
 1. Download [Docker](https://www.docker.com/products/docker-desktop "Download Docker ") (if you do not already have it).
 2. Download [Postman](https://www.postman.com/downloads/) (if you do not already have it).
 3. Clone this repo (if you have not already).
-4. Download Flake8 (optional, but it will help with style if we use Python)
+4. Checkout the `nour_middle` branch
+5. Download Flake8 (optional, but it will help with style if we use Python)
     - cd to BitFit
     - run `pip3 install flake8`
 
