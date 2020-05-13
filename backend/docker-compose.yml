@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         container_name: bitfit
         command: python runner.py run -h 0.0.0.0
-        env_file: ./.env.dev
+        env_file: ./.env
         ports: 
             - 4200:5000
         volumes: 
