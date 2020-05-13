@@ -1,3 +1,8 @@
+# Backend
+*.pyc
+__pycache__
+venv/
+
 # OSX
 .DS_Store
 

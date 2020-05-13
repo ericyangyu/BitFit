@@ -1,0 +1,4 @@
+Flask
+flask-api
+flask_cors
+pyrebase
