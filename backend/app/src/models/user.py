@@ -1,4 +1,4 @@
-from __future__ import annotations #MODEL
+from __future__ import annotations
 from typing import Dict
 
 from ...config import db

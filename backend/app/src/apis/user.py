@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify # API
+from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 
 from ..models.user import User
