@@ -29,7 +29,7 @@ def create_user():
     u = User.create_user(username, name, email, photo)
 
     if not u:
-        return jsonify({'reason': 'Username is unavailable'}), 400
+        return jsonify({'reason': 'Username is not available'}), 400
     else:
         return jsonify({'reason': 'User created', 'result': u.to_json()}), 200
 
