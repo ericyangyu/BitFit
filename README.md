@@ -53,6 +53,8 @@ The app is now running on the Docker image.
               "photo": "https://www.photos.com/pro_bitfitter"
           }
 9. Click 'Send'
-10. You should now see the request response below the body and pro_bitfitter
-    should appear in the database (if they weren't already there)
 
+You should now see the request response below the body and pro_bitfitter should
+appear in the database (if they weren't already there)
+
+11. Don't forget to shut don the docker image if you care about your battery
