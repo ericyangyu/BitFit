@@ -47,4 +47,4 @@ def edit_user():
         return jsonify({'reason': 'User does not exist'}), 400
     else:
         u = u.edit_user(name, email, photo)
-        return jsonify({'reason': 'User exists', 'result': u.to_json()}), 200
+        return jsonify({'reason': 'User edited', 'result': u.to_json()}), 200
