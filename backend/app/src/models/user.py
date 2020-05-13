@@ -19,30 +19,43 @@ class User():
         to_return['photo'] = self.photo
         return to_return
 
-    def get_username(self) -> str:
-        return self.username
+    def edit_user(self, name: str, email: str, photo: str) -> User:
+        if not db.child('users').child(self.username).get().val():
+            return None
 
-    def get_name(self) -> str:
-        return self.name
+        data = {}
+        if name is not None:
+            self.name = name
+            data['name'] = name
+        if email is not None:
+            self.email = email
+            data['email'] = email
+        if photo is not None:
+            self.photo = photo
+            data['photo'] = photo
 
-    def get_email(self) -> str:
-        return self.email
+        db.child('users').child(self.username).update(data)
 
-    def get_photo(self) -> str:
-        return self.photo
-
-    def write_to_db(self):
-        db.child('users').push({'username': self.username, 'name': self.name,
-                                'email': self.email, 'photo': self.photo})
+        return self
 
     @staticmethod
-    def read_from_db(username: str) -> User:
-        user = db.child('users').child('username').get()
-        return User(user['username'], user['name'], user['email'],
-                    user['photo'])
+    def get_user(username: str) -> User:
+        if not db.child('users').child(username).get().val():
+            return None
+
+        name = db.child('users').child(username).child('name').get().val()
+        email = db.child('users').child(username).child('email').get().val()
+        photo = db.child('users').child(username).child('photo').get().val()
+
+        return User(username, name, email, photo)
 
     @staticmethod
     def create_user(username: str, name: str, email: str, photo: str) -> User:
-        user = User(name, username, email, photo)
-        user.write_to_db()
-        return user
+        if User.get_user(username) is not None:
+            return None
+
+        data = {'username': username, 'name': name, 'email': email,
+                'photo': photo}
+        db.child('users').child(username).set(data)
+
+        return User(username, name, email, photo)
