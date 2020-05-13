@@ -13,7 +13,7 @@ when implemented (hopefully lol)
 3. Clone this repo (if you have not already).
 4. Checkout the `nour_middle` branch
 5. Download Flake8 (optional, but it will help with style if we use Python)
-    - cd to BitFit
+    - cd to BitFit directory
     - run `pip3 install flake8`
 
 ## How to Run
