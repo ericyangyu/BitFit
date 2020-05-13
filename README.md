@@ -46,12 +46,12 @@ The app is now running on the Docker image.
     - You can know the required fields by looking for `request.json`'s in the
       method being called
     - i.e. the create_user method requires a body like this:
-        {
-            "username": "pro_bitfitter",
-            "name": "Pro Bitfitter",
-            "email": "pro.bitfitter@email.com",
-            "photo": "https://www.photos.com/pro_bitfitter"
-        }
+        - {
+              "username": "pro_bitfitter",
+              "name": "Pro Bitfitter",
+              "email": "pro.bitfitter@email.com",
+              "photo": "https://www.photos.com/pro_bitfitter"
+          }
 9. Click 'Send'
 10. You should now see the request response below the body and pro_bitfitter
     should appear in the database (if they weren't already there)
