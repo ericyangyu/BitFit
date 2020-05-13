@@ -1,16 +1,18 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify # API
 from flask_cors import CORS
 
-from backend.src.models.user import User
+from ..models.user import User
 
 user_api = Blueprint('user_api', __name__)
 CORS(user_api, supports_credentials=True)
 
-@user_api.route('/test', method=['POST'])
+
+@user_api.route('/test', methods=['POST'])
 def test():
     return "HELLO WOOOOOORLD!!!!"
 
-@user_api.route('/create_user', method=['POST'])
+
+@user_api.route('/create_user', methods=['POST'])
 def create_user():
     username = request.json['username']
     name = request.json['name']
@@ -21,7 +23,8 @@ def create_user():
 
     return jsonify({'reason': 'User created', 'result': user.to_json()})
 
-@user_api.route('/get_username', method=['GET'])
+
+@user_api.route('/get_username', methods=['GET'])
 def get_username():
     username = request.json['username']
     user = User.read_from_db(username)
