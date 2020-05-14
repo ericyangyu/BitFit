@@ -1,3 +1,6 @@
+# link for tutorial I got all the files in frontend from:
+# https://medium.com/@pavan168/pavanwelihinda-running-react-native-in-docker-a0fe0b0c776e
+
 version: "3.5"
 
 services:
