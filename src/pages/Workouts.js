@@ -8,7 +8,6 @@ import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
 import Button from '../components/Button';
 import { throwStatement } from '@babel/types';
-// import styles from "../StyleSheet";
 import { Actions } from 'react-native-router-flux';
 
 function MainFocusPage() {
@@ -19,10 +18,10 @@ function MainFocusPage() {
 		Actions.progress()
 	}
 	return (
-		<Grid style={{backgroundColor: '#f3ebe1'}}>
+		<Grid style={{ backgroundColor: '#f3ebe1' }}>
 			<Row>
 				<Col>
-					<View style={{backgroundColor: '#f3ebe1'}}>
+					<View style={{ backgroundColor: '#f3ebe1' }}>
 						<TouchableOpacity onPress={() => goBackProgress()}>
 							<Image
 								style={{ width: 75, height: 75 }}
@@ -126,10 +125,10 @@ function SuggestedWorkoutsPage() {
 		Actions.mainfocus()
 	}
 	return (
-		<Grid style={{backgroundColor: '#f3ebe1'}}>
+		<Grid style={{ backgroundColor: '#f3ebe1' }}>
 			<Row>
 				<Col>
-					<View style={{backgroundColor: '#f3ebe1'}}>
+					<View style={{ backgroundColor: '#f3ebe1' }}>
 						<TouchableOpacity onPress={() => goBack()}>
 							<Image
 								style={{ width: 75, height: 75 }}
