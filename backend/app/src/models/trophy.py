@@ -5,6 +5,7 @@ from typing import List
 from ...config import db
 from .user import User
 
+
 class Trophy():
     def __init__(self, id: int, name: str, requirement: float, desc: str):
         self.id = id
@@ -42,7 +43,6 @@ class Trophy():
         # get the first trophy that corresponds to the given trophy id
         return next((x for x in trophies if x.id == trophy_id), None)
 
-
     @staticmethod
     def get_user_trophies(self, user: User) -> List[Trophy]:
         trophies = []
@@ -56,13 +56,4 @@ class Trophy():
             if user_id == user.id:
                 trophy_id = trophy_info['trophy_id']
                 trophies.append(self.get_trophy_by_id(trophy_id))
-        
         return trophies
-                
-
-
-        
-
-        
-
-        
