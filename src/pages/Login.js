@@ -10,14 +10,14 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { Image, StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import { Actions } from 'react-native-router-flux';
 
 import Button from "../components/Button";
 import FormTextInput from "../components/Input";
 import imageLogo from "../components/Logo.png";
 
-import database from '@react-native-firebase/database';
+import axios from "axios";
 
 class Login extends React.Component {
 
@@ -42,10 +42,38 @@ class Login extends React.Component {
   };
 
   handleLoginPress = () => {
-    console.log("Login button pressed");
-    const data = { name: "imran" }
-    database().ref('/testing').push(data);
-    Actions.progress()
+    const response = axios.get('http://10.0.2.2:5000/apis/user/get_user', {
+      data: { username: "bitfit" }
+    })
+      .then((response) => {
+        console.log(response.data);
+        Actions.progress()
+      })
+      .catch((error) => {
+        // Error
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+
+          // Alert popup upon error
+          Alert.alert(
+            'Error',
+            error.response.data,
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ],
+            { cancelable: false }
+          );
+
+        } else if (error.request) {
+          // The request was made but no response was received.
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
   };
 
   render() {
