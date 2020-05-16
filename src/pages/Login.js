@@ -42,8 +42,8 @@ class Login extends React.Component {
   };
 
   handleLoginPress = () => {
-    const response = axios.get('http://10.0.2.2:5000/apis/user/get_user', {
-      data: { username: "bitfit" }
+    const response = axios.get('http://10.0.2.2:5000/api/user/get_user', {
+      params: this.state
     })
       .then((response) => {
         console.log(response.data);
