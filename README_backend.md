@@ -1,3 +1,12 @@
+# BitFit Backend
+
+Steps:
+1. pip install pyrebase
+2. pip install flask
+3. npx react-native run android
+4. python3 run android
+
+
 - https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253  
 - https://stackoverflow.com/questions/61488376/firebase-error-handling-for-account-creation-and-login-pyrebase  
 - https://reactnative.dev/docs/alert
