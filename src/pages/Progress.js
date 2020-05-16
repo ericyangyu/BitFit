@@ -1,19 +1,34 @@
+/**
+ * File: Progress.js
+ * 
+ * Authors: Emily, Sharan
+ *
+ * Description: Home page. Shows user's progress bars, has buttons to start a new workout, 
+ * and button to go to profile page.
+ */
 import React, { Component } from 'react';
 import {
     View, Text, Image, TouchableOpacity, Dimensions
 } from 'react-native';
-// import { ProgressBar, Colors } from 'react-native-paper';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
 
- class Progress extends React.Component {
+/**
+ * Class: Progress
+ * 
+ * Description: Returns the html for the home page.
+ */
+class Progress extends React.Component {
+    // Event for button to go to profile page
     goToProfile = () => {
         Actions.profile()
-     }
-     goToMainFocus = () => {
-         Actions.mainfocus()
-     }
+    }
+    // Event for button to start a new workout
+    goToMainFocus = () => {
+        Actions.mainfocus()
+    }
+
     render() {
         const barWidth = 150;
         return (
