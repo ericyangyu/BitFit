@@ -42,29 +42,33 @@ class Login extends React.Component {
   };
 
   handleLoginPress = () => {
-    const response = axios.get('http://10.0.2.2:5000/api/user/get_user', {
-      params: this.state
+    const response = axios({
+      method: "post",
+      url: 'http://10.0.2.2:5000/apis/user/login_user',
+      data: {
+        email: this.state.email,
+        password: this.state.password
+      }
     })
       .then((response) => {
         console.log(response.data);
         Actions.progress()
       })
       .catch((error) => {
-        // Error
+        // Alert popup upon error
+        Alert.alert(
+          'Invalid Credentials',
+          "Please try again.",
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        );
+
         if (error.response) {
+          // The call was unsuccessful
           console.log(error.response.data);
           console.log(error.response.status);
-
-          // Alert popup upon error
-          Alert.alert(
-            'Error',
-            error.response.data,
-            [
-              { text: 'OK', onPress: () => console.log('OK Pressed') }
-            ],
-            { cancelable: false }
-          );
-
         } else if (error.request) {
           // The request was made but no response was received.
           console.log(error.request);
@@ -72,7 +76,6 @@ class Login extends React.Component {
           // Something happened in setting up the request and triggered an Error
           console.log('Error', error.message);
         }
-        console.log(error.config);
       });
   };
 

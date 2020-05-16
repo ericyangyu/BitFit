@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 
 import requests
 from flask import Flask, jsonify, request, make_response
@@ -20,6 +21,7 @@ def create_user():
         "photo": request.json["photo"],
     }
     user = auth.create_user_with_email_and_password(email, password)
+    pprint(user)
     # creates a user entry in the DB with unique key, if use set() then no unique key used
     results = db.child("users").child(user["localId"]).set(data, user["idToken"])
     return jsonify(results)

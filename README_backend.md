@@ -3,8 +3,11 @@
 Steps:
 1. pip install pyrebase
 2. pip install flask
-3. npx react-native run android
-4. python3 run android
+3. pip install flask-api
+4. pip install flask_cors
+5. pip install requests
+6. npx react-native run android
+7. python3 run android
 
 
 - https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253  
