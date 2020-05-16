@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, Image} from "react-native";
+import React, { useState } from 'react';
+import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-import styles from "../StyleSheet";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextField from "../components/Text";
-import profilePhoto from "../../images/profile.png";
+import profilePhoto from "../resources/profile.png";
+import { Actions } from 'react-native-router-flux';
 
 /* 
 TODO:
@@ -31,32 +31,41 @@ export default function Profile() {
   const [sessionsD, setSessionsD] = useState(sessions);
   const [hoursD, setHoursD] = useState(hours);
 
+  const goBack = () => {
+    Actions.progress()
+  }
+
+  const goToLogIn = () => {
+    Actions.login()
+  }
+
+
   return (editMode ? (
     <View style={styles.profileContainer}>
       <View style={styles.form}>
-        <Image source={profilePhoto} style={styles.photo}/>
-          <Button label='EDIT PHOTO'/>
+        <Image source={profilePhoto} style={styles.photo} />
+        <Button label='EDIT PHOTO' />
 
-          <TextField>
-            Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
-          </TextField>
-          <Button label='RESET STATS' onPress={() => {
-            setSessionsD(0); 
-            setHoursD(0);
-          }}/>
+        <TextField>
+          Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
+        </TextField>
+        <Button label='RESET STATS' onPress={() => {
+          setSessionsD(0);
+          setHoursD(0);
+        }} />
 
-        <Input 
+        <Input
           placeholder={name}
           onChangeText={name => setNameD(name)}
-          defaultValue={name}/>
+          defaultValue={name} />
         <Input
-          placeholder={username} 
+          placeholder={username}
           onChangeText={username => setUsernameD(username)}
-          defaultValue={username}/>
+          defaultValue={username} />
         <Input
-          placeholder={email} 
+          placeholder={email}
           onChangeText={email => setEmailD(email)}
-          defaultValue={email}/>
+          defaultValue={email} />
 
         <Button label='SAVE' onPress={() => {
           setName(nameD);
@@ -65,7 +74,7 @@ export default function Profile() {
           setSessions(sessionsD)
           setHours(hoursD)
           setEditMode(false);
-        }}/>
+        }} />
         <Button label='CANCEL' onPress={() => {
           setNameD(name);
           setUsernameD(username);
@@ -73,25 +82,58 @@ export default function Profile() {
           setSessionsD(sessions)
           setHoursD(hours)
           setEditMode(false);
-        }}/>
+        }} />
       </View>
     </View>
 
   ) : (
-    <View style={styles.profileContainer}>
-      <View style={styles.form}>
-        <Image source={profilePhoto} style={styles.photo} />
-        <TextField>
-          Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
-        </TextField>
+      <View style={styles.profileContainer}>
+        <View style={{ marginRight: 310 }}>
+          <TouchableOpacity onPress={() => goBack()}>
+            <Image
+              style={{ width: 75, height: 75 }}
+              source={require('../resources/backbutton.png')}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.form}>
+          <Image source={profilePhoto} style={styles.photo} />
+          <TextField>
+            Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
+          </TextField>
 
-        <TextField>                             Name: {nameD} </TextField>
-        <TextField>                            Username: {usernameD} </TextField>
-        <TextField>                          E-mail: {emailD} </TextField>
+          <TextField>                             Name: {nameD} </TextField>
+          <TextField>                            Username: {usernameD} </TextField>
+          <TextField>                          E-mail: {emailD} </TextField>
 
-        <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }}/>
-        <Button label='LOGOUT'/>
+          <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }} />
+          <Button
+            label={'LOGOUT'}
+            onPress={() => goToLogIn()}
+          />
+        </View>
       </View>
-    </View>
-  ));
+    ));
 }
+
+const styles = StyleSheet.create({
+  // Profile
+  profileContainer: {
+    flex: 1,
+    backgroundColor: "#f3ebe1",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  photo: {
+    flex: 1,
+    width: "50%",
+    resizeMode: "contain",
+    alignSelf: "center",
+    borderRadius: 150
+  },
+  form: {
+    flex: 1,
+    justifyContent: "center",
+    width: "80%"
+  }
+});

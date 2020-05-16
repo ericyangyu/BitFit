@@ -2,9 +2,6 @@ import * as React from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 
-import styles from "../StyleSheet";
-
-
 class Input extends React.Component {
   render() {
     const { style, ...otherProps } = this.props;
@@ -18,6 +15,18 @@ class Input extends React.Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  //Input
+  input: {
+    height: 40,
+    borderColor: "#C0C0C0",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 10
+  }
+});
+
 
 export default Input;
 

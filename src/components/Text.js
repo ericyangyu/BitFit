@@ -1,7 +1,5 @@
 import * as React from "react";
-import {Text} from "react-native";
-
-import styles from "../StyleSheet";
+import { Text, StyleSheet } from "react-native";
 
 class TextField extends React.Component {
   render() {
@@ -16,6 +14,15 @@ class TextField extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  //TextField
+  textField: {
+    height: 30,
+    color: "#434343",
+    marginBottom: 10
+  }
+});
 
 
 export default TextField;
