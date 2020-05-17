@@ -1,14 +1,25 @@
+/**
+ * The workouts page allows the user to create a new workout, choose their body part,
+ * choose their workout, time their workout, and complete their workout.
+ * 
+ * NOTE: This page needs to be refactored and commented by the authors. It might be 
+ * a good idea to split these pages up because we route to them. Style also needs
+ * to be put into a single stylesheet. Functions, classes, and methods must be commented.
+ * 
+ * Authors: ?
+ */
+
+// library imports
 import React, { Component } from 'react'
-import {
-	StyleSheet, Text, View, ScrollView, TouchableOpacity, Image
-} from 'react-native'
-// import { Dropdown } from 'react-native-material-dropdown';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
 import BackgroundColor from 'react-native-background-color';
-import Button from '../components/Button';
-import { throwStatement } from '@babel/types';
 import { Actions } from 'react-native-router-flux';
+
+// Component imports
+import Button from '../components/Button';
+
 
 function MainFocusPage() {
 	const goToSuggestedWorkouts = () => {
@@ -248,4 +259,8 @@ class SuggestedWorkouts extends Component {
 	}
 }
 
+// Style for this page
+const styles = StyleSheet.create({})
+
+// Export these two classes
 export { MainFocus, SuggestedWorkouts }

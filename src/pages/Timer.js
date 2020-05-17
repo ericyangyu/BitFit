@@ -1,9 +1,19 @@
-import React, { Component } from 'react'
-import {
-  StyleSheet, Text, View, ScrollView, TouchableOpacity, Button
-  } from 'react-native'
-import moment from 'moment'
+/**
+ * The timer page allows the user to time their workouts in a timer.
+ * 
+ * NOTE: This page needs to be refactored and commented by the authors. It might be 
+ * a good idea to split these pages up because we route to them. Style also needs
+ * to be put into a single stylesheet. Functions, classes, and methods must be commented.
+ * 
+ * Authors: ?
+ */
+
+// library imports
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
+
 
 function Timer({ interval, style }) {
   const pad = (n) => n < 10 ? '0' + n : n
@@ -23,11 +33,11 @@ function RoundButton({ title, color, background, onPress, disabled }) {
   return (
     <TouchableOpacity
       onPress={() => !disabled && onPress()}
-      style={[ styles.button, { backgroundColor: background }]}
+      style={[styles.button, { backgroundColor: background }]}
       activeOpacity={disabled ? 1.0 : 0.7}
     >
       <View style={styles.buttonBorder}>
-        <Text style={[ styles.buttonTitle, { color }]}>{title}</Text>
+        <Text style={[styles.buttonTitle, { color }]}>{title}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -45,7 +55,7 @@ export default class WorkoutTimer extends Component {
     this.state = {
       start: 0,
       now: 0,
-      laps: [ ],
+      laps: [],
     }
   }
 
@@ -62,7 +72,7 @@ export default class WorkoutTimer extends Component {
       laps: [0],
     })
     this.timer = setInterval(() => {
-      this.setState({ now: new Date().getTime()})
+      this.setState({ now: new Date().getTime() })
     }, 100)
   }
 
@@ -71,9 +81,9 @@ export default class WorkoutTimer extends Component {
     //const { laps, now, start } = this.state
     //const [firstLap, ...other] = laps
     //this.setState({
-      //laps: [0, firstLap + now - start, ...other],
-      //start: timestamp,
-      //now: timestamp,
+    //laps: [0, firstLap + now - start, ...other],
+    //start: timestamp,
+    //now: timestamp,
     //})
 
     // send data somewhere, end timer, then return to homepage
@@ -103,7 +113,7 @@ export default class WorkoutTimer extends Component {
       now,
     })
     this.timer = setInterval(() => {
-      this.setState({ now: new Date().getTime()})
+      this.setState({ now: new Date().getTime() })
     }, 100)
   }
   goToProgress = () => {
@@ -166,12 +176,12 @@ export default class WorkoutTimer extends Component {
             />
           </ButtonsRow>
         )}
-        <View style={{paddingTop: 150}}>
-        <Button
-          title='Cancel Workout'
-          color='#E33935'
-          onPress={this.goToProgress}
-         />
+        <View style={{ paddingTop: 150 }}>
+          <Button
+            title='Cancel Workout'
+            color='#E33935'
+            onPress={this.goToProgress}
+          />
         </View>
       </View>
     )
