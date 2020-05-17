@@ -5,19 +5,21 @@
  * Authors: Imran, Sharan, Nour
  */
 
+// External imports
 import React from 'react';
 import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
 import { Actions } from 'react-native-router-flux';
 
 import axios from "axios";
 
+// Internal imports
 import styles from '../style/r_login';
+import logo from "../images/logo.png";
+import Input from "../components/input";
 import Button from "../components/button";
 import TextField from "../components/text_field";
-import Input from "../components/input";
-import logo from "../images/logo.png";
 
-const api = 'http://10.0.2.2:5000/apis/';
+const api = 'http://10.0.2.2:5000/apis/'; // Base url for axios calls
 
 class Login extends React.Component {
 
@@ -75,19 +77,19 @@ class Login extends React.Component {
             { cancelable: false }
             );
 
-        // log error information
-        if (error.response) {
-            // The call was unsuccessful
-            console.log(error.response.data);
-            console.log(error.response.status);
-        } else if (error.request) {
-            // The request was made but no response was received.
-            console.log(error.request);
-        } else {
-            // Something happened in setting up the request and triggered an Error
-            console.log('Error', error.message);
-        }
-      });
+            // log error information
+            if (error.response) {
+                // The call was unsuccessful
+                console.log(error.response.data);
+                console.log(error.response.status);
+            } else if (error.request) {
+                // The request was made but no response was received.
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request and triggered an Error
+                console.log('Error', error.message);
+            }
+        });
     };
 
     render() {

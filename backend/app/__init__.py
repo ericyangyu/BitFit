@@ -1,3 +1,11 @@
+"""
+Initialization file for Python backend. Registers the blueprint of each API so
+they can be called separately by the frontend.
+
+Author: Nour
+"""
+
+# Flask import
 from .config import app
 
 # Import routes
