@@ -1,22 +1,31 @@
 /**
- * @format
+ * This is the inital page the app runs when it is entered. 
+ * It renders the routes component and disables warnings on the android emulator.
+ * 
+ * Authors: ?
  */
+
+// library imports
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
+
+// file imports
 import { name as appName } from './app.json';
 import Routes from './src/pages/Routes'
 
-class BitFit extends React.Component {
+/**
+ * Class that handles the intial running of the app and returns the routes object.
+ */
+export default class BitFit extends Component {
    render() {
+      // Removes yellow warnings in Android emulator
       console.disableYellowBox = true;
+      // return the routes object
       return (
          <Routes />
       )
    }
 }
-export default BitFit
-AppRegistry.registerComponent(appName, () => BitFit)
 
-// AppRegistry.registerComponent(appName, () => Login);
-// AppRegistry.registerComponent(appName, () => Progress);
-// AppRegistry.registerComponent(appName, () => SuggestedWorkouts);
+// Register the app under the name BitFit
+AppRegistry.registerComponent(appName, () => BitFit)
