@@ -5,19 +5,23 @@
  * Authors: Imran, Sharan, Nour
  */
 
-import React from 'react';
+// library imports
+import React, { Component } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import { Actions } from 'react-native-router-flux';
-
-import Button from "../components/Button";
-import FormTextInput from "../components/Input";
-import imageLogo from "../components/Logo.png";
-
 import axios from "axios";
 
-class Login extends React.Component {
+// Component imports
+import Button from "../components/Button";
+import FormTextInput from "../components/Input";
+import imageLogo from "../resources/Logo.png";
 
+/**
+ * Class that returns the Login page with correct components and API calls.
+ */
+export default class Login extends Component {
 
+  // Call the super constructor and initalize a state variable
   constructor(props) {
     super(props)
     this.state = {
@@ -26,13 +30,17 @@ class Login extends React.Component {
     }
   }
 
+  // Route to the signup page when sign up button is pressed
   goToSignUp = () => {
     Actions.signup()
   }
+
+  // Set the email state variable when it is changed on UI
   handleEmailChange = (email) => {
     this.setState({ email: email });
   };
 
+  // Set the password state variable when it is changed on UI
   handlePasswordChange = (password) => {
     this.setState({ password: password });
   };
@@ -88,6 +96,7 @@ class Login extends React.Component {
       });
   };
 
+  // Render the correct components for the Login screen
   render() {
     return (
       <View style={styles.container}>
@@ -119,19 +128,23 @@ class Login extends React.Component {
   }
 }
 
+// Style for this page
 const styles = StyleSheet.create({
+  // Style the container for the components on the page
   container: {
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
     justifyContent: "space-between"
   },
+  // Style the logo image
   logo: {
     flex: 1,
     width: "80%",
     resizeMode: "contain",
     alignSelf: "center"
   },
+  // Style the text for the button
   buttonTextStyle: {
     fontSize: 15,
     textAlign: 'center',
@@ -139,11 +152,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     color: '#3498eb'
   },
+  // Style for the form component
   form: {
     flex: 1,
     justifyContent: "center",
     width: "80%"
   }
 });
-
-export default Login;
