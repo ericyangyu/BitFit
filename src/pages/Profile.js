@@ -1,10 +1,13 @@
 /**
  * The profile page displays the current stats about the user and their information.
  * 
- * NOTE: This file needs to be refactored by the authors into a class.
+ * NOTE: This page needs to be refactored and commented by the authors. It might be
+ * a good idea to export this page as a class instead of a function. Style also needs
+ * to be put into a single stylesheet. Functions, classes, and methods must be commented.
  * 
  * Authors: ?
  */
+
 
 // library imports
 import React, { useState, Component } from 'react';
