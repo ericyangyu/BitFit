@@ -43,7 +43,7 @@ class Progress extends React.Component {
         - You need to initialize .then and .catch as arrow functions if you
           want to edit states in them
         */
-       console.log("HELLO THERE");
+
         // Indicate which API to call and what data to pass in
         let url = 'http://10.0.2.2:4200/apis/user/get';
         let data = {
