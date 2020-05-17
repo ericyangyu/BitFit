@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
+/**
+ * The progress page displays the progress for a user and also options to access
+ * their trophy case, profile, and start a new workout.
+ * 
+ * NOTE: This file needs to be refactored by the authors into a class.
+ * 
+ * Authors: ?
+ */
 
+// library imports
+import React, { useState, Component } from 'react';
+import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Actions } from 'react-native-router-flux';
+
+// Component imports
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextField from "../components/Text";
+
+// Resource imports
 import profilePhoto from "../resources/profile.png";
-import { Actions } from 'react-native-router-flux';
 
 /* 
 TODO:
@@ -116,14 +129,16 @@ export default function Profile() {
     ));
 }
 
+// Style for this page
 const styles = StyleSheet.create({
-  // Profile
+  // Style for the profile container
   profileContainer: {
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
     justifyContent: "space-between"
   },
+  // Style for the photo imported
   photo: {
     flex: 1,
     width: "50%",
@@ -131,6 +146,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 150
   },
+  // Style for the from component
   form: {
     flex: 1,
     justifyContent: "center",

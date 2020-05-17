@@ -6,18 +6,23 @@
  * Authors: Imran, Sharan, Nour
  */
 
+// library imports
 import React, { Component } from 'react';
-import {
-    View, Text, Image, TouchableOpacity, Dimensions
-} from 'react-native';
-// import { ProgressBar, Colors } from 'react-native-paper';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
-class Progress extends React.Component {
+// Component imports
+import profilePic from "../resources/profilepic.png";
 
+/**
+ * Class that returns the Progress page with correct components and API calls.
+ */
+export default class Progress extends Component {
+
+    // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
         this.state = {
@@ -69,16 +74,18 @@ class Progress extends React.Component {
             });
     }
 
+    // Route to the profile page when the profile button is pressed
     goToProfile = () => {
         Actions.profile()
     }
+
+    // Route to the main start a new workout page when start a new workout button is pressed
     goToMainFocus = () => {
         Actions.mainfocus()
     }
+
+    // Render the correct components for the Progress screen
     render() {
-        const barWidth = 150;
-        console.log("Printing fullname...")
-        console.log(this.state.fullname)
         return (
             <Grid style={styles.container}>
                 <Row>
@@ -87,10 +94,10 @@ class Progress extends React.Component {
                     <Col></Col>
                     <Col>
                         <View>
-                            <TouchableOpacity style={{ margin: 10 }} onPress={this.goToProfile}>
+                            <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
                                 <Image
-                                    style={{ width: 75, height: 75 }}
-                                    source={require('../resources/profilepic.png')}
+                                    style={styles.imageStyle}
+                                    source={profilePic}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -117,12 +124,10 @@ class Progress extends React.Component {
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={false}
-                            width={barWidth}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -135,12 +140,10 @@ class Progress extends React.Component {
                     </Col>
                     <Col>
                         <ProgressBarAnimated
-                            width={barWidth}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -152,12 +155,10 @@ class Progress extends React.Component {
                     </Col>
                     <Col>
                         <ProgressBarAnimated
-                            width={barWidth}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -170,7 +171,7 @@ class Progress extends React.Component {
                         <TouchableOpacity>
                             <Text style={styles.buttonTextStyle}>
                                 Trophy Case
-                </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </Row>
@@ -179,7 +180,7 @@ class Progress extends React.Component {
                         <TouchableOpacity onPress={this.goToMainFocus}>
                             <Text style={styles.buttonTextStyle}>
                                 Start a New Workout
-                </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </Row>
@@ -189,15 +190,28 @@ class Progress extends React.Component {
     }
 }
 
-const styles = {
+// Style for this page
+const styles = StyleSheet.create({
+    // Style the container for the components on the page
     container: {
         backgroundColor: '#f3ebe1',
         marginTop: 0,
         alignItems: 'center'
     },
+    // Style for the progress bar
     progressbar: {
         marginTop: 13
     },
+    // Style for the images
+    imageStyle: {
+        width: 75,
+        height: 75
+    },
+    // Style for the touchable opacity style
+    TouchableOpacityStyle: {
+        margin: 10
+    },
+    // Style for the buttons
     buttonStyle: {
         marginTop: 10,
         marginBottom: 10,
@@ -208,6 +222,7 @@ const styles = {
         borderRadius: 10,
         borderColor: '#fff',
     },
+    // Style for the text on the buttons
     buttonTextStyle: {
         fontSize: 20,
         textAlign: 'center',
@@ -215,30 +230,17 @@ const styles = {
         marginBottom: 0,
         color: '#fff'
     },
+    // Style for the header
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
 
     },
+    // Style for the text components
     textStyle: {
         fontSize: 20,
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0
-    },
-    box: {
-        fontSize: 36,
-        textAlign: 'center',
-        fontWeight: '100',
-        borderWidth: 2,
-        marginLeft: 20,
-        marginRight: 20
-    },
-    elementsContainer: {
-        backgroundColor: '#ecf5fd',
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24
     }
-}
-export default Progress;
+});
