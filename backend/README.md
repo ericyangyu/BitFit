@@ -14,7 +14,7 @@ calls and is used by API methods. API methods send data to the frontend.
     - cd to BitFit directory
     - run `pip3 install flake8`
 
-## How to Run the Backend
+## How to Build
 1. Navigate to the backend subdirectory
 2. Start docker
 3. Run `docker-compose up --build` (this takes over your terminal window so
@@ -24,7 +24,7 @@ The app is now running on the Docker image.
 
 4. When done, run `docker-compose down --volumes` to shut down the image
 
-## How to Test the Backend
+## How to Test
 1. Make sure the app is running on the Docker image.
 2. Launch the Firebase instance if you want to see the results
 3. Launch Postman
