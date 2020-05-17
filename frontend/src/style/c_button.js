@@ -16,5 +16,5 @@ export default StyleSheet.create({
         color: "#ffffff",
         textAlign: "center",
         height: 20
-    },
+    }
 });
