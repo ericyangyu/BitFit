@@ -15,7 +15,7 @@ import styles from '../style/r_login';
 import Button from "../components/button";
 import TextField from "../components/text_field";
 import Input from "../components/input";
-import imageLogo from "../images/logo.png ";
+import logo from "../images/logo.png";
 
 const api = 'http://10.0.2.2:5000/apis/';
 
@@ -93,7 +93,7 @@ class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={imageLogo} style={styles.logo} />
+                <Image source={logo} style={styles.logo} />
                 <View style={styles.form}>
                 <Input
                     value={this.state.email}

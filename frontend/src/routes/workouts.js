@@ -1,182 +1,251 @@
 import React, { Component } from 'react'
-import {Text, View, ScrollView, TouchableOpacity, Button} from 'react-native'
-import moment from 'moment'
+import {
+	StyleSheet, Text, View, ScrollView, TouchableOpacity, Image
+} from 'react-native'
+// import { Dropdown } from 'react-native-material-dropdown';
+import { Col, Row, Grid } from "react-native-easy-grid";
+import { Picker } from '@react-native-community/picker';
+import BackgroundColor from 'react-native-background-color';
+import Button from '../components/button';
+import { throwStatement } from '@babel/types';
 import { Actions } from 'react-native-router-flux';
-import styles from '../style/r_workouts';
 
-function Timer({ interval, style }) {
-    const pad = (n) => n < 10 ? '0' + n : n
-    const duration = moment.duration(interval)
-    const centiseconds = Math.floor(duration.milliseconds() / 10)
-    return (
-        <View style={styles.timerContainer}>
-        <Text style={style}>{pad(duration.minutes())}:</Text>
-        <Text style={style}>{pad(duration.seconds())}:</Text>
-        <Text style={style}>{pad(centiseconds)}</Text>
-        </View>
-    )
+function MainFocusPage() {
+	const goToSuggestedWorkouts = () => {
+		Actions.suggestedworkouts()
+	}
+	const goBackProgress = () => {
+		Actions.progress()
+	}
+	return (
+		<Grid style={{ backgroundColor: '#f3ebe1' }}>
+			<Row>
+				<Col>
+					<View style={{ backgroundColor: '#f3ebe1' }}>
+						<TouchableOpacity onPress={() => goBackProgress()}>
+							<Image
+								style={{ width: 75, height: 75 }}
+								source={require('../images/back_button.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+				</Col>
+				<Col></Col>
+				<Col></Col>
+				{/* <Col>
+					<View>
+						<TouchableOpacity>
+							<Image
+								style={{ width: 75, height: 75 }}
+								source={require('../resources/profilepic.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+				</Col> */}
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						backgroundColor: '#f3ebe1'
+					}}>
+						<Text style={{
+							fontSize: 30
+						}}>
+							Main Focus
+						</Text>
+					</View>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						alignContent: 'center',
+						flexWrap: 'wrap',
+						marginVertical: 50
+					}}>
+						<Text style={{
+							fontSize: 20
+						}}>
+							Select a Main Focus for your Workout:
+						</Text>
+					</View>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						marginVertical: 0
+					}}>
+						<Picker
+							selectedValue={'java'}
+							style={{ height: 50, width: 100 }}
+						// onValueChange={(itemValue, itemIndex) =>
+						// this.setState({ language: itemValue })
+						// }>
+						>
+							<Picker.Item label="Option 1" value="java" />
+							<Picker.Item label="Option 2" value="js" />
+						</Picker>
+					</View>
+				</Col>
+			</Row>
+			<Row></Row>
+			<Row></Row>
+			<Row>
+				<Col></Col>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						marginVertical: 0,
+					}}>
+						<Button onPress={() => goToSuggestedWorkouts()}
+							label="Continue"
+						/>
+					</View>
+				</Col>
+				<Col></Col>
+			</Row>
+			<Row></Row>
+		</Grid>
+	);
 }
 
-// Describes how the buttons look and function
-function RoundButton({ title, color, background, onPress, disabled }) {
-    return (
-        <TouchableOpacity
-            onPress={() => !disabled && onPress()}
-            style={[ styles.button, { backgroundColor: background }]}
-            activeOpacity={disabled ? 1.0 : 0.7}
-        >
-        <View style={styles.buttonBorder}>
-            <Text style={[ styles.buttonTitle, { color }]}>{title}</Text>
-        </View>
-        </TouchableOpacity>
-    )
+function SuggestedWorkoutsPage() {
+	const goToTimer = () => {
+		Actions.timer()
+	}
+	const goBack = () => {
+		Actions.mainfocus()
+	}
+	return (
+		<Grid style={{ backgroundColor: '#f3ebe1' }}>
+			<Row>
+				<Col>
+					<View style={{ backgroundColor: '#f3ebe1' }}>
+						<TouchableOpacity onPress={() => goBack()}>
+							<Image
+								style={{ width: 75, height: 75 }}
+								source={require('../images/back_button.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+				</Col>
+				<Col></Col>
+				<Col></Col>
+				{/* <Col>
+					<View>
+						<TouchableOpacity>
+							<Image
+								style={{ width: 75, height: 75 }}
+								source={require('../resources/profilepic.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+				</Col> */}
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+					}}>
+						<Text style={{
+							fontSize: 30
+						}}>
+							Suggested Workouts
+						</Text>
+					</View>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						alignContent: 'center',
+						flexWrap: 'wrap',
+						marginVertical: 50
+					}}>
+						<Text style={{
+							fontSize: 20
+						}}>
+							Select Your Workout:
+						</Text>
+					</View>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						marginVertical: 0
+					}}>
+						<Picker
+							selectedValue={'java'}
+							style={{ height: 50, width: 100 }}
+						// onValueChange={(itemValue, itemIndex) =>
+						// this.setState({ language: itemValue })
+						// }>
+						>
+							<Picker.Item label="Option 1" value="java" />
+							<Picker.Item label="Option 2" value="js" />
+						</Picker>
+					</View>
+				</Col>
+			</Row>
+			<Row></Row>
+			<Row></Row>
+			<Row>
+				<Col></Col>
+				<Col>
+					<View style={{
+						flexDirection: 'row',
+						alignSelf: 'center',
+						marginVertical: 0,
+					}}>
+						<Button onPress={() => goToTimer()}
+							label="Begin Workout"
+						/>
+					</View>
+				</Col>
+				<Col></Col>
+			</Row>
+			<Row></Row>
+		</Grid>
+	);
 }
 
-function ButtonsRow({ children }) {
-    return (
-        <View style={styles.buttonsRow}>{children}</View>
-    )
+
+class MainFocus extends Component {
+	componentDidMount() {
+		BackgroundColor.setColor('#EDE0D3');
+	}
+
+	render() {
+		return (
+			<MainFocusPage />
+		)
+	}
 }
 
-export default class WorkoutTimer extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        start: 0,
-        now: 0,
-        laps: [ ],
-        }
-    }
+class SuggestedWorkouts extends Component {
+	componentDidMount() {
+		BackgroundColor.setColor('#EDE0D3');
+	}
 
-    componentWillUnmount() {
-        clearInterval(this.timer)
-    }
-
-    // Describe what each button does
-    start = () => {
-        const now = new Date().getTime()
-        this.setState({
-        start: now,
-        now,
-        laps: [0],
-        })
-        this.timer = setInterval(() => {
-        this.setState({ now: new Date().getTime()})
-        }, 100)
-    }
-
-    end = () => {
-        //const timestamp = new Date().getTime()
-        //const { laps, now, start } = this.state
-        //const [firstLap, ...other] = laps
-        //this.setState({
-        //laps: [0, firstLap + now - start, ...other],
-        //start: timestamp,
-        //now: timestamp,
-        //})
-
-        // send data somewhere, end timer, then return to homepage
-    }
-
-    stop = () => {
-        clearInterval(this.timer)
-        const { laps, now, start } = this.state
-        const [firstLap, ...other] = laps
-        this.setState({
-        laps: [firstLap + now - start, ...other],
-        start: 0,
-        now: 0,
-        })
-    }
-
-    reset = () => {
-        this.setState({
-        laps: [],
-        start: 0,
-        now: 0,
-        })
-    }
-
-    resume = () => {
-        const now = new Date().getTime()
-        this.setState({
-        start: now,
-        now,
-        })
-        this.timer = setInterval(() => {
-        this.setState({ now: new Date().getTime()})
-        }, 100)
-    }
-
-    goToProgress = () => {
-        Actions.progress()
-    }
-
-    render() {
-        const { now, start, laps } = this.state
-        const timer = now - start
-        return (
-            <View style={styles.container}>
-                <Timer
-                interval={laps.reduce((total, curr) => total + curr, 0) + timer}
-                style={styles.timer}
-                />
-                {laps.length === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='End'
-                        color='#8B8B90'
-                        background='#151515'
-                        disabled
-                    />
-                    <RoundButton
-                        title='Start'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.start}
-                    />
-                </ButtonsRow>
-                )}
-                {start > 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='End'
-                        color='#FFFFFF'
-                        background='#3D3D3D'
-                        onPress={this.end}
-                    />
-                    <RoundButton
-                        title='Pause'
-                        color='#E33935'
-                        background='#3C1715'
-                        onPress={this.stop}
-                    />
-                </ButtonsRow>
-                )}
-                {laps.length > 0 && start === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='Reset'
-                        color='#FFFFFF'
-                        background='#21474A'
-                        onPress={this.reset}
-                    />
-                    <RoundButton
-                        title='Start'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.resume}
-                    />
-                </ButtonsRow>
-                )}
-                <View style={{paddingTop: 150}}>
-                <Button
-                    title='Cancel Workout'
-                    color='#E33935'
-                    onPress={this.goToProgress}
-                />
-                </View>
-            </View>
-        )
-    }
+	render() {
+		return (
+			<SuggestedWorkoutsPage />
+		)
+	}
 }
+
+export { MainFocus, SuggestedWorkouts }

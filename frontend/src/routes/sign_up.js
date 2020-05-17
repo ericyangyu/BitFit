@@ -9,8 +9,8 @@
 
 import React from 'react';
 import { Image, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from "react-native";
-import Button from "../components/Button";
-import Input from "../components/Input";
+import Button from "../components/button";
+import Input from "../components/input";
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 import profilePhoto from "../images/profile.png";

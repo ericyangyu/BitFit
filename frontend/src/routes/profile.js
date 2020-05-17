@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from "react-native";
 
 import styles from '../style/r_profile';
-import Input from "../components/Input";
-import Button from "../components/Button";
-import TextField from "../components/Text";
-import profilePhoto from "../resources/profile.png";
+import Input from "../components/input";
+import Button from "../components/button";
+import TextField from "../components/text_field";
+import profilePhoto from "../images/profile.png";
 import { Actions } from 'react-native-router-flux';
 
 /* 
