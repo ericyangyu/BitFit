@@ -1,9 +1,10 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
+ * The signup page that allows the user to enter their information to create an account.
+ * Description: We have a sign up class that contains the logic to read user input in text
+ * fields. It also has a subtle fix where the avatar is hidden when the user is typing text
+ * and displayed when the user is done typying text.
+ * 
+ * Authors: Imran, Sharan, Nour
  */
 
 import React from 'react';
@@ -57,10 +58,21 @@ class SignUp extends React.Component {
     this.setState({ avatarDisplayStatus: true });
   }
 
+  /**
+   * When the signup button is pressed, the data in the text fields are passed
+   * in an API call to the backend to create the user, add the relevant data to
+   * the database, and log the user in. It recieves a response object that is 
+   * caught and processed accordingly.
+   */
   handleSignUpPress = () => {
+    // Make an Axios Post call with the data
+    // IMPORANT: This is the format of how to make API calls from the front end
     const response = axios({
       method: "post",
       url: 'http://10.0.2.2:5000/apis/user/create_user',
+      // This is how axios sends request body data to the backend
+      // data : dictionary
+      // the response is the data returned from the API call
       data: {
         email: this.state.email,
         password: this.state.password,
@@ -70,11 +82,13 @@ class SignUp extends React.Component {
       }
     })
       .then((response) => {
+        // IMPORTANT: navigate to the progress page and pass the UID of the user as a prop
+        // This allows for the next page to know which user is logged in
         console.log(response.data);
-        Actions.progress()
+        Actions.progress({ UID: response.data["UID"] })
       })
       .catch((error) => {
-        // Alert popup upon error
+        // Always display an alert popup if there was an error logging in
         Alert.alert(
           'Invalid Credentials',
           "Please try again.",
@@ -83,7 +97,7 @@ class SignUp extends React.Component {
           ],
           { cancelable: false }
         );
-
+        // log error information
         if (error.response) {
           // The call was unsuccessful
           console.log(error.response.data);

@@ -1,12 +1,24 @@
+"""Configuration file for the Flask backend object and Pyrebase connection.
+
+Description: Initializes the Flask backend object and connectes pyrebase to the backend
+by creating a pyrebase instance.
+Authors: Imran, Sharan, Nour
+"""
+
+####### External imports #######
+# import pyrebase for Firebase interaction
 import pyrebase
 
+# import supporting flask backend packages
 from flask_api import FlaskAPI
 from flask.cli import FlaskGroup
 
+# define the Flask backend object and set configuration parameters
 app = FlaskAPI(__name__)
 app.config["CORS_HEADERS"] = "Content-Type"
 cli = FlaskGroup(app)
 
+# initalize a firebase connection to the databse using pyrebase
 firebase = pyrebase.initialize_app(
     {
         "apiKey": "AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk",
@@ -20,5 +32,7 @@ firebase = pyrebase.initialize_app(
     }
 )
 
+# create firebase database variable to access database
 db = firebase.database()
+# create firebase authentication variable for authentication
 auth = firebase.auth()

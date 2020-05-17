@@ -1,20 +1,42 @@
+"""File to recieve API calls from the front about the user.
+
+Description: Recieves the intial REST API calls from the frontend related to users. 
+Handles the request data and only accepts POST requests. 
+Calls the related backend user API calls to firebase.
+
+NOTE: Any parsing of the data should be handled here before calls are made to the DB.
+
+Authors: Imran, Sharan, Nour
+"""
+####### External imports #######
+# import related flask packages
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 
+####### Interal imports #######
+# import the User class
 from models.user import User
 
+# define the user_api blueprint route for all user related api calls
 user_api = Blueprint("user_api", __name__)
 CORS(user_api, supports_credentials=True)
 
 
 @user_api.route("/create_user", methods=["POST"])
 def create_user():
+    """Creates a user based on provided email and password.
+
+    Returns:
+        Reponse object that contins data and a status code.
+    """
+    # read incoming request data body
     email = request.json["email"]
     password = request.json["password"]
     fullname = request.json["fullname"]
     username = request.json["username"]
     avatar = request.json["avatar"]
 
+    # make call to create user using firebase
     response = User.create_user(email, password, fullname, username, avatar)
 
     return response
@@ -22,37 +44,62 @@ def create_user():
 
 @user_api.route("/login_user", methods=["POST"])
 def login_user():
+    """Logins in a user based on provided email and password.
+
+    Returns:
+        Reponse object that contins data and a status code.
+    """
+    # read incoming request data body
     email = request.json["email"]
     password = request.json["password"]
-
+    # make call to login user using firebase
     response = User.login_user(email, password)
     return response
 
 
 @user_api.route("/get_user", methods=["POST"])
 def get_user():
-    email = request.json["email"]
-    password = request.json["password"]
+    """Gets information about a user with specific UID.
 
-    u = User.get_user(username)
+    Returns:
+        Reponse object that contins data about the user and a status code.
+    """
+    # read incoming request data body
+    UID = request.json["UID"]
+    # make call to get user data using firebase
+    response = User.get_user(UID)
+    return response
 
-    if not u:
-        return jsonify({"reason": "User does not exist"}), 400
-    else:
-        return jsonify({"reason": "User exists", "result": u.to_json()}), 200
 
+@user_api.route("/update_user", methods=["POST"])
+def update_user():
+    """Updates data about a user with specific UID.
 
-@user_api.route("/edit_user", methods=["PUT"])
-def edit_user():
+    Returns:
+        Reponse object that contains only a status code.
+    """
+    # read incoming request data body
+    UID = request.json["UID"]
+    fullname = request.json["fullname"]
     username = request.json["username"]
-    name = request.json["name"] if "name" in request.json else None
-    email = request.json["email"] if "email" in request.json else None
-    photo = request.json["photo"] if "photo" in request.json else None
+    avatar = request.json["avatar"]
+    # make call to update user data using firebase
+    response = User.update_user(UID, fullname, username, avatar)
 
-    u = User.get_user(username)
+    return response
 
-    if not u:
-        return jsonify({"reason": "User does not exist"}), 400
-    else:
-        u = u.edit_user(name, email, photo)
-        return jsonify({"reason": "User edited", "result": u.to_json()}), 200
+
+# NOTE: In progress, needs user idToken to work
+# @user_api.route("/delete_user", methods=["POST"])
+# def delete_user():
+# """Deletes a user with specific UID.
+
+# Returns:
+#     Reponse object that contains only a status code.
+# """
+#     # read incoming request data body
+#     UID = request.json["UID"]
+#     tokenId = request.json["tokenId"]
+#     # make call to delete user data using firebase
+#     response = User.delete_user(UID, tokenId)
+#     return response

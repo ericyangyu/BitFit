@@ -1,5 +1,11 @@
 # BitFit Backend
 
+To run the backend.
+```
+cd backend
+python3 server.py
+```
+
 Steps:
 1. pip install pyrebase
 2. pip install flask
