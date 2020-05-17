@@ -1,6 +1,5 @@
 /**
- * The progress page displays the progress for a user and also options to access
- * their trophy case, profile, and start a new workout.
+ * The profile page displays the current stats about the user and their information.
  * 
  * NOTE: This file needs to be refactored by the authors into a class.
  * 
