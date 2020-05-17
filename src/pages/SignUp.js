@@ -7,17 +7,26 @@
  * Authors: Imran, Sharan, Nour
  */
 
-import React from 'react';
+// library imports
+import React, { Component } from 'react';
 import { Image, StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from "react-native";
-import Button from "../components/Button";
-import FormTextInput from "../components/Input";
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
-import profilePhoto from "../resources/profile.png";
-import profile from '../resources/tanBackground.png'
 import axios from 'axios';
 
-class SignUp extends React.Component {
+// Component imports
+import Button from "../components/Button";
+import FormTextInput from "../components/Input";
+
+// Resources imports
+import profilePhoto from "../resources/profile.png";
+
+/**
+ * Class that returns the SignUp page with correct components and API calls.
+ */
+export default class SignUp extends Component {
+
+  // Call the super constructor and initalize a state variable
   constructor(props) {
     super(props)
     this.state = {
@@ -30,30 +39,37 @@ class SignUp extends React.Component {
     }
   }
 
+  // Set the avatar state variable when it is changed on UI
   handleAvatarChange = (avatar) => {
     this.setState({ avatar: avatar });
   };
 
+  // Set the username state variable when it is changed on UI
   handleUserNameChange = (username) => {
     this.setState({ username: username });
   };
 
+  // Set the fullname state variable when it is changed on UI
   handleFullNameChange = (fullname) => {
     this.setState({ fullname: fullname });
   };
 
+  // Set the email state variable when it is changed on UI
   handleEmailChange = (email) => {
     this.setState({ email: email });
   }
 
+  // Set the password state variable when it is changed on UI
   handlePasswordChange = (password) => {
     this.setState({ password: password });
   };
 
+  // Hides the avatar when any textinput components are pressed
   hideAvatar = () => {
     this.setState({ avatarDisplayStatus: false });
   }
 
+  // Displays the avatar when the user is not entering text into components
   displayAvatar = () => {
     this.setState({ avatarDisplayStatus: true });
   }
@@ -112,7 +128,7 @@ class SignUp extends React.Component {
       });
   };
 
-
+  // Render the correct components for the SignUp screen
   render() {
     return (
       <View style={styles.container}>
@@ -185,18 +201,22 @@ class SignUp extends React.Component {
   }
 }
 
+// Style for this page
 const styles = StyleSheet.create({
+  // Style for the photo
   photoStyle: {
     paddingVertical: 0,
     width: 230,
     height: 230,
     borderRadius: 150
   },
+  // Style for the container
   container: {
     flex: 1,
     backgroundColor: "#f3ebe1",
     alignItems: "center",
   },
+  // Style for the buttonText
   buttonTextStyle: {
     fontSize: 15,
     textAlign: 'center',
@@ -204,17 +224,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     color: '#3498eb'
   },
-  logo: {
-    flex: 1,
-    width: "100%",
-    resizeMode: "contain",
-    alignSelf: "center"
-  },
+  // Style for the form object
   form: {
     flex: 1,
     justifyContent: "center",
     width: "75%"
   }
 });
-
-export default SignUp;
