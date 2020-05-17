@@ -1,10 +1,23 @@
-import * as React from "react";
+/**
+ * This is an internal Text component for a Text component that is styled accordingly.
+ * 
+ * Authors: ?
+ */
+
+// library imports
+import React, { Component } from 'react';
 import { Text, StyleSheet } from "react-native";
 
-class TextField extends React.Component {
+/**
+ * Class that returns a styled Text component.
+ */
+export default class TextField extends React.Component {
+  // save the props from when the button is rendered
+  // TODO: How does ...otherProps work?
   render() {
     const { style, ...otherProps } = this.props;
 
+    // Return a styled Text component with its original props
     return (
       <Text
         selectionColor={"#02075d"}
@@ -15,15 +28,12 @@ class TextField extends React.Component {
   }
 }
 
+// Style for this component
 const styles = StyleSheet.create({
-  //TextField
+  // Style the TextField component
   textField: {
     height: 30,
     color: "#434343",
     marginBottom: 10
   }
 });
-
-
-export default TextField;
-
