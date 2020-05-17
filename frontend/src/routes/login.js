@@ -19,8 +19,6 @@ import Input from "../components/input";
 import Button from "../components/button";
 import TextField from "../components/text_field";
 
-const api = 'http://10.0.2.2:5000/apis/'; // Base url for axios calls
-
 class Login extends React.Component {
 
     constructor(props) {
@@ -45,51 +43,62 @@ class Login extends React.Component {
 
     /**
      * When the login button is pressed, the data in the text fields are passed
-     * in an API call to the backend to log the user in. It recieves a response object
-     * that is caught and processed accordingly.
+     * in an API call to the backend to log the user in. It recieves a response
+     * object that is caught and processed accordingly.
      */
     handleLoginPress = () => {
-        // Make an Axios Post call with the data
-        // IMPORANT: This is the format of how to make API calls from the front end
-        const response = axios({
-            method: "post",
-            url: api + 'user/login_user',
-            // This is how axios sends request body data to the backend
-            // data : dictionary
-            // the response is the data returned from the API call
-            data: {
-                email: this.state.email,
-                password: this.state.password
-            }
-        })
-        .then((response) => {
-            // IMPORTANT: navigate to the progress page and pass the UID of the user as a prop
-            // This allows for the next page to know which user is logged in
-            console.log(response.data);
-            Actions.progress({ UID: response.data["UID"] })
-        })
-        .catch((error) => {
-            // Always display an alert popup if there was an error logging in
-            Alert.alert(
-            'Invalid Credentials',
-            "Please try again.",
-            [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-            { cancelable: false }
-            );
+        /*
+        IMPORTANT: FOLLOW THIS FORMAT TO MAKE API CALLS
+        Notes:
+        - only last two parts should change in url field
+        - data should match "Expected data" in API method header
+        - response.data will match "Expected response" in API method header
+        - If code steps into .then: call went through
+        - If code steps into .catch: error (use postman to debug)
+        - You need to initialize .then and .catch as arrow functions if you
+          want to edit states in them
+        */
 
-            // log error information
-            if (error.response) {
-                // The call was unsuccessful
-                console.log(error.response.data);
-                console.log(error.response.status);
-            } else if (error.request) {
-                // The request was made but no response was received.
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
-            }
-        });
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/user/login';
+        let data = {
+            'email': this.state.email,
+            'password': this.state.password
+        };
+        
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                /* Navigate to progress page and pass uid as prop. This allows
+                the next page to know which user is logged in */
+                console.log(response.data);
+                Actions.progress({ uid: response.data["uid"] })
+            })
+            
+            // Error
+            .catch(error => {
+                // Display alert if there was an errr logging in
+                Alert.alert(
+                    'Invalid Credentials',
+                    "Please try again.",
+                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    { cancelable: false }
+                );
+
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            }); 
     };
 
     render() {

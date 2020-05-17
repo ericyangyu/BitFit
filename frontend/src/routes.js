@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
- import { Router, Scene } from 'react-native-router-flux'
+import { Router, Scene } from 'react-native-router-flux'
 
- import Login from './routes/login'
- import SignUp from './routes/sign_up'
- import Progress from './routes/progress'
- import Profile from './routes/profile'
- import Timer from './routes/timer'
- import { MainFocus, SuggestedWorkouts } from './routes/workouts'
+import Login from './routes/login'
+import SignUp from './routes/sign_up'
+import Progress from './routes/progress'
+import Profile from './routes/profile'
+import Timer from './routes/timer'
+import { MainFocus, SuggestedWorkouts } from './routes/workouts'
 
  class Routes extends React.Component {
      render () {

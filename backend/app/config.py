@@ -6,12 +6,14 @@ rest of the backend.
 Authors: Imran, Sharan, Nour
 """
 
-# For Firebase interaction
-import pyrebase
-
 # Flask packages
+from flask import make_response
 from flask_api import FlaskAPI
 from flask.cli import FlaskGroup
+
+import pyrebase  # For Firebase interaction
+import json  # To load json
+from requests.exceptions import HTTPError  # To access HTTPError
 
 # Define the Flask backend object and set configuration parameters
 app = FlaskAPI(__name__)
@@ -33,3 +35,46 @@ firebase = pyrebase.initialize_app({
 # Create database and authentification variables for Firebase
 db = firebase.database()
 auth = firebase.auth()
+
+
+def create_error_message(e):
+    """
+    Handles exceptions in firebase calls, and returns correct error response.
+
+    Arguments:
+        e {Exception} -> wants HTTPError exception, but can handle other types
+
+    Returns:
+        A response object with an error code and no data
+    """
+    try:
+        # Access the JSON object from error that contains JSON info
+        error_json = e.args[1]
+        # Access message filed in JSON error object
+        code = json.loads(error_json)["error"]["code"]
+        # Return the given code if this is an HTTPEror
+        return make_response({}, code)
+
+    except HTTPError:
+        # Return 400 if it is another type of error
+        return make_response({}, 400)
+
+
+def raise_detailed_error(self, request_object):
+    """
+    Used to raise an HTTPError if firebase calls are made internally and not
+    through pyrebase.
+
+    Argument:
+        request_object {[type]} -> from requests.post/get/...() methods.
+
+    Raises:
+        HTTPError
+    """
+    try:
+        request_object.raise_for_status()
+    except HTTPError as e:
+        # Raise detailed error message
+        # TODO: Check if we get a { "error" : "Permission denied." } and
+        # handle automatically
+        raise HTTPError(e, request_object.text)

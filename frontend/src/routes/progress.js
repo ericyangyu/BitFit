@@ -15,8 +15,6 @@ import { Actions } from 'react-native-router-flux';
 
 import axios from 'axios';
 
-const api = 'http://10.0.2.2:5000/apis/';
-
 class Progress extends React.Component {
 
     constructor(props) {
@@ -29,45 +27,56 @@ class Progress extends React.Component {
     /**
      * When the page is rendered, an API call to the backend is made to get the
      * current user's information to render on the page. It recieves the user's
-     * UID from the previous page (login/sign up) through this.props and uses
+     * uid from the previous page (login/sign up) through this.props and uses
      * that to make the database call. It recieves a response object
      * that is caught and processed accordingly.
      */
-    componentDidMount() {
-        // Make an Axios Post call with the data
-        // IMPORANT: This is the format of how to make API calls from the front end
-        const response = axios({
-            method: "post",
-            url: api + 'user/get_user',
-            // This is how axios sends request body data to the backend
-            // data : dictionary
-            // the response is the data returned from the API call
-            data: {
-                UID: this.props.UID
-            }
-        })
-        .then((response) => {
-            // IMPORTANT: Sets the state for this page to include the relevant
-            // user information returned from the API call
-            console.log(response.data);
-            this.setState({
-                fullname: response.data.fullname
+    componentWillMount() {
+        /*
+        IMPORTANT: FOLLOW THIS FORMAT TO MAKE API CALLS
+        Notes:
+        - only last two parts should change in url field
+        - data should match "Expected data" in API method header
+        - response.data will match "Expected response" in API method header
+        - If code steps into .then: call went through
+        - If code steps into .catch: error (use postman to debug)
+        - You need to initialize .then and .catch as arrow functions if you
+          want to edit states in them
+        */
+       console.log("HELLO THERE");
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/user/get';
+        let data = {
+            'uid': this.props.uid
+        };
+        
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                /* Set the state for this page to include the relevant user 
+                information returned from the API call */
+                console.log(response.data);
+                this.setState({
+                    fullname: response.data.fullname
+                })
             })
-        })
-        .catch((error) => {
-            // log error information
-            if (error.response) {
-                // The call was unsuccessful
-                console.log(error.response.data);
-                console.log(error.response.status);
-            } else if (error.request) {
-                // The request was made but no response was received.
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
-            }
-        });
+            
+            // Error
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            }); 
     }
 
     goToProfile = () => {

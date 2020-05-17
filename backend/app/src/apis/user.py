@@ -1,108 +1,138 @@
-"""File to recieve API calls from the front about the user.
+"""
+Description: User routes to receive user-related API calls from the frontend.
+Delegates to the user model to interact with the database. Handles request data
+and only accepts POST requests (this makes it easier to pass in data in
+frontend code)
 
-Description: Recieves the intial REST API calls from the frontend related to
-             users.
-Handles the request data and only accepts POST requests.
-Calls the related backend user API calls to firebase.
+NOTE: Data parsing should be handeled here before delegating to user model to
+access the database.
 
-NOTE: Any parsing of the data should be handled here before calls are made to
-      the DB.
+NOTE: Database calls should not be made in this file.
 
 Authors: Imran, Sharan, Nour
 """
 
-# External imports #
-# import related flask packages
-from flask import Blueprint, request  # , jsonify
+# External imports
+
+# Flask packages
+from flask import Blueprint, request
 from flask_cors import CORS
 
-#  Interal imports #######
-# import the User class
-from ..models.user import User
+# Internal imports
+from ..models.user import User  # User model
 
-# define the user_api blueprint route for all user related api calls
+# Define the user_api blueprint route for all user-related api calls
 user_api = Blueprint("user_api", __name__)
 CORS(user_api, supports_credentials=True)
 
 
-@user_api.route("/create_user", methods=["POST"])
-def create_user():
-    """Creates a user based on provided email and password.
-
-    Returns:
-        Reponse object that contins data and a status code.
+@user_api.route("/signup", methods=["POST"])
+def signup():
     """
-    # read incoming request data body
+    Creates a user based on provided email and password.
+
+    Expected data:
+        username -> user's username
+        fullname -> user's full name
+        email -> user's email
+        password -> user's password
+        avatar -> link to user's avatar
+
+    Expected response:
+        uid -> user's local id (key when accessing user in db)
+    """
+    # Read incoming request data body
+    username = request.json["username"]
+    fullname = request.json["fullname"]
     email = request.json["email"]
     password = request.json["password"]
-    fullname = request.json["fullname"]
-    username = request.json["username"]
     avatar = request.json["avatar"]
 
-    # make call to create user using firebase
-    response = User.create_user(email, password, fullname, username, avatar)
-
-    return response
+    # Delegate to user model
+    return User.signup(email, password, fullname, username, avatar)
 
 
-@user_api.route("/login_user", methods=["POST"])
-def login_user():
-    """Logins in a user based on provided email and password.
-
-    Returns:
-        Reponse object that contins data and a status code.
+@user_api.route("/login", methods=["POST"])
+def login():
     """
-    # read incoming request data body
+    Logs in in a user based on provided email and password.
+
+    Expected data:
+        email -> entered email
+        password -> entered password
+
+    Expected response:
+        uid -> user's local id (key when accessing user in db)
+    """
+    # Read incoming request data body
     email = request.json["email"]
     password = request.json["password"]
-    # make call to login user using firebase
-    response = User.login_user(email, password)
-    return response
+
+    # Delegate to user model
+    return User.login(email, password)
 
 
-@user_api.route("/get_user", methods=["POST"])
-def get_user():
-    """Gets information about a user with specific UID.
-
-    Returns:
-        Reponse object that contins data about the user and a status code.
+@user_api.route("/get", methods=["POST"])
+def get():
     """
-    # read incoming request data body
-    UID = request.json["UID"]
-    # make call to get user data using firebase
-    response = User.get_user(UID)
-    return response
+    Fetches a user's information based on their uid.
 
+    Expected data:
+        uid -> user's uid
 
-@user_api.route("/update_user", methods=["POST"])
-def update_user():
-    """Updates data about a user with specific UID.
-
-    Returns:
-        Reponse object that contains only a status code.
+    Expected response:
+        username -> user's username
+        fullname -> user's full name
+        email -> user's email
+        password -> user's password
+        avatar -> link to user's avatar
     """
-    # read incoming request data body
-    UID = request.json["UID"]
-    fullname = request.json["fullname"]
-    username = request.json["username"]
-    avatar = request.json["avatar"]
-    # make call to update user data using firebase
-    response = User.update_user(UID, fullname, username, avatar)
+    # Read incoming request data body
+    uid = request.json["uid"]
 
-    return response
+    # Delegate to user model
+    return User.get(uid)
+
+
+@user_api.route("/update", methods=["POST"])
+def update():
+    """
+    Updates a user's information based on their uid.
+
+    Expected data:
+        uid -> user's uid
+        The following are optional (depends on field being updated):
+        username -> user's username
+        fullname -> user's full name
+        avatar -> link to user's avatar
+
+    Expected response:
+        empty json with 200 status code
+    """
+    # Read incoming request data body
+    uid = request.json["uid"]
+    username = request.json["username"] if "username" in request.json else None
+    fullname = request.json["fullname"] if "fullname" in request.json else None
+    avatar = request.json["avatar"] if "avatar" in request.json else None
+
+    # Delegate to user model
+    return User.update(uid, fullname, username, avatar)
 
 
 # NOTE: In progress, needs user idToken to work
-# @user_api.route("/delete_user", methods=["POST"])
-# def delete_user():
-# """Deletes a user with specific UID.
-
-# Returns:
-#     Reponse object that contains only a status code.
+# @user_api.route("/delete", methods=["POST"])
+# def delete():
 # """
-#     # read incoming request data body
-#     UID = request.json["UID"]
-#     tokenId = request.json["tokenId"]
-#     # make call to delete user data using firebase
-#     response = User.delete_user(UID, tokenId)
-#     return response
+# Deletes a user with specific uid.
+#
+# Expected data:
+#
+# Expected response:
+#
+# """
+#     # Read incoming request data body
+#     uid = request.json["uid"]
+#     tid = request.json["tid"]
+#
+#     # Delegate to user model
+#     return User.delete(uid, tokenId)
