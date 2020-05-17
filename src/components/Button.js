@@ -12,8 +12,8 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
  * Class that returns a Touchable Opacity object with the correct style and text.
  */
 export default class Button extends Component {
+  // save the props from when the button is rendered
   render() {
-    // save the props from when the button is created
     const { label, onPress } = this.props;
 
     // return a touchable opacity button that inherits functionality, and is styled

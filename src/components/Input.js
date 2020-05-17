@@ -1,11 +1,23 @@
-import * as React from "react";
+/**
+ * This is an TextInput button that is styled accordingly.
+ * 
+ * Authors: ?
+ */
+
+// library imports
+import React, { Component } from 'react';
 import { StyleSheet, TextInput } from "react-native";
 
-
-class Input extends React.Component {
+/**
+ * Class that returns a styled TextInput component.
+ */
+export default class Input extends Component {
+  // save the props from when the button is rendered
+  // TODO: How does ...otherProps work?
   render() {
     const { style, ...otherProps } = this.props;
 
+    // Return a styled TextInput component with its original props
     return (
       <TextInput
         selectionColor={"#02075d"}
@@ -16,9 +28,9 @@ class Input extends React.Component {
   }
 }
 
-
+// Style for this component
 const styles = StyleSheet.create({
-  //Input
+  // Style the TextInput component
   input: {
     height: 40,
     borderColor: "#C0C0C0",
@@ -26,7 +38,3 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
 });
-
-
-export default Input;
-
