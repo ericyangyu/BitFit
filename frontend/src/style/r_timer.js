@@ -1,3 +1,9 @@
+/**
+ * Stylesheet for the timer page.
+ * 
+ * Authors: ?
+ */
+
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
@@ -54,4 +60,4 @@ export default StyleSheet.create({
     timerContainer: {
         flexDirection: 'row',
     }
-})
+});

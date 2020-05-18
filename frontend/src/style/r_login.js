@@ -1,3 +1,9 @@
+/**
+ * Stylesheet for the login page.
+ * 
+ * Authors: ?
+ */
+
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({

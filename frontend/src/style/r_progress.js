@@ -1,3 +1,9 @@
+/**
+ * Stylesheet for the progress page.
+ * 
+ * Authors: ?
+ */
+
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
@@ -8,6 +14,10 @@ export default StyleSheet.create({
     },
     progressbar: {
         marginTop: 13
+    },
+    imageStyle: {
+        width: 75,
+        height: 75
     },
     buttonStyle: {
         marginTop: 10,
@@ -36,19 +46,5 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0
-    },
-    box: {
-        fontSize: 36,
-        textAlign: 'center',
-        fontWeight: '100',
-        borderWidth: 2,
-        marginLeft: 20,
-        marginRight: 20
-    },
-    elementsContainer: {
-        backgroundColor: '#ecf5fd',
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24
     }
 });

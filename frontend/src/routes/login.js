@@ -6,21 +6,29 @@
  */
 
 // External imports
-import React from 'react';
+import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
 import { Actions } from 'react-native-router-flux';
-
 import axios from "axios";
 
 // Internal imports
+
+// Stylesheet
 import styles from '../style/r_login';
-import logo from "../images/logo.png";
+
+// Components
 import Input from "../components/input";
 import Button from "../components/button";
 import TextField from "../components/text_field";
 
-class Login extends React.Component {
+// Images
+import logo from "../images/logo.png";
 
+/**
+ * Class that returns the Login page with correct components and API calls.
+ */
+export default class Login extends Component {
+    // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
         this.state = {
@@ -29,14 +37,17 @@ class Login extends React.Component {
         }
     }
 
+    // Route to the signup page when sign up button is pressed
     goToSignUp = () => {
         Actions.signup()
     }
 
+    // Set the email state variable when it is changed on UI
     handleEmailChange = (email) => {
         this.setState({ email: email });
     };
 
+    // Set the password state variable when it is changed on UI
     handlePasswordChange = (password) => {
         this.setState({ password: password });
     };
@@ -101,6 +112,7 @@ class Login extends React.Component {
             }); 
     };
 
+    // Render the correct components for the login screen
     render() {
         return (
             <View style={styles.container}>
@@ -130,5 +142,3 @@ class Login extends React.Component {
         );
     }
 }
-
-export default Login;

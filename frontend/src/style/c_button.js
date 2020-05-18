@@ -1,18 +1,26 @@
+/**
+ * Stylesheet for the internal button component.
+ * 
+ * Authors: ?
+ */
+
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    button: {
+    // Style the button itself
+    buttonContainer: {
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#02075d",
+        backgroundColor: "#243454",
         marginBottom: 12,
         paddingVertical: 12,
         borderRadius: 4,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: "rgba(255,255,255,0.7)"
     },
-    buttonText: {
+    // Style the text on the button
+    text: {
         color: "#ffffff",
         textAlign: "center",
         height: 20

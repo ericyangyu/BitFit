@@ -1,7 +1,22 @@
-import React, { Component } from 'react'
-import {Text, View, ScrollView, TouchableOpacity, Button} from 'react-native'
-import moment from 'moment'
+/**
+ * The timer page allows the user to time their workouts in a timer.
+ * 
+ * NOTE: This page needs to be refactored and commented by the authors. It might be 
+ * a good idea to split these pages up because we route to them. Style also needs
+ * to be put into a single stylesheet. Functions, classes, and methods must be commented.
+ * 
+ * Authors: ?
+ */
+
+// External Imports
+import React, { Component } from 'react';
+import { Text, View, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
+
+// Internal imports
+
+// Stylesheet
 import styles from '../style/r_timer';
 
 function Timer({ interval, style }) {

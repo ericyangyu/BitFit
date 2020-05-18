@@ -1,3 +1,9 @@
+/**
+ * Stylesheet for the sign up page.
+ * 
+ * Authors: ?
+ */
+
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
@@ -30,4 +36,4 @@ export default StyleSheet.create({
         justifyContent: "center",
         width: "75%"
     }
-  });
+});

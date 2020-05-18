@@ -6,22 +6,44 @@
  * Authors: Imran, Sharan, Nour
  */
 
-import styles from '../style/r_progress';
+// External imports
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
-
 import axios from 'axios';
 
-class Progress extends React.Component {
+// Internal imports
 
+// Stylesheet
+import styles from '../style/r_progress';
+
+// Images
+import profile_photo from '../images/profile_photo.png'
+
+
+/**
+ * Class that returns the Progress page with correct components and API calls.
+ */
+export default class Progress extends Component {
+
+    // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
         this.state = {
             fullname: ""
         }
+    }
+
+    // Route to the profile page when the profile button is pressed
+    goToProfile = () => {
+        Actions.profile({ uid: this.props.uid })
+    }
+
+    // Route to the main start a new workout page when start a new workout button is pressed
+    goToMainFocus = () => {
+        Actions.mainfocus({ uid: this.props.uid })
     }
 
     /**
@@ -31,7 +53,7 @@ class Progress extends React.Component {
      * that to make the database call. It recieves a response object
      * that is caught and processed accordingly.
      */
-    componentWillMount() {
+    componentDidMount() {
         /*
         IMPORTANT: FOLLOW THIS FORMAT TO MAKE API CALLS
         Notes:
@@ -79,19 +101,8 @@ class Progress extends React.Component {
             }); 
     }
 
-    goToProfile = () => {
-        Actions.profile()
-    }
-
-    goToMainFocus = () => {
-        Actions.mainfocus()
-    }
-
+    // Render the correct components for the Progress screen
     render() {
-        const barWidth = 150;
-        console.log("Printing fullname...")
-        console.log(this.state.fullname)
-
         return (
             <Grid style={styles.container}>
                 <Row>
@@ -100,10 +111,10 @@ class Progress extends React.Component {
                     <Col></Col>
                     <Col>
                         <View>
-                            <TouchableOpacity style={{ margin: 10 }} onPress={this.goToProfile}>
+                            <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
                                 <Image
-                                    style={{ width: 75, height: 75 }}
-                                    source={require('../images/profile_photo.png')}
+                                    style={styles.imageStyle}
+                                    source={profile_photo}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -129,13 +140,11 @@ class Progress extends React.Component {
                     </Col>
                     <Col>
                         <ProgressBarAnimated
-                            useNativeDriver={false}
-                            width={barWidth}
+                            useNativeDriver={true}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -148,12 +157,11 @@ class Progress extends React.Component {
                     </Col>
                     <Col>
                         <ProgressBarAnimated
-                            width={barWidth}
+                            useNativeDriver={true}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -165,12 +173,11 @@ class Progress extends React.Component {
                     </Col>
                     <Col>
                         <ProgressBarAnimated
-                            width={barWidth}
+                            useNativeDriver={true}
+                            width={150}
                             value={50}
                             backgroundColorOnComplete="#6CC644"
                         />
-                        {/* <ProgressBar progress={0.5} color={Colors.red800}
-                        style={styles.progressbar} /> */}
                     </Col>
                     <Col>
                         <Text style={styles.textStyle}>4</Text>
@@ -183,7 +190,7 @@ class Progress extends React.Component {
                         <TouchableOpacity>
                             <Text style={styles.buttonTextStyle}>
                                 Trophy Case
-                </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </Row>
@@ -192,7 +199,7 @@ class Progress extends React.Component {
                         <TouchableOpacity onPress={this.goToMainFocus}>
                             <Text style={styles.buttonTextStyle}>
                                 Start a New Workout
-                </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </Row>
@@ -201,5 +208,3 @@ class Progress extends React.Component {
         );
     }
 }
-
-export default Progress;

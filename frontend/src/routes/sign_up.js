@@ -7,20 +7,31 @@
  * Authors: Imran, Sharan, Nour
  */
 
-import React from 'react';
+// External imports
+import React, { Component } from 'react';
 import { Image, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from "react-native";
-import Button from "../components/button";
-import Input from "../components/input";
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
-import profilePhoto from "../images/profile.png";
-import profile from '../images/background.png'
-import styles from '../style/r_sign_up';
-
 import axios from 'axios';
 
-class SignUp extends React.Component {
+// Internal inports
 
+// Stylesheet
+import styles from '../style/r_sign_up';
+
+// Components
+import Button from "../components/button";
+import Input from "../components/input";
+
+// Images
+import profilePhoto from "../images/profile.png";
+
+/**
+ * Class that returns the SignUp page with correct components and API calls.
+ */
+export default class SignUp extends Component {
+
+    // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
         this.state = {
@@ -33,30 +44,42 @@ class SignUp extends React.Component {
         }
     }
 
+    // Route to the login page when login button is pressed
+    goToLogIn = () => {
+        Actions.login()
+    }
+
+    // Set the avatar state variable when it is changed on UI
     handleAvatarChange = (avatar) => {
         this.setState({ avatar: avatar });
     };
 
+    // Set the username state variable when it is changed on UI
     handleUserNameChange = (username) => {
         this.setState({ username: username });
     };
 
+    // Set the fullname state variable when it is changed on UI
     handleFullNameChange = (fullname) => {
         this.setState({ fullname: fullname });
     };
 
+    // Set the email state variable when it is changed on UI
     handleEmailChange = (email) => {
         this.setState({ email: email });
     }
 
+    // Set the password state variable when it is changed on UI
     handlePasswordChange = (password) => {
         this.setState({ password: password });
     };
 
+    // Hides the avatar when any textinput components are pressed
     hideAvatar = () => {
         this.setState({ avatarDisplayStatus: false });
     }
 
+    // Displays the avatar when the user is not entering text into components
     displayAvatar = () => {
         this.setState({ avatarDisplayStatus: true });
     }
@@ -125,6 +148,7 @@ class SignUp extends React.Component {
             }); 
     }
 
+    // Render the correct components for the SignUp screen
     render() {
         return (
             <View style={styles.container}>
@@ -195,5 +219,3 @@ class SignUp extends React.Component {
         );
     }
 }
-
-export default SignUp;
