@@ -77,6 +77,7 @@ def get(uid: str):
 
 ## Method Headers
 - Please try to make the method headers explain what that method is doing.
+- API method header: 
 ```
 @user_api.route("/login", methods=["POST"])
 def login():
@@ -91,3 +92,19 @@ def login():
         uid -> user's local id (key when accessing user in db)
     """
 ```
+- Model Method header:
+```
+@staticmethod
+def login(email: str, password: str):
+    """
+    Logins in a user with an email and password.
+
+    Arguments:
+        email {str} -> entered email
+        password {str} -> entered password
+
+    Returns:
+        response object -> If valid call, returns the uid of the user and a
+        200 status code. Otherwise, returns a blank body and an error code.
+    """
+ ```
