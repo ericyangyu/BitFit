@@ -15,5 +15,5 @@ development. Have fun coding :)
 - [Initial Setup](frontend/README_INITIAL_SETUP.md "Frontend Initial Setup")
 
 ## Build the App
-1. **Follow the 'How to Build'instructions in the [Backend Instructions](backend/README.md "Backend Instructions")**
-2. **Follow the 'How to Build' instructions in the [Frontend Instructions](frontend/README.md "Frontend Instructions")**
+**1. Follow the 'How to Build'instructions in the [Backend Instructions](backend/README.md "Backend Instructions")**
+**2. Follow the 'How to Build' instructions in the [Frontend Instructions](frontend/README.md "Frontend Instructions")**
