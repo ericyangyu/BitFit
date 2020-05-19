@@ -1,13 +1,25 @@
 /**
- * The profile page displays the current stats about the user and their information.
- * 
- * NOTE: This page needs to be refactored and commented by the authors. It might be
- * a good idea to export this page as a class instead of a function. Style also needs
- * to be put into a single stylesheet. Functions, classes, and methods must be commented.
+ * The profile page displays the current stats about the user and their
+ * information. It is also where the page where users can edit their 
+ * infromation and reset their stats.
  * 
  * Authors: Nour and Samay
  */
 
+ // External imports
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import axios from 'axios';
+
+// Internal imports
+
+// Stylesheet
+import styles from '../style/r_profile'; 
+
+// Components
+import TextField from "../components/text_field";
+
+/*
 // External imports
 import React, { useState, Component } from 'react';
 import { View, Image, TouchableOpacity } from "react-native";
@@ -25,6 +37,7 @@ import TextField from "../components/text_field";
 
 // Images
 import profilePhoto from "../images/profile.png";
+*/
 
 /* 
 TODO:
@@ -35,6 +48,71 @@ TODO:
 - Add logout fnality
 */
 
+/**
+ * Class that returns the Profile page with correct components and API calls.
+ */
+export default class Profile extends Component {
+
+    // Call the super constructor and initalize a state variable
+    constructor(props) {
+        super(props)
+        this.state = {
+            uid = "",
+            username = "",
+            fullname: "",
+            email = "",
+            sessions = 0,
+            time = 0,
+            edit = false
+        }
+    }
+
+    editProfile = () => {
+        Actions.profile({ uid: this.props.uid, edit: true })
+    }
+
+    logout = () => {
+        Actions.login()
+    }
+
+    back = () => {
+        Actions.progress({ uid: this.props.uid })
+    }
+
+    saveAndResetStats = () => {
+        // NEED TO UPDATE DATABASE
+        Actions.profile({ uid: this.props.uid, edit: false })
+    }
+
+    cancel = () => {
+        Actions.profile({ uid: this.props.uid, edit: false })
+    }
+
+    editPhoto = () => {
+        // NEED PHOTO HOSTING
+        // NEED TO UPDATE DATABASE
+        Actions.profile({ uid: this.props.uid, edit: false })
+    }
+
+    componentDidMount() {
+        // Axios call to get user info
+    }
+
+    render() {
+        return (this.props.edit ? (
+            <View style={styles.profileContainer}>
+                <TextField> Edit Mode </TextField>
+            </View>
+        ) : (
+            <View style={styles.profileContainer}>
+                <TextField> View Mode </TextField>
+            </View>   
+        ))
+    }
+
+}
+
+/*
 export default function Profile() {
     const [name, setName] = useState('First Last');
     const [username, setUsername] = useState('username');
@@ -134,3 +212,4 @@ export default function Profile() {
         </View>
     ));
 }
+*/
