@@ -8,7 +8,9 @@
 
  // External imports
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Grid, Row, Col } from "react-native-easy-grid";
 import axios from 'axios';
 
 // Internal imports
@@ -17,7 +19,13 @@ import axios from 'axios';
 import styles from '../style/r_profile'; 
 
 // Components
-import TextField from "../components/text_field";
+import Input from "../components/input";
+import Button from "../components/button";
+
+// Images
+import backButton from '../images/back_button.png'
+import editButton from '../images/edit_button.png'
+import profilePhoto from "../images/profile.png";
 
 /*
 // External imports
@@ -57,17 +65,17 @@ export default class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            uid = "",
-            username = "",
+            uid: "",
+            username: "",
             fullname: "",
-            email = "",
-            sessions = 0,
-            time = 0,
-            edit = false
+            email: "",
+            sessions: 0,
+            time: 0,
+            edit: false
         }
     }
 
-    editProfile = () => {
+    edit = () => {
         Actions.profile({ uid: this.props.uid, edit: true })
     }
 
@@ -76,7 +84,11 @@ export default class Profile extends Component {
     }
 
     back = () => {
-        Actions.progress({ uid: this.props.uid })
+        if (this.props.edit) {
+            Actions.profile({ uid: this.props.uid, edit: false })
+        } else {
+            Actions.progress({ uid: this.props.uid })
+        }
     }
 
     saveAndResetStats = () => {
@@ -95,18 +107,104 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-        // Axios call to get user info
+        // Call user API to get user info
+        let url = 'http://10.0.2.2:4200/apis/user/get';
+        let data = {
+            'uid': this.props.uid
+        };
+        
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                /* Set the state for this page to include the relevant user 
+                information returned from the API call */
+                console.log(response.data);
+                this.setState({
+                    username: response.data.username,
+                    fullname: response.data.fullname,
+                    email: response.data.email,
+                })
+            })
+            
+            // Error
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            });
+        
+        // Call completed_workouts API to get sessions done by user
+        /* CODE BELOW NEEDS TO BE REPLACED BY AXIOS CALL WHEN COMPLETED WORKOUTS
+        API IS DONE */
+        this.setState({
+            sessions: 4,
+            hours: 20
+        })
     }
 
     render() {
         return (this.props.edit ? (
-            <View style={styles.profileContainer}>
-                <TextField> Edit Mode </TextField>
-            </View>
+            <Grid style={styles.container}>
+                <Row>
+                    <Col>
+                        <TouchableOpacity onPress={() => back()}>
+                            <Image style={styles.button} source={backButton} />
+                        </TouchableOpacity>
+                    </Col>  
+                </Row>
+                <Row><Text> Edit Mode </Text></Row>
+            </Grid>
+
         ) : (
-            <View style={styles.profileContainer}>
-                <TextField> View Mode </TextField>
-            </View>   
+            <Grid style={styles.container}>
+                <Row>
+                    <Col>
+                        <TouchableOpacity onPress={() => back()}>
+                            <Image style={styles.button} source={backButton} />
+                        </TouchableOpacity>
+                    </Col>
+                    <Col>
+                        <TouchableOpacity onPress={() => edit()}>
+                            <Image style={styles.button} source={editButton} />
+                        </TouchableOpacity>
+                    </Col>
+                    
+                </Row>
+                <Row>
+                    <Image source={profilePhoto} style={styles.photo} />
+                </Row>
+                <Row>
+                    <Col>
+                        <Row><Text> {this.props.sessions} </Text></Row>
+                        <Row><Text> Sessions </Text></Row>
+                    </Col>
+                    <Col>
+                        <Row><Text> {this.props.hours} </Text></Row>
+                        <Row><Text> Hours </Text></Row>
+                    </Col>
+                </Row>
+                <Row>
+                    <Row><Text> {this.props.fullname} </Text></Row>
+                    <Row><Text> @{this.props.username} </Text></Row>
+                    <Row><Text> {this.props.email } </Text></Row>
+                </Row>
+                <Row>
+                <Button
+                    label={'LOGOUT'}
+                    onPress={() => this.logout()}
+                />
+                </Row>
+            </Grid>
         ))
     }
 

@@ -7,6 +7,31 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#f3ebe1",
+        alignItems: "center",
+        justifyContent: "space-between",
+        margin: 0
+    },
+    button: {
+        width: 75,
+        height: 75
+    },
+    photo: {
+        flex: 1,
+        width: "80%",
+        resizeMode: "contain",
+        alignSelf: "center"
+    }
+
+
+
+
+
+
+/*
+
     profileContainer: {
         flex: 1,
         backgroundColor: "#f3ebe1",
@@ -24,5 +49,5 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         width: "80%"
-    }
+    }*/
 });
