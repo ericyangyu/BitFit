@@ -5,32 +5,19 @@
  * a good idea to split these pages up because we route to them. Style also needs
  * to be put into a single stylesheet. Functions, classes, and methods must be commented.
  * 
- * Authors: ?
+ * Authors: Steven, Jeremy
  */
 
 // External Imports
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import moment from 'moment';
 
-// Internal imports
+// internal imports (useful components)
+import Clock from '../components/timer_components/clock';
 
 // Stylesheet
 import styles from '../style/r_timer';
-
-function Timer({ interval, style }) {
-    const pad = (n) => n < 10 ? '0' + n : n
-    const duration = moment.duration(interval)
-    const centiseconds = Math.floor(duration.milliseconds() / 10)
-    return (
-        <View style={styles.timerContainer}>
-        <Text style={style}>{pad(duration.minutes())}:</Text>
-        <Text style={style}>{pad(duration.seconds())}:</Text>
-        <Text style={style}>{pad(centiseconds)}</Text>
-        </View>
-    )
-}
 
 // Describes how the buttons look and function
 function RoundButton({ title, color, background, onPress, disabled }) {
@@ -128,7 +115,7 @@ export default class WorkoutTimer extends Component {
         const timer = now - start
         return (
             <View style={styles.container}>
-                <Timer
+                <Clock
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
                 />
