@@ -10,35 +10,16 @@
 
 // External Imports
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // internal imports (useful components)
 import Clock from '../components/timer_components/clock';
+import ButtonsRow from '../components/timer_components/button_row';
+import RoundButton from '../components/timer_components/round_button';
 
 // Stylesheet
 import styles from '../style/r_timer';
-
-// Describes how the buttons look and function
-function RoundButton({ title, color, background, onPress, disabled }) {
-    return (
-        <TouchableOpacity
-            onPress={() => !disabled && onPress()}
-            style={[ styles.button, { backgroundColor: background }]}
-            activeOpacity={disabled ? 1.0 : 0.7}
-        >
-        <View style={styles.buttonBorder}>
-            <Text style={[ styles.buttonTitle, { color }]}>{title}</Text>
-        </View>
-        </TouchableOpacity>
-    )
-}
-
-function ButtonsRow({ children }) {
-    return (
-        <View style={styles.buttonsRow}>{children}</View>
-    )
-}
 
 export default class WorkoutTimer extends Component {
 
