@@ -20,7 +20,7 @@ import axios from 'axios';
 import styles from '../style/r_progress';
 
 // Images
-import profile_photo from '../images/profile_photo.png'
+import profile_photo from '../images/default_profile.png'
 
 
 /**

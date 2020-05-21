@@ -94,9 +94,7 @@ export default class Profile extends Component {
         Actions.login()
     }
 
-
-
-
+    /*********************NOT YET USED **************** */
     saveAndResetStats = () => {
         // NEED TO UPDATE DATABASE
         Actions.profile({ uid: this.props.uid, edit: false })
@@ -111,6 +109,9 @@ export default class Profile extends Component {
         // NEED TO UPDATE DATABASE
         Actions.profile({ uid: this.props.uid, edit: false })
     }
+    /********************* END NOT YET USED **************** */
+
+
 
     componentDidMount() {
         // Call user API to get user info
@@ -130,7 +131,7 @@ export default class Profile extends Component {
                     username: response.data.username,
                     fullname: response.data.fullname,
                     email: response.data.email,
-                    avatar: require("../images/profile.png") // HARDCODED: NEEDS UPLOAD PHOTO FEATURE
+                    avatar: require("../images/default_profile.png") // HARDCODED: NEEDS UPLOAD PHOTO FEATURE
                 })
             })
             
@@ -161,16 +162,23 @@ export default class Profile extends Component {
 
     render() {
         return (this.props.edit ? (
-            <Grid style={styles.container}>
-                <Row>
-                    <Col>
-                        <TouchableOpacity onPress={() => handleBackPress()}>
-                            <Image style={styles.button} source={backButton} />
-                        </TouchableOpacity>
-                    </Col>  
-                </Row>
-                <Row><Text> Edit Mode </Text></Row>
-            </Grid>
+        <View style={styles.container}>
+            <View style={styles.topBar}>
+                <TouchableOpacity onPress={() => handleBackPress()}>
+                    <Image source={backButton} style={styles.topButton} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleEditPress()}>
+                    <Image source={editButton} style={styles.topButton} />
+                </TouchableOpacity>
+            </View>
+            
+
+            <ScrollView style={styles.scrollView}>
+                <Image source={this.state.avatar} style={styles.photo}/>
+
+                <Text style={styles.statsTitle}>EDIT MODE</Text>
+            </ScrollView>
+        </View>
 
         ) : (
         <View style={styles.container}>
