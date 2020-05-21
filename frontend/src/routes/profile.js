@@ -6,9 +6,9 @@
  * Authors: Nour and Samay
  */
 
- // External imports
+// External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
 import axios from 'axios';
@@ -20,43 +20,11 @@ import styles from '../style/r_profile';
 
 // Components
 import Button from "../components/button";
+import Input from "../components/input";
 
 // Images
 import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
-
-// import profilePhoto from "../images/profile.png";
-// import TextField from "../components/text_field";
-
-
-/*
-// External imports
-import React, { useState, Component } from 'react';
-import { View, Image, TouchableOpacity } from "react-native";
-import { Actions } from 'react-native-router-flux';
-
-// Internal imports
-
-// Stylesheet
-import styles from '../style/r_profile'; 
-
-// Components
-import Input from "../components/input";
-import Button from "../components/button";
-import TextField from "../components/text_field";
-
-// Images
-import profilePhoto from "../images/profile.png";
-*/
-
-/* 
-TODO:
-- disable save button if no changes made OR if one field is emty
-- edit password field
-- edit photo fnality
-- Make all text centered
-- Add logout fnality
-*/
 
 /**
  * Class that returns the Profile page with correct components and API calls.
@@ -69,18 +37,32 @@ export default class Profile extends Component {
         this.state = {
             uid: "",
             username: "",
+            eUsername: "",
             fullname: "",
+            eFullname: "",
             email: "",
+            eEmail: "",
             avatar: null,
             sessions: 0,
             time: 0,
-            edit: false
+            edit: false,
+            editsMade: false
         }
     }
 
     handleBackPress = () => {
         if (this.state.edit) {
-            Actions.profile({ uid: this.state.uid, edit: false })
+            if (this.state.editsMade) {
+                Alert.alert(
+                    'You have some unsaved changes!',
+                    "Are you sure you want to go back?",
+                    [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid, edits: false }) },
+                     { text: 'NO' }],
+                    { cancelable: false }
+                );
+            } else {
+                Actions.profile({ uid: this.state.uid, edits: false })
+            }
         } else {
             Actions.progress({ uid: this.state.uid })
         }
@@ -94,24 +76,45 @@ export default class Profile extends Component {
         Actions.login()
     }
 
-    /*********************NOT YET USED **************** */
-    saveAndResetStats = () => {
-        // NEED TO UPDATE DATABASE
-        Actions.profile({ uid: this.props.uid, edit: false })
-    }
-
-    cancel = () => {
-        Actions.profile({ uid: this.props.uid, edit: false })
-    }
-
-    editPhoto = () => {
+    handleEditPhotoPress = () => {
         // NEED PHOTO HOSTING
-        // NEED TO UPDATE DATABASE
-        Actions.profile({ uid: this.props.uid, edit: false })
+        console.log('Edit Profile Photo Press');
     }
-    /********************* END NOT YET USED **************** */
 
+    handleResetStatsPress = () => {
+        Alert.alert(
+            'This will reset all your stats!',
+            "If you save, they will be lost forever. Are you sure you want to proceed?",
+            [{ text: 'YES', onPress: () => this.setState({sessions: 0, time: 0,editsMade: true }) },
+             { text: 'NO' }],
+            { cancelable: false }
+        );
+    }
 
+    handleNameChange = (eFullname) => {
+        this.setState({ 
+            eFullname: eFullname,
+            editsMade: this.state.editsMade || (eFullname != this.state.fullname)
+        });
+    }
+
+    handleUsernameChange = (eUsername) => {
+        this.setState({ 
+            eUsername: eUsername,
+            editsMade: this.state.editsMade || (eUsername != this.state.username)
+        });
+    }
+
+    handleEmailChange = (eEmail) => {
+        this.setState({ 
+            eEmail: eEmail,
+            editsMade: this.state.editsMade || (eEmail != this.state.email)
+        });
+    }
+
+    handleSavePress = () => {
+        console.log("SAVE");
+    }
 
     componentDidMount() {
         // Call user API to get user info
@@ -128,10 +131,15 @@ export default class Profile extends Component {
                 information returned from the API call */
                 console.log(response.data);
                 this.setState({
+                    uid: this.props.uid,
                     username: response.data.username,
+                    eUsername: response.data.username,
                     fullname: response.data.fullname,
+                    eFullname: response.data.fullname,
                     email: response.data.email,
-                    avatar: require("../images/default_profile.png") // HARDCODED: NEEDS UPLOAD PHOTO FEATURE
+                    eEmail: response.data.email,
+                    avatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
+                    edit: this.props.edit
                 })
             })
             
@@ -163,173 +171,118 @@ export default class Profile extends Component {
     render() {
         return (this.props.edit ? (
         <View style={styles.container}>
-            <View style={styles.topBar}>
-                <TouchableOpacity onPress={() => handleBackPress()}>
-                    <Image source={backButton} style={styles.topButton} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleEditPress()}>
-                    <Image source={editButton} style={styles.topButton} />
-                </TouchableOpacity>
-            </View>
-            
-
             <ScrollView style={styles.scrollView}>
+                <View style={styles.topBar}>
+                    <TouchableOpacity onPress={() => this.handleBackPress()}>
+                        <Image source={backButton} style={styles.topButton} />
+                    </TouchableOpacity>
+                </View>
+
                 <Image source={this.state.avatar} style={styles.photo}/>
 
-                <Text style={styles.statsTitle}>EDIT MODE</Text>
+                <View style={styles.button}>
+                    <Button label={'EDIT PHOTO'} onPress={() => this.handleEditPhotoPress()} />
+                </View>
+
+                <Grid>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Sessions</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.sessions}
+                            </Text>
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Time</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.time}
+                            </Text>
+                        </Row>
+                    </Col>
+                </Grid>
+
+                <View style={styles.button}>
+                    <Button label={'RESET STATS'} onPress={() => this.handleResetStatsPress()} />
+                </View>
+
+                <Input
+                    style={styles.input}
+                    value={this.state.eFullname}
+                    onChangeText={this.handleNameChange}
+                    placeholder={this.state.eFullname}
+                />
+                <Input
+                    style={styles.input}
+                    value={"@" + this.state.eUsername}
+                    onChangeText={this.handleUsernameChange}
+                    placeholder={"@" + this.state.eUsername}
+                />
+                <Input
+                    style={styles.input}
+                    value={this.state.eEmail}
+                    onChangeText={this.handleEmailChange}
+                    placeholder={this.state.eEmail}
+                />
+
+                <View style={styles.button}>
+                    <Button label={'SAVE'} onPress={() => this.handleSavePress()} />
+                </View>
             </ScrollView>
         </View>
 
         ) : (
+
         <View style={styles.container}>
-            <View style={styles.topBar}>
-                <TouchableOpacity onPress={() => handleBackPress()}>
-                    <Image source={backButton} style={styles.topButton} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleEditPress()}>
-                    <Image source={editButton} style={styles.topButton} />
-                </TouchableOpacity>
-            </View>
-
             <ScrollView style={styles.scrollView}>
-                    <Image source={this.state.avatar} style={styles.photo}/>
+                <View style={styles.topBar}>
+                    <TouchableOpacity onPress={() => this.handleBackPress()}>
+                        <Image source={backButton} style={styles.topButton} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.handleEditPress()}>
+                        <Image source={editButton} style={styles.topButton} />
+                    </TouchableOpacity>
+                </View>
 
-                    <Grid>
-                        <Col>
-                            <Row>
-                                <Text style={styles.statsTitle}>Sessions</Text>
-                            </Row>
-                            <Row>
-                                <Text style={styles.stats}>
-                                    {this.state.sessions}
-                                </Text>
-                            </Row>
-                        </Col>
-                        <Col>
-                            <Row>
-                                <Text style={styles.statsTitle}>Time</Text>
-                            </Row>
-                            <Row>
-                                <Text style={styles.stats}>
-                                    {this.state.time}
-                                </Text>
-                            </Row>
-                        </Col>
-                    </Grid>
+                <Image source={this.state.avatar} style={styles.photo}/>
 
-                    <Text style={styles.info}>{this.state.fullname}</Text>
-                    <Text style={styles.info}>{this.state.username}</Text>
-                    <Text style={styles.info}>{this.state.email}</Text>
+                <Grid>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Sessions</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.sessions}
+                            </Text>
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Time</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.time}
+                            </Text>
+                        </Row>
+                    </Col>
+                </Grid>
 
-                    <View style={styles.button}>
-                        <Button label={'LOG OUT'} onPress={() => handleLogoutPress()} />
-                    </View>
-                    
+                <Text style={styles.info}>{this.state.fullname}</Text>
+                <Text style={styles.info}>@{this.state.username}</Text>
+                <Text style={styles.info}>{this.state.email}</Text>
+
+                <View style={styles.button}>
+                    <Button label={'LOG OUT'} onPress={() => this.handleLogoutPress()} />
+                </View>   
             </ScrollView>
         </View>
         ))
     }
-
 }
-
-/*
-export default function Profile() {
-    const [name, setName] = useState('First Last');
-    const [username, setUsername] = useState('username');
-    const [email, setEmail] = useState('user@email.com');
-    const [sessions, setSessions] = useState(5);
-    const [hours, setHours] = useState(20);
-    const [editMode, setEditMode] = useState(false);
-
-    // D for displayed
-    const [nameD, setNameD] = useState(name);
-    const [usernameD, setUsernameD] = useState(username);
-    const [emailD, setEmailD] = useState(email);
-    const [sessionsD, setSessionsD] = useState(sessions);
-    const [hoursD, setHoursD] = useState(hours);
-
-    const goBack = () => {
-        Actions.progress()
-    }
-
-    const goToLogIn = () => {
-        Actions.login()
-    }
-
-    return (editMode ? (
-        <View style={styles.profileContainer}>
-        <View style={styles.form}>
-            <Image source={profilePhoto} style={styles.photo} />
-            <Button label='EDIT PHOTO' />
-
-            <TextField>
-            Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
-            </TextField>
-            <Button label='RESET STATS' onPress={() => {
-                setSessionsD(0);
-                setHoursD(0);
-            }} />
-
-            <Input
-                placeholder={name}
-                onChangeText={name => setNameD(name)}
-                defaultValue={name} />
-            <Input
-                placeholder={username}
-                onChangeText={username => setUsernameD(username)}
-                defaultValue={username} />
-            <Input
-                placeholder={email}
-                onChangeText={email => setEmailD(email)}
-                defaultValue={email}
-            />
-
-            <Button label='SAVE' onPress={() => {
-                setName(nameD);
-                setUsername(usernameD);
-                setEmail(emailD);
-                setSessions(sessionsD)
-                setHours(hoursD)
-                setEditMode(false);
-            }} />
-            <Button label='CANCEL' onPress={() => {
-                setNameD(name);
-                setUsernameD(username);
-                setEmailD(email);
-                setSessionsD(sessions)
-                setHoursD(hours)
-                setEditMode(false);
-            }} />
-        </View>
-        </View>
-
-    ) : (
-        <View style={styles.profileContainer}>
-            <View style={{ marginRight: 310 }}>
-            <TouchableOpacity onPress={() => goBack()}>
-                <Image
-                    style={{ width: 75, height: 75 }}
-                    source={require('../images/back_button.png')}
-                />
-            </TouchableOpacity>
-            </View>
-            <View style={styles.form}>
-            <Image source={profilePhoto} style={styles.photo} />
-            <TextField>
-                Number of Sessions: {sessionsD}     |     Time working out: {hoursD}
-            </TextField>
-
-            <TextField> Name: {nameD} </TextField>
-            <TextField> Username: {usernameD} </TextField>
-            <TextField> E-mail: {emailD} </TextField>
-
-            <Button label='EDIT PROFILE' onPress={() => { setEditMode(true) }} />
-            <Button
-                label={'LOGOUT'}
-                onPress={() => goToLogIn()}
-            />
-            </View>
-        </View>
-    ));
-}
-*/

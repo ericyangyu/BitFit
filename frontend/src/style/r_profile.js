@@ -15,7 +15,10 @@ export default StyleSheet.create({
     },
     topBar: {
         width: "100%",
-        padding: "5%",
+        paddingBottom: 0,
+        paddingTop: "5%",
+        paddingLeft: "5%",
+        paddingRight: "5%",
         flexDirection: "row",
         justifyContent: "space-between"
     },
@@ -61,5 +64,15 @@ export default StyleSheet.create({
         width: "80%",
         margin: "2.5%",
         alignSelf: 'center',
+    },
+    input: {
+        height: 55,
+        width: "80%",
+        fontSize: 25,
+        marginBottom: "2.5%",
+        alignSelf: 'center',
+        color: "#434343",
+        borderColor: "#434343",
+        borderBottomWidth: StyleSheet.hairlineWidth,
     }
 });
