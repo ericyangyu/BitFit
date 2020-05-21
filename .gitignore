@@ -5,6 +5,7 @@ venv/
 
 # OSX
 .DS_Store
+*.icloud
 
 # Xcode
 build/
