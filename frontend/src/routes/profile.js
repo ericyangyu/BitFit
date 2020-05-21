@@ -5,8 +5,6 @@
  * 
  * Authors: Nour and Samay
  */
-
- // this.editsMade() STATEMENTS NEED TO BE IN ANOTHER SET STATE CALL
  
 // External imports
 import React, { Component } from 'react';
@@ -66,12 +64,12 @@ export default class Profile extends Component {
                 Alert.alert(
                     'You have some unsaved changes!',
                     "Are you sure you want to go back?",
-                    [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid, edits: false }) },
+                    [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid}) },
                      { text: 'NO' }],
                     { cancelable: false }
                 );
             } else {
-                Actions.profile({ uid: this.state.uid, edits: false })
+                Actions.profile({ uid: this.state.uid})
             }
         } else {
             Actions.progress({ uid: this.state.uid })
@@ -83,7 +81,65 @@ export default class Profile extends Component {
     }
 
     handleSavePress = () => {
-        console.log("SAVE");
+        // Call user API to get user info
+        let url = 'http://10.0.2.2:4200/apis/user/update';
+        let data = {
+            'uid': this.props.uid
+        };
+
+        if (this.state.eUsername != this.state.username) {
+            data.username = this.state.eUsername;
+        }
+
+        if (this.state.eFullname != this.state.fullname) {
+            data.fullname = this.state.eFullname;
+        }
+
+        console.log(data)
+
+        /* NEED PHOTO HOSTING
+        if (this.state.eAvatar != this.state.avatar) {
+            
+        } */
+
+        /* NEED PYREBASE RE-AUTH
+        if (this.state.eEmail != this.state.email) {
+            data.username = this.state.eEmail;
+        } */
+
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then( () => {
+                /* Set the state for this page to include the relevant user 
+                information returned from the API call */
+                this.setState({
+                    username: this.state.eUsername,
+                    fullname: this.state.eFullname,
+                    // email: this.state.eEmail, NEED PYREBASE RE-AUTH
+                    // avatar: this.state.eAvatar ---- NEED PHOTO HOSTING
+                })
+
+                Actions.profile({ uid: this.state.uid})
+            })
+            
+            // Error
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            });
+        
+        // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
     }
 
     handleLogoutPress = () => {
@@ -110,7 +166,7 @@ export default class Profile extends Component {
     }
 
     handleUsernameChange = (eUsername) => {
-        this.setState({ eUsername: eUsername });
+        this.setState({ eUsername: eUsername.substr(1) });
     }
 
     handleEmailChange = (eEmail) => {
@@ -118,7 +174,7 @@ export default class Profile extends Component {
     }
 
     handleChangePasswordPress = () => {
-        console.log("CHANGE PASSWORD");
+        console.log("CHANGE PASSWORD PRESSED");
     }
 
     componentDidMount() {
@@ -134,7 +190,6 @@ export default class Profile extends Component {
             .then(response => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
-                console.log(response.data);
                 this.setState({
                     uid: this.props.uid,
                     username: response.data.username,
@@ -177,7 +232,9 @@ export default class Profile extends Component {
     }
 
     render() {
-        let saveStyle = this.editsMade() ? styles.topButton : styles.disabled;
+        let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eEmail ? 
+                        styles.topButton : styles.disabled;
+
         return (this.props.edit ? (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>

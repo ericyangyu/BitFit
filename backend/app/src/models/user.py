@@ -126,12 +126,13 @@ class User:
             # Set the fields to be updated
             data = {}
             if username is not None:
-                data['fullname'] = fullname
-            if fullname is not None:
                 data['username'] = username
+            if fullname is not None:
+                data['fullname'] = fullname
             if avatar is not None:
                 data['avatar'] = avatar
 
+            # print(data)
             # Update the data in the DB for this user and return a status code
             query = db.child("users").child(uid).update(data)
             return make_response(query, 200)

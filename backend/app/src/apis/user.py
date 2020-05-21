@@ -84,7 +84,6 @@ def get():
         username -> user's username
         fullname -> user's full name
         email -> user's email
-        password -> user's password
         avatar -> link to user's avatar
     """
     # Read incoming request data body
@@ -116,7 +115,7 @@ def update():
     avatar = request.json["avatar"] if "avatar" in request.json else None
 
     # Delegate to user model
-    return User.update(uid, fullname, username, avatar)
+    return User.update(uid, username, fullname, avatar)
 
 
 # NOTE: In progress, needs user idToken to work
