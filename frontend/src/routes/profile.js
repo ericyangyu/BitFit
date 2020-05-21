@@ -8,7 +8,7 @@
 
  // External imports
 import React, { Component } from 'react';
-import { Text, Image, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
 import axios from 'axios';
@@ -19,13 +19,15 @@ import axios from 'axios';
 import styles from '../style/r_profile'; 
 
 // Components
-import Input from "../components/input";
 import Button from "../components/button";
 
 // Images
 import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
-import profilePhoto from "../images/profile.png";
+
+// import profilePhoto from "../images/profile.png";
+// import TextField from "../components/text_field";
+
 
 /*
 // External imports
@@ -69,27 +71,31 @@ export default class Profile extends Component {
             username: "",
             fullname: "",
             email: "",
+            avatar: null,
             sessions: 0,
             time: 0,
             edit: false
         }
     }
 
-    edit = () => {
-        Actions.profile({ uid: this.props.uid, edit: true })
+    handleBackPress = () => {
+        if (this.state.edit) {
+            Actions.profile({ uid: this.state.uid, edit: false })
+        } else {
+            Actions.progress({ uid: this.state.uid })
+        }
     }
 
-    logout = () => {
+    handleEditPress = () => {
+        Actions.profile({ uid: this.state.uid, edit: true })
+    }
+
+    handleLogoutPress = () => {
         Actions.login()
     }
 
-    back = () => {
-        if (this.props.edit) {
-            Actions.profile({ uid: this.props.uid, edit: false })
-        } else {
-            Actions.progress({ uid: this.props.uid })
-        }
-    }
+
+
 
     saveAndResetStats = () => {
         // NEED TO UPDATE DATABASE
@@ -124,6 +130,7 @@ export default class Profile extends Component {
                     username: response.data.username,
                     fullname: response.data.fullname,
                     email: response.data.email,
+                    avatar: require("../images/profile.png") // HARDCODED: NEEDS UPLOAD PHOTO FEATURE
                 })
             })
             
@@ -148,7 +155,7 @@ export default class Profile extends Component {
         API IS DONE */
         this.setState({
             sessions: 4,
-            hours: 20
+            time: 20
         })
     }
 
@@ -157,7 +164,7 @@ export default class Profile extends Component {
             <Grid style={styles.container}>
                 <Row>
                     <Col>
-                        <TouchableOpacity onPress={() => back()}>
+                        <TouchableOpacity onPress={() => handleBackPress()}>
                             <Image style={styles.button} source={backButton} />
                         </TouchableOpacity>
                     </Col>  
@@ -166,45 +173,52 @@ export default class Profile extends Component {
             </Grid>
 
         ) : (
-            <Grid style={styles.container}>
-                <Row>
-                    <Col>
-                        <TouchableOpacity onPress={() => back()}>
-                            <Image style={styles.button} source={backButton} />
-                        </TouchableOpacity>
-                    </Col>
-                    <Col>
-                        <TouchableOpacity onPress={() => edit()}>
-                            <Image style={styles.button} source={editButton} />
-                        </TouchableOpacity>
-                    </Col>
+        <View style={styles.container}>
+            <View style={styles.topBar}>
+                <TouchableOpacity onPress={() => handleBackPress()}>
+                    <Image source={backButton} style={styles.topButton} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleEditPress()}>
+                    <Image source={editButton} style={styles.topButton} />
+                </TouchableOpacity>
+            </View>
+
+            <ScrollView style={styles.scrollView}>
+                    <Image source={this.state.avatar} style={styles.photo}/>
+
+                    <Grid>
+                        <Col>
+                            <Row>
+                                <Text style={styles.statsTitle}>Sessions</Text>
+                            </Row>
+                            <Row>
+                                <Text style={styles.stats}>
+                                    {this.state.sessions}
+                                </Text>
+                            </Row>
+                        </Col>
+                        <Col>
+                            <Row>
+                                <Text style={styles.statsTitle}>Time</Text>
+                            </Row>
+                            <Row>
+                                <Text style={styles.stats}>
+                                    {this.state.time}
+                                </Text>
+                            </Row>
+                        </Col>
+                    </Grid>
+
+                    <Text style={styles.info}>{this.state.fullname}</Text>
+                    <Text style={styles.info}>{this.state.username}</Text>
+                    <Text style={styles.info}>{this.state.email}</Text>
+
+                    <View style={styles.button}>
+                        <Button label={'LOG OUT'} onPress={() => handleLogoutPress()} />
+                    </View>
                     
-                </Row>
-                <Row>
-                    <Image source={profilePhoto} style={styles.photo} />
-                </Row>
-                <Row>
-                    <Col>
-                        <Row><Text> {this.props.sessions} </Text></Row>
-                        <Row><Text> Sessions </Text></Row>
-                    </Col>
-                    <Col>
-                        <Row><Text> {this.props.hours} </Text></Row>
-                        <Row><Text> Hours </Text></Row>
-                    </Col>
-                </Row>
-                <Row>
-                    <Row><Text> {this.props.fullname} </Text></Row>
-                    <Row><Text> @{this.props.username} </Text></Row>
-                    <Row><Text> {this.props.email } </Text></Row>
-                </Row>
-                <Row>
-                <Button
-                    label={'LOGOUT'}
-                    onPress={() => this.logout()}
-                />
-                </Row>
-            </Grid>
+            </ScrollView>
+        </View>
         ))
     }
 
