@@ -6,6 +6,8 @@
  * Authors: Nour and Samay
  */
 
+ // this.editsMade() STATEMENTS NEED TO BE IN ANOTHER SET STATE CALL
+ 
 // External imports
 import React, { Component } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
@@ -43,16 +45,23 @@ export default class Profile extends Component {
             email: "",
             eEmail: "",
             avatar: null,
+            eAvatar: null,
             sessions: 0,
+            eSessions: 0,
             time: 0,
-            edit: false,
-            editsMade: false
+            eTime: 0,
+            edit: false
         }
+    }
+
+    editsMade = () => {
+        return (this.state.eFullname != this.state.fullname) || (this.state.eUsername != this.state.username) ||
+               (this.state.eEmail != this.state.email) || (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
     }
 
     handleBackPress = () => {
         if (this.state.edit) {
-            if (this.state.editsMade) {
+            if (this.editsMade()) {
                 Alert.alert(
                     'You have some unsaved changes!',
                     "Are you sure you want to go back?",
@@ -85,31 +94,22 @@ export default class Profile extends Component {
         Alert.alert(
             'This will reset all your stats!',
             "If you save, they will be lost forever. Are you sure you want to proceed?",
-            [{ text: 'YES', onPress: () => this.setState({sessions: 0, time: 0,editsMade: true }) },
+            [{ text: 'YES', onPress: () => this.setState({eSessions: 0, eTime: 0}) },
              { text: 'NO' }],
             { cancelable: false }
         );
     }
 
     handleNameChange = (eFullname) => {
-        this.setState({ 
-            eFullname: eFullname,
-            editsMade: this.state.editsMade || (eFullname != this.state.fullname)
-        });
+        this.setState({ eFullname: eFullname });
     }
 
     handleUsernameChange = (eUsername) => {
-        this.setState({ 
-            eUsername: eUsername,
-            editsMade: this.state.editsMade || (eUsername != this.state.username)
-        });
+        this.setState({ eUsername: eUsername });
     }
 
     handleEmailChange = (eEmail) => {
-        this.setState({ 
-            eEmail: eEmail,
-            editsMade: this.state.editsMade || (eEmail != this.state.email)
-        });
+        this.setState({ eEmail: eEmail });
     }
 
     handleSavePress = () => {
@@ -139,6 +139,7 @@ export default class Profile extends Component {
                     email: response.data.email,
                     eEmail: response.data.email,
                     avatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
+                    eAvatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
                     edit: this.props.edit
                 })
             })
@@ -164,7 +165,9 @@ export default class Profile extends Component {
         API IS DONE */
         this.setState({
             sessions: 4,
-            time: 20
+            eSessions: 4,
+            time: 20,
+            eTime: 20
         })
     }
 
@@ -178,7 +181,7 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <Image source={this.state.avatar} style={styles.photo}/>
+                <Image source={this.state.eAvatar} style={styles.photo}/>
 
                 <View style={styles.button}>
                     <Button label={'EDIT PHOTO'} onPress={() => this.handleEditPhotoPress()} />
@@ -191,7 +194,7 @@ export default class Profile extends Component {
                         </Row>
                         <Row>
                             <Text style={styles.stats}>
-                                {this.state.sessions}
+                                {this.state.eSessions}
                             </Text>
                         </Row>
                     </Col>
@@ -201,7 +204,7 @@ export default class Profile extends Component {
                         </Row>
                         <Row>
                             <Text style={styles.stats}>
-                                {this.state.time}
+                                {this.state.eTime}
                             </Text>
                         </Row>
                     </Col>
