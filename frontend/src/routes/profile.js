@@ -27,6 +27,7 @@ import Input from "../components/input";
 // Images
 import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
+import saveButton from '../images/save_button.png'
 
 /**
  * Class that returns the Profile page with correct components and API calls.
@@ -81,6 +82,10 @@ export default class Profile extends Component {
         Actions.profile({ uid: this.state.uid, edit: true })
     }
 
+    handleSavePress = () => {
+        console.log("SAVE");
+    }
+
     handleLogoutPress = () => {
         Actions.login()
     }
@@ -112,8 +117,8 @@ export default class Profile extends Component {
         this.setState({ eEmail: eEmail });
     }
 
-    handleSavePress = () => {
-        console.log("SAVE");
+    handleChangePasswordPress = () => {
+        console.log("CHANGE PASSWORD");
     }
 
     componentDidMount() {
@@ -172,12 +177,16 @@ export default class Profile extends Component {
     }
 
     render() {
+        let saveStyle = this.editsMade() ? styles.topButton : styles.disabled;
         return (this.props.edit ? (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.topBar}>
                     <TouchableOpacity onPress={() => this.handleBackPress()}>
                         <Image source={backButton} style={styles.topButton} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.handleSavePress()} disabled={!this.editsMade()}>
+                        <Image source={saveButton} style={saveStyle} />
                     </TouchableOpacity>
                 </View>
 
@@ -234,7 +243,7 @@ export default class Profile extends Component {
                 />
 
                 <View style={styles.button}>
-                    <Button label={'SAVE'} onPress={() => this.handleSavePress()} />
+                    <Button label={'CHANGE PASSWORD'} onPress={() => this.handleChangePasswordPress()} />
                 </View>
             </ScrollView>
         </View>

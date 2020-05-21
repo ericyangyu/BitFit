@@ -24,8 +24,12 @@ export default StyleSheet.create({
     },
     topButton: {
         width: 55,
+        height: 55
+    },
+    disabled: {
+        width: 55,
         height: 55,
-        borderWidth: 5
+        opacity: 0.3
     },
     scrollView: {
         width: "100%",
