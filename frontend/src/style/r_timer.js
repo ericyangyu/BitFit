@@ -1,7 +1,7 @@
 /**
  * Stylesheet for the timer page.
  * 
- * Authors: ?
+ * Authors: Steven, Jeremy
  */
 
 import {StyleSheet} from 'react-native';
@@ -42,7 +42,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'stretch',
         justifyContent: 'space-between',
-        marginTop: 80,
+        marginTop: 70,
         marginBottom: 30,
     },
     lapTimer: {

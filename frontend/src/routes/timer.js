@@ -10,7 +10,7 @@
 
 // External Imports
 import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // internal imports (useful components)
@@ -100,6 +100,8 @@ export default class WorkoutTimer extends Component {
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
                 />
+                <Text style={{color: '#FFFFFF', fontSize: 24}}>Crunches</Text>
+                <Text style={{color: '#FFFFFF'}}>Core</Text>
                 {laps.length === 0 && (
                 <ButtonsRow>
                     <RoundButton
@@ -148,7 +150,7 @@ export default class WorkoutTimer extends Component {
                     />
                 </ButtonsRow>
                 )}
-                <View style={{paddingTop: 150}}>
+                <View style={{paddingTop: 110}}>
                     <Button
                         title='Cancel Workout'
                         color='#E33935'
