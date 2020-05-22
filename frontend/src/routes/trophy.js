@@ -1,18 +1,6 @@
 /**
  * The trophy case which contains all of the trophies for the current user.
  * 
- *     // When the sencre mounts
-    // Get all the trophies for this user, where only the trophy id and (description) --> get all trophies for UID
-    // for each trophy
-    // pass trophy id into trophy component --> within the trophy component --> get trophy status for trophyID
-    // description is what is in the alert when trophy is pressed
-    // display correct image based on if earned or not
-
-    // create a trophy component --> "" or "08/09/09"
-    // create actual trophies in our db
-    // create earned trophies for a user when the user is created
-    // write get trophies from UID API call
-    // write get trophy earned status from Trophy UID API call
  * Authors: Emily
  */
 
@@ -22,12 +10,20 @@ import {
   View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 
 // Internal Imports
 // Components
 import Trophy_component from "../components/trophy"
+
+// Images
+import profile_photo from '../images/profile_photo.png'
+import back_button from '../images/back_button.png'
+
+// Stylesheet
+import styles from "../style/r_trophy"
 
 
 /**
@@ -57,9 +53,6 @@ export default class Trophy extends Component {
         this.setState({
           response: data
         })
-        console.log("Printing state for response")
-        console.log(this.state.response)
-        console.log("Done")
       })
 
       // Error
@@ -79,6 +72,16 @@ export default class Trophy extends Component {
       });
   }
 
+  // Route to the progress page when back button is pressed
+  goToProgress = () => {
+    Actions.progress({ uid: this.props.uid })
+  }
+
+  // Route to the profile page when the profile button is pressed
+  goToProfile = () => {
+    Actions.profile({ uid: this.props.uid })
+  }
+
   // Render the page
   render() {
     return (
@@ -86,10 +89,10 @@ export default class Trophy extends Component {
         <Row>
           <Col>
             <View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={this.goToProgress}>
                 <Image
-                  style={{ width: 75, height: 75 }}
-                  source={require('../images/back_button.png')}
+                  style={styles.images}
+                  source={back_button}
                 />
               </TouchableOpacity>
             </View>
@@ -97,19 +100,11 @@ export default class Trophy extends Component {
           <Col></Col>
           <Col></Col>
           <Col>
-            <View>
-              <TouchableOpacity>
-                <Image
-                  style={{ width: 75, height: 75 }}
-                  source={require('../images/profile_photo.png')}
-                />
-              </TouchableOpacity>
-            </View>
           </Col>
         </Row>
         <Row></Row>
         <Row>
-          <Text style={styles.headerStyle}>Congratulations, Name!</Text>
+          <Text style={styles.headerStyle}>Congratulations!</Text>
         </Row>
         <Row>
           <Text style={styles.headerStyle}>Keep Working Out to</Text>
@@ -226,55 +221,3 @@ export default class Trophy extends Component {
     );
   }
 }
-
-const styles = {
-  container: {
-    backgroundColor: '#f3ebe1',
-    marginTop: 0,
-    alignItems: 'center',
-  },
-  progressbar: {
-    marginTop: 13,
-  },
-  buttonStyle: {
-    marginTop: 10,
-    marginBottom: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    backgroundColor: '#212143',
-    borderRadius: 10,
-    borderColor: '#fff',
-  },
-  buttonTextStyle: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '100',
-    marginBottom: 0,
-    color: '#fff',
-  },
-  headerStyle: {
-    fontSize: 36,
-    textAlign: 'center',
-  },
-  textStyle: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '100',
-    marginBottom: 0,
-  },
-  box: {
-    fontSize: 36,
-    textAlign: 'center',
-    fontWeight: '100',
-    borderWidth: 2,
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  elementsContainer: {
-    backgroundColor: '#ecf5fd',
-    marginLeft: 24,
-    marginRight: 24,
-    marginBottom: 24,
-  },
-};
