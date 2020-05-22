@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -8,17 +8,16 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 // import { ProgressBar, Colors } from "react-native-paper";
 // import HideableView from 'react-native-hideable-view';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
 export default class Trophy extends Component {
   // Call the super constructor and initalize a state variable
   constructor(props) {
-    super(props)
-    this.state = {
-    }
+    super(props);
+    this.state = {};
   }
 
   componentDidMount() {
@@ -29,16 +28,14 @@ export default class Trophy extends Component {
     // description is what is in the alert when trophy is pressed
     // display correct image based on if earned or not
 
-
     // create a trophy component --> "" or "08/09/09"
     // create actual trophies in our db
     // create earned trophies for a user when the user is created
     // write get trophies from UID API call
     // write get trophy earned status from Trophy UID API call
 
-
-    console.log("Printing UID in Trophy.js")
-    console.log(this.props.uid)
+    console.log('Printing UID in Trophy.js');
+    console.log(this.props.uid);
   }
 
   render() {
@@ -49,8 +46,8 @@ export default class Trophy extends Component {
             <View>
               <TouchableOpacity>
                 <Image
-                  style={{ width: 75, height: 75 }}
-                  source={require("../images/back_button.png")}
+                  style={{width: 75, height: 75}}
+                  source={require('../images/back_button.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -61,8 +58,8 @@ export default class Trophy extends Component {
             <View>
               <TouchableOpacity>
                 <Image
-                  style={{ width: 75, height: 75 }}
-                  source={require("../images/profile_photo.png")}
+                  style={{width: 75, height: 75}}
+                  source={require('../images/profile_photo.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -81,38 +78,29 @@ export default class Trophy extends Component {
         <Row></Row>
         <Row>
           <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
-              <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_1.png")}
-              />
-            </TouchableOpacity>
+            <Trophy
+              trophy_id="trophy_1"
+              date_earned="090909"
+              Progress_to_req="almost"
+              details="50 squats"
+            />
+          </Col>
+          <Col>
+          <Trophy
+              trophy_id="trophy_2"
+              date_earned="090909"
+              Progress_to_req="test"
+              details="pull-ups"
+            />
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_2.png")}
-              />
-            </TouchableOpacity>
-          </Col>
-          <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
-              <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_1.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
           </Col>
@@ -123,36 +111,33 @@ export default class Trophy extends Component {
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_2.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_1.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_2.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
           </Col>
@@ -162,36 +147,33 @@ export default class Trophy extends Component {
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_1.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_2.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert("Some information about how you earned this trophy")
-              }
-            >
+                alert('Some information about how you earned this trophy')
+              }>
               <Image
-                style={{ width: 75, height: 75, alignSelf: "center" }}
-                source={require("../images/trophy_1.png")}
+                style={{width: 75, height: 75, alignSelf: 'center'}}
+                source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
           </Col>
@@ -204,9 +186,9 @@ export default class Trophy extends Component {
 
 const styles = {
   container: {
-    backgroundColor: "#f3ebe1",
+    backgroundColor: '#f3ebe1',
     marginTop: 0,
-    alignItems: "center",
+    alignItems: 'center',
   },
   progressbar: {
     marginTop: 13,
@@ -217,37 +199,37 @@ const styles = {
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: "#212143",
+    backgroundColor: '#212143',
     borderRadius: 10,
-    borderColor: "#fff",
+    borderColor: '#fff',
   },
   buttonTextStyle: {
     fontSize: 20,
-    textAlign: "center",
-    fontWeight: "100",
+    textAlign: 'center',
+    fontWeight: '100',
     marginBottom: 0,
-    color: "#fff",
+    color: '#fff',
   },
   headerStyle: {
     fontSize: 36,
-    textAlign: "center",
+    textAlign: 'center',
   },
   textStyle: {
     fontSize: 20,
-    textAlign: "center",
-    fontWeight: "100",
+    textAlign: 'center',
+    fontWeight: '100',
     marginBottom: 0,
   },
   box: {
     fontSize: 36,
-    textAlign: "center",
-    fontWeight: "100",
+    textAlign: 'center',
+    fontWeight: '100',
     borderWidth: 2,
     marginLeft: 20,
     marginRight: 20,
   },
   elementsContainer: {
-    backgroundColor: "#ecf5fd",
+    backgroundColor: '#ecf5fd',
     marginLeft: 24,
     marginRight: 24,
     marginBottom: 24,
