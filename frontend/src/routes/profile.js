@@ -81,69 +81,85 @@ export default class Profile extends Component {
     }
 
     onSavePress = () => {
-        // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/update';
-        let data = {
-            'uid': this.props.uid
-        };
+        Alert.alert(
+            'Are you sure you want to save your changes?',
+            "",
+            [{ text: 'YES', onPress: () => {
+                // Call user API to get user info
+                let url = 'http://10.0.2.2:4200/apis/user/update';
+                let data = {
+                    'uid': this.props.uid
+                };
 
-        if (this.state.eUsername != this.state.username) {
-            data.username = this.state.eUsername;
-        }
-
-        if (this.state.eFullname != this.state.fullname) {
-            data.fullname = this.state.eFullname;
-        }
-
-        console.log(data)
-
-        /* NEED PHOTO HOSTING
-        if (this.state.eAvatar != this.state.avatar) {
-            
-        } */
-
-        /* NEED PYREBASE RE-AUTH
-        if (this.state.eEmail != this.state.email) {
-            data.username = this.state.eEmail;
-        } */
-
-        // Make API call
-        axios.post(url, data)
-            // Success
-            .then( () => {
-                /* Set the state for this page to include the relevant user 
-                information returned from the API call */
-                this.setState({
-                    username: this.state.eUsername,
-                    fullname: this.state.eFullname,
-                    // email: this.state.eEmail, NEED PYREBASE RE-AUTH
-                    // avatar: this.state.eAvatar ---- NEED PHOTO HOSTING
-                })
-
-                Actions.profile({ uid: this.state.uid})
-            })
-            
-            // Error
-            .catch(error => {
-                // Log error 
-                if (error.response) {
-                    // Call was unsuccessful
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                } else if (error.request) {
-                    // Request was made but no response was received.
-                    console.log(error.request);
-                } else {
-                    // Something else cause an error
-                    console.log('Error', error.message);
+                if (this.state.eUsername != this.state.username) {
+                    data.username = this.state.eUsername;
                 }
-            });
+
+                if (this.state.eFullname != this.state.fullname) {
+                    data.fullname = this.state.eFullname;
+                }
+
+                console.log(data)
+
+                /* NEED PHOTO HOSTING
+                if (this.state.eAvatar != this.state.avatar) {
+                    
+                } */
+
+                /* NEED PYREBASE RE-AUTH
+                if (this.state.eEmail != this.state.email) {
+                    data.username = this.state.eEmail;
+                } */
+
+                // Make API call
+                axios.post(url, data)
+                    // Success
+                    .then( () => {
+                        /* Set the state for this page to include the relevant user 
+                        information returned from the API call */
+                        this.setState({
+                            username: this.state.eUsername,
+                            fullname: this.state.eFullname,
+                            // email: this.state.eEmail, NEED PYREBASE RE-AUTH
+                            // avatar: this.state.eAvatar ---- NEED PHOTO HOSTING
+                        })
+
+                        Actions.profile({ uid: this.state.uid})
+                    })
+                    
+                    // Error
+                    .catch(error => {
+                        // Log error 
+                        if (error.response) {
+                            // Call was unsuccessful
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                        } else if (error.request) {
+                            // Request was made but no response was received.
+                            console.log(error.request);
+                        } else {
+                            // Something else cause an error
+                            console.log('Error', error.message);
+                        }
+                    });
+                
+                // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
+            }},
+             { text: 'NO' }],
+            { cancelable: false }
+        );
         
-        // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
+
     }
 
     onLogoutPress = () => {
-        Actions.login()
+        Alert.alert(
+            'Are you sure you want to log out?',
+            "You will be taken to the log in screen.",
+            [{ text: 'YES', onPress: () => Actions.login() },
+             { text: 'NO' }],
+            { cancelable: false }
+        );
     }
 
     onEditPhotoPress = () => {
@@ -166,7 +182,7 @@ export default class Profile extends Component {
     }
 
     onUsernameChange = (eUsername) => {
-        this.setState({ eUsername: eUsername.substr(1) });
+        this.setState({ eUsername: eUsername });
     }
 
     onEmailChange = (eEmail) => {
@@ -284,13 +300,13 @@ export default class Profile extends Component {
                     style={styles.input}
                     value={this.state.eFullname}
                     onChangeText={this.onNameChange}
-                    placeholder={this.state.eFullname}
+                    placeholder={"Name"}
                 />
                 <Input
                     style={styles.input}
-                    value={"@" + this.state.eUsername}
+                    value={this.state.eUsername}
                     onChangeText={this.onUsernameChange}
-                    placeholder={"@" + this.state.eUsername}
+                    placeholder={"Username"}
                 />
             </ScrollView>
         </View>
