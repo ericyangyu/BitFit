@@ -12,7 +12,7 @@ from requests.exceptions import HTTPError  # To access HTTPError
 import requests  # To make cURL requests
 
 # Internal imports
-from ...config import db, auth, api_key, create_error_message
+from ...config import db, auth, api_key, create_error_message, raise_error
 
 
 class User:
@@ -149,20 +149,24 @@ class User:
 
             headers = {'Content-Type': 'application/json'}
             params = {'key': api_key}
+
             data = ('{"idToken":"' + user['idToken'] + '",'
                     '"email":"' + u_email + '",'
-                    '"returnSecureToken":true}' if u_password is None else
+                    '"returnSecureToken":true}' if u_email else
                     '{"idToken":"' + user['idToken'] + '",'
                     '"password":"' + u_password + '",'
                     '"returnSecureToken":true}')
 
-            requests.post('https://identitytoolkit.googleapis.com/v1/accounts:'
-                          'update', headers=headers, params=params, data=data)
+            request = requests.post('https://identitytoolkit.googleapis.com/'
+                                    'v1/accounts:update',
+                                    headers=headers, params=params, data=data)
 
-            reason = ('Email updated.' if u_password is None
-                      else 'Password updated')
+            if request.status_code != requests.codes.ok:
+                raise_error(request)
 
-            if u_password is None:
+            reason = ('Email updated.' if u_email else 'Password updated')
+
+            if u_email:
                 db.child("users").child(uid).update({'email': u_email})
 
             return make_response({'reason': reason}, 200)
@@ -178,10 +182,15 @@ class User:
 
             headers = {'Content-Type': 'application/json'}
             params = {'key': api_key}
-            data = '{"idToken":"' + user['idToken'] + '}'
+            data = ('{"idToken":"' + user['idToken'] +
+                    '", "returnSecureToken":true}')
 
-            requests.post('https://identitytoolkit.googleapis.com/v1/accounts:'
-                          'delete', headers=headers, params=params, data=data)
+            request = requests.post('https://identitytoolkit.googleapis.com/'
+                                    'v1/accounts:delete',
+                                    headers=headers, params=params, data=data)
+
+            if request.status_code != requests.codes.ok:
+                raise_error(request)
 
             db.child("users").child(uid).remove()
 
