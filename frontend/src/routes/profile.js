@@ -58,7 +58,7 @@ export default class Profile extends Component {
                (this.state.eEmail != this.state.email) || (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
     }
 
-    handleBackPress = () => {
+    onBackPress = () => {
         if (this.state.edit) {
             if (this.editsMade()) {
                 Alert.alert(
@@ -76,11 +76,11 @@ export default class Profile extends Component {
         }
     }
 
-    handleEditPress = () => {
+    onEditPress = () => {
         Actions.profile({ uid: this.state.uid, edit: true })
     }
 
-    handleSavePress = () => {
+    onSavePress = () => {
         // Call user API to get user info
         let url = 'http://10.0.2.2:4200/apis/user/update';
         let data = {
@@ -142,16 +142,16 @@ export default class Profile extends Component {
         // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
     }
 
-    handleLogoutPress = () => {
+    onLogoutPress = () => {
         Actions.login()
     }
 
-    handleEditPhotoPress = () => {
+    onEditPhotoPress = () => {
         // NEED PHOTO HOSTING
         console.log('Edit Profile Photo Press');
     }
 
-    handleResetStatsPress = () => {
+    onResetStatsPress = () => {
         Alert.alert(
             'This will reset all your stats!',
             "If you save, they will be lost forever. Are you sure you want to proceed?",
@@ -161,20 +161,20 @@ export default class Profile extends Component {
         );
     }
 
-    handleNameChange = (eFullname) => {
+    onNameChange = (eFullname) => {
         this.setState({ eFullname: eFullname });
     }
 
-    handleUsernameChange = (eUsername) => {
+    onUsernameChange = (eUsername) => {
         this.setState({ eUsername: eUsername.substr(1) });
     }
 
-    handleEmailChange = (eEmail) => {
+    onEmailChange = (eEmail) => {
         this.setState({ eEmail: eEmail });
     }
 
-    handleChangePasswordPress = () => {
-        console.log("CHANGE PASSWORD PRESSED");
+    onAccountSettingsPress = () => {
+        Actions.settings({ uid: this.state.uid})
     }
 
     componentDidMount() {
@@ -233,16 +233,16 @@ export default class Profile extends Component {
 
     render() {
         let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eEmail ? 
-                        styles.topButton : styles.disabled;
+                        styles.topButton : [styles.topButton, styles.disabled];
 
         return (this.props.edit ? (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.topBar}>
-                    <TouchableOpacity onPress={() => this.handleBackPress()}>
+                    <TouchableOpacity onPress={() => this.onBackPress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.handleSavePress()} disabled={!this.editsMade()}>
+                    <TouchableOpacity onPress={() => this.onSavePress()} disabled={!this.editsMade()}>
                         <Image source={saveButton} style={saveStyle} />
                     </TouchableOpacity>
                 </View>
@@ -250,7 +250,7 @@ export default class Profile extends Component {
                 <Image source={this.state.eAvatar} style={styles.photo}/>
 
                 <View style={styles.button}>
-                    <Button label={'EDIT PHOTO'} onPress={() => this.handleEditPhotoPress()} />
+                    <Button label={'EDIT PHOTO'} onPress={() => this.onEditPhotoPress()} />
                 </View>
 
                 <Grid>
@@ -277,31 +277,21 @@ export default class Profile extends Component {
                 </Grid>
 
                 <View style={styles.button}>
-                    <Button label={'RESET STATS'} onPress={() => this.handleResetStatsPress()} />
+                    <Button label={'RESET STATS'} onPress={() => this.onResetStatsPress()} />
                 </View>
 
                 <Input
                     style={styles.input}
                     value={this.state.eFullname}
-                    onChangeText={this.handleNameChange}
+                    onChangeText={this.onNameChange}
                     placeholder={this.state.eFullname}
                 />
                 <Input
                     style={styles.input}
                     value={"@" + this.state.eUsername}
-                    onChangeText={this.handleUsernameChange}
+                    onChangeText={this.onUsernameChange}
                     placeholder={"@" + this.state.eUsername}
                 />
-                <Input
-                    style={styles.input}
-                    value={this.state.eEmail}
-                    onChangeText={this.handleEmailChange}
-                    placeholder={this.state.eEmail}
-                />
-
-                <View style={styles.button}>
-                    <Button label={'CHANGE PASSWORD'} onPress={() => this.handleChangePasswordPress()} />
-                </View>
             </ScrollView>
         </View>
 
@@ -310,10 +300,10 @@ export default class Profile extends Component {
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.topBar}>
-                    <TouchableOpacity onPress={() => this.handleBackPress()}>
+                    <TouchableOpacity onPress={() => this.onBackPress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.handleEditPress()}>
+                    <TouchableOpacity onPress={() => this.onEditPress()}>
                         <Image source={editButton} style={styles.topButton} />
                     </TouchableOpacity>
                 </View>
@@ -348,7 +338,8 @@ export default class Profile extends Component {
                 <Text style={styles.info}>{this.state.email}</Text>
 
                 <View style={styles.button}>
-                    <Button label={'LOG OUT'} onPress={() => this.handleLogoutPress()} />
+                    <Button label={'ACCOUNT SETTINGS'} onPress={() => this.onAccountSettingsPress()} />
+                    <Button label={'LOG OUT'} onPress={() => this.onLogoutPress()} />
                 </View>   
             </ScrollView>
         </View>
