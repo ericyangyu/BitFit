@@ -26,9 +26,9 @@ export default class WorkoutTimer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        start: 0,
-        now: 0,
-        laps: [ ],
+            start: 0,
+            now: 0,
+            laps: [ ],
         }
     }
 
@@ -49,26 +49,21 @@ export default class WorkoutTimer extends Component {
         }, 100)
     }
 
-    end = () => {
-        //const timestamp = new Date().getTime()
-        //const { laps, now, start } = this.state
-        //const [firstLap, ...other] = laps
-        //this.setState({
-        //laps: [0, firstLap + now - start, ...other],
-        //start: timestamp,
-        //now: timestamp,
-        //})
-        Actions.stats();
+    finish = () => {
+        const { laps, now, start } = this.state;
+        const timer = now - start;
+        // calculates the duration of the workout in hours rounded to 2 decimal places
+        const duration = ((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2);
+        Actions.stats({duration: duration});
 
-        // send data somewhere, end timer, then return to homepage
     }
 
-    stop = () => {
+    pause = () => {
         clearInterval(this.timer)
         const { laps, now, start } = this.state
-        const [firstLap, ...other] = laps
+        const [firstLap] = laps
         this.setState({
-            laps: [firstLap + now - start, ...other],
+            laps: [firstLap + now - start],
             start: 0,
             now: 0,
         })
@@ -106,7 +101,7 @@ export default class WorkoutTimer extends Component {
                 {laps.length === 0 && (
                 <ButtonsRow>
                     <RoundButton
-                        title='End'
+                        title='Finish'
                         color='#8B8B90'
                         background='#151515'
                         disabled
@@ -122,16 +117,16 @@ export default class WorkoutTimer extends Component {
                 {start > 0 && (
                 <ButtonsRow>
                     <RoundButton
-                        title='End'
+                        title='Finish'
                         color='#FFFFFF'
                         background='#3D3D3D'
-                        onPress={this.end}
+                        onPress={this.finish}
                     />
                     <RoundButton
                         title='Pause'
                         color='#E33935'
                         background='#3C1715'
-                        onPress={this.stop}
+                        onPress={this.pause}
                     />
                 </ButtonsRow>
                 )}
@@ -144,7 +139,7 @@ export default class WorkoutTimer extends Component {
                         onPress={this.reset}
                     />
                     <RoundButton
-                        title='Start'
+                        title='Resume'
                         color='#50D167'
                         background='#1B361F'
                         onPress={this.resume}

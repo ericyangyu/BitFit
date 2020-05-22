@@ -21,9 +21,9 @@ export default class Clock extends Component {
         const centiseconds = Math.floor(duration.milliseconds() / 10)
         return (
             <View style={styles.timerContainer}>
+            <Text style={this.props.style}>{pad(duration.hours())}:</Text>
             <Text style={this.props.style}>{pad(duration.minutes())}:</Text>
-            <Text style={this.props.style}>{pad(duration.seconds())}:</Text>
-            <Text style={this.props.style}>{pad(centiseconds)}</Text>
+            <Text style={this.props.style}>{pad(duration.seconds())}</Text>
             </View>
         )
     }
