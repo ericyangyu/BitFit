@@ -36,6 +36,9 @@ firebase = pyrebase.initialize_app({
 db = firebase.database()
 auth = firebase.auth()
 
+# API key for identity providers
+api_key = 'AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk'
+
 
 def create_error_message(e):
     """
