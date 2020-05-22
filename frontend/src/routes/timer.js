@@ -58,6 +58,7 @@ export default class WorkoutTimer extends Component {
         //start: timestamp,
         //now: timestamp,
         //})
+        Actions.stats();
 
         // send data somewhere, end timer, then return to homepage
     }
