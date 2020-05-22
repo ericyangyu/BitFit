@@ -1,7 +1,7 @@
 """
 Description: Recieves data from the middleware, and makes the correct Pyrebase
-API calls to update data about the user's workouts in Firebase. Contains error checking
-for errors in calls to Firebase.
+API calls to update data about the user's workouts in Firebase. Contains error
+checking for errors in calls to Firebase.
 
 Authors: Jeremy, Steven
 """
@@ -13,19 +13,20 @@ from requests.exceptions import HTTPError  # To access HTTPError
 # Internal imports
 from ...config import db, auth, create_error_message  # , raise_detailed_error
 
+
 class CompletedWorkouts:
     """
     This class shows the completed workouts of a user
     """
 
     @staticmethod
-    def addWorkouts(uid: integer, workout_id: integer, duration: time):
+    def addWorkouts(uid: str, workout_id: str, duration: int):
         """
 
         Arguments:
             uid {integer} -> user's unique id
             workout_id {integer} -> the type of workout
-            duration {time} -> time spent on workout
+            duration {integer} -> time (in seconds) spent on workout
 
         Returns:
             response object -> If valid call, returns the uid of the user and a
