@@ -10,14 +10,14 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.update_stats import UpdateStats  # User model
+from ..models.progress import UpdateStats  # User model
 
 # Define the user_api blueprint route for all user-related api calls
 progress = Blueprint("progress", __name__)
 CORS(progress, supports_credentials=True)
 
 
-@update_stats.route("/update_stats", methods=["POST"])
+@progress.route("/update_stats", methods=["POST"])
 def update_stats():
     """
     Updates a user's stats.
