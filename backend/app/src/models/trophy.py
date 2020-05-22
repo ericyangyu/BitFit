@@ -21,7 +21,7 @@ class Trophy:
     """
 
     @staticmethod
-    def get_all_trophies(self):
+    def get_all_trophies():
         """
             Retrieves every single trophy in the trophy database.
 
@@ -32,35 +32,37 @@ class Trophy:
         trophies = {}
 
         for data in db.child("trophies").get().each():
-            trophy = data.val()
-            trophies[trophy['id']] = trophy
-
+            trophies[data.key()] = data.val()
         return trophies
 
     @staticmethod
-    def get_user_trophies(self, uid: int):
+    def get_user_trophies(uid: int):
         """
-            Retrieves all of the user's trophies.
+            Retrieves all of the user's trophies. Adds a description field for
+            each trophy returned that contains the actual information about
+            the trophy itself.
 
             Arguments:
                 uid {int}: The user's unique id.
-            
+
             Returns:
                 response_object -> If valid call, returns the list of user's
                 trophies and a 200 status code.
         """
+        # get all trophies from the trophies table
+        all_trophies = Trophy.get_all_trophies()
 
-        all_trophies = self.get_all_trophies()
+        # gets all trophies specific to the user
+        results = db.child("earned_trophies").order_by_child("uid").equal_to(uid).get()
 
-        results = db.child("earned_trophies").order_by_child("user_id").equal_to(uid).get()
         trophies = []
-
-        for troph in results:
+        for troph in results.each():
+            # get the data for this specific user trophy
             data = troph.val()
 
             # include another field that includes the trophy details
-            #   to avoid an extra API call on front-end
-            data['details'] = all_trophies[data['trophy_id']]
+            # to avoid an extra API call on front-end
+            data["details"] = all_trophies[data["trophy_id"]]
             trophies.append(data)
-        
+
         return make_response(trophies, 200)

@@ -1,27 +1,7 @@
-import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-// import { ProgressBar, Colors } from "react-native-paper";
-// import HideableView from 'react-native-hideable-view';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-
-export default class Trophy extends Component {
-  // Call the super constructor and initalize a state variable
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    // When the sencre mounts
+/**
+ * The trophy case which contains all of the trophies for the current user.
+ * 
+ *     // When the sencre mounts
     // Get all the trophies for this user, where only the trophy id and (description) --> get all trophies for UID
     // for each trophy
     // pass trophy id into trophy component --> within the trophy component --> get trophy status for trophyID
@@ -33,11 +13,67 @@ export default class Trophy extends Component {
     // create earned trophies for a user when the user is created
     // write get trophies from UID API call
     // write get trophy earned status from Trophy UID API call
+ * Authors: Emily
+ */
 
-    console.log('Printing UID in Trophy.js');
-    console.log(this.props.uid);
+// External Imports
+import React, { Component } from 'react';
+import {
+  View, Text, Image, TouchableOpacity,
+} from 'react-native';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import axios from 'axios';
+
+
+// Internal Imports
+// Components
+import Trophy_component from "../components/trophy"
+
+
+/**
+ * This class contains the logic for the frontend to display the trophy case
+ */
+export default class Trophy extends Component {
+  // Call the super constructor and initalize a state variable
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
+  componentDidMount() {
+    // Indicate which API to call and what data to pass in
+    let url = 'http://10.0.2.2:4200/apis/trophy/get_user_trophies';
+    let data = {
+      'uid': this.props.uid
+    };
+
+    // Make API call
+    axios.post(url, data)
+      // Success
+      .then(response => {
+        /* Navigate to progress page and pass uid as prop. This allows
+        the next page to know which user is logged in */
+        console.log(response.data);
+      })
+
+      // Error
+      .catch(error => {
+        // Log error 
+        if (error.response) {
+          // Call was unsuccessful
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          // Request was made but no response was received.
+          console.log(error.request);
+        } else {
+          // Something else cause an error
+          console.log('Error', error.message);
+        }
+      });
+  }
+
+  // Render the page
   render() {
     return (
       <Grid style={styles.container}>
@@ -46,7 +82,7 @@ export default class Trophy extends Component {
             <View>
               <TouchableOpacity>
                 <Image
-                  style={{width: 75, height: 75}}
+                  style={{ width: 75, height: 75 }}
                   source={require('../images/back_button.png')}
                 />
               </TouchableOpacity>
@@ -58,7 +94,7 @@ export default class Trophy extends Component {
             <View>
               <TouchableOpacity>
                 <Image
-                  style={{width: 75, height: 75}}
+                  style={{ width: 75, height: 75 }}
                   source={require('../images/profile_photo.png')}
                 />
               </TouchableOpacity>
@@ -78,19 +114,19 @@ export default class Trophy extends Component {
         <Row></Row>
         <Row>
           <Col>
-            <Trophy
-              trophy_id="trophy_1"
-              date_earned="090909"
-              Progress_to_req="almost"
-              details="50 squats"
+            <Trophy_component
+              trophy_id={"trophy_1"}
+              date_earned={""}
+              Progress_to_req={"almost"}
+              details={"50 squats"}
             />
           </Col>
           <Col>
-          <Trophy
-              trophy_id="trophy_2"
-              date_earned="090909"
-              Progress_to_req="test"
-              details="pull-ups"
+            <Trophy_component
+              trophy_id={"trophy_1"}
+              date_earned={""}
+              Progress_to_req={"almost"}
+              details={"50 squats"}
             />
           </Col>
           <Col>
@@ -99,7 +135,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
@@ -114,7 +150,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
@@ -125,7 +161,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
@@ -136,7 +172,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
@@ -150,7 +186,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>
@@ -161,7 +197,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_2.png')}
               />
             </TouchableOpacity>
@@ -172,7 +208,7 @@ export default class Trophy extends Component {
                 alert('Some information about how you earned this trophy')
               }>
               <Image
-                style={{width: 75, height: 75, alignSelf: 'center'}}
+                style={{ width: 75, height: 75, alignSelf: 'center' }}
                 source={require('../images/trophy_1.png')}
               />
             </TouchableOpacity>

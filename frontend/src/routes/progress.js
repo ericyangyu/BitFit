@@ -38,6 +38,7 @@ export default class Progress extends Component {
 
     // Route to the trophy page when the trophy button is pressed
     goToTrophy = () => {
+        console.log("Going to Trophy...")
         Actions.trophy({ uid: this.props.uid })
     }
 
