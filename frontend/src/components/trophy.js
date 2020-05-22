@@ -29,10 +29,10 @@ export default class Trophy_Component extends Component {
   render() {
     // Saving the props
     const {
-      trophy_id,
+      name,
       date_earned,
       Progress_to_req,
-      details,
+      description,
       ...otherProps
     } = this.props;
 
@@ -52,7 +52,7 @@ export default class Trophy_Component extends Component {
 
     // Display the trophy image
     return (
-      <TouchableOpacity onPress={() => alert({ details })}>
+      <TouchableOpacity onPress={() => alert({ description })}>
         <Image
           style={styles.trophy_img}
           source={trophy_img}

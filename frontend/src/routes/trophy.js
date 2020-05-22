@@ -77,13 +77,12 @@ export default class Trophy extends Component {
     Actions.progress({ uid: this.props.uid })
   }
 
-  // Route to the profile page when the profile button is pressed
-  goToProfile = () => {
-    Actions.profile({ uid: this.props.uid })
-  }
-
   // Render the page
   render() {
+    if (this.state.response === []) {
+      return <Text>Loading...</Text>
+    }
+
     return (
       <Grid style={styles.container}>
         <Row>
@@ -110,17 +109,17 @@ export default class Trophy extends Component {
           <Text style={styles.headerStyle}>Keep Working Out to</Text>
         </Row>
         <Row>
-          <Text style={styles.headerStyle}>Collect More Trohpies!</Text>
+          <Text style={styles.headerStyle}>Collect More Trophies!</Text>
         </Row>
         <Row></Row>
         <Row>
           <Col>
-            <Trophy_component
-              trophy_id={this.state.response[0]}
-              date_earned={this.state.response[0]}
-              Progress_to_req={this.state.response[0]}
-              details={this.state.response[0]}
-            />
+            {/* <Trophy_component
+              name={this.state.response[0].details}
+              date_earned={this.state.response[0].date_earned}
+              Progress_to_req={this.state.response[0].Progress_to_req}
+              description={this.state.response[0].details.description}
+            /> */}
           </Col>
           <Col>
             {/* <Trophy_component
