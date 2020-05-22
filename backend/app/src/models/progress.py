@@ -1,7 +1,5 @@
 """
 Description: Recieves data from the middleware, and makes the correct Pyrebase
-API calls to update data about the user's workouts in Firebase. Contains error
-checking for errors in calls to Firebase.
 
 Authors: Jeremy, Steven
 """
@@ -14,19 +12,20 @@ from requests.exceptions import HTTPError  # To access HTTPError
 from ...config import db, create_error_message  # , raise_detailed_error
 
 
-class CompletedWorkouts:
+class UpdateStats:
     """
     This class shows the completed workouts of a user
     """
 
     @staticmethod
-    def add_workouts(uid: str, workout_id: str, duration: int):
+    def update_stats(uid: str, body_part: str, exp: float, level: int):
         """
 
         Arguments:
-            uid {integer} -> user's unique id
-            workout_id {integer} -> the type of workout
-            duration {integer} -> time (in seconds) spent on workout
+            uid {str} -> user's unique id
+            body_part {str} -> the body part that was worked out
+            exp {float} -> the experience of the body part
+            level {integer} -> the level of the current body part
 
         Returns:
             response object -> If valid call, returns the uid of the user and a
@@ -39,11 +38,12 @@ class CompletedWorkouts:
 
             # Data to be added into DB for the user
             data = {
-                "duration": duration
+                "exp": exp,
+                "level": level
             }
 
             # Insert user to DB with local id as key
-            query = db.child("completed_workouts").child(uid).child(workout_id).update(data)
+            query = db.child("update_stats").child(uid).child(body_part).update(data)
 
             # Return the user uid
             return make_response(query, 200)
