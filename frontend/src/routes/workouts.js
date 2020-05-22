@@ -22,111 +22,164 @@ import { Actions } from 'react-native-router-flux';
 // Components
 import Button from '../components/button';
 
-function MainFocusPage() {
-	const goToSuggestedWorkouts = () => {
+class MainFocusPage extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+			focus: None,
+			image_url: None,
+			description: None
+        }
+	}
+
+	get_focus() {
+
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/bodyparts/focus';
+        // let data = {
+        //     'uid': this.props.uid
+        // };
+        
+        // Make API call
+        // axios.post(url, data)
+        axios.post(url)
+            // Success
+            .then(response => {
+                /* Set the state for this page to include the relevant user 
+                information returned from the API call */
+                console.log(response.data.image_url);
+                this.setState({
+					image_url: response.data.image_url
+                })
+            })
+            
+            // Error
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            }); 
+    }
+
+	goToSuggestedWorkouts() {
 		Actions.suggestedworkouts()
 	}
-	const goBackProgress = () => {
+
+	goBackProgress() {
 		Actions.progress()
 	}
-	return (
-		<Grid style={{ backgroundColor: '#f3ebe1' }}>
-			<Row>
-				<Col>
-					<View style={{ backgroundColor: '#f3ebe1' }}>
-						<TouchableOpacity onPress={() => goBackProgress()}>
-							<Image
-								style={{ width: 75, height: 75 }}
-								source={require('../images/back_button.png')}
-							/>
-						</TouchableOpacity>
-					</View>
-				</Col>
-				<Col></Col>
-				<Col></Col>
-				{/* <Col>
-					<View>
-						<TouchableOpacity>
-							<Image
-								style={{ width: 75, height: 75 }}
-								source={require('../resources/profilepic.png')}
-							/>
-						</TouchableOpacity>
-					</View>
-				</Col> */}
-			</Row>
-			<Row>
-				<Col>
-					<View style={{
-						flexDirection: 'row',
-						alignSelf: 'center',
-						backgroundColor: '#f3ebe1'
-					}}>
-						<Text style={{
-							fontSize: 30
+
+	render() {
+		return (
+			<Grid style={{ backgroundColor: '#f3ebe1' }}>
+				<Row>
+					<Col>
+						<View style={{ backgroundColor: '#f3ebe1' }}>
+							<TouchableOpacity onPress={() => goBackProgress()}>
+								<Image
+									style={{ width: 75, height: 75 }}
+									source={require('../images/back_button.png')}
+								/>
+							</TouchableOpacity>
+						</View>
+					</Col>
+					<Col></Col>
+					<Col></Col>
+					{/* <Col>
+						<View>
+							<TouchableOpacity>
+								<Image
+									style={{ width: 75, height: 75 }}
+									source={require('../resources/profilepic.png')}
+								/>
+							</TouchableOpacity>
+						</View>
+					</Col> */}
+				</Row>
+				<Row>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							backgroundColor: '#f3ebe1'
 						}}>
-							Main Focus
-						</Text>
-					</View>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<View style={{
-						flexDirection: 'row',
-						alignSelf: 'center',
-						alignContent: 'center',
-						flexWrap: 'wrap',
-						marginVertical: 50
-					}}>
-						<Text style={{
-							fontSize: 20
+							<Text style={{
+								fontSize: 30
+							}}>
+								Main Focus
+							</Text>
+						</View>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							alignContent: 'center',
+							flexWrap: 'wrap',
+							marginVertical: 50
 						}}>
-							Select a Main Focus for your Workout:
-						</Text>
-					</View>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<View style={{
-						flexDirection: 'row',
-						alignSelf: 'center',
-						marginVertical: 0
-					}}>
-						<Picker
-							selectedValue={'java'}
-							style={{ height: 50, width: 100 }}
-						// onValueChange={(itemValue, itemIndex) =>
-						// this.setState({ language: itemValue })
-						// }>
-						>
-							<Picker.Item label="Option 1" value="java" />
-							<Picker.Item label="Option 2" value="js" />
-						</Picker>
-					</View>
-				</Col>
-			</Row>
-			<Row></Row>
-			<Row></Row>
-			<Row>
-				<Col></Col>
-				<Col>
-					<View style={{
-						flexDirection: 'row',
-						alignSelf: 'center',
-						marginVertical: 0,
-					}}>
-						<Button onPress={() => goToSuggestedWorkouts()}
-							label="Continue"
-						/>
-					</View>
-				</Col>
-				<Col></Col>
-			</Row>
-			<Row></Row>
-		</Grid>
-	);
+							<Text style={{
+								fontSize: 20
+							}}>
+								Select a Main Focus for your Workout:
+							</Text>
+						</View>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 0
+						}}>
+							<Picker
+								selectedValue={'java'}
+								style={{ height: 50, width: 100 }}
+							// onValueChange={(itemValue, itemIndex) =>
+							// this.setState({ language: itemValue })
+							// }>
+							>
+								<Picker.Item label="Option 1" value="java" />
+								<Picker.Item label="Option 2" value="js" />
+							</Picker>
+						</View>
+					</Col>
+				</Row>
+				<Row></Row>
+				<Row></Row>
+				<Row>
+					<Col></Col>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 0,
+						}}>
+							<Button onPress={() => goToSuggestedWorkouts()}
+								label="Continue"
+							/>
+						</View>
+					</Col>
+					<Col></Col>
+				</Row>
+				<Row></Row>
+			</Grid>
+		);
+
+	}
 }
 
 function SuggestedWorkoutsPage() {
