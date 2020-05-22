@@ -56,14 +56,14 @@ def create_error_message(e):
         # Access message filed in JSON error object
         code = json.loads(error_json)["error"]["code"]
         # Return the given code if this is an HTTPEror
-        return make_response({}, code)
+        return make_response(error_json, code)
 
     except HTTPError:
         # Return 400 if it is another type of error
         return make_response({}, 400)
 
 
-def raise_detailed_error(self, request_object):
+def raise_error(r):
     """
     Used to raise an HTTPError if firebase calls are made internally and not
     through pyrebase.
@@ -75,9 +75,9 @@ def raise_detailed_error(self, request_object):
         HTTPError
     """
     try:
-        request_object.raise_for_status()
+        r.raise_for_status()
     except HTTPError as e:
         # Raise detailed error message
         # TODO: Check if we get a { "error" : "Permission denied." } and
         # handle automatically
-        raise HTTPError(e, request_object.text)
+        raise HTTPError(e, r.text)
