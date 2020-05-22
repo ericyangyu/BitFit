@@ -22,6 +22,21 @@ export default class Trophy extends Component {
   }
 
   componentDidMount() {
+    // When the sencre mounts
+    // Get all the trophies for this user, where only the trophy id and (description) --> get all trophies for UID
+    // for each trophy
+    // pass trophy id into trophy component --> within the trophy component --> get trophy status for trophyID
+    // description is what is in the alert when trophy is pressed
+    // display correct image based on if earned or not
+
+
+    // create a trophy component --> "" or "08/09/09"
+    // create actual trophies in our db
+    // create earned trophies for a user when the user is created
+    // write get trophies from UID API call
+    // write get trophy earned status from Trophy UID API call
+
+
     console.log("Printing UID in Trophy.js")
     console.log(this.props.uid)
   }
