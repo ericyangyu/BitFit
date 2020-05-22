@@ -37,23 +37,29 @@ export default class Trophy extends Component {
   // Call the super constructor and initalize a state variable
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { response: [] };
   }
 
   componentDidMount() {
     // Indicate which API to call and what data to pass in
     let url = 'http://10.0.2.2:4200/apis/trophy/get_user_trophies';
-    let data = {
+    let info = {
       'uid': this.props.uid
     };
 
     // Make API call
-    axios.post(url, data)
+    axios.post(url, info)
       // Success
       .then(response => {
         /* Navigate to progress page and pass uid as prop. This allows
         the next page to know which user is logged in */
-        console.log(response.data);
+        const data = response.data;
+        this.setState({
+          response: data
+        })
+        console.log("Printing state for response")
+        console.log(this.state.response)
+        console.log("Done")
       })
 
       // Error
@@ -115,24 +121,25 @@ export default class Trophy extends Component {
         <Row>
           <Col>
             <Trophy_component
-              trophy_id={"trophy_1"}
-              date_earned={""}
-              Progress_to_req={"almost"}
-              details={"50 squats"}
+              trophy_id={this.state.response[0]}
+              date_earned={this.state.response[0]}
+              Progress_to_req={this.state.response[0]}
+              details={this.state.response[0]}
             />
           </Col>
           <Col>
-            <Trophy_component
-              trophy_id={"trophy_1"}
-              date_earned={""}
-              Progress_to_req={"almost"}
-              details={"50 squats"}
-            />
+            {/* <Trophy_component
+              trophy_id={this.state.response.data[1].details.name}
+              date_earned={this.state.response.data[1].date_earned}
+              Progress_to_req={this.state.response.data[1].Progress_to_req}
+              details={this.state.response.data[1].details.description}
+            /> */}
           </Col>
           <Col>
             <TouchableOpacity
               onPress={() =>
-                alert('Some information about how you earned this trophy')
+                // alert('Some information about how you earned this trophy')
+                console.log(this.state.response[0].details.description)
               }>
               <Image
                 style={{ width: 75, height: 75, alignSelf: 'center' }}
@@ -215,7 +222,7 @@ export default class Trophy extends Component {
           </Col>
         </Row>
         <Row></Row>
-      </Grid>
+      </Grid >
     );
   }
 }
