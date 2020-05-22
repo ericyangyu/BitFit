@@ -5,14 +5,14 @@ Authors: Jeremy, Steven
 """
 
 # External imports
-from flask import make_response # Flask packages
+from flask import make_response, jsonify # Flask packages
 from requests.exceptions import HTTPError  # To access HTTPError
 
 # Internal imports
 from ...config import db, create_error_message  # , raise_detailed_error
 
 
-class UpdateStats:
+class Progress:
     """
     This class shows the completed workouts of a user
     """
@@ -43,10 +43,33 @@ class UpdateStats:
             }
 
             # Insert user to DB with local id as key
-            query = db.child("update_stats").child(uid).child(body_part).update(data)
+            query = db.child("progress").child(uid).child(body_part).update(data)
 
             # Return the user uid
             return make_response(query, 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
+
+
+
+    @staticmethod
+    def get(uid: str):
+        """
+        Fetches user information from the database.
+
+        Arguments:
+            uid {str} -> The user's unique id
+
+        Returns:
+            response object -> If valid call, returns the user's info and a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
+        try:
+            # Get the data for the user in the users DB table and return it
+            query = db.child("progress").child(uid).get().val()
+            return make_response(jsonify(query), 200)
 
         except HTTPError as e:
             # Handle exception and return correct response object

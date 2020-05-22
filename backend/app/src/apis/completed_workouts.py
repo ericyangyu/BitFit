@@ -16,11 +16,11 @@ from flask_cors import CORS
 from ..models.completed_workouts import CompletedWorkouts  # User model
 
 # Define the user_api blueprint route for all user-related api calls
-completed_workouts = Blueprint("completed_workouts", __name__)
-CORS(completed_workouts, supports_credentials=True)
+completed_workouts_api = Blueprint("completed_workouts", __name__)
+CORS(completed_workouts_api, supports_credentials=True)
 
 
-@completed_workouts.route("/add_workout", methods=["POST"])
+@completed_workouts_api.route("/add_workout", methods=["POST"])
 def add_workout():
     """
     Updates a user's information based on their uid.

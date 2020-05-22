@@ -10,14 +10,14 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.progress import UpdateStats  # User model
+from ..models.progress import Progress  # User model
 
 # Define the user_api blueprint route for all user-related api calls
-progress = Blueprint("progress", __name__)
-CORS(progress, supports_credentials=True)
+progress_api = Blueprint("progress", __name__)
+CORS(progress_api, supports_credentials=True)
 
 
-@progress.route("/update_stats", methods=["POST"])
+@progress_api.route("/update_stats", methods=["POST"])
 def update_stats():
     """
     Updates a user's stats.
@@ -38,5 +38,26 @@ def update_stats():
     level = request.json["level"]
 
     # Delegate to user model
-    return UpdateStats.update_stats(uid, body_part, exp, level)
+    return Progress.update_stats(uid, body_part, exp, level)
+
+@progress_api.route("/get", methods=["POST"])
+def get():
+    """
+    Fetches a user's information based on their uid.
+
+    Expected data:
+        uid -> user's uid
+
+    Expected response:
+        username -> user's username
+        fullname -> user's full name
+        email -> user's email
+        password -> user's password
+        avatar -> link to user's avatar
+    """
+    # Read incoming request data body
+    uid = request.json["uid"]
+
+    # Delegate to user model
+    return Progress.get(uid)
 

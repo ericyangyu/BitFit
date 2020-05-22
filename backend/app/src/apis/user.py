@@ -1,7 +1,7 @@
 """
-Description: User routes to receive user-related API calls from the frontend.
-Delegates to the user model to interact with the database. Handles request data
-and only accepts POST requests (this makes it easier to pass in data in
+description: user routes to receive user-related api calls from the frontend.
+delegates to the user model to interact with the database. handles request data
+and only accepts post requests (this makes it easier to pass in data in
 frontend code)
 
 NOTE: Data parsing should be handeled here before delegating to user model to
