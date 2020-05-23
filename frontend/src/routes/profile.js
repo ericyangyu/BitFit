@@ -15,7 +15,6 @@ import PhotoUpload from 'react-native-photo-upload'
 import axios from 'axios';
 
 // Internal imports
-import defaultPhoto from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_profile'; 
@@ -28,6 +27,7 @@ import Input from "../components/input";
 import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
 import saveButton from '../images/save_button.png'
+import {defaultPhoto} from '../images/default_photo.js';
 
 /**
  * Class that returns the Profile page with correct components and API calls.
@@ -160,7 +160,6 @@ export default class Profile extends Component {
 
     onDeletePhotoPress = () => {
         this.setState({ eAvatar: `${defaultPhoto}`});
-        console.log("DELETE PHOTO PRESS")
     }
 
     onResetStatsPress = () => {
@@ -261,7 +260,7 @@ export default class Profile extends Component {
                     photoPickerTitle={'Upload a Profile Picture: '}
                     onPhotoSelect={eAvatar => {
                         if (eAvatar) {
-                        this.onEditPhotoPress(eAvatar)
+                            this.onEditPhotoPress(eAvatar)
                         }
                     }}
                     >
@@ -271,6 +270,10 @@ export default class Profile extends Component {
                         source={{uri: `data:image/gif;base64,${this.state.eAvatar}`}}
                     />
                 </PhotoUpload>
+
+                <View style={styles.button}>
+                    <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'DELETE PROFILE PHOTO'} onPress={() => this.onDeletePhotoPress()} />
+                </View>   
 
                 <Grid>
                     <Col>
