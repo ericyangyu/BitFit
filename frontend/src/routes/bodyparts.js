@@ -1,12 +1,8 @@
 /**
- * The workouts page allows the user to create a new workout, choose their body part,
- * choose their workout, time their workout, and complete their workout.
+ * The bodyparts.js file handles everything related to choosing a main focus on the
+ * Main Focus page.
  * 
- * NOTE: This page needs to be refactored and commented by the authors. It might be 
- * a good idea to split these pages up because we route to them. Style also needs
- * to be put into a single stylesheet. Functions, classes, and methods must be commented.
- * 
- * Authors: ?
+ * Authors: Jaz, Sharan, Steven, Eric
  */
 
 // External imports
@@ -23,8 +19,12 @@ import axios from 'axios';
 // Components
 import Button from '../components/button';
 
+/**
+ * Class that returns the Main Focus page with correct components and API calls.
+ */
 export default class MainFocusPage extends Component {
 
+    // Call the super constructor and initalize state variables
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -36,26 +36,18 @@ export default class MainFocusPage extends Component {
 	}
 
 	get_body_parts() {
-
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
-		// let data = {
-		//     'uid': this.props.uid
-		// };
-
-		// Make API call
-		// axios.post(url, data)
 		axios.post(url)
 			// Success
 			.then(response => {
                 /* Set the state for this page to include the relevant user 
 				information returned from the API call */
-				// console.log(response.data);
 				let tmp_bodyparts = []
 				let tmp_images = {}
 				Object.keys(response.data).forEach((k) => {
-					tmp_bodyparts.push(response.data[k].name)
-					tmp_images[response.data[k].name] = response.data[k].image
+					tmp_bodyparts.push(k)
+					tmp_images[k] = response.data[k].image
 				})
 				this.setState({
 					bodyparts: tmp_bodyparts,
@@ -63,14 +55,6 @@ export default class MainFocusPage extends Component {
 					focus: tmp_bodyparts[0],
 					focus_image: tmp_images[tmp_bodyparts[0]]
 				})
-				// console.log(this.state.bodyparts)
-
-				// this.setState({
-				// 	id : response.data.
-				// })
-				// })
-
-				// Error
 			})
 			.catch(error => {
 				// Log error 
@@ -88,18 +72,24 @@ export default class MainFocusPage extends Component {
 			});
 	}
 
+    // Route to the login page when Continue button is pressed
 	goToSuggestedWorkouts() {
 		Actions.suggestedworkouts({focus : this.state.focus, uid : this.props.uid});
 	}
 
+    // Route to the login page when Back button is pressed
 	goBackProgress() {
-		Actions.progress();
+		Actions.progress({ uid : this.props.uid });
 	}
+
+	// Displays the dropdown options
 	dropdownOptions() {
 		return this.state.bodyparts.map((bodypart) => {
 			return <Picker.Item label={bodypart} value={bodypart} />
 		})
 	}
+
+	// Updates the value of the dropdown based on what's selected
 	updateDropdown(value) {
 		this.setState({
 			focus: value,
@@ -107,9 +97,13 @@ export default class MainFocusPage extends Component {
 		})
 
 	}
+
+	// Query database while rendering page for the body parts
 	componentDidMount() {
 		this.get_body_parts()
 	}
+
+	// Render the correct components for the Main Focus screen
 	render() {
 		return (
 
@@ -169,7 +163,7 @@ export default class MainFocusPage extends Component {
 						}}>
 							<Picker
 								selectedValue={this.state.focus}
-								style={{ height: 50, width: 100 }}
+								style={{ height: 50, width: 150 }}
 								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
