@@ -105,10 +105,6 @@ export default class Profile extends Component {
                 }
                 console.log(data)
 
-                /* NEED PHOTO HOSTING
-                if (this.state.eAvatar != this.state.avatar) {
-                    
-                } */
 
                 // Make API call
                 axios.post(url, data)
@@ -119,7 +115,7 @@ export default class Profile extends Component {
                         this.setState({
                             username: this.state.eUsername,
                             fullname: this.state.eFullname,
-                            // avatar: this.state.eAvatar ---- NEED PHOTO HOSTING
+                            avatar: this.state.eAvatar
                         })
 
                         Actions.profile({ uid: this.state.uid})
@@ -160,7 +156,7 @@ export default class Profile extends Component {
         );
     }
 
-    onEditPhotoPress = () => {
+    onEditPhotoPress = (eAvatar) => {
         // NEED PHOTO HOSTING
         this.setState({ eAvatar: eAvatar });
     }
@@ -273,6 +269,7 @@ export default class Profile extends Component {
                         source={require('../images/profile.png')}
                     />
                 </PhotoUpload>
+
                 <Grid>
                     <Col>
                         <Row>
@@ -328,8 +325,8 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <Image source={require('../images/profile.png')} style={styles.photo}/>
-                
+                <Image source={{uri: `data:image/gif;base64,${this.state.eAvatar}`}} style={styles.photo} />
+
                 <Grid>
                     <Col>
                         <Row>
