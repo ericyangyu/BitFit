@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
+import PhotoUpload from 'react-native-photo-upload'
 import axios from 'axios';
 
 // Internal imports
@@ -42,8 +43,8 @@ export default class Profile extends Component {
             fullname: "",
             eFullname: "",
             email: "",
-            avatar: null,
-            eAvatar: null,
+            avatar: "",
+            eAvatar: "",
             sessions: 0,
             eSessions: 0,
             time: 0,
@@ -55,6 +56,7 @@ export default class Profile extends Component {
     editsMade = () => {
         return (this.state.eFullname != this.state.fullname) || (this.state.eUsername != this.state.username) ||
                (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
+               || (this.state.eAvatar != this.state.avatar)
     }
 
     onBackPress = () => {
@@ -98,6 +100,9 @@ export default class Profile extends Component {
                     data.fullname = this.state.eFullname;
                 }
 
+                if (this.state.eAvatar != this.state.avatar) {
+                    data.avatar = this.state.eAvatar;
+                }
                 console.log(data)
 
                 /* NEED PHOTO HOSTING
@@ -157,7 +162,7 @@ export default class Profile extends Component {
 
     onEditPhotoPress = () => {
         // NEED PHOTO HOSTING
-        console.log('Edit Profile Photo Press');
+        this.setState({ eAvatar: eAvatar });
     }
 
     onResetStatsPress = () => {
@@ -202,8 +207,8 @@ export default class Profile extends Component {
                     fullname: response.data.fullname,
                     eFullname: response.data.fullname,
                     email: response.data.email,
-                    avatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
-                    eAvatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
+                    avatar: response.data.avatar,
+                    eAvatar: response.data.avatar,
                     edit: this.props.edit
                 })
             })
@@ -236,7 +241,7 @@ export default class Profile extends Component {
     }
 
     render() {
-        let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname ? 
+        let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eAvatar ? 
                         styles.topButton : [styles.topButton, styles.disabled];
 
         return (this.props.edit ? (
@@ -246,17 +251,28 @@ export default class Profile extends Component {
                     <TouchableOpacity onPress={() => this.onBackPress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.onSavePress()} disabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname)}>
+                    <TouchableOpacity onPress={() => this.onSavePress()} disabled={!(this.editsMade() && this.state.eUsername 
+                        && this.state.eFullname && this.state.eAvatar)}>
                         <Image source={saveButton} style={saveStyle} />
                     </TouchableOpacity>
                 </View>
+    
+                <PhotoUpload
+                    maxHeight={200}
 
-                <Image source={this.state.eAvatar} style={styles.photo}/>
-
-                <View style={styles.button}>
-                    <Button label={'EDIT PHOTO'} onPress={() => this.onEditPhotoPress()} />
-                </View>
-
+                    photoPickerTitle={'Upload a Profile Picture: '}
+                    onPhotoSelect={eAvatar => {
+                        if (eAvatar) {
+                        this.onEditPhotoPress(eAvatar)
+                        }
+                    }}
+                    >
+                    <Image
+                        style={styles.photo}
+                        resizeMode='cover'
+                        source={require('../images/profile.png')}
+                    />
+                </PhotoUpload>
                 <Grid>
                     <Col>
                         <Row>
@@ -312,8 +328,8 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <Image source={this.state.avatar} style={styles.photo}/>
-
+                <Image source={require('../images/profile.png')} style={styles.photo}/>
+                
                 <Grid>
                     <Col>
                         <Row>
