@@ -85,7 +85,7 @@ export default class WorkoutTimer extends Component {
             });
 
 
-        Actions.stats({duration: duration});
+        Actions.stats({duration: duration, focus: this.props.focus, workout: this.props.workout});
 
     }
 
