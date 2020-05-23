@@ -32,7 +32,8 @@ export default class Progress extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullname: ""
+            fullname: "",
+            avatar: ""
         }
     }
 
@@ -82,6 +83,9 @@ export default class Progress extends Component {
                 this.setState({
                     fullname: response.data.fullname
                 })
+                this.setState({
+                    avatar: response.data.avatar
+                })
             })
             
             // Error
@@ -114,8 +118,8 @@ export default class Progress extends Component {
                             <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
                                 <Image
                                     style={styles.imageStyle}
-                                    source={profile_photo}
-                                />
+                                    source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
+                                    />
                             </TouchableOpacity>
                         </View>
                     </Col>

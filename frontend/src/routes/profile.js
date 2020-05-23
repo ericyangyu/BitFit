@@ -15,6 +15,7 @@ import PhotoUpload from 'react-native-photo-upload'
 import axios from 'axios';
 
 // Internal imports
+import defaultPhoto from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_profile'; 
@@ -158,6 +159,7 @@ export default class Profile extends Component {
     }
 
     onDeletePhotoPress = () => {
+        this.setState({ eAvatar: `${defaultPhoto}`});
         console.log("DELETE PHOTO PRESS")
     }
 
@@ -269,10 +271,6 @@ export default class Profile extends Component {
                         source={{uri: `data:image/gif;base64,${this.state.eAvatar}`}}
                     />
                 </PhotoUpload>
-
-                <View style={styles.button}>
-                    <Button label={'DELETE PROFILE PHOTO'} onPress={() => this.onDeletePhotoPress()} />
-                </View>
 
                 <Grid>
                     <Col>
