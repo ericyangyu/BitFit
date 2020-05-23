@@ -30,9 +30,9 @@ class Trophy:
                 its value corresponds to its actual trophy data.
         """
         trophies = {}
-
         for data in db.child("trophies").get().each():
             trophies[data.key()] = data.val()
+        
         return trophies
 
     @staticmethod
@@ -48,21 +48,45 @@ class Trophy:
             Returns:
                 response_object -> If valid call, returns the list of user's
                 trophies and a 200 status code.
+                Otherwise, returns a blank body and an error code.
         """
         # get all trophies from the trophies table
         all_trophies = Trophy.get_all_trophies()
 
         # gets all trophies specific to the user
-        results = db.child("earned_trophies").order_by_child("uid").equal_to(uid).get()
+        #results = db.child("earned_trophies").order_by_child("uid").equal_to(uid).get()
 
-        trophies = []
-        for troph in results.each():
+        #trophies = []
+        #for troph in results.each():
             # get the data for this specific user trophy
-            data = troph.val()
+            #data = troph.val()
 
             # include another field that includes the trophy details
             # to avoid an extra API call on front-end
-            data["details"] = all_trophies[data["trophy_id"]]
-            trophies.append(data)
+            #data["details"] = all_trophies[data["trophy_id"]]
+            #trophies.append(data)
+        
+        trophies = []
+        try:
+            # get all the trophies specific to the user
+            results = db.child("earned_trophies").child(uid).get()
+
+            for troph in results.each():
+                # get the data for this specific user trophy
+                data = troph.val()
+                # get the trophy name
+                name = troph.key()
+
+                # include another field that includes the trophy details
+                # to avoid an extra API call on front-end
+                data["details"] = all_trophies[name]
+                # add this as well since the name is not initially included
+                data["details"]["name"] = name
+
+                trophies.append(data)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
 
         return make_response(trophies, 200)
