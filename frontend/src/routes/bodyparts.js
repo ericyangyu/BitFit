@@ -79,7 +79,7 @@ export default class MainFocusPage extends Component {
 
     // Route to the login page when Back button is pressed
 	goBackProgress() {
-		Actions.progress();
+		Actions.progress({ uid : this.props.uid });
 	}
 
 	// Displays the dropdown options
