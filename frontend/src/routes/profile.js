@@ -266,7 +266,7 @@ export default class Profile extends Component {
                     <Image
                         style={styles.photo}
                         resizeMode='cover'
-                        source={require('../images/profile.png')}
+                        source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
                     />
                 </PhotoUpload>
 
