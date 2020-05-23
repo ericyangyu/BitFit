@@ -42,7 +42,6 @@ export default class Profile extends Component {
             fullname: "",
             eFullname: "",
             email: "",
-            eEmail: "",
             avatar: null,
             eAvatar: null,
             sessions: 0,
@@ -55,7 +54,7 @@ export default class Profile extends Component {
 
     editsMade = () => {
         return (this.state.eFullname != this.state.fullname) || (this.state.eUsername != this.state.username) ||
-               (this.state.eEmail != this.state.email) || (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
+               (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
     }
 
     onBackPress = () => {
@@ -106,11 +105,6 @@ export default class Profile extends Component {
                     
                 } */
 
-                /* NEED PYREBASE RE-AUTH
-                if (this.state.eEmail != this.state.email) {
-                    data.username = this.state.eEmail;
-                } */
-
                 // Make API call
                 axios.post(url, data)
                     // Success
@@ -120,7 +114,6 @@ export default class Profile extends Component {
                         this.setState({
                             username: this.state.eUsername,
                             fullname: this.state.eFullname,
-                            // email: this.state.eEmail, NEED PYREBASE RE-AUTH
                             // avatar: this.state.eAvatar ---- NEED PHOTO HOSTING
                         })
 
@@ -185,10 +178,6 @@ export default class Profile extends Component {
         this.setState({ eUsername: eUsername });
     }
 
-    onEmailChange = (eEmail) => {
-        this.setState({ eEmail: eEmail });
-    }
-
     onAccountSettingsPress = () => {
         Actions.settings({ uid: this.state.uid})
     }
@@ -213,7 +202,6 @@ export default class Profile extends Component {
                     fullname: response.data.fullname,
                     eFullname: response.data.fullname,
                     email: response.data.email,
-                    eEmail: response.data.email,
                     avatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
                     eAvatar: require("../images/default_profile.png"), // HARDCODED: NEED PHOTO HOSTING
                     edit: this.props.edit
@@ -248,7 +236,7 @@ export default class Profile extends Component {
     }
 
     render() {
-        let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eEmail ? 
+        let saveStyle = this.editsMade() && this.state.eUsername && this.state.eFullname ? 
                         styles.topButton : [styles.topButton, styles.disabled];
 
         return (this.props.edit ? (
@@ -258,7 +246,7 @@ export default class Profile extends Component {
                     <TouchableOpacity onPress={() => this.onBackPress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.onSavePress()} disabled={!this.editsMade()}>
+                    <TouchableOpacity onPress={() => this.onSavePress()} disabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname)}>
                         <Image source={saveButton} style={saveStyle} />
                     </TouchableOpacity>
                 </View>
