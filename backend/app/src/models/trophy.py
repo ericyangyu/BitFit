@@ -48,6 +48,7 @@ class Trophy:
             Returns:
                 response_object -> If valid call, returns the list of user's
                 trophies and a 200 status code.
+                Otherwise, returns a blank body and an error code.
         """
         # get all trophies from the trophies table
         all_trophies = Trophy.get_all_trophies()
