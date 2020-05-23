@@ -55,8 +55,7 @@ export default class Profile extends Component {
 
     editsMade = () => {
         return (this.state.eFullname != this.state.fullname) || (this.state.eUsername != this.state.username) ||
-               (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time)
-               || (this.state.eAvatar != this.state.avatar)
+               (this.state.eSessions != this.state.sessions) || (this.state.eTime != this.state.time) || (this.state.eAvatar != this.state.avatar)
     }
 
     onBackPress = () => {
@@ -103,8 +102,6 @@ export default class Profile extends Component {
                 if (this.state.eAvatar != this.state.avatar) {
                     data.avatar = this.state.eAvatar;
                 }
-                console.log(data)
-
 
                 // Make API call
                 axios.post(url, data)
@@ -157,8 +154,11 @@ export default class Profile extends Component {
     }
 
     onEditPhotoPress = (eAvatar) => {
-        // NEED PHOTO HOSTING
         this.setState({ eAvatar: eAvatar });
+    }
+
+    onDeletePhotoPress = () => {
+        console.log("DELETE PHOTO PRESS")
     }
 
     onResetStatsPress = () => {
@@ -266,9 +266,13 @@ export default class Profile extends Component {
                     <Image
                         style={styles.photo}
                         resizeMode='cover'
-                        source={require('../images/profile.png')}
+                        source={{uri: `data:image/gif;base64,${this.state.eAvatar}`}}
                     />
                 </PhotoUpload>
+
+                <View style={styles.button}>
+                    <Button label={'DELETE PROFILE PHOTO'} onPress={() => this.onDeletePhotoPress()} />
+                </View>
 
                 <Grid>
                     <Col>

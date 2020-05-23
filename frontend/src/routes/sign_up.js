@@ -24,7 +24,6 @@ import Button from "../components/button";
 import Input from "../components/input";
 
 // Images
-import profilePhoto from "../images/profile.png";
 
 /**
  * Class that returns the SignUp page with correct components and API calls.
