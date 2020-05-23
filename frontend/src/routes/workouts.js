@@ -42,7 +42,8 @@ export default class SuggestedWorkoutsPage extends Component {
 
 	// Route to the timer page after selecting workout
 	goToTimer() {
-		Actions.timer({focus : this.state.focus, 
+		Actions.timer({
+			focus : this.state.focus, 
 			workout : this.state.selected_workout, 
 			uid : this.props.uid})
 	}
@@ -91,8 +92,8 @@ export default class SuggestedWorkoutsPage extends Component {
 
 				Object.keys(response.data).forEach((k) => {
 					if (response.data[k].body_part_id === this.state.focus) {
-						tmp_workouts.push(response.data[k].name)
-						tmp_image_desc[response.data[k].name] = {
+						tmp_workouts.push(k)
+						tmp_image_desc[k] = {
 							image: response.data[k].image, 
 							description: response.data[k].description
 						}

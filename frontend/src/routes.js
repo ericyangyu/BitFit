@@ -16,7 +16,7 @@ import SignUp from './routes/sign_up'
 import Progress from './routes/progress'
 import Profile from './routes/profile'
 import Timer from './routes/timer'
-import MainFocusPage from './routes/bodyparts'
+// import MainFocusPage from './routes/bodyparts'
 import SuggestedWorkoutsPage from './routes/workouts'
 
 /**
