@@ -182,7 +182,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						}}>
 							<Picker
 								selectedValue={this.state.selected_workout}
-								style={{ height: 50, width: 100 }}
+								style={{ height: 50, width: 150 }}
 								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
