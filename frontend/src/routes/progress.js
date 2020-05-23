@@ -41,6 +41,13 @@ export default class Progress extends Component {
         }
     }
 
+    // Route to the trophy page when the trophy button is pressed
+    goToTrophy = () => {
+        console.log("Going to Trophy...")
+        Actions.trophy({ uid: this.props.uid })
+    }
+
+
     // Route to the profile page when the profile button is pressed
     goToProfile = () => {
         Actions.profile({ uid: this.props.uid })
@@ -76,7 +83,7 @@ export default class Progress extends Component {
         let data = {
             'uid': this.props.uid
         };
-        
+
         // Make API call
         axios.post(url, data)
             // Success
@@ -88,7 +95,7 @@ export default class Progress extends Component {
                     fullname: response.data.fullname
                 })
             })
-            
+
             // Error
             .catch(error => {
                 console.log("User get api call error")
@@ -276,7 +283,7 @@ export default class Progress extends Component {
                 <Row></Row>
                 <Row>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToTrophy}>
                             <Text style={styles.buttonTextStyle}>
                                 Trophy Case
                             </Text>

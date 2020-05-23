@@ -19,6 +19,7 @@ import Timer from './routes/timer'
 import Stats from './routes/stats'
 import MainFocusPage from './routes/bodyparts'
 import SuggestedWorkoutsPage from './routes/workouts'
+import Trophy from './routes/trophy'
 
 /**
  * Class that returns a router object with all the pages.
@@ -37,6 +38,7 @@ export default class Routes extends React.Component {
                     <Scene key="suggestedworkouts" component={SuggestedWorkoutsPage} hideNavBar={true} />
                     <Scene key="timer" component={Timer} hideNavBar={true} />
                     <Scene key="stats" component={Stats} hideNavBar={true} />
+                    <Scene key="trophy" component={Trophy} hideNavBar={true} />
                 </Scene>
             </Router>
         )
