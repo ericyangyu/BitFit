@@ -1,5 +1,7 @@
 /**
  * The timer page allows the user to time their workouts. Also calculates progress.
+ * Timer has start, pause, resume, cancel, and finish functionality.
+ * Clicking finish will update progress and take you to the stats page.
  * 
  * Authors: Steven, Jeremy
  */
@@ -29,6 +31,7 @@ export default class WorkoutTimer extends Component {
         }
     }
 
+    // reset timer (currently not interacting with back button)
     componentWillUnmount() {
         clearInterval(this.timer)
     }
@@ -61,7 +64,9 @@ export default class WorkoutTimer extends Component {
         let exp = 0;
         let leveledUp = false;
 
-        // get their current experience and level
+        /**
+         * Retrieve current level and experience then calculate new level and experience
+         */
         axios.post(url, data)
             // Success
             .then(response => {
@@ -72,7 +77,6 @@ export default class WorkoutTimer extends Component {
                 console.log("Get progress call error");
                 alert(error.message);
             }).finally(() => {
-                // add the duration to total exp
                 exp = exp + duration;
 
                 // calculate the new level
@@ -91,7 +95,9 @@ export default class WorkoutTimer extends Component {
                     }
                 }
 
-                // update their progress in the backend
+                /**
+                 * Save progress in backend
+                 */
                 let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
                 let data = {
                     'uid': this.props.uid,
@@ -116,16 +122,20 @@ export default class WorkoutTimer extends Component {
                         leveledUp: this.props.leveledUp });
     }
 
+    // pause timer
     pause = () => {
         clearInterval(this.timer)
         const { laps, now, start } = this.state
         const [firstLap] = laps
+        // save current time elapsed
         this.setState({
             laps: [firstLap + now - start],
             start: 0,
             now: 0,
         })
     }
+
+    // reset timer
     reset = () => {
         this.setState({
             laps: [],
@@ -133,6 +143,8 @@ export default class WorkoutTimer extends Component {
             now: 0,
         })
     }
+
+    // restart timer
     resume = () => {
         const now = new Date().getTime()
         this.setState({
@@ -143,9 +155,12 @@ export default class WorkoutTimer extends Component {
             this.setState({ now: new Date().getTime() })
         }, 100)
     }
+
     goToProgress = () => {
         Actions.progress({uid: this.props.uid})
     }
+
+    // renders the clock components and all the timer buttons
     render() {
         const { now, start, laps } = this.state
         const timer = now - start
