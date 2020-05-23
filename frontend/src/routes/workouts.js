@@ -18,7 +18,10 @@ export default class SuggestedWorkoutsPage extends Component {
 		this.state = {
 			focus : props.focus,
 			workouts : [],
-			selected_workout : ""
+			image_desc : {}, // {workout : {image : ___, description : ___}}
+			selected_workout : "",
+			image : "",
+			description : ""
 		}
 	}
 
@@ -39,15 +42,23 @@ export default class SuggestedWorkoutsPage extends Component {
 				information returned from the API call */
 				// console.log(response.data);
 				let tmp_workouts = []
+				let tmp_image_desc = {}
 				console.log(this.state.focus)
 				Object.keys(response.data).forEach((k) => {
 					if (response.data[k].body_part_id === this.state.focus) {
 						tmp_workouts.push(response.data[k].name)
+						tmp_image_desc[response.data[k].name] = {
+							image: response.data[k].image, 
+							description: response.data[k].description
+						}
 					}
 				})
 				this.setState({
 					workouts: tmp_workouts,
-					selected_workout: tmp_workouts[0]
+					image_desc: tmp_image_desc,
+					selected_workout: tmp_workouts[0],
+					image: tmp_image_desc[tmp_workouts[0]]["image"],
+					description: tmp_image_desc[tmp_workouts[0]]["description"]
 				})
 				// console.log(this.state.bodyparts)
 
@@ -88,10 +99,10 @@ export default class SuggestedWorkoutsPage extends Component {
 	}
 	updateDropdown(value) {
 		this.setState({
-			selected_workout: value
+			selected_workout: value,
+			image: this.state.image_desc[value]["image"],
+			description: this.state.image_desc[value]["description"]
 		})
-		console.log(this.state.selected_workout)
-
 	}
 	componentDidMount() {
 		this.get_workouts()
@@ -144,7 +155,7 @@ export default class SuggestedWorkoutsPage extends Component {
 							alignSelf: 'center',
 							alignContent: 'center',
 							flexWrap: 'wrap',
-							marginVertical: 50
+							marginVertical: 10
 						}}>
 							<Text style={{
 								fontSize: 20
@@ -159,7 +170,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0
+							marginVertical: -40
 						}}>
 							<Picker
 								selectedValue={this.state.selected_workout}
@@ -176,15 +187,46 @@ export default class SuggestedWorkoutsPage extends Component {
 						</View>
 					</Col>
 				</Row>
-				<Row></Row>
-				<Row></Row>
+				<Row>
+					<Col></Col>
+					<Col>
+						<View style={{
+							flexDirection: 'row', 
+							alignSelf: 'center',
+							marginVertical: -50,
+						}}>
+							<Image
+								style={{ width: 150, height: 150, alignSelf: 'center' }}
+								source={{ uri: this.state.image }}
+							/>
+						</View>
+					</Col>
+					<Col></Col>
+
+				</Row>
+				<Row>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center'
+						}}>
+							<Text style={{
+								fontSize: 20,
+								marginVertical: 40,
+								textAlign: 'center'
+							}}>
+								{this.state.description}
+							</Text>
+						</View>
+					</Col>
+				</Row>
 				<Row>
 					<Col></Col>
 					<Col>
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0,
+							marginVertical: 40,
 						}}>
 							<Button onPress={() => this.goToTimer()}
 								label="Begin Workout"
