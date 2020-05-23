@@ -32,7 +32,12 @@ export default class Progress extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullname: ""
+            fullname: "",
+            arms: {"level": 0, "exp": 0.0},
+            back: {"level": 0, "exp": 0.0},
+            chest: {"level": 0, "exp": 0.0},
+            core: {"level": 0, "exp": 0.0},
+            legs: {"level": 0, "exp": 0.0},
         }
     }
 
@@ -86,6 +91,7 @@ export default class Progress extends Component {
             
             // Error
             .catch(error => {
+                console.log("User get api call error")
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
@@ -99,10 +105,52 @@ export default class Progress extends Component {
                     console.log('Error', error.message);
                 }
             }); 
+
+            // get progress
+            url = 'http://10.0.2.2:4200/apis/progress/get';
+            data = {
+                'uid': this.props.uid
+            };
+            
+            // Make API call
+            axios.post(url, data)
+                // Success
+                .then(response => {
+                    this.setState({
+                        arms: response.data.Arms,
+                        back: response.data.Back,
+                        chest: response.data.Chest,
+                        core: response.data.Core,
+                        legs: response.data.Legs
+                    })
+                })
+                
+                // Error
+                .catch(error => {
+                    console.log("Progress get api call error")
+                    // Log error 
+                    if (error.response) {
+                        // Call was unsuccessful
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                    } else if (error.request) {
+                        // Request was made but no response was received.
+                        console.log(error.request);
+                    } else {
+                        // Something else cause an error
+                        console.log('Error', error.message);
+                    }
+                }); 
     }
 
     // Render the correct components for the Progress screen
     render() {
+        let overallLv = this.state.arms.level +
+                        this.state.back.level +
+                        this.state.chest.level +
+                        this.state.core.level +
+                        this.state.legs.level;
+
         return (
             <Grid style={styles.container}>
                 <Row>
@@ -126,7 +174,7 @@ export default class Progress extends Component {
                 </Row>
                 <Row></Row>
                 <Row>
-                    <Text style={styles.textStyle}>Overall Level: 6</Text>
+                    <Text style={styles.textStyle}>Overall Level: {overallLv}</Text>
                 </Row>
 
                 <Row>
@@ -134,6 +182,7 @@ export default class Progress extends Component {
                     <Col><Text style={styles.textStyle}>Progress</Text></Col>
                     <Col><Text style={styles.textStyle}>Level</Text></Col>
                 </Row>
+
                 <Row>
                     <Col>
                         <Text style={styles.textStyle}>Arms</Text>
@@ -142,12 +191,67 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={50}
+                            value={this.state.arms.level == 0 ? this.state.arms.exp * 100 : 
+                                   (this.state.arms.exp - (2 * this.state.arms.level - 1)) / (2 * this.state.arms.level) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>4</Text>
+                        <Text style={styles.textStyle}>{this.state.arms.level}</Text>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <Text style={styles.textStyle}>Back</Text>
+                    </Col>
+                    <Col>
+                        <ProgressBarAnimated
+                            useNativeDriver={true}
+                            width={150}
+                            value={this.state.back.level == 0 ? this.state.back.exp * 100 : 
+                                   (this.state.back.exp - (2 * this.state.back.level - 1)) / (2 * this.state.back.level) * 100}
+                            backgroundColorOnComplete="#6CC644"
+                        />
+                    </Col>
+                    <Col>
+                        <Text style={styles.textStyle}>{this.state.back.level}</Text>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <Text style={styles.textStyle}>Chest</Text>
+                    </Col>
+                    <Col>
+                        <ProgressBarAnimated
+                            useNativeDriver={true}
+                            width={150}
+                            value={this.state.chest.level == 0 ? this.state.chest.exp * 100 : 
+                                   (this.state.chest.exp - (2 * this.state.chest.level - 1)) / (2 * this.state.chest.level) * 100}
+                            backgroundColorOnComplete="#6CC644"
+                        />
+                    </Col>
+                    <Col>
+                        <Text style={styles.textStyle}>{this.state.chest.level}</Text>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <Text style={styles.textStyle}>Core</Text>
+                    </Col>
+                    <Col>
+                        <ProgressBarAnimated
+                            useNativeDriver={true}
+                            width={150}
+                            value={this.state.core.level == 0 ? this.state.core.exp * 100 : 
+                                   (this.state.core.exp - (2 * this.state.core.level - 1)) / (2 * this.state.core.level) * 100}
+                            backgroundColorOnComplete="#6CC644"
+                        />
+                    </Col>
+                    <Col>
+                        <Text style={styles.textStyle}>{this.state.core.level}</Text>
                     </Col>
                 </Row>
 
@@ -159,28 +263,13 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={50}
+                            value={this.state.legs.level == 0 ? this.state.legs.exp * 100 : 
+                                   (this.state.legs.exp - (2 * this.state.legs.level - 1)) / (2 * this.state.legs.level) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>4</Text>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>Core</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={50}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>4</Text>
+                        <Text style={styles.textStyle}>{this.state.legs.level}</Text>
                     </Col>
                 </Row>
 
