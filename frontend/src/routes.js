@@ -16,13 +16,9 @@ import SignUp from './routes/sign_up'
 import Progress from './routes/progress'
 import Profile from './routes/profile'
 import Timer from './routes/timer'
-<<<<<<< HEAD
 import Stats from './routes/stats'
-import { MainFocus, SuggestedWorkouts } from './routes/workouts'
-=======
 import MainFocusPage from './routes/bodyparts'
 import SuggestedWorkoutsPage from './routes/workouts'
->>>>>>> workouts_backend
 
 /**
  * Class that returns a router object with all the pages.

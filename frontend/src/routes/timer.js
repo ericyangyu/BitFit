@@ -12,6 +12,7 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import axios from "axios";
 
 // internal imports (useful components)
 import Clock from '../components/timer_components/clock';
@@ -53,8 +54,38 @@ export default class WorkoutTimer extends Component {
         const { laps, now, start } = this.state;
         const timer = now - start;
         // calculates the duration of the workout in hours rounded to 2 decimal places
-        const duration = ((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2);
-        Actions.stats({duration: duration});
+        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
+
+        let url = 'http://10.0.2.2:4200/apis/progress/get';
+        let data = {
+            'uid': this.props.uid
+        };
+
+        let level = 0;
+        let exp = 0;
+        
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                level = response.data[this.props.focus]["level"];
+                exp = response.data[this.props.focus]["exp"];
+            }).finally(() => {
+                // add the duration to total exp
+                exp = exp + duration;
+
+                // calculate the new level
+                if(level == 0) {
+                    level = Math.floor(exp / 1);
+                } else {
+                    level = Math.floor((exp - (2 * (level) - (level))) / (2 * level));
+                }
+                console.log([exp, level]);
+                
+            });
+
+
+        // Actions.stats({duration: duration});
 
     }
 
@@ -96,8 +127,8 @@ export default class WorkoutTimer extends Component {
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
                 />
-                <Text style={{color: '#FFFFFF', fontSize: 24}}>Crunches</Text>
-                <Text style={{color: '#FFFFFF'}}>Core</Text>
+                <Text style={{color: '#FFFFFF', fontSize: 24}}>{this.props.workout}</Text>
+                <Text style={{color: '#FFFFFF'}}>{this.props.focus}</Text>
                 {laps.length === 0 && (
                 <ButtonsRow>
                     <RoundButton
