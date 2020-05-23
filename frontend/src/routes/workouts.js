@@ -1,3 +1,13 @@
+/**
+ * The workouts page that allows the user to select a workout from the focus page.
+ * 
+ * Description: We have a Workout class that takes workouts from the backend and
+ * displays them on the application. 
+ * 
+ * Authors: Sharan, Eric, Jaz, Steven
+ */
+
+
 // External imports
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
@@ -12,51 +22,91 @@ import axios from 'axios';
 // Components
 import Button from '../components/button';
 
+/**
+ * Class that returns the Workouts page with correct components and API calls.
+ */
 export default class SuggestedWorkoutsPage extends Component {
+	
+	// Call the super constructor and initalize a state variable
 	constructor(props) {
 		super(props)
 		this.state = {
 			focus : props.focus,
 			workouts : [],
-			selected_workout : ""
+			image_desc : {}, 
+			selected_workout : "",
+			image : "",
+			description : ""
 		}
 	}
 
-	get_workouts() {
+	// Route to the timer page after selecting workout
+	goToTimer() {
+		Actions.timer({
+			focus : this.state.focus, 
+			workout : this.state.selected_workout, 
+			uid : this.props.uid})
+	}
+
+	// Route to the Focus page if user wishes
+	goBack() {
+		Actions.mainfocus({uid : this.props.uid})
+	}
+
+	// Displays Dropdown options
+	dropdownOptions() {
+		return this.state.workouts.map((workout) => {
+			return <Picker.Item label={workout} value={workout} />
+		})
+	}
+
+	// Updates the selcted value from the user when selecting a workout
+	updateDropdown(value) {
+		this.setState({
+			selected_workout: value,
+			image: this.state.image_desc[value]["image"],
+			description: this.state.image_desc[value]["description"]
+		})
+	}
+
+	// Call the API when component mounts
+	componentDidMount() {
+		this.getWorkouts()
+	}
+
+	// API call to get workouts from the backend
+	getWorkouts() {
 
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/workouts/get_workouts';
-		// let data = {
-		//     'uid': this.props.uid
-		// };
-
-		// Make API call
-		// axios.post(url, data)
+		
+		// make API call
 		axios.post(url)
 			// Success
 			.then(response => {
-                /* Set the state for this page to include the relevant user 
-				information returned from the API call */
-				// console.log(response.data);
+
+
+				// set the image descriptions, and workouts
 				let tmp_workouts = []
-				console.log(this.state.focus)
+				let tmp_image_desc = {}
+
 				Object.keys(response.data).forEach((k) => {
 					if (response.data[k].body_part_id === this.state.focus) {
-						tmp_workouts.push(response.data[k].name)
+						tmp_workouts.push(k)
+						tmp_image_desc[k] = {
+							image: response.data[k].image, 
+							description: response.data[k].description
+						}
 					}
 				})
+				// setting state after parsing data
 				this.setState({
 					workouts: tmp_workouts,
-					selected_workout: tmp_workouts[0]
+					image_desc: tmp_image_desc,
+					selected_workout: tmp_workouts[0],
+					image: tmp_image_desc[tmp_workouts[0]]["image"],
+					description: tmp_image_desc[tmp_workouts[0]]["description"]
 				})
-				// console.log(this.state.bodyparts)
-
-				// this.setState({
-				// 	id : response.data.
-				// })
-				// })
-
-				// Error
 			})
 			.catch(error => {
 				// Log error 
@@ -74,28 +124,7 @@ export default class SuggestedWorkoutsPage extends Component {
 			});
 	}
 	
-	goToTimer() {
-		Actions.timer({focus : this.state.focus, workout : this.state.selected_workout, uid : this.props.uid})
-	}
-
-	goBack() {
-		Actions.mainfocus({uid : this.props.uid})
-	}
-	dropdownOptions() {
-		return this.state.workouts.map((workout) => {
-			return <Picker.Item label={workout} value={workout} />
-		})
-	}
-	updateDropdown(value) {
-		this.setState({
-			selected_workout: value
-		})
-		console.log(this.state.selected_workout)
-
-	}
-	componentDidMount() {
-		this.get_workouts()
-	}
+	 // Render the correct components for the Workout screen
 	render() {
 		return (
 			<Grid style={{ backgroundColor: '#f3ebe1' }}>
@@ -112,16 +141,6 @@ export default class SuggestedWorkoutsPage extends Component {
 					</Col>
 					<Col></Col>
 					<Col></Col>
-					{/* <Col>
-						<View>
-							<TouchableOpacity>
-								<Image
-	// 								style={{ width: 75, height: 75 }}
-	// 								source={require('../resources/profilepic.png')}
-								/>
-							</TouchableOpacity>
-						</View>
-					</Col> */}
 				</Row>
 				<Row>
 					<Col>
@@ -144,7 +163,7 @@ export default class SuggestedWorkoutsPage extends Component {
 							alignSelf: 'center',
 							alignContent: 'center',
 							flexWrap: 'wrap',
-							marginVertical: 50
+							marginVertical: 10
 						}}>
 							<Text style={{
 								fontSize: 20
@@ -159,32 +178,60 @@ export default class SuggestedWorkoutsPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0
+							marginVertical: -40
 						}}>
 							<Picker
 								selectedValue={this.state.selected_workout}
-								style={{ height: 50, width: 100 }}
+								style={{ height: 50, width: 150 }}
 								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
-							// onValueChange={(itemValue, itemIndex) =>
-							// this.setState({ language: itemValue })
-							// }>
 							>
 								{this.dropdownOptions()}
 							</Picker>
 						</View>
 					</Col>
 				</Row>
-				<Row></Row>
-				<Row></Row>
+				<Row>
+					<Col></Col>
+					<Col>
+						<View style={{
+							flexDirection: 'row', 
+							alignSelf: 'center',
+							marginVertical: -50,
+						}}>
+							<Image
+								style={{ width: 150, height: 150, alignSelf: 'center' }}
+								source={{ uri: this.state.image }}
+							/>
+						</View>
+					</Col>
+					<Col></Col>
+
+				</Row>
+				<Row>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center'
+						}}>
+							<Text style={{
+								fontSize: 20,
+								marginVertical: 40,
+								textAlign: 'center'
+							}}>
+								{this.state.description}
+							</Text>
+						</View>
+					</Col>
+				</Row>
 				<Row>
 					<Col></Col>
 					<Col>
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0,
+							marginVertical: 40,
 						}}>
 							<Button onPress={() => this.goToTimer()}
 								label="Begin Workout"
