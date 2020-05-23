@@ -12,6 +12,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
+import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 
 // Internal imports
@@ -38,6 +39,8 @@ export default class Progress extends Component {
             chest: {"level": 0, "exp": 0.0},
             core: {"level": 0, "exp": 0.0},
             legs: {"level": 0, "exp": 0.0},
+            getUserDone: false,
+            getProgressDone: false
         }
     }
 
@@ -92,7 +95,8 @@ export default class Progress extends Component {
                 information returned from the API call */
                 console.log(response.data);
                 this.setState({
-                    fullname: response.data.fullname
+                    fullname: response.data.fullname,
+                    getUserDone: true
                 })
             })
 
@@ -128,7 +132,8 @@ export default class Progress extends Component {
                         back: response.data.Back,
                         chest: response.data.Chest,
                         core: response.data.Core,
-                        legs: response.data.Legs
+                        legs: response.data.Legs,
+                        getProgressDone: true
                     })
                 })
                 
@@ -152,11 +157,25 @@ export default class Progress extends Component {
 
     // Render the correct components for the Progress screen
     render() {
+        console.log(this.state.fullname)
         let overallLv = this.state.arms.level +
                         this.state.back.level +
                         this.state.chest.level +
                         this.state.core.level +
                         this.state.legs.level;
+
+        // If the API call is not complete, display the loading screen
+        if (!this.state.getProgressDone && !this.state.getUserDone) {
+        return (
+            <View style={styles.spinnerContainer}>
+            <Spinner
+                visible={this.state.isLoading}
+                textContent={'Loading...'}
+                textStyle={styles.spinnerTextStyle}
+            />
+            </View>
+        )
+        }
 
         return (
             <Grid style={styles.container}>
