@@ -16,7 +16,8 @@ import SignUp from './routes/sign_up'
 import Progress from './routes/progress'
 import Profile from './routes/profile'
 import Timer from './routes/timer'
-import { MainFocus, SuggestedWorkouts } from './routes/workouts'
+import MainFocusPage from './routes/bodyparts'
+import SuggestedWorkoutsPage from './routes/workouts'
 
 /**
  * Class that returns a router object with all the pages.
@@ -31,8 +32,8 @@ export default class Routes extends React.Component {
                     <Scene key="signup" component={SignUp} hideNavBar={true} />
                     <Scene key="progress" component={Progress} hideNavBar={true} />
                     <Scene key="profile" component={Profile} hideNavBar={true} />
-                    <Scene key="mainfocus" component={MainFocus} hideNavBar={true} />
-                    <Scene key="suggestedworkouts" component={SuggestedWorkouts} hideNavBar={true} />
+                    <Scene key="mainfocus" component={MainFocusPage} hideNavBar={true} />
+                    <Scene key="suggestedworkouts" component={SuggestedWorkoutsPage} hideNavBar={true} />
                     <Scene key="timer" component={Timer} hideNavBar={true} />
                 </Scene>
             </Router>

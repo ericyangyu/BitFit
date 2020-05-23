@@ -5,17 +5,17 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.bodyparts import BodyParts # User model
+from ..models.workouts import Workouts # User model
 
 # Define the user_api blueprint route for all user-related api calls
-bodyparts_api = Blueprint("bodyparts_api", __name__)
-CORS(bodyparts_api, supports_credentials=True)
+workouts_api = Blueprint("workouts_api", __name__)
+CORS(workouts_api, supports_credentials=True)
 
 
-@bodyparts_api.route("/get_body_parts", methods=["POST"])
-def get_body_parts():
+@workouts_api.route("/get_workouts", methods=["POST"])
+def get_workouts():
     # Delegate to user model
-    return BodyParts.get_body_parts()
+    return Workouts.get_workouts()
 
 # def signup():
 #     """

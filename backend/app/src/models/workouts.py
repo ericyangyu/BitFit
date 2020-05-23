@@ -1,11 +1,3 @@
-"""
-Description: Recieves data from the middleware, and makes the correct Pyrebase
-API calls to update data about the user in Firebase. Contains error checking
-for errors in calls to Firebase.
-
-Authors: Imran, Sharan, Nour
-"""
-
 # External imports
 from flask import make_response, jsonify  # Flask packages
 from requests.exceptions import HTTPError  # To access HTTPError
@@ -15,32 +7,13 @@ from requests.exceptions import HTTPError  # To access HTTPError
 from ...config import db, create_error_message  # , raise_detailed_error
 
 
-class BodyParts:
+class Workouts:
 
     @staticmethod
-    def get_body_parts():
-        # try:
-        #     # Create a user object through firebase call
-        #     user = auth.create_user_with_email_and_password(email, password)
-
-        #     # Data to be added into DB for the user
-        #     data = {
-        #         "username": username,
-        #         "fullname": fullname,
-        #         "email": email,
-        #         "avatar": avatar
-        #     }
-
-        #     # Insert user to DB with local id as key
-        #     db.child("users").child(user["localId"]).set(data)
-
-        #     # Return the user uid
-        #     data = jsonify({"uid": user["localId"]})
-        #     return make_response(data, 200)
-
+    def get_workouts():
         try:
             # Get the data for the user in the users DB table and return it
-            query = db.child("body_parts").get().val()
+            query = db.child("workouts").get().val()
             return make_response(jsonify(query), 200)
 
         except HTTPError as e:
