@@ -40,20 +40,25 @@ export default class Stats extends Component {
             <View style={styles.container}>
                 <View style={styles.form}>
 
-                    <Text style={styles.finishTextStyle}>
-                        completed workout!
-                    </Text>
+                    { this.props.leveledUp ?
+                        <Text style={styles.finishTextStyle}>
+                            Leveled Up {this.props.focus}!
+                        </Text> :
+                        <Text style={styles.finishTextStyle}>
+                            Completed Workout!
+                        </Text> 
+                    }
                     <Text style={styles.summaryTextStyle}>
-                        summary of workout
+                        Summary of Workout
                     </Text>
                     <Text style={styles.detailsTextStyle}>
-                        Workouts Performed 
+                        Workout: {this.props.workout}
                     </Text>
                     <Text style={styles.detailsTextStyle}>
-                        main focus
+                        Focus: {this.props.focus}
                     </Text> 
                     <Text style={styles.detailsTextStyle}>
-                        time
+                        Hours spent: {this.props.duration}
                     </Text>
                 </View>
             </View>

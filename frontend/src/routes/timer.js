@@ -29,7 +29,7 @@ export default class WorkoutTimer extends Component {
         this.state = {
             start: 0,
             now: 0,
-            laps: [ ],
+            laps: [],
         }
     }
 
@@ -46,7 +46,7 @@ export default class WorkoutTimer extends Component {
             laps: [0],
         })
         this.timer = setInterval(() => {
-            this.setState({ now: new Date().getTime()})
+            this.setState({ now: new Date().getTime() })
         }, 100)
     }
 
@@ -63,30 +63,56 @@ export default class WorkoutTimer extends Component {
 
         let level = 0;
         let exp = 0;
-        
-        // Make API call
+        let leveledUp = false;
+
+        // get their current experience and level
         axios.post(url, data)
             // Success
             .then(response => {
                 level = response.data[this.props.focus]["level"];
                 exp = response.data[this.props.focus]["exp"];
+            }).catch((error)=>{
+                console.log("Get progress call error");
+                alert(error.message);
             }).finally(() => {
                 // add the duration to total exp
                 exp = exp + duration;
 
                 // calculate the new level
-                if(level == 0) {
-                    level = Math.floor(exp / 1);
+                if (level == 0) {
+                    if (exp >= 1) {
+                        level = 1;
+                        while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                            level = level + 1;
+                            leveledUp = true;
+                        }
+                    }
                 } else {
-                    level = Math.floor((exp - (2 * (level) - (level))) / (2 * level));
+                    while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                        level = level + 1;
+                        leveledUp = true;
+                    }
                 }
-                console.log([exp, level]);
-                
+
+                // update their progress in the backend
+                let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+                let data = {
+                    'uid': this.props.uid,
+                    'body_part': this.props.focus,
+                    'exp': exp,
+                    'level': level
+                };
+                axios.post(url, data)
+                    .then(response => {
+                        console.log(response.data)
+                    }).catch((error)=>{
+                        console.log("Update progress call error");
+                        alert(error.message);
+                    });
+
             });
 
-
-        Actions.stats({duration: duration, focus: this.props.focus, workout: this.props.workout});
-
+        Actions.stats({ uid: this.props.uid, duration: duration, focus: this.props.focus, workout: this.props.workout, leveledUp: this.props.leveledUp });
     }
 
     pause = () => {
@@ -113,10 +139,11 @@ export default class WorkoutTimer extends Component {
             now,
         })
         this.timer = setInterval(() => {
-        this.setState({ now: new Date().getTime()})}, 100)
+            this.setState({ now: new Date().getTime() })
+        }, 100)
     }
     goToProgress = () => {
-        Actions.progress()
+        Actions.progress({uid: this.props.uid})
     }
     render() {
         const { now, start, laps } = this.state
@@ -127,57 +154,57 @@ export default class WorkoutTimer extends Component {
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
                 />
-                <Text style={{color: '#FFFFFF', fontSize: 24}}>{this.props.workout}</Text>
-                <Text style={{color: '#FFFFFF'}}>{this.props.focus}</Text>
+                <Text style={{ color: '#FFFFFF', fontSize: 24 }}>{this.props.workout}</Text>
+                <Text style={{ color: '#FFFFFF' }}>{this.props.focus}</Text>
                 {laps.length === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='Finish'
-                        color='#8B8B90'
-                        background='#151515'
-                        disabled
-                    />
-                    <RoundButton
-                        title='Start'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.start}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='Finish'
+                            color='#8B8B90'
+                            background='#151515'
+                            disabled
+                        />
+                        <RoundButton
+                            title='Start'
+                            color='#50D167'
+                            background='#1B361F'
+                            onPress={this.start}
+                        />
+                    </ButtonsRow>
                 )}
                 {start > 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='Finish'
-                        color='#FFFFFF'
-                        background='#3D3D3D'
-                        onPress={this.finish}
-                    />
-                    <RoundButton
-                        title='Pause'
-                        color='#E33935'
-                        background='#3C1715'
-                        onPress={this.pause}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='Finish'
+                            color='#FFFFFF'
+                            background='#3D3D3D'
+                            onPress={this.finish}
+                        />
+                        <RoundButton
+                            title='Pause'
+                            color='#E33935'
+                            background='#3C1715'
+                            onPress={this.pause}
+                        />
+                    </ButtonsRow>
                 )}
                 {laps.length > 0 && start === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='Reset'
-                        color='#FFFFFF'
-                        background='#21474A'
-                        onPress={this.reset}
-                    />
-                    <RoundButton
-                        title='Resume'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.resume}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='Reset'
+                            color='#FFFFFF'
+                            background='#21474A'
+                            onPress={this.reset}
+                        />
+                        <RoundButton
+                            title='Resume'
+                            color='#50D167'
+                            background='#1B361F'
+                            onPress={this.resume}
+                        />
+                    </ButtonsRow>
                 )}
-                <View style={{paddingTop: 110}}>
+                <View style={{ paddingTop: 110 }}>
                     <Button
                         title='Cancel Workout'
                         color='#E33935'

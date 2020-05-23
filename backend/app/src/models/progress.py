@@ -5,8 +5,8 @@ Authors: Jeremy, Steven
 """
 
 # External imports
-from flask import make_response, jsonify # Flask packages
-from requests.exceptions import HTTPError  # To access HTTPError
+from flask import make_response, jsonify    # Flask packages
+from requests.exceptions import HTTPError   # To access HTTPError
 
 # Internal imports
 from ...config import db, create_error_message  # , raise_detailed_error
@@ -32,10 +32,6 @@ class Progress:
             200 status code. Otherwise, returns a blank body and an error code.
         """
         try:
-
-            
-
-
             # Data to be added into DB for the user
             data = {
                 "exp": exp,
@@ -51,8 +47,6 @@ class Progress:
         except HTTPError as e:
             # Handle exception and return correct response object
             return create_error_message(e)
-
-
 
     @staticmethod
     def get(uid: str):

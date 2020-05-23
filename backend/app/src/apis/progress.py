@@ -40,6 +40,7 @@ def update_stats():
     # Delegate to user model
     return Progress.update_stats(uid, body_part, exp, level)
 
+
 @progress_api.route("/get", methods=["POST"])
 def get():
     """
