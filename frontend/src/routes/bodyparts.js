@@ -46,8 +46,8 @@ export default class MainFocusPage extends Component {
 				let tmp_bodyparts = []
 				let tmp_images = {}
 				Object.keys(response.data).forEach((k) => {
-					tmp_bodyparts.push(response.data[k].name)
-					tmp_images[response.data[k].name] = response.data[k].image
+					tmp_bodyparts.push(k)
+					tmp_images[k] = response.data[k].image
 				})
 				this.setState({
 					bodyparts: tmp_bodyparts,
@@ -163,7 +163,7 @@ export default class MainFocusPage extends Component {
 						}}>
 							<Picker
 								selectedValue={this.state.focus}
-								style={{ height: 50, width: 100 }}
+								style={{ height: 50, width: 150 }}
 								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
