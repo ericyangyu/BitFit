@@ -1,9 +1,5 @@
 /**
- * The timer page allows the user to time their workouts in a timer.
- * 
- * NOTE: This page needs to be refactored and commented by the authors. It might be 
- * a good idea to split these pages up because we route to them. Style also needs
- * to be put into a single stylesheet. Functions, classes, and methods must be commented.
+ * The timer page allows the user to time their workouts. Also calculates progress.
  * 
  * Authors: Steven, Jeremy
  */
@@ -69,6 +65,7 @@ export default class WorkoutTimer extends Component {
         axios.post(url, data)
             // Success
             .then(response => {
+                // need to come back here and make sure user actually has focus defined
                 level = response.data[this.props.focus]["level"];
                 exp = response.data[this.props.focus]["exp"];
             }).catch((error)=>{
@@ -112,7 +109,11 @@ export default class WorkoutTimer extends Component {
 
             });
 
-        Actions.stats({ uid: this.props.uid, duration: duration, focus: this.props.focus, workout: this.props.workout, leveledUp: this.props.leveledUp });
+        Actions.stats({ uid: this.props.uid,
+                        duration: duration,
+                        focus: this.props.focus,
+                        workout: this.props.workout,
+                        leveledUp: this.props.leveledUp });
     }
 
     pause = () => {

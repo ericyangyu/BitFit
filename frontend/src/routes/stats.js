@@ -1,15 +1,13 @@
 /**
- * The login page allows the user to login using their email and password. If
- * they don't have an account, they can create one.
+ * Displays post workout stats
  * 
- * Authors: Imran, Sharan, Nour
+ * Authors: Jeremy, Steven
  */
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
+import { View, Text } from "react-native";
 import { Actions } from 'react-native-router-flux';
-import axios from "axios";
 
 // Internal imports
 
@@ -17,24 +15,17 @@ import axios from "axios";
 import styles from '../style/r_stats';
 
 // Components
-import Input from "../components/input";
 import Button from "../components/button";
-import TextField from "../components/text_field";
-
-// Images
-import logo from "../images/logo.png";
 
 /**
- * Class that returns the Login page with correct components and API calls.
+ * Class that returns the stats page
  */
 export default class Stats extends Component {
-    // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
     }
 
-
-    // Render the correct components for the login screen
+    // renders stats display
     render() {
         return (
             <View style={styles.container}>
