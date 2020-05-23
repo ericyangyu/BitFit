@@ -91,7 +91,7 @@ export default class SuggestedWorkoutsPage extends Component {
 				let tmp_image_desc = {}
 
 				Object.keys(response.data).forEach((k) => {
-					if (response.data[k].body_part_id === this.state.focus) {
+					if (response.data[k].body_part === this.state.focus) {
 						tmp_workouts.push(k)
 						tmp_image_desc[k] = {
 							image: response.data[k].image, 
