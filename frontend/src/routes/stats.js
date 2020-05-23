@@ -14,7 +14,7 @@ import axios from "axios";
 // Internal imports
 
 // Stylesheet
-import styles from '../style/r_login';
+import styles from '../style/r_stats';
 
 // Components
 import Input from "../components/input";
@@ -38,19 +38,21 @@ export default class Stats extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={logo} style={styles.logo} />
                 <View style={styles.form}>
 
-                    <Text style={styles.buttonTextStyle}>
-                        completed workouts
+                    <Text style={styles.finishTextStyle}>
+                        completed workout!
                     </Text>
-                    <Text style={styles.buttonTextStyle}>
+                    <Text style={styles.summaryTextStyle}>
+                        summary of workout
+                    </Text>
+                    <Text style={styles.detailsTextStyle}>
                         Workouts Performed 
                     </Text>
-                    <Text style={styles.buttonTextStyle}>
+                    <Text style={styles.detailsTextStyle}>
                         main focus
                     </Text> 
-                    <Text style={styles.buttonTextStyle}>
+                    <Text style={styles.detailsTextStyle}>
                         time
                     </Text>
                 </View>
