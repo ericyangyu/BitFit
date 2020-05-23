@@ -7,6 +7,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
+    spinnerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
+    },
     container: {
         backgroundColor: '#f3ebe1',
         marginTop: 0,

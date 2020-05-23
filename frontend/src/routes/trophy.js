@@ -6,11 +6,10 @@
 
 // External Imports
 import React, { Component } from 'react';
-import {
-  View, Text, Image, TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
+import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 
 
@@ -33,7 +32,9 @@ export default class Trophy extends Component {
   // Call the super constructor and initalize a state variable
   constructor(props) {
     super(props);
-    this.state = { response: [] };
+    // the response state holds the list of trophies objects returned
+    // isLoading allows for the component to render the loading screen intil API call is complete
+    this.state = { response: [], isLoading: true };
   }
 
   componentDidMount() {
@@ -47,11 +48,11 @@ export default class Trophy extends Component {
     axios.post(url, info)
       // Success
       .then(response => {
-        /* Navigate to progress page and pass uid as prop. This allows
-        the next page to know which user is logged in */
-        const data = response.data;
+
+        // Save the list of trophies returned and now loading screen can be removed
         this.setState({
-          response: data
+          response: response.data,
+          isLoading: false
         })
       })
 
@@ -79,8 +80,18 @@ export default class Trophy extends Component {
 
   // Render the page
   render() {
-    if (this.state.response === []) {
-      return <Text>Loading...</Text>
+
+    // If the API call is not complete, display the loading screen
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.spinnerContainer}>
+          <Spinner
+            visible={this.state.isLoading}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
+          />
+        </View>
+      )
     }
 
     return (
@@ -114,105 +125,82 @@ export default class Trophy extends Component {
         <Row></Row>
         <Row>
           <Col>
-            {/* <Trophy_component
-              name={this.state.response[0].details}
+            <Trophy_component
+              name={this.state.response[0].details.name}
               date_earned={this.state.response[0].date_earned}
-              Progress_to_req={this.state.response[0].Progress_to_req}
+              progress_to_req={this.state.response[0].progress_to_req}
               description={this.state.response[0].details.description}
-            /> */}
+            />
           </Col>
           <Col>
-            {/* <Trophy_component
-              trophy_id={this.state.response.data[1].details.name}
-              date_earned={this.state.response.data[1].date_earned}
-              Progress_to_req={this.state.response.data[1].Progress_to_req}
-              details={this.state.response.data[1].details.description}
-            /> */}
+            <Trophy_component
+              name={this.state.response[1].details.name}
+              date_earned={this.state.response[1].date_earned}
+              progress_to_req={this.state.response[1].progress_to_req}
+              details={this.state.response[1].details.description}
+            />
           </Col>
           <Col>
-            <TouchableOpacity
-              onPress={() =>
-                // alert('Some information about how you earned this trophy')
-                console.log(this.state.response[0].details.description)
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_1.png')}
-              />
-            </TouchableOpacity>
-          </Col>
-        </Row>
-        <Row></Row>
-
-        <Row>
-          <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_2.png')}
-              />
-            </TouchableOpacity>
-          </Col>
-          <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_1.png')}
-              />
-            </TouchableOpacity>
-          </Col>
-          <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_2.png')}
-              />
-            </TouchableOpacity>
+            <Trophy_component
+              name={this.state.response[2].details.name}
+              date_earned={this.state.response[2].date_earned}
+              progress_to_req={this.state.response[2].progress_to_req}
+              details={this.state.response[2].details.description}
+            />
           </Col>
         </Row>
         <Row></Row>
         <Row>
           <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_1.png')}
-              />
-            </TouchableOpacity>
+            <Trophy_component
+              name={this.state.response[3].details.name}
+              date_earned={this.state.response[3].date_earned}
+              progress_to_req={this.state.response[3].progress_to_req}
+              details={this.state.response[3].details.description}
+            />
           </Col>
           <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_2.png')}
-              />
-            </TouchableOpacity>
+            <Trophy_component
+              name={this.state.response[4].details.name}
+              date_earned={this.state.response[4].date_earned}
+              progress_to_req={this.state.response[4].progress_to_req}
+              details={this.state.response[4].details.description}
+            />
           </Col>
           <Col>
-            <TouchableOpacity
-              onPress={() =>
-                alert('Some information about how you earned this trophy')
-              }>
-              <Image
-                style={{ width: 75, height: 75, alignSelf: 'center' }}
-                source={require('../images/trophy_1.png')}
-              />
-            </TouchableOpacity>
+            <Trophy_component
+              name={this.state.response[5].details.name}
+              date_earned={this.state.response[5].date_earned}
+              progress_to_req={this.state.response[5].progress_to_req}
+              details={this.state.response[5].details.description}
+            />
+          </Col>
+        </Row>
+        <Row></Row>
+        <Row>
+          <Col>
+            <Trophy_component
+              name={this.state.response[6].details.name}
+              date_earned={this.state.response[6].date_earned}
+              progress_to_req={this.state.response[6].progress_to_req}
+              details={this.state.response[6].details.description}
+            />
+          </Col>
+          <Col>
+            <Trophy_component
+              name={this.state.response[7].details.name}
+              date_earned={this.state.response[7].date_earned}
+              progress_to_req={this.state.response[7].progress_to_req}
+              details={this.state.response[7].details.description}
+            />
+          </Col>
+          <Col>
+            <Trophy_component
+              name={this.state.response[8].details.name}
+              date_earned={this.state.response[8].date_earned}
+              progress_to_req={this.state.response[8].progress_to_req}
+              details={this.state.response[8].details.description}
+            />
           </Col>
         </Row>
         <Row></Row>
