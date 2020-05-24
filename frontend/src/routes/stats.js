@@ -33,12 +33,12 @@ export default class Stats extends Component {
          */
         
         let url = 'http://10.0.2.2:4200/apis/completed_workouts/add_workout';
-        let date = "1/2/3"
+        let date = new Date();
         let data = {
             'uid': this.props.uid,
             'workout_name':  this.props.workout,
             'duration': this.props.duration,
-            'date': this.props.date
+            'date': date.toString()
         };
         axios.post(url, data)
             .then(response => {
