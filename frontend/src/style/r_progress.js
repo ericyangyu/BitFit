@@ -22,7 +22,7 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 100,
         marginTop: "7%",
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: "#434343",
     },
     buttonStyle: {
