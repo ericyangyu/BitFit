@@ -16,6 +16,7 @@ import SignUp from './routes/sign_up'
 import Progress from './routes/progress'
 import Profile from './routes/profile'
 import Timer from './routes/timer'
+import Trophy from './routes/trophy'
 import MainFocusPage from './routes/bodyparts'
 import SuggestedWorkoutsPage from './routes/workouts'
 
@@ -35,6 +36,7 @@ export default class Routes extends React.Component {
                     <Scene key="mainfocus" component={MainFocusPage} hideNavBar={true} />
                     <Scene key="suggestedworkouts" component={SuggestedWorkoutsPage} hideNavBar={true} />
                     <Scene key="timer" component={Timer} hideNavBar={true} />
+                    <Scene key="trophy" component={Trophy} hideNavBar={true} />
                 </Scene>
             </Router>
         )

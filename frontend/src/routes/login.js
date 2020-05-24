@@ -76,7 +76,7 @@ export default class Login extends Component {
             'email': this.state.email,
             'password': this.state.password
         };
-        
+
         // Make API call
         axios.post(url, data)
             // Success
@@ -86,7 +86,7 @@ export default class Login extends Component {
                 console.log(response.data);
                 Actions.progress({ uid: response.data["uid"] })
             })
-            
+
             // Error
             .catch(error => {
                 // Display alert if there was an errr logging in
@@ -109,7 +109,7 @@ export default class Login extends Component {
                     // Something else cause an error
                     console.log('Error', error.message);
                 }
-            }); 
+            });
     };
 
     // Render the correct components for the login screen
@@ -118,25 +118,25 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Image source={logo} style={styles.logo} />
                 <View style={styles.form}>
-                <Input
-                    value={this.state.email}
-                    onChangeText={this.handleEmailChange}
-                    placeholder={"Email..."}
-                />
-                <Input
-                    value={this.state.password}
-                    onChangeText={this.handlePasswordChange}
-                    placeholder={"Password..."}
-                />
-                <Button
-                    label={"Login"}
-                    onPress={this.handleLoginPress}
-                />
-                <TouchableOpacity onPress={this.goToSignUp} >
-                    <TextField style={styles.buttonTextStyle}>
-                        Do not have an account? Register here.
+                    <Input
+                        value={this.state.email}
+                        onChangeText={this.handleEmailChange}
+                        placeholder={"Email..."}
+                    />
+                    <Input
+                        value={this.state.password}
+                        onChangeText={this.handlePasswordChange}
+                        placeholder={"Password..."}
+                    />
+                    <Button
+                        label={"Login"}
+                        onPress={this.handleLoginPress}
+                    />
+                    <TouchableOpacity onPress={this.goToSignUp} >
+                        <TextField style={styles.buttonTextStyle}>
+                            Do not have an account? Register here.
                     </TextField>
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
