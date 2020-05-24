@@ -6,7 +6,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, FlatList } from "react-native";
+import { Text, View, FlatList } from "react-native";
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
@@ -20,7 +20,7 @@ import styles from '../style/r_activitylog';
 import CompletedWorkout from "../components/completed_workout"
 
 // Images
-import logo from "../images/logo.png";
+
 
 /**
  * Class that returns the the Activity Log page with the workouts rendered
@@ -53,7 +53,7 @@ export default class ActivityLog extends Component {
             }
             // Increment the counter and check if gathered enough exercises
             i += 1
-            if (i === 4) { break; }
+            if (i > 10) { break; }
         }
         // Set a state variable containing the new formatted workout objects
         this.setState(
@@ -116,11 +116,12 @@ export default class ActivityLog extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={logo} style={styles.logo} />
-
+                <Text style={styles.header}>
+                    Activity Log
+                </Text>
                 <View>
                     <FlatList
-                        style={{ width: '100%', top: 15 }}
+                        style={styles.flatList}
                         data={this.state.workouts}
                         keyExtractor={item => item.name}
                         renderItem={({ item: workout }) => (
