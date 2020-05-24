@@ -21,7 +21,7 @@ CORS(fire_api, supports_credentials=True)
 
 
 @fire_api.route("/create", methods=["POST"])
-def initalize():
+def create():
     """
     Create trophies, workouts, and body parts tables in Firebase.
 

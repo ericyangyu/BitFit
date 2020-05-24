@@ -1,5 +1,5 @@
 """
-Description: Handles Firebase Database initalization calls
+Description: Handles Firebase Database initalization calls.
 
 Authors: Imran
 """
@@ -23,33 +23,67 @@ class Fire:
 
     @classmethod
     def create_child(cls, table, name, data):
+        """
+        Creates a specified child in the table with that key and data.
+
+        Arguments:
+            table {str} -> The table name to update
+            name {str} -> The name of the child object
+            data {dict} -> The data for the child object
+
+        Returns:
+            response object -> If valid call, returns the the updated data and a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
         return db.child(table).child(name).update(data)
 
-    ############### BODY PARTS ################
-    # Initializes the body parts table
     @classmethod
     def create_body_parts_table(cls):
+        """
+        Initalizes the body parts table.
+
+        Arguments:
+            None
+
+        Returns:
+            response object -> If valid call, returns a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
         table_name = "body_parts"
         for body_part in ALL_BODY_PARTS:
             Fire.create_child(table_name, *body_part)
-        return
+        return make_response({}, 200)
 
-    ############### WORKOUTS ################
-    # Initializes the workouts table
     @classmethod
     def create_workouts_table(cls):
+        """
+        Initalizes the workouts table.
+
+        Arguments:
+            None
+
+        Returns:
+            response object -> If valid call, returns a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
         table_name = "workouts"
         for workout in ALL_WORKOUTS:
             Fire.create_child(table_name, *workout)
         return
 
-    ############### TROPHIES ################
-    # initalizes the trophy table
     @classmethod
     def create_trophies_table(cls):
-        table_name = "trophies"
+        """
+        Initalizes the trophies table.
 
-        # create 9 base trophies
+        Arguments:
+            None
+
+        Returns:
+            response object -> If valid call, returns a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
+        table_name = "trophies"
         for trophy in ALL_TROPHIES:
             Fire.create_child(table_name, *trophy)
         return
@@ -63,7 +97,7 @@ class Fire:
             None
 
         Returns:
-            response object -> If valid call, returns the uid of the user and a
+            response object -> If valid call, returns a
             200 status code. Otherwise, returns a blank body and an error code.
         """
         try:
@@ -85,7 +119,7 @@ class Fire:
             None
 
         Returns:
-            response object -> If valid call, returns the uid of the user and a
+            response object -> If valid call, returns the object created and a
             200 status code. Otherwise, returns a blank body and an error code.
         """
         try:

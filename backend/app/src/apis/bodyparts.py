@@ -11,7 +11,7 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.bodyparts import BodyParts # User model
+from ..models.bodyparts import BodyParts  # User model
 
 # Define the user_api blueprint route for all user-related api calls
 bodyparts_api = Blueprint("bodyparts_api", __name__)
