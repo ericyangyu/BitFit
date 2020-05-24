@@ -160,7 +160,13 @@ export default class Progress extends Component {
                         // Something else cause an error
                         console.log('Error', error.message);
                     }
-                }); 
+                }) 
+
+                .finally(() => {
+                    this.setState({
+                        getProgressDone: true
+                    })
+                });
     }
 
     // Render the correct components for the Progress screen
