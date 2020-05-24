@@ -20,6 +20,9 @@ import RoundButton from '../components/timer_components/round_button';
 // Stylesheet
 import styles from '../style/r_timer';
 
+/**
+ * Renders the timer page, and handles calculation of leveling
+ */
 export default class WorkoutTimer extends Component {
 
     constructor(props) {
@@ -49,6 +52,7 @@ export default class WorkoutTimer extends Component {
         }, 100)
     }
 
+    // ends the workout and calculate levels
     finish = () => {
         const { laps, now, start } = this.state;
         const timer = now - start;
@@ -162,6 +166,7 @@ export default class WorkoutTimer extends Component {
         }, 100)
     }
 
+    // return to home page on cancel button
     goToProgress = () => {
         Actions.progress({uid: this.props.uid})
     }
