@@ -125,8 +125,8 @@ export default class Progress extends Component {
                             <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
                                 <Image
                                     style={styles.imageStyle}
-                                    source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
-                                    />
+                                    source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                                />
                             </TouchableOpacity>
                         </View>
                     </Col>

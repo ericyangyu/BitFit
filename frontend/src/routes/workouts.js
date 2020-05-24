@@ -80,9 +80,12 @@ export default class SuggestedWorkoutsPage extends Component {
 
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/workouts/get_workouts';
+		let info = {
+			'uid': this.props.uid
+		};
 
 		// make API call
-		axios.post(url)
+		axios.post(url, info)
 			// Success
 			.then(response => {
 
