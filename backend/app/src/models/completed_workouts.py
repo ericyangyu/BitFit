@@ -20,12 +20,13 @@ class CompletedWorkouts:
     """
 
     @staticmethod
-    def add_workouts(uid: str, workout_id: str, duration: int):
+    def add_workouts(uid: str, workout_name: str, duration: int):
         """
 
         Arguments:
-            uid {integer} -> user's unique id
-            workout_id {integer} -> the type of workout
+            uid {string} -> user's unique id
+            workout_id {string} -> the unique id of the workout
+            workout_name {string} -> the workout name
             duration {integer} -> time (in seconds) spent on workout
 
         Returns:
@@ -43,8 +44,11 @@ class CompletedWorkouts:
                 "date": date
             }
 
+            ref = db.child("completed_workouts")
+            key = ref.generate_key()
+
             # Insert user to DB with local id as key
-            query = db.child("completed_workouts").child(uid).child(workout_id).update(data)
+            query = db.child("completed_workouts").child(uid).child(key).child(workout_name).update(data)
 
             # Return the user uid
             return make_response(query, 200)

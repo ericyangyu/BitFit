@@ -17,29 +17,47 @@ progress_api = Blueprint("progress", __name__)
 CORS(progress_api, supports_credentials=True)
 
 
-@progress_api.route("/update_stats", methods=["POST"])
+@progress_api.route("/update_stats", methods=["post"])
 def update_stats():
     """
-    Updates a user's stats.
+    updates a user's stats.
 
-    Expected data:
+    expected data:
         uid -> user's uid
         body_part -> the body
         exp -> the experience of the body part
         level -> the level of the body part
 
-    Expected response:
+    expected response:
         empty json with 200 status code
     """
-    # Read incoming request data body
+    # read incoming request data body
     uid = request.json["uid"]
     body_part = request.json["body_part"]
     exp = request.json["exp"]
     level = request.json["level"]
 
-    # Delegate to user model
-    return Progress.update_stats(uid, body_part, exp, level)
+    # delegate to user model
+    return progress.update_stats(uid, body_part, exp, level)
 
+@progress_api.route("/reset_stats", methods=["post"])
+def reset_stats():
+    """
+    resets a user's stats.
+
+        uid -> user's uid
+
+    expected response:
+        empty json with 200 status code
+    """
+    # read incoming request data body
+    uid = request.json["uid"]
+    body_part = "Arms" 
+    exp = "0"
+    level = "0"
+
+    # delegate to user model
+    return progress.update_stats(uid, body_part, exp, level)
 
 @progress_api.route("/get", methods=["POST"])
 def get():

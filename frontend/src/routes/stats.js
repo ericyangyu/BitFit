@@ -31,11 +31,12 @@ export default class Stats extends Component {
         /**
          * Add workout to completed workout
          */
+        
         let url = 'http://10.0.2.2:4200/apis/completed_workouts/add_workout';
         let date = "1/2/3"
         let data = {
             'uid': this.props.uid,
-            'workout_id':  this.props.workout,
+            'workout_name':  this.props.workout,
             'duration': this.props.duration,
             'date': this.props.date
         };
@@ -58,13 +59,6 @@ export default class Stats extends Component {
         Actions.progress({uid: this.props.uid})
     }
 
-	// Route to the timer page
-	goToTimer() {
-		Actions.timer({
-			focus : this.props.focus, 
-			workout : this.props.workout, 
-			uid : this.props.uid})
-    }
 
     // renders stats display
     render() {
@@ -92,9 +86,6 @@ export default class Stats extends Component {
                     <Text style={styles.detailsTextStyle}>
                         Hours spent: {this.props.duration}
                     </Text>
-                    <Button onPress={() => this.goToTimer()}
-                        label="Back"
-                    />
                     <Button onPress={() => this.goToProgress()}
                         label="Continue"
                     />
