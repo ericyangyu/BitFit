@@ -23,8 +23,7 @@ class Fire:
 
     @classmethod
     def create_child(cls, table, name, data):
-        db.child(table).child(name).update(data)
-        return
+        return db.child(table).child(name).update(data)
 
     ############### BODY PARTS ################
     # Initializes the body parts table
@@ -72,6 +71,26 @@ class Fire:
             Fire.create_workouts_table()
             Fire.create_body_parts_table()
             return make_response({}, 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
+
+    @staticmethod
+    def create_object(table: str, name: str, data: dict):
+        """
+        Creates a object in the specified table.
+
+        Arguments:
+            None
+
+        Returns:
+            response object -> If valid call, returns the uid of the user and a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
+        try:
+            query = Fire.create_child(table, name, data)
+            return make_response(jsonify(query), 200)
 
         except HTTPError as e:
             # Handle exception and return correct response object

@@ -33,3 +33,21 @@ def initalize():
     """
     # Delegate to fire model
     return Fire.create()
+
+
+@fire_api.route("/create_object", methods=["POST"])
+def create_object():
+    """
+    Create a single object the specified table in Firebase.
+
+    Expected data:
+        None
+
+    Expected response:
+        None
+    """
+    table = request.json["table"]
+    name = request.json["name"]
+    data = request.json["data"]
+    # Delegate to fire model
+    return Fire.create_object(table, name, data)
