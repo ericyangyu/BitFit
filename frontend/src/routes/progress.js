@@ -40,7 +40,7 @@ export default class Progress extends Component {
             core: {"level": 0, "exp": 0.0},
             legs: {"level": 0, "exp": 0.0},
             getUserDone: false,
-            getProgressDone: false
+            getProgressDone: false,
             avatar: ""
         }
     }

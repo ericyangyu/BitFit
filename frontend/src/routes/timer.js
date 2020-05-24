@@ -219,10 +219,10 @@ export default class WorkoutTimer extends Component {
                 {laps.length > 0 && start === 0 && (
                     <ButtonsRow>
                         <RoundButton
-                            title='Reset'
+                            title='Finish'
                             color='#FFFFFF'
-                            background='#21474A'
-                            onPress={this.reset}
+                            background='#3D3D3D'
+                            onPress={this.finish}
                         />
                         <RoundButton
                             title='Resume'
