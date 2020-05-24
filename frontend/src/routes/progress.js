@@ -86,7 +86,7 @@ export default class Progress extends Component {
             .then(response => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
-                console.log(response.data);
+                console.log(response.data.fullname);
                 this.setState({
                     fullname: response.data.fullname
                 })
@@ -100,7 +100,7 @@ export default class Progress extends Component {
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
-                    console.log(error.response.data);
+                    console.log(error.response.data.fullname);
                     console.log(error.response.status);
                 } else if (error.request) {
                     // Request was made but no response was received.
