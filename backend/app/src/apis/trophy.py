@@ -7,6 +7,8 @@ frontend code)
 NOTE: Data parsing should be handeled here before delegating to user model to
 access the database.
 
+NOTE: CREATE, DELETE method for a single user Trophy is in Fire model.
+
 NOTE: Database calls should not be made in this file.
 
 Authors: Jeffrey
@@ -42,3 +44,23 @@ def get_user_trophies():
 
     # Delegate to user model
     return Trophy.get_user_trophies(uid)
+
+
+# TODO
+@trophy_api.route("/update_user_trophy", methods=["POST"])
+def update_user_trophy():
+    """
+    Updates a a trophy for this specific user.
+
+    Expected data:
+        uid -> user's uid
+
+    Expected response:
+        trophy -> dictionary containing each trophy for this user
+    """
+    # # Read incoming request data body
+    # uid = request.json["uid"]
+
+    # # Delegate to user model
+    # return Trophy.update_user_trophy(uid, name, data)
+    return

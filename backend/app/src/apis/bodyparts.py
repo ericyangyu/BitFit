@@ -1,6 +1,8 @@
 """
 Description: Handles getting querying the database for the the workout focuses.
 Delegates to the user model to interact with the database.
+
+NOTE: CREATE, UPDATE, DELETE method for a single body part is in Fire model.
  
 Authors: Sharan, Steven, Eric, Jaz
 """
@@ -11,13 +13,13 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.bodyparts import BodyParts # User model
+from ..models.bodyparts import BodyParts  # User model
 
 # Define the user_api blueprint route for all user-related api calls
 bodyparts_api = Blueprint("bodyparts_api", __name__)
 CORS(bodyparts_api, supports_credentials=True)
 
-
+# READ
 @bodyparts_api.route("/get_body_parts", methods=["POST"])
 def get_body_parts():
     """

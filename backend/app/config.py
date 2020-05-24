@@ -20,8 +20,18 @@ app = FlaskAPI(__name__)
 app.config["CORS_HEADERS"] = "Content-Type"
 cli = FlaskGroup(app)
 
-# Initalize a Firebase connection to the databse using pyrebase
-firebase = pyrebase.initialize_app({
+test_config = {
+    "apiKey": "AIzaSyA0hD_tLfUMLsfZ1HtDtXa99mnE4IP0Cm8",
+    "authDomain": "bitfit-test.firebaseapp.com",
+    "databaseURL": "https://bitfit-test.firebaseio.com",
+    "projectId": "bitfit-test",
+    "storageBucket": "bitfit-test.appspot.com",
+    "messagingSenderId": "65353048050",
+    "appId": "1:65353048050:web:2815ddc89a40a78084556b",
+    "measurementId": "G-N9YH6R58VW",
+}
+
+real_config = {
     "apiKey": "AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk",
     "authDomain": "cse110-bitfit.firebaseapp.com",
     "databaseURL": "https://cse110-bitfit.firebaseio.com",
@@ -30,14 +40,18 @@ firebase = pyrebase.initialize_app({
     "messagingSenderId": "140684277401",
     "appId": "1:140684277401:web:42a04b6e00773d52856a08",
     "measurementId": "G-PHN7BE72HF",
-})
+}
+
+
+# Initalize a Firebase connection to the databse using pyrebase
+# Choose which credentials to initalize the app with
+# firebase = pyrebase.initialize_app(test_config)
+firebase = pyrebase.initialize_app(real_config)
 
 # Create database and authentification variables for Firebase
 db = firebase.database()
 auth = firebase.auth()
-
-# API key for identity providers
-api_key = 'AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk'
+storage = firebase.storage()
 
 
 def create_error_message(e):

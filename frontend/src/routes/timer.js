@@ -25,9 +25,9 @@ function Timer({ interval, style }) {
     const centiseconds = Math.floor(duration.milliseconds() / 10)
     return (
         <View style={styles.timerContainer}>
-        <Text style={style}>{pad(duration.minutes())}:</Text>
-        <Text style={style}>{pad(duration.seconds())}:</Text>
-        <Text style={style}>{pad(centiseconds)}</Text>
+            <Text style={style}>{pad(duration.minutes())}:</Text>
+            <Text style={style}>{pad(duration.seconds())}:</Text>
+            <Text style={style}>{pad(centiseconds)}</Text>
         </View>
     )
 }
@@ -37,12 +37,12 @@ function RoundButton({ title, color, background, onPress, disabled }) {
     return (
         <TouchableOpacity
             onPress={() => !disabled && onPress()}
-            style={[ styles.button, { backgroundColor: background }]}
+            style={[styles.button, { backgroundColor: background }]}
             activeOpacity={disabled ? 1.0 : 0.7}
         >
-        <View style={styles.buttonBorder}>
-            <Text style={[ styles.buttonTitle, { color }]}>{title}</Text>
-        </View>
+            <View style={styles.buttonBorder}>
+                <Text style={[styles.buttonTitle, { color }]}>{title}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -58,9 +58,9 @@ export default class WorkoutTimer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        start: 0,
-        now: 0,
-        laps: [ ],
+            start: 0,
+            now: 0,
+            laps: [],
         }
     }
 
@@ -77,7 +77,7 @@ export default class WorkoutTimer extends Component {
             laps: [0],
         })
         this.timer = setInterval(() => {
-            this.setState({ now: new Date().getTime()})
+            this.setState({ now: new Date().getTime() })
         }, 100)
     }
 
@@ -118,10 +118,11 @@ export default class WorkoutTimer extends Component {
             now,
         })
         this.timer = setInterval(() => {
-        this.setState({ now: new Date().getTime()})}, 100)
+            this.setState({ now: new Date().getTime() })
+        }, 100)
     }
     goToProgress = () => {
-        Actions.progress()
+        Actions.progress({ uid: this.props.uid })
     }
     render() {
         const { now, start, laps } = this.state
@@ -133,54 +134,54 @@ export default class WorkoutTimer extends Component {
                     style={styles.timer}
                 />
                 {laps.length === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='End'
-                        color='#8B8B90'
-                        background='#151515'
-                        disabled
-                    />
-                    <RoundButton
-                        title='Start'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.start}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='End'
+                            color='#8B8B90'
+                            background='#151515'
+                            disabled
+                        />
+                        <RoundButton
+                            title='Start'
+                            color='#50D167'
+                            background='#1B361F'
+                            onPress={this.start}
+                        />
+                    </ButtonsRow>
                 )}
                 {start > 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='End'
-                        color='#FFFFFF'
-                        background='#3D3D3D'
-                        onPress={this.end}
-                    />
-                    <RoundButton
-                        title='Pause'
-                        color='#E33935'
-                        background='#3C1715'
-                        onPress={this.stop}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='End'
+                            color='#FFFFFF'
+                            background='#3D3D3D'
+                            onPress={this.end}
+                        />
+                        <RoundButton
+                            title='Pause'
+                            color='#E33935'
+                            background='#3C1715'
+                            onPress={this.stop}
+                        />
+                    </ButtonsRow>
                 )}
                 {laps.length > 0 && start === 0 && (
-                <ButtonsRow>
-                    <RoundButton
-                        title='Reset'
-                        color='#FFFFFF'
-                        background='#21474A'
-                        onPress={this.reset}
-                    />
-                    <RoundButton
-                        title='Start'
-                        color='#50D167'
-                        background='#1B361F'
-                        onPress={this.resume}
-                    />
-                </ButtonsRow>
+                    <ButtonsRow>
+                        <RoundButton
+                            title='Reset'
+                            color='#FFFFFF'
+                            background='#21474A'
+                            onPress={this.reset}
+                        />
+                        <RoundButton
+                            title='Start'
+                            color='#50D167'
+                            background='#1B361F'
+                            onPress={this.resume}
+                        />
+                    </ButtonsRow>
                 )}
-                <View style={{paddingTop: 150}}>
+                <View style={{ paddingTop: 150 }}>
                     <Button
                         title='Cancel Workout'
                         color='#E33935'
