@@ -68,3 +68,27 @@ class Workouts:
         except HTTPError as e:
             # Handle exception and return correct response object
             return create_error_message(e)
+
+    @staticmethod
+    def get_completed_workouts(uid: str):
+        """
+        Gets the completed workouts for this user
+
+        Arguments:
+            uid {str} -> The user's unique id
+
+        Returns:
+            response object -> If valid call, returns the user's new info and a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
+        try:
+            # reference to trophies table
+            ref = db.child("completed_workouts")
+            # add these user specific progress bars to the progress table in db
+            query = ref.child(uid).get().val()
+
+            return make_response(jsonify(query), 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
