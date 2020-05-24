@@ -61,8 +61,8 @@ export default class Stats extends Component {
 	// Route to the timer page
 	goToTimer() {
 		Actions.timer({
-			focus : this.state.focus, 
-			workout : this.state.workout, 
+			focus : this.props.focus, 
+			workout : this.props.workout, 
 			uid : this.props.uid})
     }
 
