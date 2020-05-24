@@ -41,3 +41,30 @@ class Workouts:
             # Handle exception and return correct response object
             return create_error_message(e)
 
+    @staticmethod
+    def create_completed_workout(uid: str, name: str, data: str):
+        """
+        Updates the completed_workouts table with this workout for this user
+
+        Arguments:
+            uid {str} -> The user's unique id
+            name {str} -> The name of the workout
+            data {dict} -> The data for this workout
+
+        Returns:
+            response object -> If valid call, returns the user's new info and a
+            200 status code. Otherwise, returns a blank body and an error code.
+        """
+        try:
+            # reference to trophies table
+            ref = db.child("completed_workouts")
+            # new UID to not overwrite previously completed workouts
+            key = ref.generate_key()
+            # add these user specific progress bars to the progress table in db
+            query = ref.child(uid).child(key).child(name).update(data)
+
+            return make_response(jsonify(query), 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)

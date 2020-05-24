@@ -20,8 +20,8 @@ class Trophy:
     methods related to trophies in the firebase database.
     """
 
-    @staticmethod
-    def get_all_trophies():
+    @classmethod
+    def get_all_trophies(cls):
         """
             Retrieves every single trophy in the trophy database.
 
@@ -32,11 +32,11 @@ class Trophy:
         trophies = {}
         for data in db.child("trophies").get().each():
             trophies[data.key()] = data.val()
-        
+
         return trophies
 
     @staticmethod
-    def get_user_trophies(uid: int):
+    def get_user_trophies(uid: str):
         """
             Retrieves all of the user's trophies. Adds a description field for
             each trophy returned that contains the actual information about
@@ -54,18 +54,18 @@ class Trophy:
         all_trophies = Trophy.get_all_trophies()
 
         # gets all trophies specific to the user
-        #results = db.child("earned_trophies").order_by_child("uid").equal_to(uid).get()
+        # results = db.child("earned_trophies").order_by_child("uid").equal_to(uid).get()
 
-        #trophies = []
-        #for troph in results.each():
-            # get the data for this specific user trophy
-            #data = troph.val()
+        # trophies = []
+        # for troph in results.each():
+        # get the data for this specific user trophy
+        # data = troph.val()
 
-            # include another field that includes the trophy details
-            # to avoid an extra API call on front-end
-            #data["details"] = all_trophies[data["trophy_id"]]
-            #trophies.append(data)
-        
+        # include another field that includes the trophy details
+        # to avoid an extra API call on front-end
+        # data["details"] = all_trophies[data["trophy_id"]]
+        # trophies.append(data)
+
         trophies = []
         try:
             # get all the trophies specific to the user
@@ -90,3 +90,21 @@ class Trophy:
             return create_error_message(e)
 
         return make_response(trophies, 200)
+
+    @staticmethod
+    def update_user_trophy(uid: str, name: str, data: dict):
+        """
+        Description
+
+        Arguments:
+
+        Returns:
+        """
+        try:
+            # update the specific trophy for this user in the earned users table
+            results = db.child("earned_trophies").child(uid).child(name).update(data)
+            return make_response(results, 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
