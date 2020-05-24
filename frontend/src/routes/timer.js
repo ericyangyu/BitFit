@@ -68,7 +68,6 @@ export default class WorkoutTimer extends Component {
         let exp = 0;
         let leveledUp = false;
 
-
         /**
          * Retrieve current level and experience then calculate new level and experience
          */
@@ -76,8 +75,8 @@ export default class WorkoutTimer extends Component {
             // Success
             .then(response => {
                 // need to come back here and make sure user actually has focus defined
-                level = response.data[this.props.focus]["level"];
-                exp = response.data[this.props.focus]["exp"];
+                level = parseInt(response.data[this.props.focus]["level"]);
+                exp = parseFloat(response.data[this.props.focus]["exp"]);
             })
            
             .catch((error)=>{
@@ -111,8 +110,8 @@ export default class WorkoutTimer extends Component {
                 let data = {
                     'uid': this.props.uid,
                     'body_part': this.props.focus,
-                    'exp': exp,
-                    'level': level
+                    'exp': exp.toString(),
+                    'level': level.toString()
                 };
                 axios.post(url, data)
                     .then(response => {
@@ -122,8 +121,8 @@ export default class WorkoutTimer extends Component {
                     .catch((error)=>{
                         console.log("Update progress call error");
                         alert(error.message);
+                        console.log(data);
                     });
-
             });
 
         Actions.stats({ uid: this.props.uid,
