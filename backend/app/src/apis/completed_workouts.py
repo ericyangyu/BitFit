@@ -37,6 +37,7 @@ def add_workout():
     uid = request.json["uid"]
     workout_id = request.json["workout_id"]
     duration = request.json["duration"]
+    date = request.json["date"]
 
     # Delegate to user model
     return CompletedWorkouts.add_workouts(uid, workout_id, duration)
