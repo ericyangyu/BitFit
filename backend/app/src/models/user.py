@@ -13,7 +13,7 @@ import requests  # To make cURL requests
 import json
 
 # Internal imports
-from ...config import db, auth, api_key, create_error_message, raise_error
+from ...config import db, auth, create_error_message, raise_error
 
 
 class User:
@@ -113,10 +113,7 @@ class User:
             db.child("users").child(user["localId"]).set(data)
 
             # Initalize new users progress levels and earned trophies
-            print(f'Created user {email} with a uid: {user["localId"]}...')
-            print("Created progress levels for this user...")
             User.create_user_progress_levels(user["localId"])
-            print("Created earned trophies for this user...")
             User.create_user_earned_trophies(user["localId"])
 
             # Return the user uid
@@ -211,33 +208,48 @@ class User:
         uid: str, email: str, password: str, u_email: str, u_password: str
     ):
         try:
+            # sign user in for "idToken"
             user = auth.sign_in_with_email_and_password(email, password)
 
-            headers = {"Content-Type": "application/json"}
-            params = {"key": api_key}
-
-            data = (
-                '{"idToken":"' + user["idToken"] + '",'
-                '"email":"' + u_email + '",'
-                '"returnSecureToken":true}'
-                if u_email
-                else '{"idToken":"' + user["idToken"] + '",'
-                '"password":"' + u_password + '",'
-                '"returnSecureToken":true}'
+            # update the user from the firebase authentication table
+            request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:update?key={0}".format(
+                auth.api_key
             )
+            headers = {"content-type": "application/json; charset=UTF-8"}
 
-            request = requests.post(
-                "https://identitytoolkit.googleapis.com/" "v1/accounts:update",
-                headers=headers,
-                params=params,
-                data=data,
-            )
+            # Either update email or password
+            if u_email:
+                data = json.dumps(
+                    {
+                        "email": u_email,
+                        "password": password,
+                        "returnSecureToken": True,
+                        "idToken": user["idToken"],
+                    }
+                )
+            else:
+                data = json.dumps(
+                    {
+                        "password": u_password,
+                        "returnSecureToken": True,
+                        "idToken": user["idToken"],
+                    }
+                )
 
-            if request.status_code != requests.codes.ok:
-                raise_error(request)
+            # get the response
+            request_object = requests.post(request_ref, headers=headers, data=data)
 
-            reason = "Email updated." if u_email else "Password updated"
+            # check if valid response
+            if request_object.status_code != requests.codes.ok:
+                raise_error(request_object)
 
+            # define the response
+            if u_email:
+                reason = "Email updated."
+            else:
+                reason = "Password updated"
+
+            # update the DB
             if u_email:
                 db.child("users").child(uid).update({"email": u_email})
 
@@ -250,6 +262,7 @@ class User:
     @staticmethod
     def delete(uid: str, email: str, password: str):
         try:
+            # sign user in for "idToken"
             user = auth.sign_in_with_email_and_password(email, password)
 
             # remove the user from the firebase authentication table
@@ -265,12 +278,17 @@ class User:
                     "idToken": user["idToken"],
                 }
             )
+            # get the response
             request_object = requests.post(request_ref, headers=headers, data=data)
 
+            # check if valid response
             if request_object.status_code != requests.codes.ok:
                 raise_error(request_object)
 
+            # remove the users data from the database
             db.child("users").child(uid).remove()
+            db.child("earned_trophies").child(uid).remove()
+            db.child("progress").child(uid).remove()
 
             return make_response({"reason": "User deleted."}, 200)
 

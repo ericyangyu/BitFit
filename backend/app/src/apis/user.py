@@ -120,19 +120,19 @@ def update():
 
 @user_api.route("/update_credentials", methods=["POST"])
 def update_credentials():
-    uid = request.json['uid']
-    email = request.json['email']
-    password = request.json['password']
-    u_email = request.json['u_email'] if 'u_email' in request.json else ""
-    u_pass = request.json['u_password'] if 'u_password' in request.json else ""
+    uid = request.json["uid"]
+    email = request.json["email"]
+    password = request.json["password"]
+    u_email = request.json["u_email"] if "u_email" in request.json else ""
+    u_pass = request.json["u_password"] if "u_password" in request.json else ""
 
     return User.update_credentials(uid, email, password, u_email, u_pass)
 
 
 @user_api.route("/delete", methods=["POST"])
 def delete():
-    uid = request.json['uid']
-    email = request.json['email']
-    password = request.json['password']
+    uid = request.json["uid"]
+    email = request.json["email"]
+    password = request.json["password"]
 
     return User.delete(uid, email, password)
