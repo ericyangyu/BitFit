@@ -9,9 +9,10 @@ Authors: Imran, Sharan, Nour
 # External imports
 from flask import make_response, jsonify  # Flask packages
 from requests.exceptions import HTTPError  # To access HTTPError
+import requests  # To make cURL requests
 
 # Internal imports
-from ...config import db, auth, create_error_message  # , raise_detailed_error
+from ...config import db, auth, api_key, create_error_message, raise_error
 
 
 class User:
@@ -126,9 +127,9 @@ class User:
             # Set the fields to be updated
             data = {}
             if username is not None:
-                data['fullname'] = fullname
-            if fullname is not None:
                 data['username'] = username
+            if fullname is not None:
+                data['fullname'] = fullname
             if avatar is not None:
                 data['avatar'] = avatar
 
@@ -140,28 +141,61 @@ class User:
             # Handle exception and return correct response object
             return create_error_message(e)
 
-    # NOTE: In progress, needs user idToken to work
-    # @staticmethod
-    # def delete(uid: str, tid: str):
-    #     try:
-    #         # Remove the user from the database users table
-    #         results = db.child("users").child(uid).remove()
-    #
-    #         # Remove the user from the firebase authentication table
-    #         ref = "https://identitytoolkit.googleapis.com/v1/accounts:" +
-    #               "delete?key={0}"
-    #         request_ref = ref.format(auth.api_key)
-    #         headers = {"content-type": "application/json; charset=UTF-8"}
-    #         data = json.dumps({
-    #            "returnSecureToken": True,
-    #             # "idToken": user["idToken"]
-    #         })
-    #
-    #         request_object = requests.post(request_ref, headers=headers,
-    #                                        data=data)
-    #
-    #         raise_detailed_error(request_object)
-    #         return make_response(jsonify(request_object.text), 200)
-    #
-    #     except HTTPError as e:
-    #         return create_error_response(e)
+    @staticmethod
+    def update_credentials(uid: str, email: str, password: str, u_email: str,
+                           u_password: str):
+        try:
+            user = auth.sign_in_with_email_and_password(email, password)
+
+            headers = {'Content-Type': 'application/json'}
+            params = {'key': api_key}
+
+            data = ('{"idToken":"' + user['idToken'] + '",'
+                    '"email":"' + u_email + '",'
+                    '"returnSecureToken":true}' if u_email else
+                    '{"idToken":"' + user['idToken'] + '",'
+                    '"password":"' + u_password + '",'
+                    '"returnSecureToken":true}')
+
+            request = requests.post('https://identitytoolkit.googleapis.com/'
+                                    'v1/accounts:update',
+                                    headers=headers, params=params, data=data)
+
+            if request.status_code != requests.codes.ok:
+                raise_error(request)
+
+            reason = ('Email updated.' if u_email else 'Password updated')
+
+            if u_email:
+                db.child("users").child(uid).update({'email': u_email})
+
+            return make_response({'reason': reason}, 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
+
+    @staticmethod
+    def delete(uid: str, email: str, password: str):
+        try:
+            user = auth.sign_in_with_email_and_password(email, password)
+
+            headers = {'Content-Type': 'application/json'}
+            params = {'key': api_key}
+            data = ('{"idToken":"' + user['idToken'] +
+                    '", "returnSecureToken":true}')
+
+            request = requests.post('https://identitytoolkit.googleapis.com/'
+                                    'v1/accounts:delete',
+                                    headers=headers, params=params, data=data)
+
+            if request.status_code != requests.codes.ok:
+                raise_error(request)
+
+            db.child("users").child(uid).remove()
+
+            return make_response({'reason': 'User deleted.'}, 200)
+
+        except HTTPError as e:
+            # Handle exception and return correct response object
+            return create_error_message(e)
