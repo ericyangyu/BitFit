@@ -35,10 +35,9 @@ def add_workout():
     """
     # Read incoming request data body
     uid = request.json["uid"]
-    workout_id = "FADSFA"
     workout_name = request.json["workout_name"]
     duration = request.json["duration"]
     date = request.json["date"]
 
     # Delegate to user model
-    return CompletedWorkouts.add_workouts(uid, workout_id, workout_name, duration)
+    return CompletedWorkouts.add_workouts(uid, workout_name, duration)

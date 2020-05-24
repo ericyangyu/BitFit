@@ -46,7 +46,7 @@ export default class Stats extends Component {
             })
             
             .catch((error)=>{
-                console.log("Update progress call error");
+                console.log("add workout call error");
                 alert(error.message);
             });
 
