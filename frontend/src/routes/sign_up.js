@@ -111,6 +111,7 @@ export default class SignUp extends Component {
             'password': this.state.password,
             'avatar': this.state.avatar
         };
+        let uid = "";
         
         // Make API call
         axios.post(url, data)
@@ -119,7 +120,7 @@ export default class SignUp extends Component {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
                 console.log(response.data.username);
-                Actions.progress({ uid: response.data["uid"] })
+                uid = response.data["uid"];
             })
             
             // Error
@@ -145,7 +146,11 @@ export default class SignUp extends Component {
                     // Something else cause an error
                     console.log('Error', error.message);
                 }
-            }); 
+            })
+
+            .finally(() => {
+                Actions.progress({ uid: uid })
+            });
     }
 
     // Render the correct components for the SignUp screen

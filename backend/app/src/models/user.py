@@ -42,7 +42,7 @@ class User:
         # reference to body_parts table
         ref = db.child("progress")
 
-        data = {"exp": "0.0", "level": "0.0"}
+        data = {"exp": "0.0", "level": "0"}
 
         # add these user specific progress bars to the progress table in db
         ref.child(uid).child(bpid).update(data)
