@@ -57,7 +57,7 @@ class Progress:
             return create_error_message(e)
 
     @staticmethod
-    def update_stats(uid: str, body_part: str, exp: float, level: int):
+    def update_stats(uid: str, body_part: str, exp: str, level: str):
         """
 
         Arguments:
