@@ -39,7 +39,8 @@ class CompletedWorkouts:
 
             # Data to be added into DB for the user
             data = {
-                "duration": duration
+                "duration": duration,
+                "date": date
             }
 
             # Insert user to DB with local id as key

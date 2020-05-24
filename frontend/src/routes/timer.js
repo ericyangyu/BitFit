@@ -64,6 +64,7 @@ export default class WorkoutTimer extends Component {
         let exp = 0;
         let leveledUp = false;
 
+
         /**
          * Retrieve current level and experience then calculate new level and experience
          */

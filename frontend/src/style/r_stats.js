@@ -40,6 +40,13 @@ export default StyleSheet.create({
         marginBottom: 10,
         color: '#3498eb'
     },
+    buttonTextStyle: {
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: '100',
+        marginBottom: 0,
+        color: '#3498eb'
+    },
     form: {
         flex: 1,
         justifyContent: "center",

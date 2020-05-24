@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import { View, Text } from "react-native";
 import { Actions } from 'react-native-router-flux';
+import axios from "axios";
 
 // Internal imports
 
@@ -21,8 +22,48 @@ import Button from "../components/button";
  * Class that returns the stats page
  */
 export default class Stats extends Component {
+
     constructor(props) {
         super(props)
+    }
+
+    add = () => {
+        /**
+         * Add workout to completed workout
+         */
+        let url = 'http://10.0.2.2:4200/apis/completed_workouts/add_workout';
+        let date = "1/2/3"
+        let data = {
+            'uid': this.props.uid,
+            'workout_id':  this.props.workout,
+            'duration': this.props.duration,
+            'date': this.props.date
+        };
+        axios.post(url, data)
+            .then(response => {
+                console.log(response.data)
+            })
+            
+            .catch((error)=>{
+                console.log("Update progress call error");
+                alert(error.message);
+            });
+
+    }
+    
+
+	// Route to the progress page after completing workout
+	goToProgress() {
+        this.add()
+        Actions.progress({uid: this.props.uid})
+    }
+
+	// Route to the timer page
+	goToTimer() {
+		Actions.timer({
+			focus : this.state.focus, 
+			workout : this.state.workout, 
+			uid : this.props.uid})
     }
 
     // renders stats display
@@ -51,6 +92,12 @@ export default class Stats extends Component {
                     <Text style={styles.detailsTextStyle}>
                         Hours spent: {this.props.duration}
                     </Text>
+                    <Button onPress={() => this.goToTimer()}
+                        label="Back"
+                    />
+                    <Button onPress={() => this.goToProgress()}
+                        label="Continue"
+                    />
                 </View>
             </View>
         );
