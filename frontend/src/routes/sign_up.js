@@ -135,7 +135,8 @@ export default class SignUp extends Component {
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
-                    console.log(error.response.data);
+                    console.log(error.response.data.username);
+                    console.log(error.response.data.fullname);
                     console.log(error.response.status);
                 } else if (error.request) {
                     // Request was made but no response was received.

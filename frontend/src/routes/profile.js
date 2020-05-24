@@ -124,7 +124,8 @@ export default class Profile extends Component {
                         // Log error 
                         if (error.response) {
                             // Call was unsuccessful
-                            console.log(error.response.data);
+                            console.log(error.response.data.username);
+                            console.log(error.response.data.fullname);
                             console.log(error.response.status);
                         } else if (error.request) {
                             // Request was made but no response was received.
@@ -156,10 +157,6 @@ export default class Profile extends Component {
 
     onEditPhotoPress = (eAvatar) => {
         this.setState({ eAvatar: eAvatar });
-    }
-
-    onDeletePhotoPress = () => {
-        this.setState({ eAvatar: `${defaultPhoto}`});
     }
 
     onResetStatsPress = () => {
@@ -272,7 +269,7 @@ export default class Profile extends Component {
                 </PhotoUpload>
 
                 <View style={styles.button}>
-                    <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'DELETE PROFILE PHOTO'} onPress={() => this.onDeletePhotoPress()} />
+                    <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'DELETE PROFILE PHOTO'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
                 </View>   
 
                 <Grid>

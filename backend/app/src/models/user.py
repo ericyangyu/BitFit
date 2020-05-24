@@ -10,7 +10,8 @@ Authors: Imran, Sharan, Nour
 from flask import make_response, jsonify, request  # Flask packages
 from requests.exceptions import HTTPError  # To access HTTPError
 import requests  # To make cURL requests
-import json
+import json  # jsonify dictionaries
+import zlib  # to compress base64 str
 
 # Internal imports
 from ...config import db, auth, create_error_message, raise_error
