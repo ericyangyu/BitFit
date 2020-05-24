@@ -70,6 +70,7 @@ Whenever you add a new API file you must import it into this file.
 2. Start docker
 3. Run `docker-compose up --build` (this takes over your terminal window so
    make sure you have another one opened)
+   NOTE for Windows: You need to run the following command in terminal first: `dos2unix.exe entrypoint.sh`
 
 The app is now running on the Docker image.
 
