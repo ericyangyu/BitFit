@@ -76,10 +76,14 @@ export default class ActivityLog extends Component {
                 // Save the list of trophies returned and now loading screen can be removed
                 this.setState({
                     response: response.data,
-                    isLoading: false
                 })
                 // Make the call to select completed workouts and reformat them
                 this.extractMostRecent()
+                // now loading screen can be removed
+                this.setState({
+                    isLoading: false
+                })
+
             })
 
             // Error
