@@ -17,7 +17,13 @@ export default StyleSheet.create({
     },
     imageStyle: {
         width: 75,
-        height: 75
+        height: 75,
+        aspectRatio: 1,
+        alignSelf: "center",
+        borderRadius: 100,
+        marginTop: "7%",
+        borderWidth: 1,
+        borderColor: "#434343",
     },
     buttonStyle: {
         marginTop: 10,
