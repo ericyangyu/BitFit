@@ -1,3 +1,10 @@
+/**
+ * This is the component that displays a completed workout in the activity log
+ * 
+ * Authors: Imran
+ */
+
+
 // External import
 import React, { Component } from 'react';
 import { Text } from "react-native";
@@ -7,7 +14,10 @@ import { ListItem } from 'react-native-elements'
 // Stylesheet
 import styles from '../style/c_completed_workout';
 
-export default class CompletedWorkout extends React.Component {
+/**
+ * This class contains a formatted list item for a completed workout data point
+ */
+export default class CompletedWorkout extends Component {
     render() {
         // Saving the props
         const {
@@ -15,6 +25,7 @@ export default class CompletedWorkout extends React.Component {
             ...otherProps
         } = this.props;
 
+        // return a list formatted list item
         return (
             <ListItem
                 key={workout.name}

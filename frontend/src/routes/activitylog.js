@@ -1,12 +1,12 @@
 /**
- * The activity log page displays the last x amount of activites for the user
+ * The activity log page displays the last x completed workouts for the user.
  * 
- * Authors: Imran, Sharan, Nour
+ * Authors: Imran
  */
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Text, Alert, StyleSheet, FlatList } from "react-native";
+import { Image, View, FlatList } from "react-native";
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
@@ -23,7 +23,7 @@ import CompletedWorkout from "../components/completed_workout"
 import logo from "../images/logo.png";
 
 /**
- * Class that returns the Login page with correct components and API calls.
+ * Class that returns the the Activity Log page with the workouts rendered
  */
 export default class ActivityLog extends Component {
     // Call the super constructor and initalize a state variable
@@ -32,30 +32,36 @@ export default class ActivityLog extends Component {
         this.state = { workouts: [], response: [], isLoading: true };
     }
 
-    // Route to the signup page when sign up button is pressed
+    // Route to the progress page when progress button is pressed
     goToProgress = () => {
         Actions.progress({ uid: this.props.user.uid })
     }
 
     // Creates a new state variable that contains a list of reformatted workout objects of size x
     extractMostRecent = () => {
+        // Store the reformatted workout objects in this list
         var workouts = []
+        // Counter for number of workouts to display
         var i = 0
+        // Iterate through each completed workout for this user
         for (var workout_id in this.state.response) {
+            // Will always be one because each workout_id only has one child
             for (var workout in this.state.response[workout_id]) {
+                // Reformat the workout object and store into a list
                 let data = { "name": workout, data: this.state.response[workout_id][workout] }
                 workouts.push(data)
             }
-            this.setState(
-                { workouts: workouts }
-            )
+            // Increment the counter and check if gathered enough exercises
             i += 1
-            console.log(i)
             if (i === 4) { break; }
         }
+        // Set a state variable containing the new formatted workout objects
+        this.setState(
+            { workouts: workouts }
+        )
     }
 
-    // Makes the Axios call get the workout for this user, then calls function to parse it
+    // Makes the Axios call get the completed workouts for this user, then calls function to parse it
     componentDidMount() {
         // Indicate which API to call and what data to pass in
         let url = 'http://10.0.2.2:4200/apis/workouts/get_completed_workouts';
@@ -72,6 +78,7 @@ export default class ActivityLog extends Component {
                     response: response.data,
                     isLoading: false
                 })
+                // Make the call to select completed workouts and reformat them
                 this.extractMostRecent()
             })
 
@@ -106,7 +113,7 @@ export default class ActivityLog extends Component {
                 </View>
             )
         }
-        // return (<Text>Test</Text>);
+
         return (
             <View style={styles.container}>
                 <Image source={logo} style={styles.logo} />

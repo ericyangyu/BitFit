@@ -1,7 +1,7 @@
 /**
- * Stylesheet for the progress page.
+ * Stylesheet for the completed workouts component.
  * 
- * Authors: ?
+ * Authors: Imran
  */
 
 import { StyleSheet } from 'react-native';
