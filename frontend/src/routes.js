@@ -35,8 +35,8 @@ export default class Routes extends React.Component {
                     <Scene key="progress" component={Progress} hideNavBar={true} />
                     <Scene key="profile" component={Profile} hideNavBar={true} />
                     <Scene key="settings" component={Settings} hideNavBar={true} />
-                    <Scene key="mainfocus" component={MainFocus} hideNavBar={true} />
-                    <Scene key="suggestedworkouts" component={SuggestedWorkouts} hideNavBar={true} />
+                    <Scene key="mainfocus" component={MainFocusPage} hideNavBar={true} />
+                    <Scene key="suggestedworkouts" component={SuggestedWorkoutsPage} hideNavBar={true} />
                     <Scene key="timer" component={Timer} hideNavBar={true} />
                     <Scene key="trophy" component={Trophy} hideNavBar={true} />
                 </Scene>

@@ -18,7 +18,6 @@ import axios from 'axios';
 import Trophy_component from "../components/trophy"
 
 // Images
-import profile_photo from '../images/profile_photo.png'
 import back_button from '../images/back_button.png'
 
 // Stylesheet
