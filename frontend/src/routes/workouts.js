@@ -26,31 +26,32 @@ import Button from '../components/button';
  * Class that returns the Workouts page with correct components and API calls.
  */
 export default class SuggestedWorkoutsPage extends Component {
-	
+
 	// Call the super constructor and initalize a state variable
 	constructor(props) {
 		super(props)
 		this.state = {
-			focus : props.focus,
-			workouts : [],
-			image_desc : {}, 
-			selected_workout : "",
-			image : "",
-			description : ""
+			focus: props.focus,
+			workouts: [],
+			image_desc: {},
+			selected_workout: "",
+			image: "",
+			description: ""
 		}
 	}
 
 	// Route to the timer page after selecting workout
 	goToTimer() {
 		Actions.timer({
-			focus : this.state.focus, 
-			workout : this.state.selected_workout, 
-			uid : this.props.uid})
+			focus: this.state.focus,
+			workout: this.state.selected_workout,
+			uid: this.props.uid
+		})
 	}
 
 	// Route to the Focus page if user wishes
 	goBack() {
-		Actions.mainfocus({uid : this.props.uid})
+		Actions.mainfocus({ uid: this.props.uid })
 	}
 
 	// Displays Dropdown options
@@ -79,9 +80,12 @@ export default class SuggestedWorkoutsPage extends Component {
 
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/workouts/get_workouts';
-		
+		let info = {
+			'uid': this.props.uid
+		};
+
 		// make API call
-		axios.post(url)
+		axios.post(url, info)
 			// Success
 			.then(response => {
 
@@ -91,10 +95,10 @@ export default class SuggestedWorkoutsPage extends Component {
 				let tmp_image_desc = {}
 
 				Object.keys(response.data).forEach((k) => {
-					if (response.data[k].body_part_id === this.state.focus) {
+					if (response.data[k].body_part === this.state.focus) {
 						tmp_workouts.push(k)
 						tmp_image_desc[k] = {
-							image: response.data[k].image, 
+							image: response.data[k].image,
 							description: response.data[k].description
 						}
 					}
@@ -123,8 +127,8 @@ export default class SuggestedWorkoutsPage extends Component {
 				}
 			});
 	}
-	
-	 // Render the correct components for the Workout screen
+
+	// Render the correct components for the Workout screen
 	render() {
 		return (
 			<Grid style={{ backgroundColor: '#f3ebe1' }}>
@@ -196,7 +200,7 @@ export default class SuggestedWorkoutsPage extends Component {
 					<Col></Col>
 					<Col>
 						<View style={{
-							flexDirection: 'row', 
+							flexDirection: 'row',
 							alignSelf: 'center',
 							marginVertical: -50,
 						}}>

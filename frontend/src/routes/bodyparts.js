@@ -24,7 +24,7 @@ import Button from '../components/button';
  */
 export default class MainFocusPage extends Component {
 
-    // Call the super constructor and initalize state variables
+	// Call the super constructor and initalize state variables
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -72,14 +72,14 @@ export default class MainFocusPage extends Component {
 			});
 	}
 
-    // Route to the login page when Continue button is pressed
+	// Route to the login page when Continue button is pressed
 	goToSuggestedWorkouts() {
-		Actions.suggestedworkouts({focus : this.state.focus, uid : this.props.uid});
+		Actions.suggestedworkouts({ focus: this.state.focus, uid: this.props.uid });
 	}
 
-    // Route to the login page when Back button is pressed
+	// Route to the login page when Back button is pressed
 	goBackProgress() {
-		Actions.progress({ uid : this.props.uid });
+		Actions.progress({ uid: this.props.uid });
 	}
 
 	// Displays the dropdown options
@@ -189,23 +189,23 @@ export default class MainFocusPage extends Component {
 					</Col>
 					<Col></Col>
 				</Row>
-			<Row></Row>
-			<Row>
-				<Col></Col>
-				<Col>
-					<View style={{
-						flexDirection: 'row',
-						alignSelf: 'center',
-						marginVertical: 30,
-					}}>
-						<Button onPress={() => this.goToSuggestedWorkouts()}
-							label="Continue"
-						/>
-					</View>
-				</Col>
-				<Col></Col>
-			</Row>
-			<Row></Row>
+				<Row></Row>
+				<Row>
+					<Col></Col>
+					<Col>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 30,
+						}}>
+							<Button onPress={() => this.goToSuggestedWorkouts()}
+								label="Continue"
+							/>
+						</View>
+					</Col>
+					<Col></Col>
+				</Row>
+				<Row></Row>
 			</Grid >
 		);
 

@@ -1,5 +1,5 @@
 /**
- * Stylesheet for the profile page.
+ * Stylesheet for the settings page.
  * 
  * Author: Nour
  */
@@ -29,52 +29,53 @@ export default StyleSheet.create({
         width: 55,
         height: 55
     },
-    disabled: {
-        opacity: 0.3
-    },
-    photo: {
-        width: "50%",
-        height: undefined,
-        aspectRatio: 1,
-        alignSelf: "center",
-        borderRadius: 100,
-        marginBottom: "5%",
-    },
-    statsTitle: {
+    header: {
         width: "100%",
         fontSize: 30,
         color: "#243454",
-        textAlign: 'center',
         fontWeight: 'bold',
-        fontStyle: 'italic'
-    },
-    stats: {
-        width: "100%",
-        fontSize: 40,
-        color: "#243454",
-        textAlign: 'center',
-        fontWeight: 'bold',
-        marginBottom: "5%"
-    },
-    info: {
-        fontSize: 25,
-        marginBottom: "2.5%",
-        color: "#434343",
-        alignSelf: 'center'
-    },
-    button: {
-        width: "80%",
-        margin: "2.5%",
-        alignSelf: 'center',
+        fontStyle: 'italic',
+        margin: "5%",
+        marginBottom: "2.5%"
     },
     input: {
         height: 55,
         width: "80%",
         fontSize: 25,
-        marginBottom: "2.5%",
+        marginBottom: "5%",
         alignSelf: 'center',
         color: "#434343",
         borderColor: "#434343",
         borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    button: {
+        width: "80%",
+        alignSelf: 'center',
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#243454",
+        margin: "2.5%",
+        marginTop: 0,
+        marginBottom: 0,
+        paddingVertical: 12,
+        borderRadius: 4,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "rgba(255,255,255,0.7)"
+    },
+    delete: {
+        backgroundColor: '#910000',
+        marginBottom: "5%"
+    },
+    disabledB: {
+        opacity: 0.3,
+        backgroundColor: "#243454"
+    },
+    buttonT: {
+        color: "#ffffff",
+        textAlign: "center",
+        height: 20
+    },
+    disabledT: {
+        color: 'black'
     }
 });

@@ -19,7 +19,7 @@ from flask import Blueprint, request
 from flask_cors import CORS
 
 # Internal imports
-from ..models.workouts import Workouts # User model
+from ..models.workouts import Workouts  # User model
 
 # Define the user_api blueprint route for all user-related api calls
 workouts_api = Blueprint("workouts_api", __name__)
@@ -38,3 +38,23 @@ def get_workouts():
     """
     # Delegate to user model
     return Workouts.get_workouts()
+
+
+@workouts_api.route("/create_completed_workout", methods=["POST"])
+def create_completed_workout():
+    """
+    Completes a workout for this user
+
+    Expected data:
+        uid {str} --> The users id
+        
+    
+    Expected response:
+        completed workout -> The completed workout object
+    """
+    uid = request.json["uid"]
+    name = request.json["name"]
+    data = request.json["data"]
+
+    # Delegate to workouts model
+    return Workouts.create_completed_workout(uid, name, data)

@@ -84,7 +84,6 @@ def get():
         username -> user's username
         fullname -> user's full name
         email -> user's email
-        password -> user's password
         avatar -> link to user's avatar
     """
     # Read incoming request data body
@@ -116,23 +115,24 @@ def update():
     avatar = request.json["avatar"] if "avatar" in request.json else None
 
     # Delegate to user model
-    return User.update(uid, fullname, username, avatar)
+    return User.update(uid, username, fullname, avatar)
 
 
-# NOTE: In progress, needs user idToken to work
-# @user_api.route("/delete", methods=["POST"])
-# def delete():
-# """
-# Deletes a user with specific uid.
-#
-# Expected data:
-#
-# Expected response:
-#
-# """
-#     # Read incoming request data body
-#     uid = request.json["uid"]
-#     tid = request.json["tid"]
-#
-#     # Delegate to user model
-#     return User.delete(uid, tokenId)
+@user_api.route("/update_credentials", methods=["POST"])
+def update_credentials():
+    uid = request.json["uid"]
+    email = request.json["email"]
+    password = request.json["password"]
+    u_email = request.json["u_email"] if "u_email" in request.json else ""
+    u_pass = request.json["u_password"] if "u_password" in request.json else ""
+
+    return User.update_credentials(uid, email, password, u_email, u_pass)
+
+
+@user_api.route("/delete", methods=["POST"])
+def delete():
+    uid = request.json["uid"]
+    email = request.json["email"]
+    password = request.json["password"]
+
+    return User.delete(uid, email, password)

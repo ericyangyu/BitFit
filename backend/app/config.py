@@ -20,8 +20,18 @@ app = FlaskAPI(__name__)
 app.config["CORS_HEADERS"] = "Content-Type"
 cli = FlaskGroup(app)
 
-# Initalize a Firebase connection to the databse using pyrebase
-firebase = pyrebase.initialize_app({
+test_config = {
+    "apiKey": "AIzaSyA0hD_tLfUMLsfZ1HtDtXa99mnE4IP0Cm8",
+    "authDomain": "bitfit-test.firebaseapp.com",
+    "databaseURL": "https://bitfit-test.firebaseio.com",
+    "projectId": "bitfit-test",
+    "storageBucket": "bitfit-test.appspot.com",
+    "messagingSenderId": "65353048050",
+    "appId": "1:65353048050:web:2815ddc89a40a78084556b",
+    "measurementId": "G-N9YH6R58VW",
+}
+
+real_config = {
     "apiKey": "AIzaSyDtxf_1m144v64a8gJra4khyQZXnyNYfEk",
     "authDomain": "cse110-bitfit.firebaseapp.com",
     "databaseURL": "https://cse110-bitfit.firebaseio.com",
@@ -30,11 +40,18 @@ firebase = pyrebase.initialize_app({
     "messagingSenderId": "140684277401",
     "appId": "1:140684277401:web:42a04b6e00773d52856a08",
     "measurementId": "G-PHN7BE72HF",
-})
+}
+
+
+# Initalize a Firebase connection to the databse using pyrebase
+# Choose which credentials to initalize the app with
+# firebase = pyrebase.initialize_app(test_config)
+firebase = pyrebase.initialize_app(real_config)
 
 # Create database and authentification variables for Firebase
 db = firebase.database()
 auth = firebase.auth()
+storage = firebase.storage()
 
 
 def create_error_message(e):
@@ -53,14 +70,14 @@ def create_error_message(e):
         # Access message filed in JSON error object
         code = json.loads(error_json)["error"]["code"]
         # Return the given code if this is an HTTPEror
-        return make_response({}, code)
+        return make_response(error_json, code)
 
     except HTTPError:
         # Return 400 if it is another type of error
         return make_response({}, 400)
 
 
-def raise_detailed_error(self, request_object):
+def raise_error(r):
     """
     Used to raise an HTTPError if firebase calls are made internally and not
     through pyrebase.
@@ -72,9 +89,9 @@ def raise_detailed_error(self, request_object):
         HTTPError
     """
     try:
-        request_object.raise_for_status()
+        r.raise_for_status()
     except HTTPError as e:
         # Raise detailed error message
         # TODO: Check if we get a { "error" : "Permission denied." } and
         # handle automatically
-        raise HTTPError(e, request_object.text)
+        raise HTTPError(e, r.text)

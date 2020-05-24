@@ -13,18 +13,17 @@ import { Image, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-
+ 
 // Internal inports
+import {defaultPhoto} from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_sign_up';
 
+
 // Components
 import Button from "../components/button";
 import Input from "../components/input";
-
-// Images
-import profilePhoto from "../images/profile.png";
 
 /**
  * Class that returns the SignUp page with correct components and API calls.
@@ -39,7 +38,7 @@ export default class SignUp extends Component {
             fullname: "",
             email: "",
             password: "",
-            avatar: "",
+            avatar: `${defaultPhoto}`,
             avatarDisplayStatus: true
         }
     }
@@ -110,7 +109,7 @@ export default class SignUp extends Component {
             'fullname': this.state.fullname,
             'email': this.state.email,
             'password': this.state.password,
-            'avatar': 'https://avatars.com/' + this.state.username
+            'avatar': this.state.avatar
         };
         
         // Make API call
@@ -119,7 +118,7 @@ export default class SignUp extends Component {
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                console.log(response.data);
+                console.log(response.data.username);
                 Actions.progress({ uid: response.data["uid"] })
             })
             
@@ -136,7 +135,8 @@ export default class SignUp extends Component {
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
-                    console.log(error.response.data);
+                    console.log(error.response.data.username);
+                    console.log(error.response.data.fullname);
                     console.log(error.response.status);
                 } else if (error.request) {
                     // Request was made but no response was received.
@@ -151,6 +151,7 @@ export default class SignUp extends Component {
     // Render the correct components for the SignUp screen
     render() {
         return (
+
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.container}>
                 {(this.state.avatarDisplayStatus) ?
@@ -167,7 +168,7 @@ export default class SignUp extends Component {
                     <Image
                         style={styles.photoStyle}
                         resizeMode='cover'
-                        source={profilePhoto}
+                        source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
                     />
                     </PhotoUpload> : null
                 }

@@ -21,7 +21,7 @@ import axios from 'axios';
 import styles from '../style/r_progress';
 
 // Images
-import profile_photo from '../images/profile_photo.png'
+import profile_photo from '../images/default_profile.png'
 
 
 /**
@@ -41,6 +41,7 @@ export default class Progress extends Component {
             legs: {"level": 0, "exp": 0.0},
             getUserDone: false,
             getProgressDone: false
+            avatar: ""
         }
     }
 
@@ -93,10 +94,13 @@ export default class Progress extends Component {
             .then(response => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
-                console.log(response.data);
+                console.log(response.data.fullname);
                 this.setState({
                     fullname: response.data.fullname,
                     getUserDone: true
+                })
+                this.setState({
+                    avatar: response.data.avatar
                 })
             })
 
@@ -106,7 +110,7 @@ export default class Progress extends Component {
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
-                    console.log(error.response.data);
+                    console.log(error.response.data.fullname);
                     console.log(error.response.status);
                 } else if (error.request) {
                     // Request was made but no response was received.
@@ -188,7 +192,7 @@ export default class Progress extends Component {
                             <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
                                 <Image
                                     style={styles.imageStyle}
-                                    source={profile_photo}
+                                    source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
                                 />
                             </TouchableOpacity>
                         </View>
