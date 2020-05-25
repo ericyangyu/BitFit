@@ -40,7 +40,7 @@ class Progress:
 
         # create a new progress bar specific for this user for each body_part in db
         for bp in body_parts.each():
-            db.child("progress").child(uid).child(bp).update(data)
+            db.child("progress").child(uid).child(bp.key()).update(data)
         return
 
 
