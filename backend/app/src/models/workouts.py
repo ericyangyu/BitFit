@@ -22,7 +22,7 @@ class Workouts:
     """
 
     @staticmethod
-    def get_workouts():
+    def get_workouts(body_part_name):
         """
         Gets the workouts from the db
 
@@ -34,7 +34,13 @@ class Workouts:
         """
         try:
             # Get the data for the user in the users DB table and return it
-            query = db.child("workouts").get().val()
+            query = (
+                db.child("workouts")
+                .order_by_child("body_part_name")
+                .equal_to(body_part_name)
+                .get()
+                .val()
+            )
             return make_response(jsonify(query), 200)
 
         except HTTPError as e:

@@ -15,8 +15,8 @@ import axios from 'axios';
 
 // Internal imports
 // Components
-import Button from '../components/button';
 import LoadingScreen from "../components/loading"
+import Button from '../components/button';
 
 // Stylesheet
 import styles from '../style/r_bodyparts';
@@ -41,7 +41,7 @@ export default class MainFocusPage extends Component {
 		}
 	}
 
-	get_body_parts() {
+	get_body_parts = () => {
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
 		axios.post(url)
@@ -181,12 +181,14 @@ export default class MainFocusPage extends Component {
 				<Row>
 					<Col></Col>
 					<Col>
-						<View style={styles.buttonStyle}>
-							<TouchableOpacity onPress={this.goToSuggestedWorkouts}>
-								<Text style={styles.buttonTextStyle}>
-									Continue
-                            	</Text>
-							</TouchableOpacity>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 30,
+						}}>
+							<Button onPress={() => this.goToSuggestedWorkouts()}
+								label="Continue"
+							/>
 						</View>
 					</Col>
 					<Col></Col>
