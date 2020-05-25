@@ -30,7 +30,7 @@ class Progress:
             200 status code. Otherwise, returns a blank body and an error code.
         """
         # Data to be added into DB for the user
-        data = {"exp": "0.0", "level": "0"}
+        data = {"exp": 0.0, "level": 0}
 
         # get all the body_parts as a dictionary
         ref = db.child("body_parts")
@@ -44,7 +44,7 @@ class Progress:
         return make_response({}, 200)
 
     @staticmethod
-    def update_stats(uid: str, body_part_id: str, exp: str, level: str):
+    def update_stats(uid: str, body_part_id: str, exp: int, level: int):
         """
 
         Arguments:

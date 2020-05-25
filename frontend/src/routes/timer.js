@@ -40,6 +40,17 @@ export default class WorkoutTimer extends Component {
         clearInterval(this.timer)
     }
 
+    goToStats = (duration) => {
+        console.log("In goToStats()...")
+        Actions.stats({
+            uid: this.props.uid,
+            duration: duration,
+            focus: this.props.focus,
+            workout: this.props.workout,
+            leveledUp: this.props.leveledUp
+        });
+
+    }
 
     get_body_parts = () => {
         // Indicate which API to call and what data to pass in
@@ -47,7 +58,6 @@ export default class WorkoutTimer extends Component {
         axios.post(url)
             // Success
             .then(response => {
-                console.log(response.data)
                 let body_parts = {}
                 for (var body_part_id in response.data) {
                     body_parts[response.data[body_part_id].body_part_name] = body_part_id;
@@ -56,6 +66,8 @@ export default class WorkoutTimer extends Component {
                 this.setState({
                     body_parts: body_parts,
                 })
+                console.log("In get_body_parts()...")
+                this.getStats()
             })
             .catch(error => {
                 // Log error 
@@ -86,89 +98,86 @@ export default class WorkoutTimer extends Component {
         }, 100)
     }
 
-    // ends the workout and calculate levels
-    finish = () => {
+    updateStats = (exp, level, duration) => {
+        let body_part_id = this.state.body_parts[this.props.focus]
+
+        /**
+         * Save progress in backend
+         */
+        let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+        let data = {
+            'uid': this.props.uid,
+            'body_part_id': body_part_id,
+            'exp': exp,
+            'level': level
+        };
+        axios.post(url, data)
+            .then(response => {
+                // console.log(response.data)
+                console.log("In updateStats()...")
+                this.goToStats(duration)
+            })
+
+            .catch((error) => {
+                console.log("Update progress call error");
+                alert(error.message);
+            });
+    }
+
+    calculateStats = (exp, level) => {
         const { laps, now, start } = this.state;
         const timer = now - start;
         // calculates the duration of the workout in hours rounded to 2 decimal places
         const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
+        let leveledUp = false;
 
-        this.get_body_parts()
+        exp = exp + duration;
 
+        // calculate the new level
+        if (level == 0) {
+            if (exp >= 1) {
+                level = 1;
+                while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                    level = level + 1;
+                    leveledUp = true;
+                }
+            }
+        } else {
+            while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                level = level + 1;
+                leveledUp = true;
+            }
+        }
+        console.log("In calculateStats()...")
+        this.updateStats(exp, level, duration)
+    }
+
+    getStats = () => {
+        let body_part_id = this.state.body_parts[this.props.focus]
         let url = 'http://10.0.2.2:4200/apis/progress/get';
         let data = {
             'uid': this.props.uid
         };
 
-        let level = 0;
-        let exp = 0;
-        let leveledUp = false;
-        let body_part_id = this.state.body_parts[this.props.focus]
-
-        /**
-         * Retrieve current level and experience then calculate new level and experience
-         */
         axios.post(url, data)
             // Success
             .then(response => {
                 // need to come back here and make sure user actually has focus defined
-                level = parseInt(response.data[this.state.body_parts[this.props.focus]].level);
-                exp = parseFloat(response.data[this.state.body_parts[this.props.focus]].exp);
+                let level = response.data[body_part_id].level;
+                let exp = response.data[body_part_id].exp;
+                console.log("In getStats()...")
+                this.calculateStats(exp, level)
             })
-
             .catch((error) => {
                 console.log("Get progress call error");
                 alert(error.message);
             })
+    }
 
-            .finally(() => {
-                exp = exp + duration;
-
-                // calculate the new level
-                if (level == 0) {
-                    if (exp >= 1) {
-                        level = 1;
-                        while ((exp - (2 * (level) - 1)) >= (2 * level)) {
-                            level = level + 1;
-                            leveledUp = true;
-                        }
-                    }
-                } else {
-                    while ((exp - (2 * (level) - 1)) >= (2 * level)) {
-                        level = level + 1;
-                        leveledUp = true;
-                    }
-                }
-
-                /**
-                 * Save progress in backend
-                 */
-                let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
-                let data = {
-                    'uid': this.props.uid,
-                    'body_part_id': this.state.body_parts[this.props.focus].toString(),
-                    'exp': exp.toString(),
-                    'level': level.toString()
-                };
-                axios.post(url, data)
-                    .then(response => {
-                        console.log(response.data)
-                    })
-
-                    .catch((error) => {
-                        console.log("Update progress call error");
-                        alert(error.message);
-                        console.log(data);
-                    });
-            });
-
-        Actions.stats({
-            uid: this.props.uid,
-            duration: duration,
-            focus: this.props.focus,
-            workout: this.props.workout,
-            leveledUp: this.props.leveledUp
-        });
+    // ends the workout and calculate levels
+    finish = () => {
+        console.log("In Finish...")
+        this.get_body_parts()
     }
 
     // pause timer

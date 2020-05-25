@@ -31,32 +31,33 @@ export default class Stats extends Component {
         /**
          * Add workout to completed workout
          */
-        
+
         let url = 'http://10.0.2.2:4200/apis/completed_workouts/add_workout';
         let date = new Date();
         let data = {
             'uid': this.props.uid,
-            'workout_name':  this.props.workout,
+            'workout_name': this.props.workout,
             'duration': this.props.duration,
             'date': date.toString()
         };
         axios.post(url, data)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
+                console.log("Added completed workout...")
             })
-            
-            .catch((error)=>{
+
+            .catch((error) => {
                 console.log("add workout call error");
                 alert(error.message);
             });
 
     }
-    
 
-	// Route to the progress page after completing workout
-	goToProgress() {
+
+    // Route to the progress page after completing workout
+    goToProgress() {
         this.add()
-        Actions.progress({uid: this.props.uid})
+        Actions.progress({ uid: this.props.uid })
     }
 
 
@@ -66,13 +67,13 @@ export default class Stats extends Component {
             <View style={styles.container}>
                 <View style={styles.form}>
 
-                    { this.props.leveledUp ?
+                    {this.props.leveledUp ?
                         <Text style={styles.finishTextStyle}>
                             Leveled Up {this.props.focus}!
                         </Text> :
                         <Text style={styles.finishTextStyle}>
                             Completed Workout!
-                        </Text> 
+                        </Text>
                     }
                     <Text style={styles.summaryTextStyle}>
                         Summary of Workout
@@ -82,7 +83,7 @@ export default class Stats extends Component {
                     </Text>
                     <Text style={styles.detailsTextStyle}>
                         Focus: {this.props.focus}
-                    </Text> 
+                    </Text>
                     <Text style={styles.detailsTextStyle}>
                         Hours spent: {this.props.duration}
                     </Text>
