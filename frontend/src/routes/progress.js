@@ -20,8 +20,8 @@ import axios from 'axios';
 // Stylesheet
 import styles from '../style/r_progress';
 
-// Images
-import profile_photo from '../images/default_profile.png'
+// Components
+import LoadingScreen from "../components/loading"
 
 
 /**
@@ -34,23 +34,18 @@ export default class Progress extends Component {
         super(props)
         this.state = {
             fullname: "",
-            arms: { "level": "0", "exp": "0.0" },
-            back: { "level": "0", "exp": "0.0" },
-            chest: { "level": "0", "exp": "0.0" },
-            core: { "level": "0", "exp": "0.0" },
-            legs: { "level": "0", "exp": "0.0" },
-            getUserDone: false,
-            getProgressDone: false,
-            avatar: ""
+            avatar: "",
+            overallLv: 0,
+            progress: {},
+            body_parts: [],
+            isLoading: true
         }
     }
 
     // Route to the trophy page when the trophy button is pressed
     goToTrophy = () => {
-        console.log("Going to Trophy...")
         Actions.trophy({ uid: this.props.uid })
     }
-
 
     // Route to the profile page when the profile button is pressed
     goToProfile = () => {
@@ -62,133 +57,98 @@ export default class Progress extends Component {
         Actions.mainfocus({ uid: this.props.uid })
     }
 
-    /**
-     * When the page is rendered, an API call to the backend is made to get the
-     * current user's information to render on the page. It recieves the user's
-     * uid from the previous page (login/sign up) through this.props and uses
-     * that to make the database call. It recieves a response object
-     * that is caught and processed accordingly.
-     */
-    componentDidMount() {
-        /*
-        IMPORTANT: FOLLOW THIS FORMAT TO MAKE API CALLS
-        Notes:
-        - only last two parts should change in url field
-        - data should match "Expected data" in API method header
-        - response.data will match "Expected response" in API method header
-        - If code steps into .then: call went through
-        - If code steps into .catch: error (use postman to debug)
-        - You need to initialize .then and .catch as arrow functions if you
-          want to edit states in them
-        */
-
-        // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/user/get';
-        let data = {
+    getData = () => {
+        let url1 = 'http://10.0.2.2:4200/apis/user/get';
+        let data1 = {
             'uid': this.props.uid
         };
 
-        // Make API call
-        axios.post(url, data)
-            // Success
-            .then(response => {
-                /* Set the state for this page to include the relevant user 
-                information returned from the API call */
-                console.log(response.data.fullname);
-                this.setState({
-                    fullname: response.data.fullname,
-                    avatar: response.data.avatar
-                })
-            })
+        let url2 = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
+        let data2 = {}
 
-            // Error
-            .catch(error => {
-                console.log("User get api call error")
-                // Log error 
-                if (error.response) {
-                    // Call was unsuccessful
-                    console.log(error.response.data.fullname);
-                    console.log(error.response.status);
-                } else if (error.request) {
-                    // Request was made but no response was received.
-                    console.log(error.request);
-                } else {
-                    // Something else cause an error
-                    console.log('Error', error.message);
-                }
-            })
 
-            .finally(() => {
-                this.setState({
-                    getUserDone: true
-                })
-            });
-
-        // get progress
-        url = 'http://10.0.2.2:4200/apis/progress/get';
-        data = {
+        let url3 = 'http://10.0.2.2:4200/apis/progress/get';
+        let data3 = {
             'uid': this.props.uid
         };
 
-        // Make API call
-        axios.post(url, data)
-            // Success
-            .then(response => {
-                this.setState({
-                    arms: response.data.Arms,
-                    back: response.data.Back,
-                    chest: response.data.Chest,
-                    core: response.data.Core,
-                    legs: response.data.Legs,
-                    getProgressDone: true
-                })
-            })
+        const requestOne = axios.post(url1, data1);
+        const requestTwo = axios.post(url2, data2);
+        const requestThree = axios.post(url3, data3);
 
-            // Error
-            .catch(error => {
-                console.log("Progress get api call error")
-                // Log error 
-                if (error.response) {
-                    // Call was unsuccessful
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                } else if (error.request) {
-                    // Request was made but no response was received.
-                    console.log(error.request);
-                } else {
-                    // Something else cause an error
-                    console.log('Error', error.message);
-                }
-            })
+        axios
+            .all([requestOne, requestTwo, requestThree])
+            .then(
+                axios.spread((...responses) => {
+                    const userData = responses[0].data;
+                    const bodypartsData = responses[1].data;
+                    const progressData = responses[2].data;
 
-            .finally(() => {
-                this.setState({
-                    getProgressDone: true
+                    let progress = {}
+                    let body_parts = []
+                    let overallLv = 0;
+                    for (var body_part_id in progressData) {
+                        let body_part_name = bodypartsData[body_part_id].body_part_name
+                        let exp = progressData[body_part_id]
+
+                        body_parts.push(body_part_name)
+                        exp['progress_bar'] = this.calculateProgess(exp.level, exp.exp)
+                        progress[body_part_name] = exp
+                        overallLv += parseInt(exp.level)
+                    }
+                    console.log(body_parts)
+                    this.setState({
+                        progress: progress,
+                        body_parts: body_parts,
+                        fullname: userData.fullname,
+                        avatar: userData.avatar,
+                        overallLv: overallLv,
+                        isLoading: false
+                    })
+
                 })
+            )
+            .catch(errors => {
+                // react on errors.
+                console.error(errors);
             });
     }
 
+    calculateProgess(exp, level) {
+        let progressBar = 0.0
+
+        if (parseInt(level) == 0) {
+            progressBar = parseFloat(exp) * 100
+
+        } else {
+            progressBar = (parseFloat(exp) - (2 * parseInt(level) - 1))
+                / (2 * parseInt(level)) * 100
+        }
+        return progressBar
+    }
+
+    // Make API calls when the screen mounts
+    componentDidMount() {
+        this.getData()
+    }
+
+
+
     // Render the correct components for the Progress screen
     render() {
-        let overallLv = parseInt(this.state.arms.level) +
-            parseInt(this.state.back.level) +
-            parseInt(this.state.chest.level) +
-            parseInt(this.state.core.level) +
-            parseInt(this.state.legs.level);
-
         // If the API call is not complete, display the loading screen
-        if (!this.state.getProgressDone || !this.state.getUserDone) {
+        if (this.state.isLoading) {
             return (
-                <View style={styles.spinnerContainer}>
-                    <Spinner
-                        visible={this.state.isLoading}
-                        textContent={'Loading...'}
-                        textStyle={styles.spinnerTextStyle}
-                    />
-                </View>
+                <LoadingScreen></LoadingScreen>
             )
         }
 
+        // const { progress } = this.state;
+        // return (
+        //     Object.keys(progress).map((key, index) => (
+        //         <Text>Body Part:{key}, Level:{progress[key].level}, Exp:{progress[key].exp}</Text>
+        //     ))
+        // );
         return (
             <Grid style={styles.container}>
                 <Row>
@@ -212,7 +172,7 @@ export default class Progress extends Component {
                 </Row>
                 <Row></Row>
                 <Row>
-                    <Text style={styles.textStyle}>Overall Level: {overallLv}</Text>
+                    <Text style={styles.textStyle}>Overall Level: {this.state.overallLv}</Text>
                 </Row>
 
                 <Row>
@@ -220,99 +180,88 @@ export default class Progress extends Component {
                     <Col><Text style={styles.textStyle}>Progress</Text></Col>
                     <Col><Text style={styles.textStyle}>Level</Text></Col>
                 </Row>
-
                 <Row>
                     <Col>
-                        <Text style={styles.textStyle}>Arms</Text>
+                        <Text style={styles.textStyle}>{this.state.body_parts[0]}</Text>
                     </Col>
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.arms.level) == 0 ? parseFloat(this.state.arms.exp) * 100 :
-                                (parseFloat(this.state.arms.exp) - (2 * parseInt(this.state.arms.level) - 1))
-                                / (2 * parseInt(this.state.arms.level)) * 100}
+                            value={this.state.progress[this.state.body_parts[0]].progressBar}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>{this.state.arms.level}</Text>
+                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[0]].level}</Text>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col>
-                        <Text style={styles.textStyle}>Back</Text>
+                        <Text style={styles.textStyle}>{this.state.body_parts[1]}</Text>
                     </Col>
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.back.level) == 0 ? parseFloat(this.state.back.exp) * 100 :
-                                parseFloat((this.state.back.exp) - (2 * parseInt(this.state.back.level) - 1))
-                                / (2 * parseInt(this.state.back.level)) * 100}
+                            value={this.state.progress[this.state.body_parts[1]].progressBar}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>{this.state.back.level}</Text>
+                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[1]].level}</Text>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col>
-                        <Text style={styles.textStyle}>Chest</Text>
+                        <Text style={styles.textStyle}>{this.state.body_parts[2]}</Text>
                     </Col>
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.chest.level) == 0 ? parseFloat(this.state.chest.exp) * 100 :
-                                (parseFloat(this.state.chest.exp) - (2 * parseInt(this.state.chest.level) - 1))
-                                / (2 * parseInt(this.state.chest.level)) * 100}
+                            value={this.state.progress[this.state.body_parts[2]].progressBar}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>{this.state.chest.level}</Text>
+                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[2]].level}</Text>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col>
-                        <Text style={styles.textStyle}>Core</Text>
+                        <Text style={styles.textStyle}>{this.state.body_parts[3]}</Text>
                     </Col>
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.core.level) == 0 ? parseFloat(this.state.core.exp) * 100 :
-                                (parseFloat(this.state.core.exp) - (2 * parseInt(this.state.core.level) - 1))
-                                / (2 * parseInt(this.state.core.level)) * 100}
+                            value={this.state.progress[this.state.body_parts[3]].progressBar}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>{this.state.core.level}</Text>
+                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[3]].level}</Text>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col>
-                        <Text style={styles.textStyle}>Legs</Text>
+                        <Text style={styles.textStyle}>{this.state.body_parts[4]}</Text>
                     </Col>
                     <Col>
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.legs.level) == 0 ? parseFloat(this.state.legs.exp) * 100 :
-                                (parseFloat(this.state.legs.exp) - (2 * parseInt(this.state.legs.level) - 1))
-                                / (2 * parseInt(this.state.legs.level)) * 100}
+                            value={this.state.progress[this.state.body_parts[4]].progressBar}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
                     <Col>
-                        <Text style={styles.textStyle}>{this.state.legs.level}</Text>
+                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
                     </Col>
                 </Row>
 
