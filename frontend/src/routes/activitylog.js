@@ -108,6 +108,22 @@ export default class ActivityLog extends Component {
             )
         }
 
+        if (this.state.workouts.length === 0) {
+            return (
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={() => this.goToProgress()}>
+                        <Image source={backButton} style={styles.topButton} />
+                    </TouchableOpacity>
+                    <Text style={styles.header}>
+                        Activity Log
+                </Text>
+                    <Text style={styles.header}>
+                        No Workouts Completed!
+                    </Text>
+                </View>
+            );
+        }
+
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => this.goToProgress()}>
