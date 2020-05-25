@@ -143,17 +143,17 @@ CRUNCH = {
 HAMSTRING_CURLS = {
     "workout_name": "Hamstring Curls",
     "description": "Basically the bicep curls of the legs.",
-    "image": "",
+    "image": LOCK_URL,
 }
 BAND_BENT_OVER_ROW = {"description": "Got a spare rope lying around?", "image": ""}
 BICEP_CURLS = {
     "description": "The perfect way to brush up the “guns” and flex on everyone else.",
-    "image": "",
+    "image": LOCK_URL,
 }
 BENCH_PRESS = {"description": "Did someone say pec activation?", "image": ""}
 SQUAT = {
     "description": "Remember that the proper form is to stick your butt out.",
-    "image": "",
+    "image": LOCK_URL,
 }
 
 
@@ -163,7 +163,7 @@ ALL_WORKOUTS = [
             "workout_name": "Hamstring Curls",
             "body_part_name": "Legs",
             "description": HAMSTRING_CURLS["description"],
-            "image": HAMSTRING_CURLS["image"],
+            "image": RUSSIAN_TWIST["image"],
         }
     },
     {
@@ -171,7 +171,7 @@ ALL_WORKOUTS = [
             "workout_name": "Squat",
             "body_part_name": "Legs",
             "description": SQUAT["description"],
-            "image": SQUAT["image"],
+            "image": RUSSIAN_TWIST["image"],
         }
     },
     {
@@ -195,15 +195,15 @@ ALL_WORKOUTS = [
             "workout_name": "Band Bent-Over Row",
             "body_part_name": "Back",
             "description": BAND_BENT_OVER_ROW["description"],
-            "image": BAND_BENT_OVER_ROW["image"],
+            "image": RUSSIAN_TWIST["image"],
         }
     },
     {
         "data": {
-            "wokout_name": "Bench Press",
+            "workout_name": "Bench Press",
             "body_part_name": "Chest",
             "description": BENCH_PRESS["description"],
-            "image": BENCH_PRESS["image"],
+            "image": RUSSIAN_TWIST["image"],
         }
     },
     {
@@ -211,7 +211,7 @@ ALL_WORKOUTS = [
             "workout_name": "Bicep Curls",
             "body_part_name": "Arms",
             "description": BICEP_CURLS["description"],
-            "image": BICEP_CURLS["image"],
+            "image": RUSSIAN_TWIST["image"],
         }
     },
 ]

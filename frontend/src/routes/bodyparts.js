@@ -102,7 +102,6 @@ export default class MainFocusPage extends Component {
 			focus: value,
 			focus_image: this.state.images[value]
 		})
-
 	}
 
 	// Query database while rendering page for the body parts

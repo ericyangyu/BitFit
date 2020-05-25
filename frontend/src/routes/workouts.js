@@ -42,7 +42,6 @@ export default class SuggestedWorkoutsPage extends Component {
 			selected_workout: "",
 			selected_workout_image: "",
 			selected_workout_description: "",
-			// image_desc: {},
 			isLoading: true
 		}
 	}
@@ -111,7 +110,6 @@ export default class SuggestedWorkoutsPage extends Component {
 					selected_workout_image: workouts_info[workouts[0]].image,
 					selected_workout_description: workouts_info[workouts[0]].description,
 					isLoading: false
-					// image_desc: tmp_image_desc,
 				})
 			})
 			.catch(error => {
