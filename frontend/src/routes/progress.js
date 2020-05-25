@@ -12,17 +12,14 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
-import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 
 // Internal imports
-
 // Stylesheet
 import styles from '../style/r_progress';
 
 // Components
 import LoadingScreen from "../components/loading"
-
 
 /**
  * Class that returns the Progress page with correct components and API calls.
@@ -131,8 +128,6 @@ export default class Progress extends Component {
     componentDidMount() {
         this.getData()
     }
-
-
 
     // Render the correct components for the Progress screen
     render() {
