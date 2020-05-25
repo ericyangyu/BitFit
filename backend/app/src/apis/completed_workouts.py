@@ -40,4 +40,4 @@ def add_workout():
     date = request.json["date"]
 
     # Delegate to user model
-    return CompletedWorkouts.add_workouts(uid, workout_name, duration)
+    return CompletedWorkouts.add_workouts(uid, workout_name, duration, date)

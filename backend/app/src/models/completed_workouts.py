@@ -20,7 +20,7 @@ class CompletedWorkouts:
     """
 
     @staticmethod
-    def add_workouts(uid: str, workout_name: str, duration: int):
+    def add_workouts(uid: str, workout_name: str, duration: int, date: str):
         """
 
         Arguments:
