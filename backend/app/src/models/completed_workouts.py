@@ -34,10 +34,6 @@ class CompletedWorkouts:
             200 status code. Otherwise, returns a blank body and an error code.
         """
         try:
-
-            
-
-
             # Data to be added into DB for the user
             data = {
                 "duration": duration,
@@ -48,7 +44,7 @@ class CompletedWorkouts:
             key = ref.generate_key()
 
             # Insert user to DB with local id as key
-            query = db.child("completed_workouts").child(uid).child(key).child(workout_name).update(data)
+            query = db.child(uid).child(key).child(workout_name).update(data)
 
             # Return the user uid
             return make_response(query, 200)
