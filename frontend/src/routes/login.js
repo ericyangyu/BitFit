@@ -76,7 +76,7 @@ export default class Login extends Component {
             'email': this.state.email,
             'password': this.state.password
         };
-        let uid = "";
+        // let uid = "";
 
         // Make API call
         axios.post(url, data)
@@ -112,9 +112,9 @@ export default class Login extends Component {
                 }
             })
 
-            .finally(() => {
-                Actions.progress({ uid: uid })
-            });
+        // .finally(() => {
+        //     Actions.progress({ uid: uid })
+        // });
     };
 
     // Render the correct components for the login screen
