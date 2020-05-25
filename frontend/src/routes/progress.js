@@ -8,7 +8,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
@@ -16,11 +16,15 @@ import axios from 'axios';
 
 // Internal imports
 
+// Components
+import Button from "../components/button";
+
 // Stylesheet
 import styles from '../style/r_progress';
 
 // Images
 import profile_photo from '../images/default_profile.png'
+import blue from '../images/blue.jpg'
 
 
 /**
@@ -32,8 +36,7 @@ export default class Progress extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullname: "",
-            avatar: ""
+            fullname: ""
         }
     }
 
@@ -42,7 +45,6 @@ export default class Progress extends Component {
         console.log("Going to Trophy...")
         Actions.trophy({ uid: this.props.uid })
     }
-
 
     // Route to the profile page when the profile button is pressed
     goToProfile = () => {
@@ -86,12 +88,9 @@ export default class Progress extends Component {
             .then(response => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
-                console.log(response.data.fullname);
+                console.log(response.data);
                 this.setState({
                     fullname: response.data.fullname
-                })
-                this.setState({
-                    avatar: response.data.avatar
                 })
             })
 
@@ -100,7 +99,7 @@ export default class Progress extends Component {
                 // Log error 
                 if (error.response) {
                     // Call was unsuccessful
-                    console.log(error.response.data.fullname);
+                    console.log(error.response.data);
                     console.log(error.response.status);
                 } else if (error.request) {
                     // Request was made but no response was received.
@@ -117,104 +116,137 @@ export default class Progress extends Component {
         return (
             <Grid style={styles.container}>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
                     <Col>
                         <View>
-                            <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
+                            <Image
+                                style={{ width: window.width, height: 200 }}
+                                source={blue}
+                            />
+                            <TouchableOpacity style={{ marginLeft: 20, marginTop: -180, alignItems: 'stretch' }}
+                                onPress={this.goToProfile}>
                                 <Image
                                     style={styles.imageStyle}
-                                    source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                                    source={profile_photo}
                                 />
                             </TouchableOpacity>
+                            <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
                         </View>
                     </Col>
                 </Row>
-                <Row></Row>
                 <Row>
-                    <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
-                </Row>
-                <Row></Row>
-                <Row>
-                    <Text style={styles.textStyle}>Overall Level: 6</Text>
-                </Row>
+                    <View elevation={5} style={styles.whiteBox1}>
+                        <Text style={styles.textStyle}>Overall Level: 6</Text>
+                    </View>
 
-                <Row>
-                    <Col><Text style={styles.textStyle}>Focus</Text></Col>
-                    <Col><Text style={styles.textStyle}>Progress</Text></Col>
-                    <Col><Text style={styles.textStyle}>Level</Text></Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>Arms</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={50}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>4</Text>
-                    </Col>
-                </Row>
+                    <View elevation={5} style={styles.whiteBox2}>
 
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>Legs</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={50}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>4</Text>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>Core</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={50}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>4</Text>
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col><Text style={styles.textStyle}>Focus</Text></Col>
+                            <Col><Text style={styles.textStyle}>Progress</Text></Col>
+                            <Col><Text style={styles.textStyle}>Level</Text></Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>Arms</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={50}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>4</Text>
+                            </Col>
+                        </Row>
 
-                <Row></Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToTrophy}>
-                            <Text style={styles.buttonTextStyle}>
-                                Trophy Case
-                            </Text>
-                        </TouchableOpacity>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>Legs</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={50}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>4</Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>Core</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={50}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>4</Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>Back</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={50}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>4</Text>
+                            </Col>
+                        </Row><Row>
+                            <Col>
+                                <Text style={styles.textStyle}>Chest</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={50}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>4</Text>
+                            </Col>
+                        </Row>
                     </View>
                 </Row>
                 <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToMainFocus}>
-                            <Text style={styles.buttonTextStyle}>
-                                Start a New Workout
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Col>
+                        <View style={styles.buttonView}>
+                            <Button
+                                label={"  Start a New Workout   "}
+                                onPress={this.goToMainFocus}
+                            />
+                        </View>
+                    </Col>
+                    <Col>
+                        <View style={styles.buttonView}>
+                            <Button
+                                label={"Trophy Case"}
+                                onPress={this.goToTrophy}
+                            />
+                        </View>
+                    </Col>
                 </Row>
-                <Row></Row>
             </Grid>
         );
     }
