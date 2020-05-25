@@ -13,9 +13,9 @@ import { Image, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
- 
+
 // Internal inports
-import {defaultPhoto} from '../images/default_photo.js';
+import { defaultPhoto } from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_sign_up';
@@ -38,7 +38,7 @@ export default class SignUp extends Component {
             fullname: "",
             email: "",
             password: "",
-            avatar: `${defaultPhoto}`,
+            avatar: defaultPhoto,
             avatarDisplayStatus: true
         }
     }
@@ -112,24 +112,23 @@ export default class SignUp extends Component {
             'avatar': this.state.avatar
         };
         let uid = "";
-        
+
         // Make API call
         axios.post(url, data)
             // Success
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                console.log(response.data.username);
                 uid = response.data["uid"];
             })
-            
+
             // Error
             .catch(error => {
                 // Display alert if there was an errr logging in
                 Alert.alert(
                     'Invalid Credentials',
                     "Please try again.",
-                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    [{ text: 'OK' }],
                     { cancelable: false }
                 );
 
@@ -159,67 +158,67 @@ export default class SignUp extends Component {
 
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.container}>
-                {(this.state.avatarDisplayStatus) ?
-                    <PhotoUpload
-                    maxHeight={200}
+                    {(this.state.avatarDisplayStatus) ?
+                        <PhotoUpload
+                            maxHeight={200}
 
-                    photoPickerTitle={'Upload a Profile Picture: '}
-                    onPhotoSelect={avatar => {
-                        if (avatar) {
-                        this.handleAvatarChange(avatar)
-                        }
-                    }}
-                    >
-                    <Image
-                        style={styles.photoStyle}
-                        resizeMode='cover'
-                        source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
-                    />
-                    </PhotoUpload> : null
-                }
+                            photoPickerTitle={'Upload a Profile Picture: '}
+                            onPhotoSelect={avatar => {
+                                if (avatar) {
+                                    this.handleAvatarChange(avatar)
+                                }
+                            }}
+                        >
+                            <Image
+                                style={styles.photoStyle}
+                                resizeMode='cover'
+                                source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                            />
+                        </PhotoUpload> : null
+                    }
                 </KeyboardAvoidingView>
 
                 <KeyboardAvoidingView style={styles.form} >
-                <View>
-                    <Input
-                        value={this.state.username}
-                        onFocus={this.hideAvatar}
-                        onChangeText={this.handleUserNameChange}
-                        placeholder={"Username..."}
-                        onSubmitEditing={this.displayAvatar}
-                    />
-                    <Input
-                        value={this.state.fullname}
-                        onFocus={this.hideAvatar}
-                        onChangeText={this.handleFullNameChange}
-                        placeholder={"Full name..."}
-                        onSubmitEditing={this.displayAvatar}
-                    />
-                    <Input
-                        value={this.state.email}
-                        onFocus={this.hideAvatar}
-                        onChangeText={this.handleEmailChange}
-                        placeholder={"Email..."}
-                        onSubmitEditing={this.displayAvatar}
-                    />
-                    <Input
-                        value={this.state.password}
-                        onFocus={this.hideAvatar}
-                        onChangeText={this.handlePasswordChange}
-                        placeholder={"Password..."}
-                        onSubmitEditing={this.displayAvatar}
-                    />
-                    <View></View>
-                    <Button
-                        label={"Sign Up"}
-                        onPress={this.handleSignUpPress}
-                    />
-                </View>
-                <TouchableOpacity onPress={this.goToLogIn} >
-                    <Text style={styles.buttonTextStyle}>
-                    Already have an account? Login here.
+                    <View>
+                        <Input
+                            value={this.state.username}
+                            onFocus={this.hideAvatar}
+                            onChangeText={this.handleUserNameChange}
+                            placeholder={"Username..."}
+                            onSubmitEditing={this.displayAvatar}
+                        />
+                        <Input
+                            value={this.state.fullname}
+                            onFocus={this.hideAvatar}
+                            onChangeText={this.handleFullNameChange}
+                            placeholder={"Full name..."}
+                            onSubmitEditing={this.displayAvatar}
+                        />
+                        <Input
+                            value={this.state.email}
+                            onFocus={this.hideAvatar}
+                            onChangeText={this.handleEmailChange}
+                            placeholder={"Email..."}
+                            onSubmitEditing={this.displayAvatar}
+                        />
+                        <Input
+                            value={this.state.password}
+                            onFocus={this.hideAvatar}
+                            onChangeText={this.handlePasswordChange}
+                            placeholder={"Password..."}
+                            onSubmitEditing={this.displayAvatar}
+                        />
+                        <View></View>
+                        <Button
+                            label={"Sign Up"}
+                            onPress={this.handleSignUpPress}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={this.goToLogIn} >
+                        <Text style={styles.buttonTextStyle}>
+                            Already have an account? Login here.
                     </Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>
         );
