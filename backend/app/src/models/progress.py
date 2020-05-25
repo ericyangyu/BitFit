@@ -41,6 +41,15 @@ class Progress:
         for body_part in body_parts:
             db.child("progress").child(uid).child(body_part).update(data)
 
+        # update the specific trophy for this user in the earned users table
+        earned_trophies = db.child("earned_trophies").child(uid).get().val()
+
+        # update the users trophy if they earned it
+        for trophy in earned_trophies:
+            data = {"date_earned": ""}
+            db.child("earned_trophies").child(uid).child(trophy).update(data)
+
+        # remove all completed workouts
         db.child("completed_workouts").child(uid).remove()
 
         return make_response({}, 200)

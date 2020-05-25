@@ -122,27 +122,27 @@ export default class MainFocusPage extends Component {
 			<Grid style={{ backgroundColor: '#e7e7e7' }}>
 				{/* <Row>
 					<Col> */}
-					<View>
-                            <Image
-                                style={{ width: window.width, height: 200, opacity: 1.8 }}
-                                source={blue}
-                            />
-                            <TouchableOpacity onPress={() => this.goBackProgress()}>
-								<Image
-									style={{ width: 45, height: 45, marginTop: -180, marginLeft: 10 }}
-									source={require('../images/back_button.png')}
-								/>
-							</TouchableOpacity>
-                            <Text style={{
-								fontSize: 50,
-								fontFamily: 'sans-serif-light',
-								color: 'white',
-								textAlign: 'center',
-								fontWeight: '100',
-								marginTop: -130
-							}}> Main Focus </Text>
-                    </View>
-						{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
+				<View>
+					<Image
+						style={{ width: window.width, height: 200, opacity: 1.8 }}
+						source={blue}
+					/>
+					<TouchableOpacity onPress={() => this.goBackProgress()}>
+						<Image
+							style={{ width: 45, height: 45, marginTop: -180, marginLeft: 10 }}
+							source={require('../images/back_button.png')}
+						/>
+					</TouchableOpacity>
+					<Text style={{
+						fontSize: 50,
+						fontFamily: 'sans-serif-light',
+						color: 'white',
+						textAlign: 'center',
+						fontWeight: '100',
+						marginTop: -130
+					}}> Main Focus </Text>
+				</View>
+				{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
 								<Image
 									style={{ width: 45, height: 45 }}
@@ -168,7 +168,7 @@ export default class MainFocusPage extends Component {
 								Main Focus
 							</Text>
 						</View> */}
-					{/* </Col>
+				{/* </Col>
 				</Row> */}
 				<Row>
 					<Col>

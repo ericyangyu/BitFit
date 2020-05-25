@@ -46,7 +46,6 @@ def get_user_trophies():
     return Trophy.get_user_trophies(uid)
 
 
-# TODO
 @trophy_api.route("/update_user_trophies", methods=["POST"])
 def update_user_trophies():
     """
@@ -60,6 +59,7 @@ def update_user_trophies():
     """
     # Read incoming request data body
     uid = request.json["uid"]
+    date = request.json["date"]
 
     # Delegate to user model
-    return Trophy.update_user_trophies(uid)
+    return Trophy.update_user_trophies(uid, date)

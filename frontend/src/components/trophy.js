@@ -24,9 +24,9 @@ import styles from "../style/c_trophy"
 export default class Trophy_Component extends Component {
 
   // Display a the progress to req for the trophies the user hasn't gained
-  alertprogress_to_req = () => {
-    let message = this.props.name;
-    let description = "Here is your progress towards this trophy.\n" + "Progress: " + this.props.progress_to_req;
+  alertLocked = () => {
+    let message = this.props.details.trophy_name;
+    let description = this.props.details.description;
     Alert.alert(
       message,
       description,
@@ -36,9 +36,9 @@ export default class Trophy_Component extends Component {
   }
 
   // Display a description and trophy name for trophies the user has gained
-  alertDescription = () => {
-    let message = 'Congrats on achieving ' + this.props.name + "!";
-    let description = this.props.description;
+  alertUnlocked = () => {
+    let message = 'Congrats on achieving ' + this.props.details.trophy_name + "!";
+    let description = "You have completed " + this.props.details.num_completed + " workout(s)!";
     Alert.alert(
       message,
       description,
@@ -53,10 +53,8 @@ export default class Trophy_Component extends Component {
   render() {
     // Saving the props
     const {
-      name,
       date_earned,
-      progress_to_req,
-      description,
+      details,
       ...otherProps
     } = this.props;
 
@@ -64,10 +62,10 @@ export default class Trophy_Component extends Component {
     if (date_earned === "") {
       return (
         <View>
-          <TouchableOpacity onPress={this.alertprogress_to_req}>
+          <TouchableOpacity onPress={this.alertLocked}>
             <Image
               style={styles.lock}
-              source={lock}
+              source={{ uri: this.props.details.hidden_image }}
             />
           </TouchableOpacity>
         </View>
@@ -76,10 +74,10 @@ export default class Trophy_Component extends Component {
 
     // Display the trophy image
     return (
-      <TouchableOpacity onPress={this.alertDescription}>
+      <TouchableOpacity onPress={this.alertUnlocked}>
         <Image
           style={styles.trophy_img}
-          source={trophy_img}
+          source={{ uri: this.props.details.displayed_image }}
         />
       </TouchableOpacity>
     )

@@ -124,26 +124,20 @@ export default class Trophy extends Component {
         <Row>
           <Col>
             <Trophy_component
-              name={this.state.response[0].details.trophy_name}
               date_earned={this.state.response[0].date_earned}
-              progress_to_req={this.state.response[0].progress_to_req}
-              description={this.state.response[0].details.description}
+              details={this.state.response[0].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[1].details.trophy_name}
               date_earned={this.state.response[1].date_earned}
-              progress_to_req={this.state.response[1].progress_to_req}
-              details={this.state.response[1].details.description}
+              details={this.state.response[1].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[2].details.trophy_name}
               date_earned={this.state.response[2].date_earned}
-              progress_to_req={this.state.response[2].progress_to_req}
-              details={this.state.response[2].details.description}
+              details={this.state.response[2].details}
             />
           </Col>
         </Row>
@@ -151,26 +145,20 @@ export default class Trophy extends Component {
         <Row>
           <Col>
             <Trophy_component
-              name={this.state.response[3].details.trophy_name}
               date_earned={this.state.response[3].date_earned}
-              progress_to_req={this.state.response[3].progress_to_req}
-              details={this.state.response[3].details.description}
+              details={this.state.response[3].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[4].details.trophy_name}
               date_earned={this.state.response[4].date_earned}
-              progress_to_req={this.state.response[4].progress_to_req}
-              details={this.state.response[4].details.description}
+              details={this.state.response[4].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[5].details.trophy_name}
               date_earned={this.state.response[5].date_earned}
-              progress_to_req={this.state.response[5].progress_to_req}
-              details={this.state.response[5].details.description}
+              details={this.state.response[5].details}
             />
           </Col>
         </Row>
@@ -178,26 +166,20 @@ export default class Trophy extends Component {
         <Row>
           <Col>
             <Trophy_component
-              name={this.state.response[6].details.trophy_name}
               date_earned={this.state.response[6].date_earned}
-              progress_to_req={this.state.response[6].progress_to_req}
-              details={this.state.response[6].details.description}
+              details={this.state.response[6].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[7].details.trophy_name}
               date_earned={this.state.response[7].date_earned}
-              progress_to_req={this.state.response[7].progress_to_req}
-              details={this.state.response[7].details.description}
+              details={this.state.response[7].details}
             />
           </Col>
           <Col>
             <Trophy_component
-              name={this.state.response[8].details.trophy_name}
               date_earned={this.state.response[8].date_earned}
-              progress_to_req={this.state.response[8].progress_to_req}
-              details={this.state.response[8].details.description}
+              details={this.state.response[8].details}
             />
           </Col>
         </Row>
