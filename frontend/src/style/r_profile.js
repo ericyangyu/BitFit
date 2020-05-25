@@ -11,33 +11,33 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "#f3ebe1"
+        backgroundColor: '#e7e7e7',
     },
     scrollView: {
         width: "100%",
     },
-    topBar: {
-        width: "100%",
-        paddingBottom: 0,
-        paddingTop: "5%",
-        paddingLeft: "5%",
-        paddingRight: "5%",
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
-    topButton: {
-        width: 55,
-        height: 55
-    },
-    disabled: {
-        opacity: 0.3
+    backImage: { 
+        width: "100%", 
+        height: 350, 
+        opacity: 1.8,
+        position: "absolute"
     },
     photo: {
-        width: "50%",
+        width: "45%",
         height: undefined,
         aspectRatio: 1,
         alignSelf: "center",
         borderRadius: 100,
+        marginBottom: "5%",
+        backgroundColor: "white"
+    },
+    statsGrid: {
+        backgroundColor: 'white',
+        width: "90%",
+        height: 125,
+        padding: 20,
+        borderRadius: 20,
+        alignSelf: 'center',
         marginBottom: "5%",
     },
     statsTitle: {
@@ -45,16 +45,23 @@ export default StyleSheet.create({
         fontSize: 30,
         color: "#243454",
         textAlign: 'center',
-        fontWeight: 'bold',
-        fontStyle: 'italic'
+        fontFamily: 'sans-serif-light'
     },
     stats: {
         width: "100%",
         fontSize: 40,
         color: "#243454",
         textAlign: 'center',
-        fontWeight: 'bold',
-        marginBottom: "5%"
+        fontFamily: 'sans-serif-light'
+    },
+    infoGrid: {
+        backgroundColor: 'white',
+        width: "90%",
+        height: 125,
+        padding: 20,
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginBottom: "5%",
     },
     info: {
         fontSize: 25,
