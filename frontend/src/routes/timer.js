@@ -1,58 +1,28 @@
 /**
- * The timer page allows the user to time their workouts in a timer.
+ * The timer page allows the user to time their workouts. Also calculates progress.
+ * Timer has start, pause, resume, cancel, and finish functionality.
+ * Clicking finish will update progress and take you to the stats page.
  * 
- * NOTE: This page needs to be refactored and commented by the authors. It might be 
- * a good idea to split these pages up because we route to them. Style also needs
- * to be put into a single stylesheet. Functions, classes, and methods must be commented.
- * 
- * Authors: ?
+ * Authors: Steven, Jeremy
  */
 
 // External Imports
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native';
+import { View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import moment from 'moment';
+import axios from "axios";
 
-// Internal imports
+// internal imports (useful components)
+import Clock from '../components/timer_components/clock';
+import ButtonsRow from '../components/timer_components/button_row';
+import RoundButton from '../components/timer_components/round_button';
 
 // Stylesheet
 import styles from '../style/r_timer';
 
-function Timer({ interval, style }) {
-    const pad = (n) => n < 10 ? '0' + n : n
-    const duration = moment.duration(interval)
-    const centiseconds = Math.floor(duration.milliseconds() / 10)
-    return (
-        <View style={styles.timerContainer}>
-            <Text style={style}>{pad(duration.minutes())}:</Text>
-            <Text style={style}>{pad(duration.seconds())}:</Text>
-            <Text style={style}>{pad(centiseconds)}</Text>
-        </View>
-    )
-}
-
-// Describes how the buttons look and function
-function RoundButton({ title, color, background, onPress, disabled }) {
-    return (
-        <TouchableOpacity
-            onPress={() => !disabled && onPress()}
-            style={[styles.button, { backgroundColor: background }]}
-            activeOpacity={disabled ? 1.0 : 0.7}
-        >
-            <View style={styles.buttonBorder}>
-                <Text style={[styles.buttonTitle, { color }]}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-function ButtonsRow({ children }) {
-    return (
-        <View style={styles.buttonsRow}>{children}</View>
-    )
-}
-
+/**
+ * Renders the timer page, and handles calculation of leveling
+ */
 export default class WorkoutTimer extends Component {
 
     constructor(props) {
@@ -61,11 +31,58 @@ export default class WorkoutTimer extends Component {
             start: 0,
             now: 0,
             laps: [],
+            body_parts: {}
         }
     }
 
+    // reset timer (currently not interacting with back button)
     componentWillUnmount() {
         clearInterval(this.timer)
+    }
+
+    goToStats = (duration) => {
+        console.log("In goToStats()...")
+        Actions.stats({
+            uid: this.props.uid,
+            duration: duration,
+            focus: this.props.focus,
+            workout: this.props.workout,
+            leveledUp: this.props.leveledUp
+        });
+
+    }
+
+    get_body_parts = () => {
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
+        axios.post(url)
+            // Success
+            .then(response => {
+                let body_parts = {}
+                for (var body_part_id in response.data) {
+                    body_parts[response.data[body_part_id].body_part_name] = body_part_id;
+                }
+
+                this.setState({
+                    body_parts: body_parts,
+                })
+                console.log("In get_body_parts()...")
+                this.getStats()
+            })
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            });
     }
 
     // Describe what each button does
@@ -81,29 +98,102 @@ export default class WorkoutTimer extends Component {
         }, 100)
     }
 
-    end = () => {
-        //const timestamp = new Date().getTime()
-        //const { laps, now, start } = this.state
-        //const [firstLap, ...other] = laps
-        //this.setState({
-        //laps: [0, firstLap + now - start, ...other],
-        //start: timestamp,
-        //now: timestamp,
-        //})
+    updateStats = (exp, level, duration) => {
+        let body_part_id = this.state.body_parts[this.props.focus]
 
-        // send data somewhere, end timer, then return to homepage
+        /**
+         * Save progress in backend
+         */
+        let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+        let data = {
+            'uid': this.props.uid,
+            'body_part_id': body_part_id,
+            'exp': exp,
+            'level': level
+        };
+        axios.post(url, data)
+            .then(response => {
+                // console.log(response.data)
+                console.log("In updateStats()...")
+                this.goToStats(duration)
+            })
+
+            .catch((error) => {
+                console.log("Update progress call error");
+                alert(error.message);
+            });
     }
 
-    stop = () => {
+    calculateStats = (exp, level) => {
+        const { laps, now, start } = this.state;
+        const timer = now - start;
+        // calculates the duration of the workout in hours rounded to 2 decimal places
+        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
+        let leveledUp = false;
+
+        exp = exp + duration;
+
+        // calculate the new level
+        if (level == 0) {
+            if (exp >= 1) {
+                level = 1;
+                while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                    level = level + 1;
+                    leveledUp = true;
+                }
+            }
+        } else {
+            while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                level = level + 1;
+                leveledUp = true;
+            }
+        }
+        console.log("In calculateStats()...")
+        this.updateStats(exp, level, duration)
+    }
+
+    getStats = () => {
+        let body_part_id = this.state.body_parts[this.props.focus]
+        let url = 'http://10.0.2.2:4200/apis/progress/get';
+        let data = {
+            'uid': this.props.uid
+        };
+
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                // need to come back here and make sure user actually has focus defined
+                let level = response.data[body_part_id].level;
+                let exp = response.data[body_part_id].exp;
+                console.log("In getStats()...")
+                this.calculateStats(exp, level)
+            })
+            .catch((error) => {
+                console.log("Get progress call error");
+                alert(error.message);
+            })
+    }
+
+    // ends the workout and calculate levels
+    finish = () => {
+        console.log("In Finish...")
+        this.get_body_parts()
+    }
+
+    // pause timer
+    pause = () => {
         clearInterval(this.timer)
         const { laps, now, start } = this.state
-        const [firstLap, ...other] = laps
+        const [firstLap] = laps
+        // save current time elapsed
         this.setState({
-            laps: [firstLap + now - start, ...other],
+            laps: [firstLap + now - start],
             start: 0,
             now: 0,
         })
     }
+
+    // reset timer
     reset = () => {
         this.setState({
             laps: [],
@@ -111,6 +201,8 @@ export default class WorkoutTimer extends Component {
             now: 0,
         })
     }
+
+    // restart timer
     resume = () => {
         const now = new Date().getTime()
         this.setState({
@@ -121,22 +213,28 @@ export default class WorkoutTimer extends Component {
             this.setState({ now: new Date().getTime() })
         }, 100)
     }
+
+    // return to home page on cancel button
     goToProgress = () => {
         Actions.progress({ uid: this.props.uid })
     }
+
+    // renders the clock components and all the timer buttons
     render() {
         const { now, start, laps } = this.state
         const timer = now - start
         return (
-            <View style={styles.container}>
-                <Timer
+            <View style={styles.container} >
+                <Clock
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
                 />
+                <Text style={{ color: '#FFFFFF', fontSize: 24 }}>{this.props.workout}</Text>
+                <Text style={{ color: '#FFFFFF' }}>{this.props.focus}</Text>
                 {laps.length === 0 && (
                     <ButtonsRow>
                         <RoundButton
-                            title='End'
+                            title='Finish'
                             color='#8B8B90'
                             background='#151515'
                             disabled
@@ -148,47 +246,50 @@ export default class WorkoutTimer extends Component {
                             onPress={this.start}
                         />
                     </ButtonsRow>
-                )}
+                )
+                }
                 {start > 0 && (
                     <ButtonsRow>
                         <RoundButton
-                            title='End'
+                            title='Finish'
                             color='#FFFFFF'
                             background='#3D3D3D'
-                            onPress={this.end}
+                            onPress={this.finish}
                         />
                         <RoundButton
                             title='Pause'
                             color='#E33935'
                             background='#3C1715'
-                            onPress={this.stop}
+                            onPress={this.pause}
                         />
                     </ButtonsRow>
                 )}
-                {laps.length > 0 && start === 0 && (
-                    <ButtonsRow>
-                        <RoundButton
-                            title='Reset'
-                            color='#FFFFFF'
-                            background='#21474A'
-                            onPress={this.reset}
-                        />
-                        <RoundButton
-                            title='Start'
-                            color='#50D167'
-                            background='#1B361F'
-                            onPress={this.resume}
-                        />
-                    </ButtonsRow>
-                )}
-                <View style={{ paddingTop: 150 }}>
+                {
+                    laps.length > 0 && start === 0 && (
+                        <ButtonsRow>
+                            <RoundButton
+                                title='Finish'
+                                color='#FFFFFF'
+                                background='#3D3D3D'
+                                onPress={this.finish}
+                            />
+                            <RoundButton
+                                title='Resume'
+                                color='#50D167'
+                                background='#1B361F'
+                                onPress={this.resume}
+                            />
+                        </ButtonsRow>
+                    )
+                }
+                <View style={{ paddingTop: 110 }}>
                     <Button
                         title='Cancel Workout'
                         color='#E33935'
                         onPress={this.goToProgress}
                     />
                 </View>
-            </View>
+            </View >
         )
     }
 }

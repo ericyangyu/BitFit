@@ -17,9 +17,11 @@ import Progress from './routes/progress'
 import Profile from './routes/profile'
 import Settings from './routes/settings'
 import Timer from './routes/timer'
+import Stats from './routes/stats'
 import Trophy from './routes/trophy'
 import MainFocusPage from './routes/bodyparts'
 import SuggestedWorkoutsPage from './routes/workouts'
+import ActivityLog from './routes/activitylog'
 
 /**
  * Class that returns a router object with all the pages.
@@ -38,7 +40,9 @@ export default class Routes extends React.Component {
                     <Scene key="mainfocus" component={MainFocusPage} hideNavBar={true} />
                     <Scene key="suggestedworkouts" component={SuggestedWorkoutsPage} hideNavBar={true} />
                     <Scene key="timer" component={Timer} hideNavBar={true} />
+                    <Scene key="stats" component={Stats} hideNavBar={true} />
                     <Scene key="trophy" component={Trophy} hideNavBar={true} />
+                    <Scene key="activitylog" component={ActivityLog} hideNavBar={true} />
                 </Scene>
             </Router>
         )

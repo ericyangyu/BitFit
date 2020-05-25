@@ -11,16 +11,21 @@
 // External imports
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
-import BackgroundColor from 'react-native-background-color';
+import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal imports
+// Stylesheet
+import styles from '../style/r_workouts';
 
 // Components
+import LoadingScreen from "../components/loading"
 import Button from '../components/button';
+
+// Images
+import backButton from '../images/back_button.png';
 
 /**
  * Class that returns the Workouts page with correct components and API calls.
@@ -31,17 +36,18 @@ export default class SuggestedWorkoutsPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			focus: props.focus,
+			focus: this.props.focus,
 			workouts: [],
-			image_desc: {},
+			workouts_info: {},
 			selected_workout: "",
-			image: "",
-			description: ""
+			selected_workout_image: "",
+			selected_workout_description: "",
+			isLoading: true
 		}
 	}
 
 	// Route to the timer page after selecting workout
-	goToTimer() {
+	goToTimer = () => {
 		Actions.timer({
 			focus: this.state.focus,
 			workout: this.state.selected_workout,
@@ -50,66 +56,60 @@ export default class SuggestedWorkoutsPage extends Component {
 	}
 
 	// Route to the Focus page if user wishes
-	goBack() {
+	goBack = () => {
 		Actions.mainfocus({ uid: this.props.uid })
 	}
 
 	// Displays Dropdown options
-	dropdownOptions() {
+	dropdownOptions = () => {
 		return this.state.workouts.map((workout) => {
 			return <Picker.Item label={workout} value={workout} />
 		})
 	}
 
 	// Updates the selcted value from the user when selecting a workout
-	updateDropdown(value) {
+	updateDropdown = (value) => {
 		this.setState({
 			selected_workout: value,
-			image: this.state.image_desc[value]["image"],
-			description: this.state.image_desc[value]["description"]
+			selected_workout_image: this.state.workouts_info[value].image,
+			selected_workout_description: this.state.workouts_info[value].description,
 		})
 	}
 
 	// Call the API when component mounts
-	componentDidMount() {
+	componentDidMount = () => {
 		this.getWorkouts()
 	}
 
 	// API call to get workouts from the backend
-	getWorkouts() {
+	getWorkouts = () => {
 
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/workouts/get_workouts';
 		let info = {
-			'uid': this.props.uid
+			'body_part_name': this.props.focus
 		};
 
 		// make API call
 		axios.post(url, info)
 			// Success
 			.then(response => {
+				let workouts = []
+				let workouts_info = {}
+				for (var workout_id in response.data) {
+					let workout_name = response.data[workout_id].workout_name
+					workouts.push(workout_name)
+					workouts_info[workout_name] = { "image": response.data[workout_id].image, "description": response.data[workout_id].description }
+				}
 
-
-				// set the image descriptions, and workouts
-				let tmp_workouts = []
-				let tmp_image_desc = {}
-
-				Object.keys(response.data).forEach((k) => {
-					if (response.data[k].body_part === this.state.focus) {
-						tmp_workouts.push(k)
-						tmp_image_desc[k] = {
-							image: response.data[k].image,
-							description: response.data[k].description
-						}
-					}
-				})
 				// setting state after parsing data
 				this.setState({
-					workouts: tmp_workouts,
-					image_desc: tmp_image_desc,
-					selected_workout: tmp_workouts[0],
-					image: tmp_image_desc[tmp_workouts[0]]["image"],
-					description: tmp_image_desc[tmp_workouts[0]]["description"]
+					workouts: workouts,
+					workouts_info: workouts_info,
+					selected_workout: workouts[0],
+					selected_workout_image: workouts_info[workouts[0]].image,
+					selected_workout_description: workouts_info[workouts[0]].description,
+					isLoading: false
 				})
 			})
 			.catch(error => {
@@ -128,8 +128,15 @@ export default class SuggestedWorkoutsPage extends Component {
 			});
 	}
 
-	// Render the correct components for the Workout screen
+	// Render the correct components for the Progress screen
 	render() {
+		// If the API call is not complete, display the loading screen
+		if (this.state.isLoading) {
+			return (
+				<LoadingScreen></LoadingScreen>
+			)
+		}
+
 		return (
 			<Grid style={{ backgroundColor: '#f3ebe1' }}>
 				<Row>
@@ -137,8 +144,13 @@ export default class SuggestedWorkoutsPage extends Component {
 						<View style={{ backgroundColor: '#f3ebe1', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBack()}>
 								<Image
+<<<<<<< HEAD
 									style={{ width: 45, height: 45 }}
 									source={require('../images/back_button.png')}
+=======
+									style={{ width: 75, height: 75 }}
+									source={backButton}
+>>>>>>> imran
 								/>
 							</TouchableOpacity>
 						</View>
@@ -206,7 +218,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						}}>
 							<Image
 								style={{ width: 150, height: 150, alignSelf: 'center' }}
-								source={{ uri: this.state.image }}
+								source={{ uri: this.state.selected_workout_image }}
 							/>
 						</View>
 					</Col>
@@ -224,7 +236,7 @@ export default class SuggestedWorkoutsPage extends Component {
 								marginVertical: 40,
 								textAlign: 'center'
 							}}>
-								{this.state.description}
+								{this.state.selected_workout_description}
 							</Text>
 						</View>
 					</Col>
@@ -232,11 +244,7 @@ export default class SuggestedWorkoutsPage extends Component {
 				<Row>
 					<Col></Col>
 					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 40,
-						}}>
+						<View style={styles.buttonStyle}>
 							<Button onPress={() => this.goToTimer()}
 								label="Begin Workout"
 							/>
