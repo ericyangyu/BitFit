@@ -161,11 +161,42 @@ export default class Profile extends Component {
         this.setState({ eAvatar: eAvatar });
     }
 
+    resetStats = () => {
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/progress/reset_stats';
+        let info = {
+            'uid': this.props.uid
+        };
+
+        // Make API call
+        axios.post(url, info)
+            // Success
+            .then(response => {
+                console.log("Stats reset succesfully")
+            })
+
+            // Error
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            });
+    }
+
     onResetStatsPress = () => {
         Alert.alert(
             'This will reset all your stats!',
             "If you save, they will be lost forever. Are you sure you want to proceed?",
-            [{ text: 'YES', onPress: () => this.setState({ eSessions: 0, eTime: 0 }) },
+            [{ text: 'YES', onPress: () => this.resetStats() },
             { text: 'NO' }],
             { cancelable: false }
         );
