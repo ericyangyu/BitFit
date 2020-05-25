@@ -270,7 +270,6 @@ export default class Progress extends Component {
 
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <View style={styles.buttonView}>
                             <Button
                                 label={"Workout"}
@@ -297,52 +296,6 @@ export default class Progress extends Component {
                 </Row>
                     </Col>
                 </Row>
-=======
-                        <Text style={styles.textStyle}>{this.state.body_parts[4]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[4]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
-                    </Col>
-                </Row>
-
-                <Row></Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToTrophy}>
-                            <Text style={styles.buttonTextStyle}>
-                                Trophy Case
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToMainFocus}>
-                            <Text style={styles.buttonTextStyle}>
-                                Start a New Workout
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToActivityLog}>
-                            <Text style={styles.buttonTextStyle}>
-                                Activity Log
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </Row>
-                <Row></Row>
->>>>>>> imran
             </Grid>
         );
     }

@@ -15,10 +15,6 @@ import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal inports
-<<<<<<< HEAD
-=======
-import { defaultPhoto } from '../images/default_photo.js';
->>>>>>> imran
 
 // Stylesheet
 import styles from '../style/r_sign_up';
@@ -160,7 +156,6 @@ export default class SignUp extends Component {
 
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.container}>
-<<<<<<< HEAD
                 {(this.state.avatarDisplayStatus) ?
                     <PhotoUpload
                     maxHeight={200}
@@ -178,26 +173,6 @@ export default class SignUp extends Component {
                     />
                     </PhotoUpload> : null
                 }
-=======
-                    {(this.state.avatarDisplayStatus) ?
-                        <PhotoUpload
-                            maxHeight={200}
-
-                            photoPickerTitle={'Upload a Profile Picture: '}
-                            onPhotoSelect={avatar => {
-                                if (avatar) {
-                                    this.handleAvatarChange(avatar)
-                                }
-                            }}
-                        >
-                            <Image
-                                style={styles.photoStyle}
-                                resizeMode='cover'
-                                source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
-                            />
-                        </PhotoUpload> : null
-                    }
->>>>>>> imran
                 </KeyboardAvoidingView>
 
                 <KeyboardAvoidingView style={styles.form} >

@@ -14,13 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal imports
-<<<<<<< HEAD
 
-// Stylesheet
-import styles from '../style/r_progress';
-
-=======
->>>>>>> imran
 // Components
 import LoadingScreen from "../components/loading"
 import Button from '../components/button';
@@ -124,9 +118,7 @@ export default class MainFocusPage extends Component {
 			return (
 				<LoadingScreen></LoadingScreen>
 			)
-		}
-
-<<<<<<< HEAD
+		} else return (
 			<Grid style={{ backgroundColor: '#e7e7e7' }}>
 				{/* <Row>
 					<Col> */}
@@ -143,7 +135,7 @@ export default class MainFocusPage extends Component {
 							</TouchableOpacity>
                             <Text style={{
 								fontSize: 50,
-								fontFamily: 'sans-serif-condensed',
+								fontFamily: 'sans-serif-light',
 								color: 'white',
 								textAlign: 'center',
 								fontWeight: '100',
@@ -156,15 +148,6 @@ export default class MainFocusPage extends Component {
 									style={{ width: 45, height: 45 }}
 									source={require('../images/back_button.png')}
 								/>
-=======
-		return (
-			<Grid style={styles.gridStyle}>
-				<Row>
-					<Col>
-						<View style={styles.backButtonView}>
-							<TouchableOpacity onPress={() => this.goBackProgress()}>
-								<Image source={backButton} style={styles.topButton} />
->>>>>>> imran
 							</TouchableOpacity>
 						</View>
 					</Col>
@@ -173,7 +156,6 @@ export default class MainFocusPage extends Component {
 				</Row>
 				<Row>
 					<Col>
-<<<<<<< HEAD
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
@@ -183,10 +165,6 @@ export default class MainFocusPage extends Component {
 								fontSize: 30,
 								fontFamily: 'sans-serif-condensed'
 							}}>
-=======
-						<View style={styles.mainFocusView}>
-							<Text style={styles.mainFocusViewText}>
->>>>>>> imran
 								Main Focus
 							</Text>
 						</View> */}
@@ -194,7 +172,6 @@ export default class MainFocusPage extends Component {
 				</Row> */}
 				<Row>
 					<Col>
-<<<<<<< HEAD
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
@@ -207,10 +184,6 @@ export default class MainFocusPage extends Component {
 								fontFamily: 'monospace',
 								textAlign: 'center'
 							}}>
-=======
-						<View style={styles.selectMainFocusViewText}>
-							<Text style={styles.selectMainFocusViewText}>
->>>>>>> imran
 								Select a Main Focus for your Workout:
 							</Text>
 						</View>
@@ -219,7 +192,6 @@ export default class MainFocusPage extends Component {
 				<View></View>
 				<Row>
 					<Col>
-<<<<<<< HEAD
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
@@ -229,13 +201,6 @@ export default class MainFocusPage extends Component {
 								selectedValue={this.state.focus}
 								style={{ height: 50, width: 200, marginTop: 20 }}
 								onValueChange={(itemValue, _) =>
-=======
-						<View style={styles.pickerView}>
-							<Picker
-								selectedValue={this.state.focus}
-								style={styles.picker}
-								onValueChange={(itemValue, itemIndex) =>
->>>>>>> imran
 									this.updateDropdown(itemValue)
 								}
 							>
@@ -247,15 +212,11 @@ export default class MainFocusPage extends Component {
 				<Row>
 					<Col></Col>
 					<Col>
-<<<<<<< HEAD
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
 							marginVertical: 50,
 						}}>
-=======
-						<View style={styles.focusImageView}>
->>>>>>> imran
 							<Image
 								style={styles.focusImage}
 								source={{ uri: this.state.focus_image }}
@@ -273,7 +234,7 @@ export default class MainFocusPage extends Component {
 							alignSelf: 'center',
 							marginVertical: 100,
 						}}>
-							<Button onPress={() => this.goToSuggestedWorkouts()}
+							<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 								label="Continue"
 							/>
 						</View>
@@ -283,6 +244,5 @@ export default class MainFocusPage extends Component {
 				<Row></Row>
 			</Grid >
 		);
-
 	}
 }
