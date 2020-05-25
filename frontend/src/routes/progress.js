@@ -94,11 +94,10 @@ export default class Progress extends Component {
                         let exp = progressData[body_part_id]
 
                         body_parts.push(body_part_name)
-                        exp['progress_bar'] = this.calculateProgess(exp.level, exp.exp)
+                        exp['progressBar'] = this.calculateProgess(exp.exp, exp.level)
                         progress[body_part_name] = exp
                         overallLv += parseInt(exp.level)
                     }
-
                     this.setState({
                         progress: progress,
                         body_parts: body_parts,
@@ -118,7 +117,6 @@ export default class Progress extends Component {
 
     calculateProgess(exp, level) {
         let progressBar = 0.0
-
         if (parseInt(level) == 0) {
             progressBar = parseFloat(exp) * 100
 
@@ -142,7 +140,6 @@ export default class Progress extends Component {
                 <LoadingScreen></LoadingScreen>
             )
         }
-
         // const { progress } = this.state;
         // return (
         //     Object.keys(progress).map((key, index) => (
