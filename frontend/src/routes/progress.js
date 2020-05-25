@@ -93,7 +93,7 @@ export default class Progress extends Component {
                         progress[body_part_name] = exp
                         overallLv += parseInt(exp.level)
                     }
-                    console.log(body_parts)
+
                     this.setState({
                         progress: progress,
                         body_parts: body_parts,
