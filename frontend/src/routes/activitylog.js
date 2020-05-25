@@ -8,19 +8,15 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList } from "react-native";
 import { Actions } from 'react-native-router-flux';
-import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 
 // Internal imports
-
 // Stylesheet
 import styles from '../style/r_activitylog';
 
 // Components
 import CompletedWorkout from "../components/completed_workout"
-
-// Images
-
+import LoadingScreen from "../components/loading"
 
 /**
  * Class that returns the the Activity Log page with the workouts rendered
@@ -105,13 +101,7 @@ export default class ActivityLog extends Component {
         // If the API call is not complete, display the loading screen
         if (this.state.isLoading) {
             return (
-                <View style={styles.spinnerContainer}>
-                    <Spinner
-                        visible={this.state.isLoading}
-                        textContent={'Loading...'}
-                        textStyle={styles.spinnerTextStyle}
-                    />
-                </View>
+                <LoadingScreen></LoadingScreen>
             )
         }
 
