@@ -39,8 +39,11 @@ class Progress:
         body_parts = ref.get()
 
         # create a new progress bar specific for this user for each body_part in db
-        for bp in body_parts.each():
-            db.child("progress").child(uid).child(bp.key()).update(data)
+        db.child("progress").child(uid).child("Arms").update(data)
+        db.child("progress").child(uid).child("Back").update(data)
+        db.child("progress").child(uid).child("Chest").update(data)
+        db.child("progress").child(uid).child("Core").update(data)
+        db.child("progress").child(uid).child("Legs").update(data)
         return
 
 
