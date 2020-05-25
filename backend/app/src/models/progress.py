@@ -41,6 +41,8 @@ class Progress:
         for body_part in body_parts:
             db.child("progress").child(uid).child(body_part).update(data)
 
+        db.child("completed_workouts").child(uid).remove()
+
         return make_response({}, 200)
 
     @staticmethod
