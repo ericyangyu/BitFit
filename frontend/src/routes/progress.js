@@ -97,6 +97,7 @@ export default class Progress extends Component {
                 console.log(response.data.fullname);
                 this.setState({
                     fullname: response.data.fullname,
+                    avatar: response.data.avatar
                 })
             })
 
