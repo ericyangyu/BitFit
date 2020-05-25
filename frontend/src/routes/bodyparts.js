@@ -14,9 +14,11 @@ import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal imports
+
 // Components
 import LoadingScreen from "../components/loading"
 import Button from '../components/button';
+import blue from '../images/blue.jpg';
 
 // Stylesheet
 import styles from '../style/r_bodyparts';
@@ -116,15 +118,36 @@ export default class MainFocusPage extends Component {
 			return (
 				<LoadingScreen></LoadingScreen>
 			)
-		}
-
-		return (
-			<Grid style={styles.gridStyle}>
-				<Row>
-					<Col>
-						<View style={styles.backButtonView}>
+		} else return (
+			<Grid style={{ backgroundColor: '#e7e7e7' }}>
+				{/* <Row>
+					<Col> */}
+					<View>
+                            <Image
+                                style={{ width: window.width, height: 200, opacity: 1.8 }}
+                                source={blue}
+                            />
+                            <TouchableOpacity onPress={() => this.goBackProgress()}>
+								<Image
+									style={{ width: 45, height: 45, marginTop: -180, marginLeft: 10 }}
+									source={require('../images/back_button.png')}
+								/>
+							</TouchableOpacity>
+                            <Text style={{
+								fontSize: 50,
+								fontFamily: 'sans-serif-light',
+								color: 'white',
+								textAlign: 'center',
+								fontWeight: '100',
+								marginTop: -130
+							}}> Main Focus </Text>
+                    </View>
+						{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
-								<Image source={backButton} style={styles.topButton} />
+								<Image
+									style={{ width: 45, height: 45 }}
+									source={require('../images/back_button.png')}
+								/>
 							</TouchableOpacity>
 						</View>
 					</Col>
@@ -133,29 +156,51 @@ export default class MainFocusPage extends Component {
 				</Row>
 				<Row>
 					<Col>
-						<View style={styles.mainFocusView}>
-							<Text style={styles.mainFocusViewText}>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							backgroundColor: '#e7e7e7'
+						}}>
+							<Text style={{
+								fontSize: 30,
+								fontFamily: 'sans-serif-condensed'
+							}}>
 								Main Focus
 							</Text>
-						</View>
-					</Col>
-				</Row>
+						</View> */}
+					{/* </Col>
+				</Row> */}
 				<Row>
 					<Col>
-						<View style={styles.selectMainFocusViewText}>
-							<Text style={styles.selectMainFocusViewText}>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							alignContent: 'center',
+							flexWrap: 'wrap',
+							marginVertical: 100
+						}}>
+							<Text style={{
+								fontSize: 20,
+								fontFamily: 'monospace',
+								textAlign: 'center'
+							}}>
 								Select a Main Focus for your Workout:
 							</Text>
 						</View>
 					</Col>
 				</Row>
+				<View></View>
 				<Row>
 					<Col>
-						<View style={styles.pickerView}>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 50
+						}}>
 							<Picker
 								selectedValue={this.state.focus}
-								style={styles.picker}
-								onValueChange={(itemValue, itemIndex) =>
+								style={{ height: 50, width: 200, marginTop: 20 }}
+								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
 							>
@@ -167,7 +212,11 @@ export default class MainFocusPage extends Component {
 				<Row>
 					<Col></Col>
 					<Col>
-						<View style={styles.focusImageView}>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center',
+							marginVertical: 50,
+						}}>
 							<Image
 								style={styles.focusImage}
 								source={{ uri: this.state.focus_image }}
@@ -183,9 +232,9 @@ export default class MainFocusPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 30,
+							marginVertical: 100,
 						}}>
-							<Button onPress={() => this.goToSuggestedWorkouts()}
+							<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 								label="Continue"
 							/>
 						</View>
@@ -195,6 +244,5 @@ export default class MainFocusPage extends Component {
 				<Row></Row>
 			</Grid >
 		);
-
 	}
 }

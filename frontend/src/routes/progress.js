@@ -8,18 +8,25 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal imports
+
+// Components
+import Button from "../components/button";
+import NavBar from "../components/nav_bar";
+import LoadingScreen from "../components/loading";
+
+// Images
+import blue from '../images/blue.jpg'
+
 // Stylesheet
 import styles from '../style/r_progress';
 
-// Components
-import LoadingScreen from "../components/loading"
 
 /**
  * Class that returns the Progress page with correct components and API calls.
@@ -149,148 +156,146 @@ export default class Progress extends Component {
         return (
             <Grid style={styles.container}>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
                     <Col>
                         <View>
-                            <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={this.goToProfile}>
-                                <Image
-                                    style={styles.imageStyle}
-                                    source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
-                                />
-                            </TouchableOpacity>
+                            <Image
+                                style={{ width: "100%", height: 200, opacity: 1.8, position: 'absolute' }}
+                                source={blue}
+                            />
+                            
+                                <NavBar 
+                                    left={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
+                                    leftOnPress={this.goToProfile}>
+                                </NavBar>
+                                <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
                         </View>
                     </Col>
                 </Row>
-                <Row></Row>
                 <Row>
-                    <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
-                </Row>
-                <Row></Row>
-                <Row>
-                    <Text style={styles.textStyle}>Overall Level: {this.state.overallLv}</Text>
-                </Row>
+                    <View elevation={5} style={styles.whiteBox1}>
+                        <Text style={styles.textStyle}>Overall Level: {this.state.overallLv} </Text>
+                    </View>
 
-                <Row>
-                    <Col><Text style={styles.textStyle}>Focus</Text></Col>
-                    <Col><Text style={styles.textStyle}>Progress</Text></Col>
-                    <Col><Text style={styles.textStyle}>Level</Text></Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.body_parts[0]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[0]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[0]].level}</Text>
-                    </Col>
-                </Row>
+                    <View elevation={5} style={styles.whiteBox2}>
 
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.body_parts[1]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[1]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[1]].level}</Text>
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col><Text style={styles.textStyle}>Focus</Text></Col>
+                            <Col><Text style={styles.textStyle}>Progress</Text></Col>
+                            <Col><Text style={styles.textStyle}>Level</Text></Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.body_parts[0]}</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={this.state.progress[this.state.body_parts[0]].progressBar}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[0]].level}</Text>
+                            </Col>
+                        </Row>
 
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.body_parts[2]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[2]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[2]].level}</Text>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.body_parts[3]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[3]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[3]].level}</Text>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.body_parts[4]}</Text>
-                    </Col>
-                    <Col>
-                        <ProgressBarAnimated
-                            useNativeDriver={true}
-                            width={150}
-                            value={this.state.progress[this.state.body_parts[4]].progressBar}
-                            backgroundColorOnComplete="#6CC644"
-                        />
-                    </Col>
-                    <Col>
-                        <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
-                    </Col>
-                </Row>
-
-                <Row></Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToTrophy}>
-                            <Text style={styles.buttonTextStyle}>
-                                Trophy Case
-                            </Text>
-                        </TouchableOpacity>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.body_parts[1]}</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={this.state.progress[this.state.body_parts[1]].progressBar}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[1]].level}</Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.body_parts[2]}</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={this.state.progress[this.state.body_parts[2]].progressBar}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[2]].level}</Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.body_parts[3]}</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={this.state.progress[this.state.body_parts[3]].progressBar}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[3]].level}</Text>
+                            </Col>
+                        </Row><Row>
+                            <Col>
+                                <Text style={styles.textStyle}>{this.state.body_parts[4]}</Text>
+                            </Col>
+                            <Col>
+                                <ProgressBarAnimated
+                                    useNativeDriver={true}
+                                    width={150}
+                                    value={this.state.progress[this.state.body_parts[4]].progressBar}
+                                    backgroundColorOnComplete="#6CC644"
+                                />
+                            </Col>
+                            <Col>
+                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
+                            </Col>
+                        </Row>
                     </View>
                 </Row>
+
                 <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToMainFocus}>
-                            <Text style={styles.buttonTextStyle}>
-                                Start a New Workout
-                            </Text>
-                        </TouchableOpacity>
+                    <Col>
+                        <View style={styles.buttonView}>
+                            <Button
+                                label={"Workout"}
+                                onPress={this.goToMainFocus}
+                            />
+                        </View>
+                    </Col>
+                    <Col>
+                        <View style={styles.buttonView}>
+                            <Button
+                                label={"Trophy Case"}
+                                onPress={this.goToTrophy}
+                            />
+                        </View>
+                    </Col>
+                    <Col>
+                    <Row>
+                    <View style={styles.buttonView}>
+                        <Button 
+                            label={"Activity Log"}
+                            onPress={this.goToActivityLog} 
+                        />
                     </View>
                 </Row>
-                <Row>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={this.goToActivityLog}>
-                            <Text style={styles.buttonTextStyle}>
-                                Activity Log
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    </Col>
                 </Row>
-                <Row></Row>
             </Grid>
         );
     }
