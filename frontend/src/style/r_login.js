@@ -9,7 +9,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f3ebe1",
+        backgroundColor: "#e7e7e7",
         alignItems: "center",
         justifyContent: "space-between"
     },
@@ -27,8 +27,16 @@ export default StyleSheet.create({
         color: '#3498eb'
     },
     form: {
-        flex: 1,
+        
         justifyContent: "center",
-        width: "80%"
+        width: "80%",
+        backgroundColor: 'white',
+        width: 380,
+        padding: 20,
+        marginVertical: 0,
+        marginTop: -10,
+        marginBottom: 30,
+        marginHorizontal: 0,
+        borderRadius: 15
     }
 });
