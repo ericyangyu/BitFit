@@ -27,7 +27,7 @@ export default class Stats extends Component {
         super(props)
     }
 
-    add = () => {
+    addWorkout = () => {
         /**
          * Add workout to completed workout
          */
@@ -44,13 +44,40 @@ export default class Stats extends Component {
             .then(response => {
                 // console.log(response.data)
                 console.log("Added completed workout...")
+                this.updateTrophies()
             })
 
             .catch((error) => {
                 console.log("add workout call error");
                 alert(error.message);
             });
+    }
 
+    updateTrophies = () => {
+        /**
+         * Add workout to completed workout
+         */
+
+        let url = 'http://10.0.2.2:4200/apis/trophy/update_user_trophies';
+        let data = {
+            'uid': this.props.uid,
+        };
+
+        axios.post(url, data)
+            .then(response => {
+                console.log(response.data)
+                console.log("Updated Trophies...")
+            })
+
+            .catch((error) => {
+                console.log("Update Trophies call error");
+                alert(error.message);
+            });
+
+    }
+
+    add = () => {
+        this.addWorkout()
     }
 
 

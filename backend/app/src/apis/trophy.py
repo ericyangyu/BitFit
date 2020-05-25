@@ -47,8 +47,8 @@ def get_user_trophies():
 
 
 # TODO
-@trophy_api.route("/update_user_trophy", methods=["POST"])
-def update_user_trophy():
+@trophy_api.route("/update_user_trophies", methods=["POST"])
+def update_user_trophies():
     """
     Updates a a trophy for this specific user.
 
@@ -58,9 +58,8 @@ def update_user_trophy():
     Expected response:
         trophy -> dictionary containing each trophy for this user
     """
-    # # Read incoming request data body
-    # uid = request.json["uid"]
+    # Read incoming request data body
+    uid = request.json["uid"]
 
-    # # Delegate to user model
-    # return Trophy.update_user_trophy(uid, name, data)
-    return
+    # Delegate to user model
+    return Trophy.update_user_trophies(uid)

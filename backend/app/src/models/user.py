@@ -63,7 +63,6 @@ class User:
             key = trophy.key()
             data = {
                 "date_earned": "",
-                "progress_to_req": 0.0,
             }
             user_trophies.append((uid, key, data))
 

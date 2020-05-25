@@ -34,8 +34,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 1",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 1",
-            "requirement": "Requirement 1",
+            "description": "Complete 1 workout!",
+            "num_completed": 1,
         }
     },
     {
@@ -43,8 +43,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 2",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 2",
-            "requirement": "Requirement 2",
+            "description": "Complete 3 workouts!",
+            "num_completed": 3,
         },
     },
     {
@@ -52,8 +52,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 3",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 3",
-            "requirement": "Requirement 3",
+            "description": "Complete 5 workouts!",
+            "num_completed": 5,
         },
     },
     {
@@ -61,8 +61,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 4",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 4",
-            "requirement": "Requirement 4",
+            "description": "Complete 10 workouts!",
+            "num_completed": 10,
         },
     },
     {
@@ -70,8 +70,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 5",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 5",
-            "requirement": "Requirement 5",
+            "description": "Complete 20 workouts!",
+            "num_completed": 20,
         },
     },
     {
@@ -79,8 +79,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 6",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 6",
-            "requirement": "Requirement 6",
+            "description": "Complete 30 workouts!",
+            "num_completed": 30,
         },
     },
     {
@@ -88,8 +88,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 7",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 7",
-            "requirement": "Requirement 7",
+            "description": "Complete 50 workouts!",
+            "num_completed": 50,
         },
     },
     {
@@ -97,8 +97,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 8",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 8",
-            "requirement": "Requirement 8",
+            "description": "Complete 100 workouts!",
+            "num_completed": 100,
         },
     },
     {
@@ -106,8 +106,8 @@ ALL_TROPHIES = [
             "trophy_name": "Trophy 9",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 9",
-            "requirement": "Requirement 9",
+            "description": "Complete 200 workouts!",
+            "num_completed": 200,
         },
     },
 ]
