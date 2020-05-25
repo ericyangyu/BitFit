@@ -18,12 +18,15 @@ export default StyleSheet.create({
     },
     backImage: { 
         width: "100%", 
-        height: 350, 
+        height: 290, 
         opacity: 1.8,
         position: "absolute"
     },
+    longerImg: {
+        height: 365
+    },
     photo: {
-        width: "45%",
+        width: "30%",
         height: undefined,
         aspectRatio: 1,
         alignSelf: "center",
@@ -57,31 +60,35 @@ export default StyleSheet.create({
     infoGrid: {
         backgroundColor: 'white',
         width: "90%",
-        height: 125,
+        height: 140,
         padding: 20,
         borderRadius: 20,
         alignSelf: 'center',
         marginBottom: "5%",
     },
     info: {
-        fontSize: 25,
+        fontSize: 20,
+        fontFamily: 'monospace',
+        textAlign: 'center',
+        fontWeight: '100',
         marginBottom: "2.5%",
-        color: "#434343",
-        alignSelf: 'center'
     },
     button: {
-        width: "80%",
+        width: "90%",
         margin: "2.5%",
         alignSelf: 'center',
     },
-    input: {
-        height: 55,
-        width: "80%",
-        fontSize: 25,
-        marginBottom: "2.5%",
+    inputGrid: {
+        backgroundColor: 'white',
+        width: "90%",
+        height: 150,
+        padding: 20,
+        borderRadius: 20,
         alignSelf: 'center',
-        color: "#434343",
-        borderColor: "#434343",
-        borderBottomWidth: StyleSheet.hairlineWidth,
+        marginBottom: "5%",
+    },
+    input: {
+        width: "80%",
+        alignSelf: 'center'
     }
 });
