@@ -110,10 +110,6 @@ export default class Login extends Component {
                     console.log('Error', error.message);
                 }
             })
-
-        // .finally(() => {
-        //     Actions.progress({ uid: uid })
-        // });
     };
 
     // Render the correct components for the login screen
