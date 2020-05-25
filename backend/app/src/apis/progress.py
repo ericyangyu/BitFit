@@ -49,7 +49,7 @@ def reset_stats():
     uid = request.json["uid"]
 
     # delegate to user model
-    return Progress.update_stats(uid)
+    return Progress.reset_stats(uid)
 
 @progress_api.route("/get", methods=["POST"])
 def get():
