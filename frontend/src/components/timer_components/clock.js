@@ -10,6 +10,9 @@ import { Text, View } from 'react-native';
 // Stylesheet
 import styles from '../../style/r_timer';
 
+/**
+ * Digital clock display rendered on Timer page
+ */
 export default class Clock extends Component {
     constructor(props) {
         super(props)

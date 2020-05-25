@@ -9,6 +9,9 @@ import { View } from 'react-native';
 // Stylesheet
 import styles from '../../style/r_timer';
 
+/**
+ * Row for circle buttons
+ */
 export default class ButtonsRow extends Component {
     constructor(props) {
         super(props)

@@ -10,7 +10,9 @@ import { Text, View, TouchableOpacity } from 'react-native';
 // Stylesheet
 import styles from '../../style/r_timer';
 
-// Describes how the buttons look and function
+/**
+ * Round buttons for timer page
+ */
 export default class RoundButton extends Component {
     constructor(props) {
         super(props)
