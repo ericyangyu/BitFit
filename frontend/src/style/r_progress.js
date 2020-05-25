@@ -40,7 +40,7 @@ export default StyleSheet.create({
     },
     headerStyle: {
         fontSize: 50,
-        fontFamily: 'sans-serif-condensed',
+        fontFamily: 'sans-serif-light',
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',

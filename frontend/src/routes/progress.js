@@ -88,7 +88,6 @@ export default class Progress extends Component {
             .then(response => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
-                console.log(response.data);
                 this.setState({
                     fullname: response.data.fullname
                 })

@@ -26,14 +26,17 @@ export default StyleSheet.create({
         width: "80%",
         resizeMode: "contain",
         alignSelf: "center",
-        marginVertical: 0
+        marginVertical: 0,
+        marginTop: 10,
+        marginBottom: 10
     },
     buttonTextStyle: {
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0,
-        color: '#838383'
+        color: '#838383',
+        fontFamily:'sans-serif-light'
     },
     form: {
         justifyContent: "center",
@@ -42,7 +45,6 @@ export default StyleSheet.create({
         width: 380,
         padding: 20,
         marginVertical: 0,
-        marginTop: -10,
         marginBottom: 30,
         marginHorizontal: 0,
         borderRadius: 15

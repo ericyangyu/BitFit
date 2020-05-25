@@ -13,15 +13,21 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#000020",
-        marginBottom: 12,
-        paddingVertical: 12,
-        borderRadius: 4,
+        marginBottom: 10,
+        paddingVertical: 10,
+        borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
     },
     // Style the text on the button
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 20
+        height: 26,
+        fontSize: 20,
+        fontFamily: 'sans-serif-light',
+        fontWeight: '100'
+    },
+    disabled: {
+        opacity: 0.4
     }
 });

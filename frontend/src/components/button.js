@@ -17,15 +17,14 @@ import styles from "../style/c_button";
 export default class Button extends Component {
     // save the props from when the button is rendered
     render() {
-        const { label, onPress, hide } = this.props;
+        const { label, disabled, onPress, hide } = this.props;
+        const style = disabled ? [styles.buttonContainer, styles.disabled] : styles.buttonContainer
     
         // return a touchable opacity button that inherits functionality, and is styled
         // in this file
-        return hide ? (
-            null
-        ) : (
-            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-            <Text style={styles.text}>{label}</Text>
+        return hide ? null : (
+            <TouchableOpacity disabled={disabled} style={style} onPress={onPress}>
+                <Text style={styles.text}>{label}</Text>
             </TouchableOpacity>
         );
     }

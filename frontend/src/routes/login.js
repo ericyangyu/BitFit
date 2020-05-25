@@ -123,16 +123,18 @@ export default class Login extends Component {
                     <Input
                         value={this.state.email}
                         onChangeText={this.handleEmailChange}
-                        placeholder={"Email..."}
+                        placeholder={"Email"}
                     />
                     <Input
                         value={this.state.password}
                         onChangeText={this.handlePasswordChange}
-                        placeholder={"Password..."}
+                        placeholder={"Password"}
+                        secureTextEntry={true}
                     />
                     <Button
                         label={"Login"}
                         onPress={this.handleLoginPress}
+                        disabled={!this.state.email || !this.state.password}
                     />
                     <TouchableOpacity onPress={this.goToSignUp} >
                         <TextField style={styles.buttonTextStyle}>
