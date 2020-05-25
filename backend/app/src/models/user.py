@@ -290,6 +290,7 @@ class User:
             db.child("users").child(uid).remove()
             db.child("earned_trophies").child(uid).remove()
             db.child("progress").child(uid).remove()
+            db.child("completed_workouts").child(uid).remove()
 
             return make_response({"reason": "User deleted."}, 200)
 
