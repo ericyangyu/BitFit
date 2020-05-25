@@ -128,8 +128,6 @@ export default class Progress extends Component {
             data = {
                 'uid': this.props.uid
             };
-            console.log("Intermediary Progress " + this.state.arms.level);
-
             
             // Make API call
             axios.post(url, data)

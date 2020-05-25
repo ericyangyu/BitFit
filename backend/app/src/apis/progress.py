@@ -38,7 +38,7 @@ def update_stats():
     level = request.json["level"]
 
     # delegate to user model
-    return progress.update_stats(uid, body_part, exp, level)
+    return Progress.update_stats(uid, body_part, exp, level)
 
 @progress_api.route("/reset_stats", methods=["post"])
 def reset_stats():
@@ -57,7 +57,7 @@ def reset_stats():
     level = "0"
 
     # delegate to user model
-    return progress.update_stats(uid, body_part, exp, level)
+    return Progress.update_stats(uid, body_part, exp, level)
 
 @progress_api.route("/get", methods=["POST"])
 def get():
