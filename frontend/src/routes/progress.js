@@ -18,12 +18,12 @@ import axios from 'axios';
 
 // Components
 import Button from "../components/button";
+import NavBar from "../components/nav_bar"
 
 // Stylesheet
 import styles from '../style/r_progress';
 
 // Images
-import profile_photo from '../images/default_profile.png'
 import blue from '../images/blue.jpg'
 
 
@@ -36,7 +36,8 @@ export default class Progress extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullname: ""
+            fullname: "",
+            avatar: ""
         }
     }
 
@@ -89,7 +90,8 @@ export default class Progress extends Component {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
                 this.setState({
-                    fullname: response.data.fullname
+                    fullname: response.data.fullname,
+                    avatar: response.data.avatar
                 })
             })
 
@@ -121,14 +123,13 @@ export default class Progress extends Component {
                                 style={{ width: window.width, height: 200, opacity: 1.8 }}
                                 source={blue}
                             />
-                            <TouchableOpacity style={{ marginLeft: 20, marginTop: -180, alignItems: 'stretch' }}
-                                onPress={this.goToProfile}>
-                                <Image
-                                    style={styles.imageStyle}
-                                    source={profile_photo}
-                                />
-                            </TouchableOpacity>
-                            <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
+                            
+                                <NavBar 
+                                    left={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
+                                    leftProfile
+                                    leftOnPress={this.goToProfile}>
+                                </NavBar>
+                                <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
                         </View>
                     </Col>
                 </Row>
@@ -232,7 +233,7 @@ export default class Progress extends Component {
                     <Col>
                         <View style={styles.buttonView}>
                             <Button
-                                label={"  Start a New Workout   "}
+                                label={"Workout"}
                                 onPress={this.goToMainFocus}
                             />
                         </View>
