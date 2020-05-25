@@ -170,7 +170,6 @@ export default class Progress extends Component {
 
     // Render the correct components for the Progress screen
     render() {
-        console.log(this.state.fullname)
         let overallLv = parseInt(this.state.arms.level) +
             parseInt(this.state.back.level) +
             parseInt(this.state.chest.level) +
@@ -230,8 +229,8 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.arms.level) == 0 ? parseInt(this.state.arms.exp) * 100 :
-                                (parseInt(this.state.arms.exp) - (2 * parseInt(this.state.arms.level) - 1))
+                            value={parseInt(this.state.arms.level) == 0 ? parseFloat(this.state.arms.exp) * 100 :
+                                (parseFloat(this.state.arms.exp) - (2 * parseInt(this.state.arms.level) - 1))
                                 / (2 * parseInt(this.state.arms.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
@@ -249,8 +248,8 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.back.level) == 0 ? parseInt(this.state.back.exp) * 100 :
-                                parseInt((this.state.back.exp) - (2 * parseInt(this.state.back.level) - 1))
+                            value={parseInt(this.state.back.level) == 0 ? parseFloat(this.state.back.exp) * 100 :
+                                parseFloat((this.state.back.exp) - (2 * parseInt(this.state.back.level) - 1))
                                 / (2 * parseInt(this.state.back.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
@@ -268,8 +267,8 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.chest.level) == 0 ? parseInt(this.state.chest.exp) * 100 :
-                                (parseInt(this.state.chest.exp) - (2 * parseInt(this.state.chest.level) - 1))
+                            value={parseInt(this.state.chest.level) == 0 ? parseFloat(this.state.chest.exp) * 100 :
+                                (parseFloat(this.state.chest.exp) - (2 * parseInt(this.state.chest.level) - 1))
                                 / (2 * parseInt(this.state.chest.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
@@ -287,8 +286,8 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.core.level) == 0 ? parseInt(this.state.core.exp) * 100 :
-                                (parseInt(this.state.core.exp) - (2 * parseInt(this.state.core.level) - 1))
+                            value={parseInt(this.state.core.level) == 0 ? parseFloat(this.state.core.exp) * 100 :
+                                (parseFloat(this.state.core.exp) - (2 * parseInt(this.state.core.level) - 1))
                                 / (2 * parseInt(this.state.core.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
@@ -306,8 +305,8 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.legs.level) == 0 ? parseInt(this.state.legs.exp) * 100 :
-                                (parseInt(this.state.legs.exp) - (2 * parseInt(this.state.legs.level) - 1))
+                            value={parseInt(this.state.legs.level) == 0 ? parseFloat(this.state.legs.exp) * 100 :
+                                (parseFloat(this.state.legs.exp) - (2 * parseInt(this.state.legs.level) - 1))
                                 / (2 * parseInt(this.state.legs.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
