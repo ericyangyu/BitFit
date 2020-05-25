@@ -249,7 +249,6 @@ export default class Profile extends Component {
                     // Iterate through each completed workout for this user
                     for (var completed_workout_id in completedWorkoutsData) {
                         sessions += 1
-                        console.log(completedWorkoutsData[completed_workout_id].duration)
                         time += parseFloat(completedWorkoutsData[completed_workout_id].duration)
                     }
                     this.setState({

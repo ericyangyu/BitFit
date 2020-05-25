@@ -111,7 +111,6 @@ export default class SignUp extends Component {
             'password': this.state.password,
             'avatar': this.state.avatar
         };
-        let uid = "";
 
         // Make API call
         axios.post(url, data)
