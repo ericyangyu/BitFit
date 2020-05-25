@@ -30,7 +30,7 @@ export default class Trophy_Component extends Component {
     Alert.alert(
       message,
       description,
-      [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+      [{ text: 'OK' }],
       { cancelable: false }
     );
   }

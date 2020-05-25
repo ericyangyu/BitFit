@@ -49,7 +49,7 @@ ALL_TROPHIES = [
     },
     {
         "data": {
-            "trophy_name": "Trophy 2",
+            "trophy_name": "Trophy 3",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
             "description": "This is trophy 3",
@@ -67,7 +67,7 @@ ALL_TROPHIES = [
     },
     {
         "data": {
-            "trophy_name": "Trophy 2",
+            "trophy_name": "Trophy 5",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
             "description": "This is trophy 5",
