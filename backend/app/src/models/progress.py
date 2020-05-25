@@ -28,29 +28,25 @@ class Progress:
             response object -> If valid call, returns the uid of the user and a
             200 status code. Otherwise, returns a blank body and an error code.
         """
-        try:
-            # Data to be added into DB for the user
-            data = {
-                "exp": 0,
-                "level": 0
-            }
+        # Data to be added into DB for the user
+        data = {
+            "exp": 0,
+            "level": 0
+        }
 
-            ref = db.child("body_parts")
-            # get all the body_parts
-            body_parts = ref.get()
+        ref = db.child("body_parts")
+        # get all the body_parts
+        body_parts = ref.get()
 
-            # create a new progress bar specific for this user for each body_part in db
-            for bp in body_parts.each():
-                db.child("progress").child(uid).child(bp).update(data)
-            return
+        # create a new progress bar specific for this user for each body_part in db
+        for bp in body_parts.each():
+            db.child("progress").child(uid).child(bp).update(data)
+        return
 
 
-            # Return the user uid
-            # return make_response(query, 200)
+        # Return the user uid
+        # return make_response(query, 200)
 
-        except HTTPError as e:
-            # Handle exception and return correct response object
-            return create_error_message(e)
 
     @staticmethod
     def update_stats(uid: str, body_part: str, exp: str, level: str):
