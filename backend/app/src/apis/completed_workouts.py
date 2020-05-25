@@ -27,8 +27,9 @@ def add_workout():
 
     Expected data:
         uid -> user's uid
-        workout_id -> the type of workout
+        workout_name -> the type of workout
         duration -> the time spent on workout
+        date -> the date
 
     Expected response:
         empty json with 200 status code

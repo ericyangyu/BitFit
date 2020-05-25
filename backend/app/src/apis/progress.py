@@ -44,20 +44,12 @@ def update_stats():
 def reset_stats():
     """
     resets a user's stats.
-
-        uid -> user's uid
-
-    expected response:
-        empty json with 200 status code
     """
     # read incoming request data body
     uid = request.json["uid"]
-    body_part = "Arms" 
-    exp = "0"
-    level = "0"
 
     # delegate to user model
-    return Progress.update_stats(uid, body_part, exp, level)
+    return Progress.update_stats(uid)
 
 @progress_api.route("/get", methods=["POST"])
 def get():

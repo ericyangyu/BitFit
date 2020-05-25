@@ -23,9 +23,6 @@ class Progress:
 
         Arguments:
             uid {str} -> user's unique id
-            body_part {str} -> the body part that was worked out
-            exp {float} -> the experience of the body part
-            level {integer} -> the level of the current body part
 
         Returns:
             response object -> If valid call, returns the uid of the user and a
