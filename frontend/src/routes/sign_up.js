@@ -119,7 +119,7 @@ export default class SignUp extends Component {
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                uid = response.data["uid"];
+                Actions.progress({ uid: response.data["uid"] })
             })
 
             // Error
@@ -146,10 +146,6 @@ export default class SignUp extends Component {
                     console.log('Error', error.message);
                 }
             })
-
-            .finally(() => {
-                Actions.progress({ uid: uid })
-            });
     }
 
     // Render the correct components for the SignUp screen
