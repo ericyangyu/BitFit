@@ -5,8 +5,9 @@ Authors: Jeremy, Steven
 """
 
 # External imports
-from flask import make_response, jsonify    # Flask packages
-from requests.exceptions import HTTPError   # To access HTTPError
+from flask import make_response, jsonify  # Flask packages
+from requests.exceptions import HTTPError  # To access HTTPError
+import json
 
 # Internal imports
 from ...config import db, create_error_message  # , raise_detailed_error
@@ -29,27 +30,18 @@ class Progress:
             200 status code. Otherwise, returns a blank body and an error code.
         """
         # Data to be added into DB for the user
-        data = {
-            "exp": "0.0",
-            "level": "0"
-        }
+        data = {"exp": "0.0", "level": "0"}
 
+        # get all the body_parts as a dictionary
         ref = db.child("body_parts")
-        # get all the body_parts
-        body_parts = ref.get()
+        body_parts = ref.get().val()
+        body_parts = json.loads(json.dumps(body_parts))
 
-        # create a new progress bar specific for this user for each body_part in db
-        db.child("progress").child(uid).child("Arms").update(data)
-        db.child("progress").child(uid).child("Back").update(data)
-        db.child("progress").child(uid).child("Chest").update(data)
-        db.child("progress").child(uid).child("Core").update(data)
-        db.child("progress").child(uid).child("Legs").update(data)
-        return
+        # iterate through keys of body_parts dictionary which are body parts
+        for body_part in body_parts:
+            db.child("progress").child(uid).child(body_part).update(data)
 
-
-        # Return the user uid
-        # return make_response(query, 200)
-
+        return make_response({}, 200)
 
     @staticmethod
     def update_stats(uid: str, body_part: str, exp: str, level: str):
@@ -67,10 +59,7 @@ class Progress:
         """
         try:
             # Data to be added into DB for the user
-            data = {
-                "exp": exp,
-                "level": level
-            }
+            data = {"exp": exp, "level": level}
 
             # Insert user to DB with local id as key
             query = db.child("progress").child(uid).child(body_part).update(data)

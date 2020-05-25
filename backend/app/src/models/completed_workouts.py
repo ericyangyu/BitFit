@@ -7,7 +7,7 @@ Authors: Jeremy, Steven
 """
 
 # External imports
-from flask import make_response # Flask packages
+from flask import make_response  # Flask packages
 from requests.exceptions import HTTPError  # To access HTTPError
 
 # Internal imports
@@ -35,16 +35,13 @@ class CompletedWorkouts:
         """
         try:
             # Data to be added into DB for the user
-            data = {
-                "duration": duration,
-                "date": date
-            }
+            data = {"workout_name": workout_name, "duration": duration, "date": date}
 
             ref = db.child("completed_workouts")
             key = ref.generate_key()
 
             # Insert user to DB with local id as key
-            query = db.child(uid).child(key).child(workout_name).update(data)
+            query = db.child(uid).child(key).update(data)
 
             # Return the user uid
             return make_response(query, 200)
