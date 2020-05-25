@@ -177,8 +177,8 @@ export default class Profile extends Component {
                 this.setState({
                     sessions: 0,
                     eSessions: 0,
-                    time: 0,
-                    eTime: 0
+                    time: 0.0,
+                    eTime: 0.0
                 })
             })
 
@@ -250,9 +250,8 @@ export default class Profile extends Component {
                     for (var completed_workout_id in completedWorkoutsData) {
                         sessions += 1
                         console.log(completedWorkoutsData[completed_workout_id].duration)
-                        time += parseInt(completedWorkoutsData[completed_workout_id].duration)
+                        time += parseFloat(completedWorkoutsData[completed_workout_id].duration)
                     }
-                    console.log(time)
                     this.setState({
                         sessions: sessions,
                         eSessions: sessions,
