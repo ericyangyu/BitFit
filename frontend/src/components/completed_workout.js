@@ -42,11 +42,10 @@ export default class CompletedWorkout extends Component {
         return (
             <TouchableOpacity onPress={this.alertInformation}>
                 <ListItem style={styles.listItem}
-                    key={workout.name}
-                    title={workout.name}
+                    key={workout.data.workout_name}
+                    title={workout.data.workout_name}
                     titleStyle={styles.titleStyle}
                     subtitle={<Text style={styles.item}>Duration: {workout.data.duration}</ Text>}
-                    // badge={{ value: 3, textStyle: { color: 'orange' }, containerStyle: { marginTop: -20 } }}
                     rightTitle={<Text>Date: {workout.data.date}</Text>}
                     bottomDivider
                 />

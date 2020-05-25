@@ -45,16 +45,15 @@ export default class ActivityLog extends Component {
         var i = 0
         // Iterate through each completed workout for this user
         for (var workout_id in this.state.response) {
-            // Will always be one because each workout_id only has one child
-            for (var workout in this.state.response[workout_id]) {
-                // Reformat the workout object and store into a list
-                let data = { "name": workout, data: this.state.response[workout_id][workout] }
-                workouts.push(data)
-            }
+            // Reformat the workout object and store into a list
+            let data = { data: this.state.response[workout_id] }
+            workouts.push(data)
+
             // Increment the counter and check if gathered enough exercises
             i += 1
             if (i > 10) { break; }
         }
+
         // Set a state variable containing the new formatted workout objects
         this.setState(
             { workouts: workouts }
@@ -72,7 +71,6 @@ export default class ActivityLog extends Component {
         axios.post(url, info)
             // Success
             .then(response => {
-
                 // Save the list of trophies returned and now loading screen can be removed
                 this.setState({
                     response: response.data,
@@ -103,7 +101,6 @@ export default class ActivityLog extends Component {
             });
     }
 
-
     render() {
         // If the API call is not complete, display the loading screen
         if (this.state.isLoading) {
@@ -127,7 +124,7 @@ export default class ActivityLog extends Component {
                     <FlatList
                         style={styles.flatList}
                         data={this.state.workouts}
-                        keyExtractor={item => item.name}
+                        keyExtractor={item => item.workout_name}
                         renderItem={({ item: workout }) => (
                             <CompletedWorkout workout={workout}></CompletedWorkout>
                         )}
