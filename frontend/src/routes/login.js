@@ -84,8 +84,7 @@ export default class Login extends Component {
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                // Actions.progress({ uid: response.data["uid"] })
-                Actions.activitylog({ uid: response.data["uid"] })
+                Actions.progress({ uid: response.data["uid"] })
             })
 
             // Error

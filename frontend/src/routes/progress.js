@@ -34,11 +34,11 @@ export default class Progress extends Component {
         super(props)
         this.state = {
             fullname: "",
-            arms: {"level": "0", "exp": "0.0"},
-            back: {"level": "0", "exp": "0.0"},
-            chest: {"level": "0", "exp": "0.0"},
-            core: {"level": "0", "exp": "0.0"},
-            legs: {"level": "0", "exp": "0.0"},
+            arms: { "level": "0", "exp": "0.0" },
+            back: { "level": "0", "exp": "0.0" },
+            chest: { "level": "0", "exp": "0.0" },
+            core: { "level": "0", "exp": "0.0" },
+            legs: { "level": "0", "exp": "0.0" },
             getUserDone: false,
             getProgressDone: false,
             avatar: ""
@@ -124,70 +124,70 @@ export default class Progress extends Component {
                 })
             });
 
-            // get progress
-            url = 'http://10.0.2.2:4200/apis/progress/get';
-            data = {
-                'uid': this.props.uid
-            };
-            
-            // Make API call
-            axios.post(url, data)
-                // Success
-                .then(response => {
-                    this.setState({
-                        arms: response.data.Arms,
-                        back: response.data.Back,
-                        chest: response.data.Chest,
-                        core: response.data.Core,
-                        legs: response.data.Legs,
-                        getProgressDone: true
-                    })
-                })
-                
-                // Error
-                .catch(error => {
-                    console.log("Progress get api call error")
-                    // Log error 
-                    if (error.response) {
-                        // Call was unsuccessful
-                        console.log(error.response.data);
-                        console.log(error.response.status);
-                    } else if (error.request) {
-                        // Request was made but no response was received.
-                        console.log(error.request);
-                    } else {
-                        // Something else cause an error
-                        console.log('Error', error.message);
-                    }
-                }) 
+        // get progress
+        url = 'http://10.0.2.2:4200/apis/progress/get';
+        data = {
+            'uid': this.props.uid
+        };
 
-                .finally(() => {
-                    this.setState({
-                        getProgressDone: true
-                    })
-                });
+        // Make API call
+        axios.post(url, data)
+            // Success
+            .then(response => {
+                this.setState({
+                    arms: response.data.Arms,
+                    back: response.data.Back,
+                    chest: response.data.Chest,
+                    core: response.data.Core,
+                    legs: response.data.Legs,
+                    getProgressDone: true
+                })
+            })
+
+            // Error
+            .catch(error => {
+                console.log("Progress get api call error")
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            })
+
+            .finally(() => {
+                this.setState({
+                    getProgressDone: true
+                })
+            });
     }
 
     // Render the correct components for the Progress screen
     render() {
         console.log(this.state.fullname)
         let overallLv = parseInt(this.state.arms.level) +
-                        parseInt(this.state.back.level) +
-                        parseInt(this.state.chest.level) +
-                        parseInt(this.state.core.level) +
-                        parseInt(this.state.legs.level);
+            parseInt(this.state.back.level) +
+            parseInt(this.state.chest.level) +
+            parseInt(this.state.core.level) +
+            parseInt(this.state.legs.level);
 
         // If the API call is not complete, display the loading screen
         if (!this.state.getProgressDone || !this.state.getUserDone) {
-        return (
-            <View style={styles.spinnerContainer}>
-            <Spinner
-                visible={this.state.isLoading}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-            />
-            </View>
-        )
+            return (
+                <View style={styles.spinnerContainer}>
+                    <Spinner
+                        visible={this.state.isLoading}
+                        textContent={'Loading...'}
+                        textStyle={styles.spinnerTextStyle}
+                    />
+                </View>
+            )
         }
 
         return (
@@ -230,9 +230,9 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.arms.level) == 0 ? parseInt(this.state.arms.exp) * 100 : 
-                                   (parseInt(this.state.arms.exp) - (2 * parseInt(this.state.arms.level) - 1))
-                                   / (2 * parseInt(this.state.arms.level)) * 100}
+                            value={parseInt(this.state.arms.level) == 0 ? parseInt(this.state.arms.exp) * 100 :
+                                (parseInt(this.state.arms.exp) - (2 * parseInt(this.state.arms.level) - 1))
+                                / (2 * parseInt(this.state.arms.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
@@ -249,9 +249,9 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.back.level) == 0 ? parseInt(this.state.back.exp) * 100 : 
-                                   parseInt((this.state.back.exp) - (2 * parseInt(this.state.back.level) - 1))
-                                   / (2 * parseInt(this.state.back.level)) * 100}
+                            value={parseInt(this.state.back.level) == 0 ? parseInt(this.state.back.exp) * 100 :
+                                parseInt((this.state.back.exp) - (2 * parseInt(this.state.back.level) - 1))
+                                / (2 * parseInt(this.state.back.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
@@ -268,9 +268,9 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.chest.level) == 0 ? parseInt(this.state.chest.exp) * 100 : 
-                                   (parseInt(this.state.chest.exp) - (2 * parseInt(this.state.chest.level) - 1))
-                                   / (2 * parseInt(this.state.chest.level)) * 100}
+                            value={parseInt(this.state.chest.level) == 0 ? parseInt(this.state.chest.exp) * 100 :
+                                (parseInt(this.state.chest.exp) - (2 * parseInt(this.state.chest.level) - 1))
+                                / (2 * parseInt(this.state.chest.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
@@ -287,9 +287,9 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.core.level) == 0 ? parseInt(this.state.core.exp) * 100 : 
-                                   (parseInt(this.state.core.exp) - (2 * parseInt(this.state.core.level) - 1))
-                                   / (2 * parseInt(this.state.core.level)) * 100}
+                            value={parseInt(this.state.core.level) == 0 ? parseInt(this.state.core.exp) * 100 :
+                                (parseInt(this.state.core.exp) - (2 * parseInt(this.state.core.level) - 1))
+                                / (2 * parseInt(this.state.core.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
@@ -306,9 +306,9 @@ export default class Progress extends Component {
                         <ProgressBarAnimated
                             useNativeDriver={true}
                             width={150}
-                            value={parseInt(this.state.legs.level) == 0 ? parseInt(this.state.legs.exp) * 100 : 
-                                   (parseInt(this.state.legs.exp) - (2 * parseInt(this.state.legs.level) - 1))
-                                   / (2 * parseInt(this.state.legs.level)) * 100}
+                            value={parseInt(this.state.legs.level) == 0 ? parseInt(this.state.legs.exp) * 100 :
+                                (parseInt(this.state.legs.exp) - (2 * parseInt(this.state.legs.level) - 1))
+                                / (2 * parseInt(this.state.legs.level)) * 100}
                             backgroundColorOnComplete="#6CC644"
                         />
                     </Col>
