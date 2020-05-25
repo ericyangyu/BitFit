@@ -77,14 +77,6 @@ export default class WorkoutTimer extends Component {
                 // need to come back here and make sure user actually has focus defined
                 level = parseInt(response.data[this.props.focus]["level"]);
                 exp = parseFloat(response.data[this.props.focus]["exp"]);
-            })
-           
-            .catch((error)=>{
-                console.log("Get progress call error");
-                alert(error.message);
-            })
-            
-            .finally(() => {
                 exp = exp + duration;
 
                 // calculate the new level
@@ -106,30 +98,42 @@ export default class WorkoutTimer extends Component {
                 /**
                  * Save progress in backend
                  */
-                let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
-                let data = {
+                url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+                data = {
                     'uid': this.props.uid,
                     'body_part': this.props.focus,
                     'exp': exp.toString(),
                     'level': level.toString()
                 };
+                console.log("DATA");
+                console.log(data);
                 axios.post(url, data)
                     .then(response => {
                         console.log(response.data)
                     })
                     
                     .catch((error)=>{
-                        console.log("Update progress call error");
+                        console.log("Update progress call error: Timer.js");
+                        console.log(error.response.data);
                         alert(error.message);
-                        console.log(data);
                     });
+                console.log("Get Success");
+            })
+           
+            .catch((error)=>{
+                console.log("Get progress call error: Timer.js");
+                console.log(error.response.data);
+                alert(error.message);
+            })
+            
+            .finally(() => {
+                Actions.stats({ uid: this.props.uid,
+                                duration: duration,
+                                focus: this.props.focus,
+                                workout: this.props.workout,
+                                leveledUp: this.props.leveledUp });
             });
 
-        Actions.stats({ uid: this.props.uid,
-                        duration: duration,
-                        focus: this.props.focus,
-                        workout: this.props.workout,
-                        leveledUp: this.props.leveledUp });
     }
 
     // pause timer
