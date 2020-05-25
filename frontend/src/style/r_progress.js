@@ -44,7 +44,6 @@ export default StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
-        marginTop: -117
     },
     textStyle: {
         fontSize: 20,

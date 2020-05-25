@@ -120,13 +120,12 @@ export default class Progress extends Component {
                     <Col>
                         <View>
                             <Image
-                                style={{ width: window.width, height: 200, opacity: 1.8 }}
+                                style={{ width: "100%", height: 200, opacity: 1.8, position: 'absolute' }}
                                 source={blue}
                             />
                             
                                 <NavBar 
                                     left={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
-                                    leftProfile
                                     leftOnPress={this.goToProfile}>
                                 </NavBar>
                                 <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>

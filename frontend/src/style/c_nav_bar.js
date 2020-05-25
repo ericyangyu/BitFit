@@ -15,18 +15,14 @@ export default StyleSheet.create({
         paddingRight: "5%",
         flexDirection: "row",
         justifyContent: "space-between",
-        position: 'absolute',
-        marginBottom: "2.5%"
     },
     button: {
         width: 55,
         height: 55,
-        borderRadius: 100
+        borderRadius: 100,
+        backgroundColor: 'white'
     },
     disabled: {
         opacity: 0.4
     },
-    profile: {
-        backgroundColor: 'white'
-    }
 });

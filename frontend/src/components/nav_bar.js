@@ -17,14 +17,14 @@ import styles from "../style/c_nav_bar";
 export default class NavBar extends Component {
     // save the props from when the button is rendered
     render() {
-        const { left, leftProfile, leftOnPress, right, rightDisabled, rightOnPress } = this.props
+        const { left, leftDisabled, leftOnPress, right, rightDisabled, rightOnPress } = this.props
 
-        const leftStyle = leftProfile ? [styles.button, styles.profile] : styles.button
+        const leftStyle = leftDisabled ? [styles.button, styles.disabled] : styles.button
         const rightStyle = rightDisabled ? [styles.button, styles.disabled] : styles.button
 
         return right ? (
             <View style={styles.container}>
-                <TouchableOpacity onPress={leftOnPress}>
+                <TouchableOpacity disabled={leftDisabled} onPress={leftOnPress}>
                     <Image source={left} style={leftStyle} />
                 </TouchableOpacity>
                 <TouchableOpacity disabled={rightDisabled} onPress={rightOnPress}>
@@ -33,7 +33,7 @@ export default class NavBar extends Component {
             </View>
         ) : (
             <View style={styles.container}>
-                <TouchableOpacity onPress={leftOnPress}>
+                <TouchableOpacity disabled={leftDisabled} onPress={leftOnPress}>
                     <Image source={left} style={leftStyle} />
                 </TouchableOpacity>
             </View>
