@@ -16,8 +16,12 @@ import axios from 'axios';
 
 // Internal imports
 
+// Stylesheet
+import styles from '../style/r_progress';
+
 // Components
 import Button from '../components/button';
+import blue from '../images/blue.jpg';
 
 /**
  * Class that returns the Main Focus page with correct components and API calls.
@@ -107,13 +111,33 @@ export default class MainFocusPage extends Component {
 	render() {
 		return (
 
-			<Grid style={{ backgroundColor: '#f3ebe1' }}>
-				<Row>
-					<Col>
-						<View style={{ backgroundColor: '#f3ebe1' }}>
+			<Grid style={{ backgroundColor: '#e7e7e7' }}>
+				{/* <Row>
+					<Col> */}
+					<View>
+                            <Image
+                                style={{ width: window.width, height: 200, opacity: 1.8 }}
+                                source={blue}
+                            />
+                            <TouchableOpacity onPress={() => this.goBackProgress()}>
+								<Image
+									style={{ width: 45, height: 45, marginTop: -180, marginLeft: 10 }}
+									source={require('../images/back_button.png')}
+								/>
+							</TouchableOpacity>
+                            <Text style={{
+								fontSize: 50,
+								fontFamily: 'sans-serif-condensed',
+								color: 'white',
+								textAlign: 'center',
+								fontWeight: '100',
+								marginTop: -130
+							}}> Main Focus </Text>
+                    </View>
+						{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
 								<Image
-									style={{ width: 75, height: 75 }}
+									style={{ width: 45, height: 45 }}
 									source={require('../images/back_button.png')}
 								/>
 							</TouchableOpacity>
@@ -127,16 +151,17 @@ export default class MainFocusPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							backgroundColor: '#f3ebe1'
+							backgroundColor: '#e7e7e7'
 						}}>
 							<Text style={{
-								fontSize: 30
+								fontSize: 30,
+								fontFamily: 'sans-serif-condensed'
 							}}>
 								Main Focus
 							</Text>
-						</View>
-					</Col>
-				</Row>
+						</View> */}
+					{/* </Col>
+				</Row> */}
 				<Row>
 					<Col>
 						<View style={{
@@ -144,26 +169,29 @@ export default class MainFocusPage extends Component {
 							alignSelf: 'center',
 							alignContent: 'center',
 							flexWrap: 'wrap',
-							marginVertical: 50
+							marginVertical: 100
 						}}>
 							<Text style={{
-								fontSize: 20
+								fontSize: 20,
+								fontFamily: 'monospace',
+								textAlign: 'center'
 							}}>
 								Select a Main Focus for your Workout:
 							</Text>
 						</View>
 					</Col>
 				</Row>
+				<View></View>
 				<Row>
 					<Col>
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0
+							marginVertical: 50
 						}}>
 							<Picker
 								selectedValue={this.state.focus}
-								style={{ height: 50, width: 150 }}
+								style={{ height: 50, width: 200, marginTop: 20 }}
 								onValueChange={(itemValue, _) =>
 									this.updateDropdown(itemValue)
 								}
@@ -179,7 +207,7 @@ export default class MainFocusPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 0,
+							marginVertical: 50,
 						}}>
 							<Image
 								style={{ width: 180, height: 180, alignSelf: 'center' }}
@@ -196,7 +224,7 @@ export default class MainFocusPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: 30,
+							marginVertical: 100,
 						}}>
 							<Button onPress={() => this.goToSuggestedWorkouts()}
 								label="Continue"

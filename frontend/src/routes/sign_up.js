@@ -15,7 +15,6 @@ import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
  
 // Internal inports
-import {defaultPhoto} from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_sign_up';
@@ -24,6 +23,10 @@ import styles from '../style/r_sign_up';
 // Components
 import Button from "../components/button";
 import Input from "../components/input";
+
+// Images 
+import {defaultPhoto} from '../images/default_photo.js';
+import blue from '../images/login_background.png';
 
 /**
  * Class that returns the SignUp page with correct components and API calls.
@@ -157,7 +160,6 @@ export default class SignUp extends Component {
                 {(this.state.avatarDisplayStatus) ?
                     <PhotoUpload
                     maxHeight={200}
-
                     photoPickerTitle={'Upload a Profile Picture: '}
                     onPhotoSelect={avatar => {
                         if (avatar) {

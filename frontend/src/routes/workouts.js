@@ -134,10 +134,10 @@ export default class SuggestedWorkoutsPage extends Component {
 			<Grid style={{ backgroundColor: '#f3ebe1' }}>
 				<Row>
 					<Col>
-						<View style={{ backgroundColor: '#f3ebe1' }}>
+						<View style={{ backgroundColor: '#f3ebe1', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBack()}>
 								<Image
-									style={{ width: 75, height: 75 }}
+									style={{ width: 45, height: 45 }}
 									source={require('../images/back_button.png')}
 								/>
 							</TouchableOpacity>

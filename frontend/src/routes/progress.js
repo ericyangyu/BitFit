@@ -119,7 +119,7 @@ export default class Progress extends Component {
                     <Col>
                         <View>
                             <Image
-                                style={{ width: window.width, height: 200 }}
+                                style={{ width: window.width, height: 200, opacity: 1.8 }}
                                 source={blue}
                             />
                             <TouchableOpacity style={{ marginLeft: 20, marginTop: -180, alignItems: 'stretch' }}

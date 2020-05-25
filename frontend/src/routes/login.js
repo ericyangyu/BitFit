@@ -23,6 +23,7 @@ import TextField from "../components/text_field";
 
 // Images
 import logo from "../images/logo.png";
+import blue from '../images/login_background.png';
 
 /**
  * Class that returns the Login page with correct components and API calls.
@@ -116,6 +117,7 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image source={blue} style={styles.backgroundImage} />
                 <Image source={logo} style={styles.logo} />
                 <View style={styles.form}>
                     <Input

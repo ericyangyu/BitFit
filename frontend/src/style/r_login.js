@@ -4,7 +4,7 @@
  * Authors: ?
  */
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -13,21 +13,29 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        opacity: 0.8
+    },
     logo: {
         flex: 1,
         width: "80%",
         resizeMode: "contain",
-        alignSelf: "center"
+        alignSelf: "center",
+        marginVertical: 0
     },
     buttonTextStyle: {
         fontSize: 15,
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0,
-        color: '#3498eb'
+        color: '#838383'
     },
     form: {
-        
         justifyContent: "center",
         width: "80%",
         backgroundColor: 'white',
