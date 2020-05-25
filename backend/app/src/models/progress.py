@@ -30,8 +30,8 @@ class Progress:
         """
         # Data to be added into DB for the user
         data = {
-            "exp": 0,
-            "level": 0
+            "exp": "0.0",
+            "level": "0"
         }
 
         ref = db.child("body_parts")
