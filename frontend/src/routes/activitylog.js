@@ -6,7 +6,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
@@ -17,6 +17,9 @@ import styles from '../style/r_activitylog';
 // Components
 import CompletedWorkout from "../components/completed_workout"
 import LoadingScreen from "../components/loading"
+
+// Images
+import backButton from '../images/back_button.png'
 
 /**
  * Class that returns the the Activity Log page with the workouts rendered
@@ -30,7 +33,7 @@ export default class ActivityLog extends Component {
 
     // Route to the progress page when progress button is pressed
     goToProgress = () => {
-        Actions.progress({ uid: this.props.user.uid })
+        Actions.progress({ uid: this.props.uid })
     }
 
     // Creates a new state variable that contains a list of reformatted workout objects of size x
@@ -107,6 +110,9 @@ export default class ActivityLog extends Component {
 
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={() => this.goToProgress()}>
+                    <Image source={backButton} style={styles.topButton} />
+                </TouchableOpacity>
                 <Text style={styles.header}>
                     Activity Log
                 </Text>
@@ -120,6 +126,7 @@ export default class ActivityLog extends Component {
                         )}
                     />
                 </View>
+
             </View >
         );
     }

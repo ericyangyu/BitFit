@@ -54,6 +54,11 @@ export default class Progress extends Component {
         Actions.mainfocus({ uid: this.props.uid })
     }
 
+    // Route to the activity log page when activity log button pressed
+    goToActivityLog = () => {
+        Actions.activitylog({ uid: this.props.uid })
+    }
+
     getData = () => {
         let url1 = 'http://10.0.2.2:4200/apis/user/get';
         let data1 = {
@@ -275,6 +280,15 @@ export default class Progress extends Component {
                         <TouchableOpacity onPress={this.goToMainFocus}>
                             <Text style={styles.buttonTextStyle}>
                                 Start a New Workout
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </Row>
+                <Row>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity onPress={this.goToActivityLog}>
+                            <Text style={styles.buttonTextStyle}>
+                                Activity Log
                             </Text>
                         </TouchableOpacity>
                     </View>

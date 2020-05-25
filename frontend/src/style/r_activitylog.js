@@ -21,5 +21,9 @@ export default StyleSheet.create({
         textAlign: "center",
         height: 50,
         fontSize: 30,
-    }
+    },
+    topButton: {
+        width: 55,
+        height: 55
+    },
 });
