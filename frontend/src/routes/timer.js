@@ -31,12 +31,46 @@ export default class WorkoutTimer extends Component {
             start: 0,
             now: 0,
             laps: [],
+            body_parts: {}
         }
     }
 
     // reset timer (currently not interacting with back button)
     componentWillUnmount() {
         clearInterval(this.timer)
+    }
+
+
+    get_body_parts = () => {
+        // Indicate which API to call and what data to pass in
+        let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
+        axios.post(url)
+            // Success
+            .then(response => {
+                console.log(response.data)
+                let body_parts = {}
+                for (var body_part_id in response.data) {
+                    body_parts[response.data[body_part_id].body_part_name] = body_part_id;
+                }
+
+                this.setState({
+                    body_parts: body_parts,
+                })
+            })
+            .catch(error => {
+                // Log error 
+                if (error.response) {
+                    // Call was unsuccessful
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                } else if (error.request) {
+                    // Request was made but no response was received.
+                    console.log(error.request);
+                } else {
+                    // Something else cause an error
+                    console.log('Error', error.message);
+                }
+            });
     }
 
     // Describe what each button does
@@ -59,6 +93,8 @@ export default class WorkoutTimer extends Component {
         // calculates the duration of the workout in hours rounded to 2 decimal places
         const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
 
+        this.get_body_parts()
+
         let url = 'http://10.0.2.2:4200/apis/progress/get';
         let data = {
             'uid': this.props.uid
@@ -67,6 +103,7 @@ export default class WorkoutTimer extends Component {
         let level = 0;
         let exp = 0;
         let leveledUp = false;
+        let body_part_id = this.state.body_parts[this.props.focus]
 
         /**
          * Retrieve current level and experience then calculate new level and experience
@@ -75,15 +112,15 @@ export default class WorkoutTimer extends Component {
             // Success
             .then(response => {
                 // need to come back here and make sure user actually has focus defined
-                level = parseInt(response.data[this.props.focus]["level"]);
-                exp = parseFloat(response.data[this.props.focus]["exp"]);
+                level = parseInt(response.data[this.state.body_parts[this.props.focus]].level);
+                exp = parseFloat(response.data[this.state.body_parts[this.props.focus]].exp);
             })
-           
-            .catch((error)=>{
+
+            .catch((error) => {
                 console.log("Get progress call error");
                 alert(error.message);
             })
-            
+
             .finally(() => {
                 exp = exp + duration;
 
@@ -109,7 +146,7 @@ export default class WorkoutTimer extends Component {
                 let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
                 let data = {
                     'uid': this.props.uid,
-                    'body_part': this.props.focus,
+                    'body_part_id': this.state.body_parts[this.props.focus].toString(),
                     'exp': exp.toString(),
                     'level': level.toString()
                 };
@@ -117,19 +154,21 @@ export default class WorkoutTimer extends Component {
                     .then(response => {
                         console.log(response.data)
                     })
-                    
-                    .catch((error)=>{
+
+                    .catch((error) => {
                         console.log("Update progress call error");
                         alert(error.message);
                         console.log(data);
                     });
             });
 
-        Actions.stats({ uid: this.props.uid,
-                        duration: duration,
-                        focus: this.props.focus,
-                        workout: this.props.workout,
-                        leveledUp: this.props.leveledUp });
+        Actions.stats({
+            uid: this.props.uid,
+            duration: duration,
+            focus: this.props.focus,
+            workout: this.props.workout,
+            leveledUp: this.props.leveledUp
+        });
     }
 
     // pause timer
@@ -168,7 +207,7 @@ export default class WorkoutTimer extends Component {
 
     // return to home page on cancel button
     goToProgress = () => {
-        Actions.progress({uid: this.props.uid})
+        Actions.progress({ uid: this.props.uid })
     }
 
     // renders the clock components and all the timer buttons
@@ -176,7 +215,7 @@ export default class WorkoutTimer extends Component {
         const { now, start, laps } = this.state
         const timer = now - start
         return (
-            <View style={styles.container}>
+            <View style={styles.container} >
                 <Clock
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
@@ -198,7 +237,8 @@ export default class WorkoutTimer extends Component {
                             onPress={this.start}
                         />
                     </ButtonsRow>
-                )}
+                )
+                }
                 {start > 0 && (
                     <ButtonsRow>
                         <RoundButton
@@ -215,22 +255,24 @@ export default class WorkoutTimer extends Component {
                         />
                     </ButtonsRow>
                 )}
-                {laps.length > 0 && start === 0 && (
-                    <ButtonsRow>
-                        <RoundButton
-                            title='Finish'
-                            color='#FFFFFF'
-                            background='#3D3D3D'
-                            onPress={this.finish}
-                        />
-                        <RoundButton
-                            title='Resume'
-                            color='#50D167'
-                            background='#1B361F'
-                            onPress={this.resume}
-                        />
-                    </ButtonsRow>
-                )}
+                {
+                    laps.length > 0 && start === 0 && (
+                        <ButtonsRow>
+                            <RoundButton
+                                title='Finish'
+                                color='#FFFFFF'
+                                background='#3D3D3D'
+                                onPress={this.finish}
+                            />
+                            <RoundButton
+                                title='Resume'
+                                color='#50D167'
+                                background='#1B361F'
+                                onPress={this.resume}
+                            />
+                        </ButtonsRow>
+                    )
+                }
                 <View style={{ paddingTop: 110 }}>
                     <Button
                         title='Cancel Workout'
@@ -238,7 +280,7 @@ export default class WorkoutTimer extends Component {
                         onPress={this.goToProgress}
                     />
                 </View>
-            </View>
+            </View >
         )
     }
 }

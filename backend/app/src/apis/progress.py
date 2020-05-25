@@ -31,14 +31,16 @@ def update_stats():
     expected response:
         empty json with 200 status code
     """
+    print(request.json)
     # read incoming request data body
     uid = request.json["uid"]
-    body_part = request.json["body_part"]
+    body_part_id = request.json["body_part_id"]
     exp = request.json["exp"]
     level = request.json["level"]
 
     # delegate to user model
-    return Progress.update_stats(uid, body_part, exp, level)
+    return Progress.update_stats(uid, body_part_id, exp, level)
+
 
 @progress_api.route("/reset_stats", methods=["post"])
 def reset_stats():
@@ -50,6 +52,7 @@ def reset_stats():
 
     # delegate to user model
     return Progress.reset_stats(uid)
+
 
 @progress_api.route("/get", methods=["POST"])
 def get():
@@ -71,4 +74,3 @@ def get():
 
     # Delegate to user model
     return Progress.get(uid)
-

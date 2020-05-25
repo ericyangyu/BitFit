@@ -44,7 +44,7 @@ class Progress:
         return make_response({}, 200)
 
     @staticmethod
-    def update_stats(uid: str, body_part: str, exp: str, level: str):
+    def update_stats(uid: str, body_part_id: str, exp: str, level: str):
         """
 
         Arguments:
@@ -62,7 +62,7 @@ class Progress:
             data = {"exp": exp, "level": level}
 
             # Insert user to DB with local id as key
-            query = db.child("progress").child(uid).child(body_part).update(data)
+            query = db.child("progress").child(uid).child(body_part_id).update(data)
 
             # Return the user uid
             return make_response(query, 200)
