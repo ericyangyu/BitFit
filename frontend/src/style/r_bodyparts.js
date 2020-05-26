@@ -58,4 +58,11 @@ export default StyleSheet.create({
         width: 55,
         height: 55
     },
+    buttonView: {
+        backgroundColor: '#e7e7e7',
+        marginTop: 200,
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: 'center'
+    }
 });

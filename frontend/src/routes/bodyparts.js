@@ -7,7 +7,7 @@
 
 // External imports
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TouchableOpacity, Image, Icon } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
 import { Actions } from 'react-native-router-flux';
@@ -120,29 +120,31 @@ export default class MainFocusPage extends Component {
 			)
 		} else return (
 			<Grid style={{ backgroundColor: '#e7e7e7' }}>
-				{/* <Row>
-					<Col> */}
+				<View>
+					<Image
+						style={{ width: window.width, height: 200, opacity: 1.8 }}
+						source={blue}
+					/>
 					<View>
-                            <Image
-                                style={{ width: window.width, height: 200, opacity: 1.8 }}
-                                source={blue}
-                            />
-                            <TouchableOpacity onPress={() => this.goBackProgress()}>
-								<Image
-									style={{ width: 45, height: 45, marginTop: -180, marginLeft: 10 }}
-									source={require('../images/back_button.png')}
-								/>
-							</TouchableOpacity>
-                            <Text style={{
-								fontSize: 50,
-								fontFamily: 'sans-serif-light',
-								color: 'white',
-								textAlign: 'center',
-								fontWeight: '100',
-								marginTop: -130
-							}}> Main Focus </Text>
-                    </View>
-						{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
+						<TouchableOpacity
+							style={{ marginTop: -180, marginLeft: 10 }}
+							onPress={() => this.goBackProgress()}>
+							<Image
+								style={{ width: 45, height: 45 }}
+								source={require('../images/back_button.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+					<Text style={{
+						fontSize: 50,
+						fontFamily: 'sans-serif-light',
+						color: 'white',
+						textAlign: 'center',
+						fontWeight: '100',
+						marginTop: -130
+					}}> Main Focus </Text>
+				</View>
+				{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
 								<Image
 									style={{ width: 45, height: 45 }}
@@ -168,72 +170,81 @@ export default class MainFocusPage extends Component {
 								Main Focus
 							</Text>
 						</View> */}
-					{/* </Col>
+				{/* </Col>
 				</Row> */}
 				<Row>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							alignContent: 'center',
-							flexWrap: 'wrap',
-							marginVertical: 100
-						}}>
-							<Text style={{
-								fontSize: 20,
-								fontFamily: 'monospace',
-								textAlign: 'center'
-							}}>
-								Select a Main Focus for your Workout:
+				<View elevation={5} style={{
+					backgroundColor: 'white',
+					width: 380,
+					paddingTop: 50,
+					paddingBottom: 295,
+					marginVertical: 10,
+					marginTop: 80,
+					marginBottom: 80,
+					marginHorizontal: 15,
+					borderRadius: 20
+				}}>
+					<Row>
+						<Col>
+							{/* <View style={{
+								flexDirection: 'row',
+								alignSelf: 'center',
+								alignContent: 'center',
+								flexWrap: 'wrap',
+								marginVertical: 100
+							}}> */}
+								<Text style={{
+									fontSize: 20,
+									fontFamily: 'monospace',
+									textAlign: 'center'
+								}}>
+									Select a Main Focus for your Workout:
 							</Text>
-						</View>
-					</Col>
-				</Row>
-				<View></View>
-				<Row>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 50
-						}}>
-							<Picker
-								selectedValue={this.state.focus}
-								style={{ height: 50, width: 200, marginTop: 20 }}
-								onValueChange={(itemValue, _) =>
-									this.updateDropdown(itemValue)
-								}
-							>
-								{this.dropdownOptions()}
-							</Picker>
-						</View>
-					</Col>
-				</Row>
-				<Row>
-					<Col></Col>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 50,
-						}}>
-							<Image
-								style={styles.focusImage}
-								source={{ uri: this.state.focus_image }}
-							/>
-						</View>
-					</Col>
-					<Col></Col>
+							{/* </View> */}
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<View style={{
+								flexDirection: 'row',
+								alignSelf: 'center',
+								marginVertical: 50
+							}}>
+								 <Picker
+									selectedValue={this.state.focus}
+									style={{ backgroundColor: '#e7e7e7', height: 50, width: 200, marginTop: 20 }}
+									onValueChange={(itemValue, _) =>
+										this.updateDropdown(itemValue)
+									}
+								>
+									{this.dropdownOptions()}
+								</Picker>
+							 </View>
+						</Col>
+					</Row>
+					<Row>
+						<Col></Col>
+						<Col>
+							<View style={{
+								flexDirection: 'row',
+								alignSelf: 'center',
+								marginVertical: 220,
+							}}>
+								<Image
+									style={styles.focusImage}
+									source={{ uri: this.state.focus_image }}
+								/>
+							</View>
+						</Col>
+						<Col></Col>
+					</Row>
+				</View>
 				</Row>
 				<Row></Row>
 				<Row>
 					<Col></Col>
 					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 100,
-						}}>
+						<View style={styles.buttonView}>
 							<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 								label="Continue"
 							/>
