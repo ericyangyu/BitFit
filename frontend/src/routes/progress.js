@@ -162,7 +162,6 @@ export default class Progress extends Component {
                                 style={{ width: "100%", height: 200, opacity: 1.8, position: 'absolute' }}
                                 source={blue}
                             />
-                            
                                 <NavBar 
                                     left={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
                                     leftOnPress={this.goToProfile}>
