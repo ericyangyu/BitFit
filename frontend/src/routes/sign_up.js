@@ -9,8 +9,8 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
-import PhotoUpload from 'react-native-photo-upload'
+import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
+// import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 

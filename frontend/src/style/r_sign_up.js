@@ -34,7 +34,7 @@ export default StyleSheet.create({
         fontWeight: '100',
         marginBottom: 0,
         color: '#838383',
-        fontFamily:'sans-serif-light'
+        // fontFamily:'sans-serif-light'
     },
     form: {
         justifyContent: "center",

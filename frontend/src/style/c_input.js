@@ -10,7 +10,7 @@ export default StyleSheet.create({
     // Style the TextInput component
     input: {
         height: 45,
-        fontFamily: 'monospace',
+        // fontFamily: 'monospace',
         fontSize: 20,
         borderColor: "#C0C0C0",
         borderBottomWidth: StyleSheet.hairlineWidth,

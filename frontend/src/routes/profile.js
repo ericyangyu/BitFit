@@ -11,7 +11,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
-import PhotoUpload from 'react-native-photo-upload'
+// import PhotoUpload from 'react-native-photo-upload'
 import axios from 'axios';
 
 // Internal imports
