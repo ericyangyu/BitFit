@@ -76,16 +76,6 @@ export default class SignUp extends Component {
         this.setState({ password: password });
     };
 
-    // Hides the avatar when any textinput components are pressed
-    hideAvatar = () => {
-        this.setState({ avatarDisplayStatus: false });
-    }
-
-    // Displays the avatar when the user is not entering text into components
-    displayAvatar = () => {
-        this.setState({ avatarDisplayStatus: true });
-    }
-
     /**
      * When the signup button is pressed, the data in the text fields are passed
      * in an API call to the backend to create the user, add the relevant data to
@@ -173,35 +163,29 @@ export default class SignUp extends Component {
                 <View style={styles.form}>
                     <Input
                         value={this.state.username}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleUserNameChange}
                         placeholder={"Username..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.fullname}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleFullNameChange}
                         placeholder={"Full name..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.email}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleEmailChange}
                         placeholder={"Email..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.password}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handlePasswordChange}
                         placeholder={"Password..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Button
                         label={"Sign Up"}
                         onPress={this.handleSignUpPress}
+                        disabled={!this.state.username || !this.state.fullname || !this.state.email || !this.state.password}
+
                     />
                     <TouchableOpacity onPress={this.goToLogIn} >
                         <Text style={styles.buttonTextStyle}>
