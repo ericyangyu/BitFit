@@ -9,13 +9,12 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, Text, KeyboardAvoidingView, TouchableOpacity, Alert } from "react-native";
+import { Image, View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
 import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
- 
+
 // Internal inports
-import {defaultPhoto} from '../images/default_photo.js';
 
 // Stylesheet
 import styles from '../style/r_sign_up';
@@ -24,6 +23,10 @@ import styles from '../style/r_sign_up';
 // Components
 import Button from "../components/button";
 import Input from "../components/input";
+
+// Images 
+import {defaultPhoto} from '../images/default_photo.js';
+import blue from '../images/login_background.png';
 
 /**
  * Class that returns the SignUp page with correct components and API calls.
@@ -38,7 +41,7 @@ export default class SignUp extends Component {
             fullname: "",
             email: "",
             password: "",
-            avatar: `${defaultPhoto}`,
+            avatar: defaultPhoto,
             avatarDisplayStatus: true
         }
     }
@@ -73,16 +76,6 @@ export default class SignUp extends Component {
         this.setState({ password: password });
     };
 
-    // Hides the avatar when any textinput components are pressed
-    hideAvatar = () => {
-        this.setState({ avatarDisplayStatus: false });
-    }
-
-    // Displays the avatar when the user is not entering text into components
-    displayAvatar = () => {
-        this.setState({ avatarDisplayStatus: true });
-    }
-
     /**
      * When the signup button is pressed, the data in the text fields are passed
      * in an API call to the backend to create the user, add the relevant data to
@@ -111,24 +104,23 @@ export default class SignUp extends Component {
             'password': this.state.password,
             'avatar': this.state.avatar
         };
-        
+
         // Make API call
         axios.post(url, data)
             // Success
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                console.log(response.data.username);
                 Actions.progress({ uid: response.data["uid"] })
             })
-            
+
             // Error
             .catch(error => {
                 // Display alert if there was an errr logging in
                 Alert.alert(
                     'Invalid Credentials',
                     "Please try again.",
-                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    [{ text: 'OK' }],
                     { cancelable: false }
                 );
 
@@ -145,77 +137,62 @@ export default class SignUp extends Component {
                     // Something else cause an error
                     console.log('Error', error.message);
                 }
-            }); 
+            })
     }
 
     // Render the correct components for the SignUp screen
     render() {
         return (
-
             <View style={styles.container}>
-                <KeyboardAvoidingView style={styles.container}>
-                {(this.state.avatarDisplayStatus) ?
-                    <PhotoUpload
+                <Image style={styles.backgroundImage} source={blue} />
+                <PhotoUpload
                     maxHeight={200}
-
                     photoPickerTitle={'Upload a Profile Picture: '}
                     onPhotoSelect={avatar => {
-                        if (avatar) {
+                    if (avatar) {
                         this.handleAvatarChange(avatar)
-                        }
-                    }}
-                    >
+                   }
+                }}
+                >
                     <Image
                         style={styles.photoStyle}
                         resizeMode='cover'
                         source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
                     />
-                    </PhotoUpload> : null
-                }
-                </KeyboardAvoidingView>
-
-                <KeyboardAvoidingView style={styles.form} >
-                <View>
+                </PhotoUpload>
+                <View style={styles.form}>
                     <Input
                         value={this.state.username}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleUserNameChange}
                         placeholder={"Username..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.fullname}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleFullNameChange}
                         placeholder={"Full name..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.email}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handleEmailChange}
                         placeholder={"Email..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
                     <Input
                         value={this.state.password}
-                        onFocus={this.hideAvatar}
                         onChangeText={this.handlePasswordChange}
                         placeholder={"Password..."}
-                        onSubmitEditing={this.displayAvatar}
                     />
-                    <View></View>
                     <Button
                         label={"Sign Up"}
                         onPress={this.handleSignUpPress}
+                        disabled={!this.state.username || !this.state.fullname || !this.state.email || !this.state.password}
+
                     />
+                    <TouchableOpacity onPress={this.goToLogIn} >
+                        <Text style={styles.buttonTextStyle}>
+                            Already have an account? Login here.
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={this.goToLogIn} >
-                    <Text style={styles.buttonTextStyle}>
-                    Already have an account? Login here.
-                    </Text>
-                </TouchableOpacity>
-                </KeyboardAvoidingView>
             </View>
         );
     }

@@ -7,17 +7,24 @@
 
 // External imports
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TouchableOpacity, Image, Icon } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
-import BackgroundColor from 'react-native-background-color';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 // Internal imports
 
 // Components
+import LoadingScreen from "../components/loading"
 import Button from '../components/button';
+import blue from '../images/blue.jpg';
+
+// Stylesheet
+import styles from '../style/r_bodyparts';
+
+// Images
+import backButton from '../images/back_button.png';
 
 /**
  * Class that returns the Main Focus page with correct components and API calls.
@@ -31,29 +38,31 @@ export default class MainFocusPage extends Component {
 			bodyparts: [],
 			images: {},
 			focus: "",
-			focus_image: ""
+			focus_image: "",
+			isLoading: true
 		}
 	}
 
-	get_body_parts() {
+	get_body_parts = () => {
 		// Indicate which API to call and what data to pass in
 		let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
 		axios.post(url)
 			// Success
 			.then(response => {
-                /* Set the state for this page to include the relevant user 
-				information returned from the API call */
-				let tmp_bodyparts = []
-				let tmp_images = {}
-				Object.keys(response.data).forEach((k) => {
-					tmp_bodyparts.push(k)
-					tmp_images[k] = response.data[k].image
-				})
+
+				let body_parts = []
+				let images = []
+				for (var body_part_id in response.data) {
+					body_parts.push(response.data[body_part_id].body_part_name)
+					images[response.data[body_part_id].body_part_name] = response.data[body_part_id].image
+				}
+
 				this.setState({
-					bodyparts: tmp_bodyparts,
-					images: tmp_images,
-					focus: tmp_bodyparts[0],
-					focus_image: tmp_images[tmp_bodyparts[0]]
+					bodyparts: body_parts,
+					images: images,
+					focus: body_parts[0],
+					focus_image: images[body_parts[0]],
+					isLoading: false
 				})
 			})
 			.catch(error => {
@@ -73,29 +82,28 @@ export default class MainFocusPage extends Component {
 	}
 
 	// Route to the login page when Continue button is pressed
-	goToSuggestedWorkouts() {
+	goToSuggestedWorkouts = () => {
 		Actions.suggestedworkouts({ focus: this.state.focus, uid: this.props.uid });
 	}
 
 	// Route to the login page when Back button is pressed
-	goBackProgress() {
+	goBackProgress = () => {
 		Actions.progress({ uid: this.props.uid });
 	}
 
 	// Displays the dropdown options
-	dropdownOptions() {
+	dropdownOptions = () => {
 		return this.state.bodyparts.map((bodypart) => {
 			return <Picker.Item label={bodypart} value={bodypart} />
 		})
 	}
 
 	// Updates the value of the dropdown based on what's selected
-	updateDropdown(value) {
+	updateDropdown = (value) => {
 		this.setState({
 			focus: value,
 			focus_image: this.state.images[value]
 		})
-
 	}
 
 	// Query database while rendering page for the body parts
@@ -105,15 +113,41 @@ export default class MainFocusPage extends Component {
 
 	// Render the correct components for the Main Focus screen
 	render() {
-		return (
-
-			<Grid style={{ backgroundColor: '#f3ebe1' }}>
-				<Row>
-					<Col>
-						<View style={{ backgroundColor: '#f3ebe1' }}>
+		// If the API call is not complete, display the loading screen
+		if (this.state.isLoading) {
+			return (
+				<LoadingScreen></LoadingScreen>
+			)
+		} else return (
+			<Grid style={{ backgroundColor: '#e7e7e7' }}>
+				<View>
+					<Image
+						style={{ width: window.width, height: 200, opacity: 1.8 }}
+						source={blue}
+					/>
+					<View>
+						<TouchableOpacity
+							style={{ marginTop: -180, marginLeft: 10 }}
+							onPress={() => this.goBackProgress()}>
+							<Image
+								style={{ width: 45, height: 45 }}
+								source={require('../images/back_button.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+					<Text style={{
+						fontSize: 50,
+						fontFamily: 'sans-serif-light',
+						color: 'white',
+						textAlign: 'center',
+						fontWeight: '100',
+						marginTop: -130
+					}}> Main Focus </Text>
+				</View>
+				{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
 								<Image
-									style={{ width: 75, height: 75 }}
+									style={{ width: 45, height: 45 }}
 									source={require('../images/back_button.png')}
 								/>
 							</TouchableOpacity>
@@ -127,78 +161,91 @@ export default class MainFocusPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							backgroundColor: '#f3ebe1'
+							backgroundColor: '#e7e7e7'
 						}}>
 							<Text style={{
-								fontSize: 30
+								fontSize: 30,
+								fontFamily: 'sans-serif-condensed'
 							}}>
 								Main Focus
 							</Text>
-						</View>
-					</Col>
-				</Row>
+						</View> */}
+				{/* </Col>
+				</Row> */}
 				<Row>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							alignContent: 'center',
-							flexWrap: 'wrap',
-							marginVertical: 50
-						}}>
-							<Text style={{
-								fontSize: 20
-							}}>
-								Select a Main Focus for your Workout:
+					<View elevation={5} style={{
+						backgroundColor: 'white',
+						width: 380,
+						paddingTop: 50,
+						paddingBottom: 295,
+						marginVertical: 10,
+						marginTop: 80,
+						marginBottom: 80,
+						marginHorizontal: 15,
+						borderRadius: 20
+					}}>
+						<Row>
+							<Col>
+								{/* <View style={{
+								flexDirection: 'row',
+								alignSelf: 'center',
+								alignContent: 'center',
+								flexWrap: 'wrap',
+								marginVertical: 100
+							}}> */}
+								<Text style={{
+									fontSize: 20,
+									fontFamily: 'monospace',
+									textAlign: 'center'
+								}}>
+									Select a Main Focus for your Workout:
 							</Text>
-						</View>
-					</Col>
-				</Row>
-				<Row>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 0
-						}}>
-							<Picker
-								selectedValue={this.state.focus}
-								style={{ height: 50, width: 150 }}
-								onValueChange={(itemValue, _) =>
-									this.updateDropdown(itemValue)
-								}
-							>
-								{this.dropdownOptions()}
-							</Picker>
-						</View>
-					</Col>
-				</Row>
-				<Row>
-					<Col></Col>
-					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 0,
-						}}>
-							<Image
-								style={{ width: 180, height: 180, alignSelf: 'center' }}
-								source={{ uri: this.state.focus_image }}
-							/>
-						</View>
-					</Col>
-					<Col></Col>
+								{/* </View> */}
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<View style={{
+									flexDirection: 'row',
+									alignSelf: 'center',
+									marginVertical: 50
+								}}>
+									<Picker
+										selectedValue={this.state.focus}
+										style={{ backgroundColor: '#e7e7e7', height: 50, width: 200, marginTop: 20 }}
+										onValueChange={(itemValue, _) =>
+											this.updateDropdown(itemValue)
+										}
+									>
+										{this.dropdownOptions()}
+									</Picker>
+								</View>
+							</Col>
+						</Row>
+						<Row>
+							<Col></Col>
+							<Col>
+								<View style={{
+									flexDirection: 'row',
+									alignSelf: 'center',
+									marginVertical: 220,
+								}}>
+									<Image
+										style={styles.focusImage}
+										source={{ uri: this.state.focus_image }}
+									/>
+								</View>
+							</Col>
+							<Col></Col>
+						</Row>
+					</View>
 				</Row>
 				<Row></Row>
 				<Row>
 					<Col></Col>
 					<Col>
-						<View style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginVertical: 30,
-						}}>
-							<Button onPress={() => this.goToSuggestedWorkouts()}
+						<View style={styles.buttonView}>
+							<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 								label="Continue"
 							/>
 						</View>
@@ -208,6 +255,5 @@ export default class MainFocusPage extends Component {
 				<Row></Row>
 			</Grid >
 		);
-
 	}
 }

@@ -4,11 +4,20 @@
  * Authors: ?
  */
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
+    spinnerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
+    },
     container: {
-        backgroundColor: '#f3ebe1',
+        backgroundColor: '#e7e7e7',
         marginTop: 0,
         alignItems: 'center'
     },
@@ -16,14 +25,10 @@ export default StyleSheet.create({
         marginTop: 13
     },
     imageStyle: {
-        width: 75,
-        height: 75,
-        aspectRatio: 1,
-        alignSelf: "center",
-        borderRadius: 100,
-        marginTop: "7%",
-        borderWidth: 1.5,
-        borderColor: "#434343",
+        width: 65,
+        height: 65,
+        backgroundColor: 'white',
+        borderRadius: 100
     },
     buttonStyle: {
         marginTop: 10,
@@ -43,14 +48,44 @@ export default StyleSheet.create({
         color: '#fff'
     },
     headerStyle: {
-        fontSize: 36,
+        fontSize: 50,
+        fontFamily: 'sans-serif-light',
+        color: 'white',
         textAlign: 'center',
-
+        fontWeight: '100',
     },
     textStyle: {
         fontSize: 20,
+        fontFamily: 'monospace',
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0
+    },
+    whiteBox1: {
+        backgroundColor: 'white',
+        width: 380,
+        height: 75,
+        padding: 20,
+        marginVertical: 0,
+        marginHorizontal: 5,
+        borderRadius: 20
+
+    },
+    whiteBox2: {
+        backgroundColor: 'white',
+        width: 380,
+        padding: 20,
+        marginVertical: 0,
+        marginTop: -70,
+        marginBottom: -50,
+        marginHorizontal: 5,
+        borderRadius: 20
+    },
+    buttonView: {
+        backgroundColor: '#e7e7e7',
+        marginTop: 90,
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: 'center'
     }
 });

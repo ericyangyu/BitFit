@@ -36,8 +36,9 @@ def get_workouts():
     Expected response:
         workouts -> all workouts in database
     """
+    body_part_name = request.json["body_part_name"]
     # Delegate to user model
-    return Workouts.get_workouts()
+    return Workouts.get_workouts(body_part_name)
 
 
 @workouts_api.route("/create_completed_workout", methods=["POST"])
@@ -58,3 +59,21 @@ def create_completed_workout():
 
     # Delegate to workouts model
     return Workouts.create_completed_workout(uid, name, data)
+
+
+@workouts_api.route("/get_completed_workouts", methods=["POST"])
+def get_completed_workouts():
+    """
+    Gets the completed workouts for this user.
+
+    Expected data:
+        uid {str} --> The users id
+        
+    
+    Expected response:
+        completed workout -> The completed workout object
+    """
+    uid = request.json["uid"]
+
+    # Delegate to workouts model
+    return Workouts.get_completed_workouts(uid)

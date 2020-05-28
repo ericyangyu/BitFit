@@ -23,6 +23,7 @@ import TextField from "../components/text_field";
 
 // Images
 import logo from "../images/logo.png";
+import blue from '../images/login_background.png';
 
 /**
  * Class that returns the Login page with correct components and API calls.
@@ -76,6 +77,7 @@ export default class Login extends Component {
             'email': this.state.email,
             'password': this.state.password
         };
+        // let uid = "";
 
         // Make API call
         axios.post(url, data)
@@ -83,7 +85,6 @@ export default class Login extends Component {
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
                 the next page to know which user is logged in */
-                console.log(response.data);
                 Actions.progress({ uid: response.data["uid"] })
             })
 
@@ -109,28 +110,31 @@ export default class Login extends Component {
                     // Something else cause an error
                     console.log('Error', error.message);
                 }
-            });
+            })
     };
 
     // Render the correct components for the login screen
     render() {
         return (
             <View style={styles.container}>
+                <Image source={blue} style={styles.backgroundImage} />
                 <Image source={logo} style={styles.logo} />
                 <View style={styles.form}>
                     <Input
                         value={this.state.email}
                         onChangeText={this.handleEmailChange}
-                        placeholder={"Email..."}
+                        placeholder={"Email"}
                     />
                     <Input
                         value={this.state.password}
                         onChangeText={this.handlePasswordChange}
-                        placeholder={"Password..."}
+                        placeholder={"Password"}
+                        secureTextEntry={true}
                     />
                     <Button
                         label={"Login"}
                         onPress={this.handleLoginPress}
+                        disabled={!this.state.email || !this.state.password}
                     />
                     <TouchableOpacity onPress={this.goToSignUp} >
                         <TextField style={styles.buttonTextStyle}>

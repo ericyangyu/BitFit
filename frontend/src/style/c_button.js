@@ -12,17 +12,22 @@ export default StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#243454",
-        marginBottom: 12,
-        paddingVertical: 12,
-        borderRadius: 4,
+        backgroundColor: "#000020",
+        marginBottom: 10,
+        paddingVertical: 10,
+        borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "rgba(255,255,255,0.7)"
     },
     // Style the text on the button
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 20
+        height: 26,
+        fontSize: 20,
+        fontFamily: 'sans-serif-light',
+        fontWeight: '100'
+    },
+    disabled: {
+        opacity: 0.4
     }
 });

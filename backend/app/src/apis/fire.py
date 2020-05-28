@@ -47,7 +47,6 @@ def create_object():
         None
     """
     table = request.json["table"]
-    name = request.json["name"]
     data = request.json["data"]
     # Delegate to fire model
-    return Fire.create_object(table, name, data)
+    return Fire.create_object(table, data)

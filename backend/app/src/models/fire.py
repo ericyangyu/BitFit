@@ -22,7 +22,7 @@ class Fire:
     """
 
     @classmethod
-    def create_child(cls, table, name, data):
+    def create_child(cls, table, data):
         """
         Creates a specified child in the table with that key and data.
 
@@ -35,7 +35,9 @@ class Fire:
             response object -> If valid call, returns the the updated data and a
             200 status code. Otherwise, returns a blank body and an error code.
         """
-        return db.child(table).child(name).update(data)
+        ref = db.child(table)
+        key = ref.generate_key()
+        return ref.child(key).update(data)
 
     @classmethod
     def create_body_parts_table(cls):
@@ -51,7 +53,7 @@ class Fire:
         """
         table_name = "body_parts"
         for body_part in ALL_BODY_PARTS:
-            Fire.create_child(table_name, *body_part)
+            Fire.create_child(table_name, body_part["data"])
         return make_response({}, 200)
 
     @classmethod
@@ -68,7 +70,7 @@ class Fire:
         """
         table_name = "workouts"
         for workout in ALL_WORKOUTS:
-            Fire.create_child(table_name, *workout)
+            Fire.create_child(table_name, workout["data"])
         return
 
     @classmethod
@@ -85,7 +87,7 @@ class Fire:
         """
         table_name = "trophies"
         for trophy in ALL_TROPHIES:
-            Fire.create_child(table_name, *trophy)
+            Fire.create_child(table_name, trophy["data"])
         return
 
     @staticmethod
@@ -111,7 +113,7 @@ class Fire:
             return create_error_message(e)
 
     @staticmethod
-    def create_object(table: str, name: str, data: dict):
+    def create_object(table: str, data: dict):
         """
         Creates a object in the specified table.
 
@@ -123,7 +125,7 @@ class Fire:
             200 status code. Otherwise, returns a blank body and an error code.
         """
         try:
-            query = Fire.create_child(table, name, data)
+            query = Fire.create_child(table, data)
             return make_response(jsonify(query), 200)
 
         except HTTPError as e:

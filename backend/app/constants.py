@@ -28,89 +28,89 @@ TROPHY_2_URL = "https://ericyu.file.core.windows.net/cse110/trophy_2.png?sp=rl&s
 LOCK_URL = "https://ericyu.file.core.windows.net/cse110/lock.png?sp=rl&st=2020-05-23T17:51:25Z&se=2021-12-13T17:51:00Z&sv=2019-10-10&sig=2xyD2F%2FC6UQDmJh5dO3c%2B8ziRubv%2BX9GFIN9VysCNa8%3D&sr=f"
 
 # NOTE: NOT IMPLEMENTED BELOW, instead created in Main.py because haven't defined specific trophies yet
-ALL_TROPHIES = (
-    (
-        "Trophy 1",
-        {
+ALL_TROPHIES = [
+    {
+        "data": {
+            "trophy_name": "Trophy 1",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 1",
-            "requirement": "Requirement 1",
-        },
-    ),
-    (
-        "Trophy 2",
-        {
+            "description": "Complete 1 workout!",
+            "num_completed": 1,
+        }
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 2",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 2",
-            "requirement": "Requirement 2",
+            "description": "Complete 3 workouts!",
+            "num_completed": 3,
         },
-    ),
-    (
-        "Trophy 3",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 3",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 3",
-            "requirement": "Requirement 3",
+            "description": "Complete 5 workouts!",
+            "num_completed": 5,
         },
-    ),
-    (
-        "Trophy 4",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 4",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 4",
-            "requirement": "Requirement 4",
+            "description": "Complete 10 workouts!",
+            "num_completed": 10,
         },
-    ),
-    (
-        "Trophy 5",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 5",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 5",
-            "requirement": "Requirement 5",
+            "description": "Complete 20 workouts!",
+            "num_completed": 20,
         },
-    ),
-    (
-        "Trophy 6",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 6",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 6",
-            "requirement": "Requirement 6",
+            "description": "Complete 30 workouts!",
+            "num_completed": 30,
         },
-    ),
-    (
-        "Trophy 7",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 7",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 7",
-            "requirement": "Requirement 7",
+            "description": "Complete 50 workouts!",
+            "num_completed": 50,
         },
-    ),
-    (
-        "Trophy 8",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 8",
             "displayed_image": TROPHY_2_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 8",
-            "requirement": "Requirement 8",
+            "description": "Complete 100 workouts!",
+            "num_completed": 100,
         },
-    ),
-    (
-        "Trophy 9",
-        {
+    },
+    {
+        "data": {
+            "trophy_name": "Trophy 9",
             "displayed_image": TROPHY_1_URL,
             "hidden_image": LOCK_URL,
-            "description": "This is trophy 9",
-            "requirement": "Requirement 9",
+            "description": "Complete 200 workouts!",
+            "num_completed": 200,
         },
-    ),
-)
+    },
+]
 
 ######################################################################################################################################################
 
@@ -121,13 +121,13 @@ BACK_URL = "https://ericyu.file.core.windows.net/cse110/back.png?sp=rl&st=2020-0
 CHEST_URL = "https://ericyu.file.core.windows.net/cse110/chest.png?sp=rl&st=2020-05-23T19:31:15Z&se=2022-06-14T19:31:00Z&sv=2019-10-10&sig=d7tg7K1ICLUEiq6B5iAvKTWB%2FLjMQ8nZjtr6oHFJzEw%3D&sr=f "
 LEGS_URL = "https://ericyu.file.core.windows.net/cse110/legs.png?sp=rl&st=2020-05-23T19:31:32Z&se=2022-04-06T19:31:00Z&sv=2019-10-10&sig=XhDkW5LGAtbedLWvdiWpscBfJ5tfRiGy85pljwoTwJM%3D&sr=f "
 
-ALL_BODY_PARTS = (
-    ("Core", {"image": CORE_URL}),
-    ("Arms", {"image": ARMS_URL}),
-    ("Legs", {"image": LEGS_URL}),
-    ("Chest", {"image": CHEST_URL}),
-    ("Back", {"image": BACK_URL}),
-)
+ALL_BODY_PARTS = [
+    {"data": {"body_part_name": "Core", "image": CORE_URL}},
+    {"data": {"body_part_name": "Arms", "image": ARMS_URL}},
+    {"data": {"body_part_name": "Legs", "image": LEGS_URL}},
+    {"data": {"body_part_name": "Chest", "image": CHEST_URL}},
+    {"data": {"body_part_name": "Back", "image": BACK_URL}},
+]
 
 ######################################################################################################################################################
 
@@ -140,76 +140,80 @@ CRUNCH = {
     "description": "“The classic ab maneuver; good to do on the fly.”",
     "image": "https://ericyu.file.core.windows.net/cse110/situp.gif?sp=rl&st=2020-05-23T19:32:08Z&se=2022-03-09T19:32:00Z&sv=2019-10-10&sig=OlIkapmUV%2FGFeVYdGl2GJGxgnzvpQ36E3tn9I7%2BRqA4%3D&sr=f ",
 }
-HAMSTRING_CURLS = {"description": "Basically the bicep curls of the legs.", "image": ""}
+HAMSTRING_CURLS = {
+    "workout_name": "Hamstring Curls",
+    "description": "Basically the bicep curls of the legs.",
+    "image": LOCK_URL,
+}
 BAND_BENT_OVER_ROW = {"description": "Got a spare rope lying around?", "image": ""}
 BICEP_CURLS = {
     "description": "The perfect way to brush up the “guns” and flex on everyone else.",
-    "image": "",
+    "image": LOCK_URL,
 }
 BENCH_PRESS = {"description": "Did someone say pec activation?", "image": ""}
 SQUAT = {
     "description": "Remember that the proper form is to stick your butt out.",
-    "image": "",
+    "image": LOCK_URL,
 }
 
 
-ALL_WORKOUTS = (
-    (
-        "Hamstring Curls",
-        {
+ALL_WORKOUTS = [
+    {
+        "data": {
+            "workout_name": "Hamstring Curls",
             "body_part_name": "Legs",
             "description": HAMSTRING_CURLS["description"],
-            "image": HAMSTRING_CURLS["image"],
-        },
-    ),
-    (
-        "Squat",
-        {
+            "image": RUSSIAN_TWIST["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Squat",
             "body_part_name": "Legs",
             "description": SQUAT["description"],
-            "image": SQUAT["image"],
-        },
-    ),
-    (
-        "Russian Twists",
-        {
+            "image": RUSSIAN_TWIST["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Russian Twists",
             "body_part_name": "Core",
             "description": RUSSIAN_TWIST["description"],
             "image": RUSSIAN_TWIST["image"],
-        },
-    ),
-    (
-        "Crunch",
-        {
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Crunch",
             "body_part_name": "Core",
             "description": CRUNCH["description"],
             "image": CRUNCH["image"],
-        },
-    ),
-    (
-        "Band Bent-Over Row",
-        {
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Band Bent-Over Row",
             "body_part_name": "Back",
             "description": BAND_BENT_OVER_ROW["description"],
-            "image": BAND_BENT_OVER_ROW["image"],
-        },
-    ),
-    (
-        "Bench Press",
-        {
+            "image": RUSSIAN_TWIST["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Bench Press",
             "body_part_name": "Chest",
             "description": BENCH_PRESS["description"],
-            "image": BENCH_PRESS["image"],
-        },
-    ),
-    (
-        "Bicep Curls",
-        {
+            "image": RUSSIAN_TWIST["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Bicep Curls",
             "body_part_name": "Arms",
             "description": BICEP_CURLS["description"],
-            "image": BICEP_CURLS["image"],
-        },
-    ),
-)
+            "image": RUSSIAN_TWIST["image"],
+        }
+    },
+]
 
 ######################################################################################################################################################

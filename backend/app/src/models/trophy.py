@@ -92,7 +92,7 @@ class Trophy:
         return make_response(trophies, 200)
 
     @staticmethod
-    def update_user_trophy(uid: str, name: str, data: dict):
+    def update_user_trophies(uid: str, date: str):
         """
         Description
 
@@ -101,9 +101,23 @@ class Trophy:
         Returns:
         """
         try:
+            # get the number of completed workouts
+            completed_workouts = db.child("completed_workouts").child(uid).get().val()
+            numCompleted = len(completed_workouts)
+
             # update the specific trophy for this user in the earned users table
-            results = db.child("earned_trophies").child(uid).child(name).update(data)
-            return make_response(results, 200)
+            earned_trophies = db.child("earned_trophies").child(uid).get().val()
+
+            # get a list of trophies
+            trophies = db.child("trophies").get().val()
+
+            # update the users trophy if they earned it
+            for trophy in trophies:
+                if numCompleted >= trophies[trophy]["num_completed"]:
+                    data = {"date_earned": date}
+                    db.child("earned_trophies").child(uid).child(trophy).update(data)
+
+            return make_response({}, 200)
 
         except HTTPError as e:
             # Handle exception and return correct response object
