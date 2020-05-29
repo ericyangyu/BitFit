@@ -10,7 +10,6 @@
 // External imports
 import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
-// import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 
 // DEBUG
@@ -163,7 +162,6 @@ export default class SignUp extends Component {
 
 
     componentDidMount() {
-        this.setState({ avatar: `data:image/gif;base64,${defaultPhoto}` })
         this.getPermissionAsync();
     }
 
