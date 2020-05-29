@@ -7,9 +7,9 @@
 
 // External imports
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image, Icon } from 'react-native'
+import { Text, View, TouchableOpacity, Image, Icon, Picker } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { Picker } from '@react-native-community/picker';
+// import { Picker } from '@react-native-community/picker';
 import { Actions } from 'react-native-router-flux';
 
 // Internal imports
@@ -128,7 +128,8 @@ export default class MainFocusPage extends Component {
 					<View>
 						<TouchableOpacity
 							style={{ marginTop: -180, marginLeft: 10 }}
-							onPress={() => this.goBackProgress()}>
+							// onPress={() => this.goBackProgress()}>
+							onPress={() => this.goToSuggestedWorkouts()}>
 							<Image
 								style={{ width: 45, height: 45 }}
 								source={require('../images/back_button.png')}
