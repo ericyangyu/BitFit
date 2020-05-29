@@ -30,7 +30,7 @@ import Input from "../components/input";
 
 // Images 
 import { defaultPhoto } from '../images/default_photo.js';
-import blue from '../images/login_background.png';
+import blue from '../images/login_background.jpg';
 
 /**
  * Class that returns the SignUp page with correct components and API calls.

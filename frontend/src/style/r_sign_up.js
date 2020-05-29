@@ -8,7 +8,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     photoStyle: {
-        marginTop: 50,
+        marginTop: 110,
+        marginBottom: 0,
         paddingVertical: 0,
         width: 230,
         height: 230,
@@ -34,15 +35,15 @@ export default StyleSheet.create({
         fontWeight: '100',
         marginBottom: 0,
         color: '#838383',
-        // // fontFamily:'sans-serif-light'
     },
     form: {
         justifyContent: "center",
         width: "80%",
         backgroundColor: 'white',
-        width: 380,
+        width: 350,
         padding: 20,
-        marginVertical: 0,
+        paddingTop: 30,
+        marginTop: 0,
         marginBottom: 30,
         marginHorizontal: 0,
         borderRadius: 15

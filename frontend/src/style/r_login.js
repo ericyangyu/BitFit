@@ -23,26 +23,24 @@ export default StyleSheet.create({
     },
     logo: {
         flex: 1,
-        width: "80%",
+        width: "90%",
         resizeMode: "contain",
         alignSelf: "center",
         marginVertical: 0,
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: 0,
+        marginBottom: 0
     },
     buttonTextStyle: {
         fontSize: 16,
         textAlign: 'center',
         fontWeight: '100',
-        marginBottom: 0,
+        marginBottom: 10,
         color: '#838383',
-        // // fontFamily:'sans-serif-light'
     },
     form: {
         justifyContent: "center",
-        width: "80%",
         backgroundColor: 'white',
-        width: 380,
+        width: '100%',
         padding: 20,
         marginVertical: 0,
         marginBottom: 30,

@@ -25,7 +25,7 @@ import TextField from "../components/text_field";
 
 // Images
 import logo from "../images/logo.png";
-import blue from '../images/login_background.png';
+import blue from '../images/login_background.jpg';
 
 /**
  * Class that returns the Login page with correct components and API calls.
