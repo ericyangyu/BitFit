@@ -1,6 +1,5 @@
 """
 File that contains all data for BitFit.
-
 Author: Imran Matin
 """
 
@@ -132,48 +131,85 @@ ALL_BODY_PARTS = [
 ######################################################################################################################################################
 
 ## WORKOUTS
+# CORE
 RUSSIAN_TWIST = {
     "description": "Legend has it some Russian guy did these to wrestle with crocodiles.",
-    "image": "https://ericyu.file.core.windows.net/cse110/russian_twist.gif?sp=rl&st=2020-05-23T19:31:48Z&se=2022-04-11T19:31:00Z&sv=2019-10-10&sig=SQcfeem1bieLvBgalOjuv0u7nOqMfd3hssMBoSVmLQM%3D&sr=f ",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Abs-RussianTwists.gif?sp=rl&st=2020-05-29T04:50:11Z&se=2022-01-19T04:50:00Z&sv=2019-10-10&sig=qsYrVm9YYEgN1EzKrDwx6N%2BrjqjXCUCukNo%2BgtTgIMc%3D&sr=f ",
 }
 CRUNCH = {
-    "description": "“The classic ab maneuver; good to do on the fly.”",
-    "image": "https://ericyu.file.core.windows.net/cse110/situp.gif?sp=rl&st=2020-05-23T19:32:08Z&se=2022-03-09T19:32:00Z&sv=2019-10-10&sig=OlIkapmUV%2FGFeVYdGl2GJGxgnzvpQ36E3tn9I7%2BRqA4%3D&sr=f ",
+    "description": "The classic ab maneuver; good to do on the fly.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Core-Crunches.gif?sp=rl&st=2020-05-29T04:50:48Z&se=2022-03-25T04:50:00Z&sv=2019-10-10&sig=JKP%2FABnrsQN18A2qrydd9sAwHCVpn9nGQjNh74jeDuY%3D&sr=f",
 }
-HAMSTRING_CURLS = {
-    "workout_name": "Hamstring Curls",
-    "description": "Basically the bicep curls of the legs.",
-    "image": LOCK_URL,
+LEG_RAISE = {
+    "description": "Here's a workout where you look like a fish flopping on land!",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Core-LegRaise.gif?sp=rl&st=2020-05-29T04:51:06Z&se=2021-10-22T04:51:00Z&sv=2019-10-10&sig=h7AVIyuGUNbru%2BpTfXvAoIql5ZAQDIy4fd0HM5nAclw%3D&sr=f",
 }
-BAND_BENT_OVER_ROW = {"description": "Got a spare rope lying around?", "image": ""}
-BICEP_CURLS = {
-    "description": "The perfect way to brush up the “guns” and flex on everyone else.",
-    "image": LOCK_URL,
-}
-BENCH_PRESS = {"description": "Did someone say pec activation?", "image": ""}
+
+# LEGS
 SQUAT = {
     "description": "Remember that the proper form is to stick your butt out.",
-    "image": LOCK_URL,
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Legs-Squats.gif?sp=rl&st=2020-05-29T04:51:27Z&se=2022-04-06T04:51:00Z&sv=2019-10-10&sig=UxTM7JRLxgRPNaYlYF138hgkoUt94WD29lD42SidqOc%3D&sr=f"
 }
+
+SIDE_LUNGE = {
+    "description": "Make sure you're not wearing jeans for this one (not that you'd wear jeans while working out... right??)",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Legs-SideLunges.gif?sp=rl&st=2020-05-29T04:51:45Z&se=2022-04-13T04:51:00Z&sv=2019-10-10&sig=wReDjYRTL0qXtTXAuee26TrS2MRjX55p3DIVLpfg0%2BU%3D&sr=f"
+}
+
+LUNGE = {
+    "description": "Who walks like that anyway?",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Legs-Lunges.gif?sp=rl&st=2020-05-29T04:52:03Z&se=2022-04-21T04:52:00Z&sv=2019-10-10&sig=x0DumOburvLwW5IrAVdN7VNFKDZmAh3Pm9%2F5Wb%2FAFwQ%3D&sr=f"
+}
+
+# BACK
+BENT_OVER_ROW = {
+    "description": "Got a spare rope lying around?", 
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Back-BentOverRow.gif?sp=rl&st=2020-05-29T04:52:21Z&se=2022-05-18T04:52:00Z&sv=2019-10-10&sig=X1IXvzPEEwqVObQl2tZWZjEUWhyf6w5zsG1Z7%2BVPvxM%3D&sr=f"
+}
+OVERHEAD_PRESS = {
+    "description": "A few of these bad boys and you'll look like Arnold Schwarzenegger in no time.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Back-OverheadPress.gif?sp=rl&st=2020-05-29T04:52:37Z&se=2022-04-13T04:52:00Z&sv=2019-10-10&sig=tEy110GMmA12zkyiWMTW6mFph3dPHYu5a7co6Df%2BRSs%3D&sr=f ",
+}
+SUPERMAN = {
+    "description": "Let's be honest, it looks more like a confused swimmer on land than Superman.", 
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Back-AlternatingSupermans.gif?sp=rl&st=2020-05-29T04:52:52Z&se=2022-03-29T04:52:00Z&sv=2019-10-10&sig=qRvJWBlQEiwTJrl9noDcDwBh5JFbmmkJ1zgLIjLX0Do%3D&sr=f "
+}
+
+# ARMS
+BICEP_CURLS = {
+    "description": "The perfect way to brush up the “guns” and flex on everyone else.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Arms-BicepCurls.gif?sp=rl&st=2020-05-29T04:53:07Z&se=2022-04-21T04:53:00Z&sv=2019-10-10&sig=0qTSxHo4hcSwxDA6DInsq8qDBhiKO%2Bx8dp%2BKtAe%2FdE4%3D&sr=f"
+}
+
+PUSH_UPS = {
+    "description": "Do you push up, or do you push the Earth down like Chuck Norris?",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Arms-Pushups.gif?sp=rl&st=2020-05-29T04:53:25Z&se=2022-03-23T04:53:00Z&sv=2019-10-10&sig=KxhgemE%2B5nQWCnC96okwt4P4PW4Uo%2FLSToOlNM8NZFM%3D&sr=f"
+}
+
+LATERAL_RAISE = {
+    "description": "Pretty sure if you do enough of these you'll be strong enough to fly.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Arms-LateralRaise.gif?sp=rl&st=2020-05-29T04:53:39Z&se=2022-04-21T04:53:00Z&sv=2019-10-10&sig=dyEZl%2Bgw4oouXPOMVVnEOCF9WW0jqORjcWESWMhu2jI%3D&sr=f"
+}
+
+# CHEST
+BENCH_PRESS = {
+    "description": "Did someone say pec activation?",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Chest-Chestpress.gif?sp=rl&st=2020-05-29T04:53:55Z&se=2022-03-29T04:53:00Z&sv=2019-10-10&sig=dRG3E2LfPllasO%2BUGlEuccohMUR02Nzzj1XQR5tGFYQ%3D&sr=f"
+}
+
+DUMBBELL_PULLOVER = {
+    "description": "Works with a backpack too if you don’t have equipment. Or a textbook. Or anything that is carry-able.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Chest-DumbellPullover.gif?sp=rl&st=2020-05-29T04:54:12Z&se=2022-04-19T04:54:00Z&sv=2019-10-10&sig=cwAQgDn%2FQWHJjqSEA0NGIQ0o732d9%2BOJxKTc6eLGhUg%3D&sr=f"
+}
+
+CHEST_FLY = {
+    "description": "Unfortunately you won’t be able to actually fly after doing these since you won’t be flapping the right way.",
+    "image": "https://ericyu.file.core.windows.net/cse110/Workouts/Chest-ChestFly.gif?sp=rl&st=2020-05-29T04:54:28Z&se=2022-01-29T04:54:00Z&sv=2019-10-10&sig=aW17oMP6axomw1XrpM2s3JZyR%2FLqjzcFdjX5HrjDDi4%3D&sr=f"
+}
+
 
 
 ALL_WORKOUTS = [
-    {
-        "data": {
-            "workout_name": "Hamstring Curls",
-            "body_part_name": "Legs",
-            "description": HAMSTRING_CURLS["description"],
-            "image": RUSSIAN_TWIST["image"],
-        }
-    },
-    {
-        "data": {
-            "workout_name": "Squat",
-            "body_part_name": "Legs",
-            "description": SQUAT["description"],
-            "image": RUSSIAN_TWIST["image"],
-        }
-    },
     {
         "data": {
             "workout_name": "Russian Twists",
@@ -184,7 +220,7 @@ ALL_WORKOUTS = [
     },
     {
         "data": {
-            "workout_name": "Crunch",
+            "workout_name": "Crunches",
             "body_part_name": "Core",
             "description": CRUNCH["description"],
             "image": CRUNCH["image"],
@@ -192,18 +228,58 @@ ALL_WORKOUTS = [
     },
     {
         "data": {
-            "workout_name": "Band Bent-Over Row",
-            "body_part_name": "Back",
-            "description": BAND_BENT_OVER_ROW["description"],
-            "image": RUSSIAN_TWIST["image"],
+            "workout_name": "Leg Raises",
+            "body_part_name": "Core",
+            "description": LEG_RAISE["description"],
+            "image": LEG_RAISE["image"],
         }
     },
     {
         "data": {
-            "workout_name": "Bench Press",
-            "body_part_name": "Chest",
-            "description": BENCH_PRESS["description"],
-            "image": RUSSIAN_TWIST["image"],
+            "workout_name": "Squat",
+            "body_part_name": "Legs",
+            "description": SQUAT["description"],
+            "image": SQUAT["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Side Lunges",
+            "body_part_name": "Legs",
+            "description": SIDE_LUNGE["description"],
+            "image": SIDE_LUNGE["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Lunges",
+            "body_part_name": "Legs",
+            "description": LUNGE["description"],
+            "image": LUNGE["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Bent Over Row",
+            "body_part_name": "Back",
+            "description": BENT_OVER_ROW["description"],
+            "image": BENT_OVER_ROW["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Overhead Press",
+            "body_part_name": "Back",
+            "description": OVERHEAD_PRESS["description"],
+            "image": OVERHEAD_PRESS["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Supermans",
+            "body_part_name": "Back",
+            "description": SUPERMAN["description"],
+            "image": SUPERMAN["image"],
         }
     },
     {
@@ -211,7 +287,47 @@ ALL_WORKOUTS = [
             "workout_name": "Bicep Curls",
             "body_part_name": "Arms",
             "description": BICEP_CURLS["description"],
-            "image": RUSSIAN_TWIST["image"],
+            "image": BICEP_CURLS["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Push-ups",
+            "body_part_name": "Arms",
+            "description": PUSH_UPS["description"],
+            "image": PUSH_UPS["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Lateral Raise",
+            "body_part_name": "Arms",
+            "description": LATERAL_RAISE["description"],
+            "image": LATERAL_RAISE["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Bench Press",
+            "body_part_name": "Chest",
+            "description": BENCH_PRESS["description"],
+            "image": BENCH_PRESS["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Dumbbell Pullover",
+            "body_part_name": "Chest",
+            "description": DUMBBELL_PULLOVER["description"],
+            "image": DUMBBELL_PULLOVER["image"],
+        }
+    },
+    {
+        "data": {
+            "workout_name": "Chest Fly",
+            "body_part_name": "Chest",
+            "description": CHEST_FLY["description"],
+            "image": CHEST_FLY["image"],
         }
     },
 ]
