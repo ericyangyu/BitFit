@@ -73,7 +73,7 @@ export default class Trophy extends Component {
 
   // Route to the progress page when back button is pressed
   goToProgress = () => {
-    Actions.progress({ uid: this.props.uid })
+    Actions.pop()
   }
 
   // Render the page

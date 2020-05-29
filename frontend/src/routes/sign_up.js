@@ -51,7 +51,7 @@ export default class SignUp extends Component {
 
     // Route to the login page when login button is pressed
     goToLogIn = () => {
-        Actions.login()
+        Actions.pop()
     }
 
     // Set the avatar state variable when it is changed on UI

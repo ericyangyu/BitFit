@@ -58,7 +58,7 @@ export default class SuggestedWorkoutsPage extends Component {
 
 	// Route to the Focus page if user wishes
 	goBack = () => {
-		Actions.mainfocus({ uid: this.props.uid })
+		Actions.pop()
 	}
 
 	// Displays Dropdown options

@@ -46,21 +46,16 @@ export default class Settings extends Component {
     }
 
     onBackPress = () => {
-        Actions.profile({ uid: this.state.uid })
-    }
-
-    onBackPress = () => {
         if (this.editsMade()) {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid }) },
+                [{ text: 'YES', onPress: () => Actions.pop() },
                 { text: 'NO' }],
                 { cancelable: false }
             );
         } else {
-            Actions.profile({ uid: this.state.uid })
-        }
+            Actions.pop()
     }
 
     editsMade = () => {

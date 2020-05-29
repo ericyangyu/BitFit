@@ -34,7 +34,7 @@ export default class ActivityLog extends Component {
 
     // Route to the progress page when progress button is pressed
     goToProgress = () => {
-        Actions.progress({ uid: this.props.uid })
+        Actions.pop()
     }
 
     // Creates a new state variable that contains a list of reformatted workout objects of size x
