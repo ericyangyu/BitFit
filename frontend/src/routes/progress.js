@@ -129,8 +129,8 @@ export default class Progress extends Component {
             progressBar = parseFloat(exp) * 100
 
         } else {
-            progressBar = (parseFloat(exp) - (2 * parseInt(level) - 1))
-                / (2 * parseInt(level)) * 100
+            progressBar = (parseFloat(exp) - (Math.pow(parseInt(level), 2) - (parseInt(level) - 1)))
+                           / (2 * parseInt(level)) * 100
         }
         return progressBar
     }
