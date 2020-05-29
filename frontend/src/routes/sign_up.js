@@ -9,11 +9,16 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
+import { Image, View, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 // import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
 
-// Internal inports
+// DEBUG
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+
+// Internal imports
 import api from '../config'
 
 // Stylesheet
@@ -25,7 +30,7 @@ import Button from "../components/button";
 import Input from "../components/input";
 
 // Images 
-import {defaultPhoto} from '../images/default_photo.js';
+import { defaultPhoto } from '../images/default_photo.js';
 import blue from '../images/login_background.png';
 
 /**
@@ -42,7 +47,6 @@ export default class SignUp extends Component {
             email: "",
             password: "",
             avatar: defaultPhoto,
-            avatarDisplayStatus: true
         }
     }
 
@@ -140,59 +144,88 @@ export default class SignUp extends Component {
             })
     }
 
+    _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+                base64: true
+            });
+            if (!result.cancelled) {
+                this.setState({ avatar: result.base64 });
+            }
+        } catch (E) {
+            console.log(E);
+        }
+    };
+
+
+    componentDidMount() {
+        this.setState({ avatar: `data:image/gif;base64,${defaultPhoto}` })
+        this.getPermissionAsync();
+    }
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    };
+
     // Render the correct components for the SignUp screen
     render() {
         return (
             <View style={styles.container}>
                 <Image style={styles.backgroundImage} source={blue} />
-                <PhotoUpload
-                    maxHeight={200}
-                    photoPickerTitle={'Upload a Profile Picture: '}
-                    onPhotoSelect={avatar => {
-                    if (avatar) {
-                        this.handleAvatarChange(avatar)
-                   }
-                }}
-                >
+                <TouchableOpacity onPress={this._pickImage}>
                     <Image
                         style={styles.photoStyle}
                         resizeMode='cover'
-                        source={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
+                        source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
                     />
-                </PhotoUpload>
-                <View style={styles.form}>
-                    <Input
-                        value={this.state.username}
-                        onChangeText={this.handleUserNameChange}
-                        placeholder={"Username..."}
-                    />
-                    <Input
-                        value={this.state.fullname}
-                        onChangeText={this.handleFullNameChange}
-                        placeholder={"Full name..."}
-                    />
-                    <Input
-                        value={this.state.email}
-                        onChangeText={this.handleEmailChange}
-                        placeholder={"Email..."}
-                    />
-                    <Input
-                        value={this.state.password}
-                        onChangeText={this.handlePasswordChange}
-                        placeholder={"Password..."}
-                    />
-                    <Button
-                        label={"Sign Up"}
-                        onPress={this.handleSignUpPress}
-                        disabled={!this.state.username || !this.state.fullname || !this.state.email || !this.state.password}
+                </TouchableOpacity>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.form}>
+                            <Input
+                                value={this.state.username}
+                                onChangeText={this.handleUserNameChange}
+                                placeholder={"Username..."}
+                            />
+                            <Input
+                                value={this.state.fullname}
+                                onChangeText={this.handleFullNameChange}
+                                placeholder={"Full name..."}
+                            />
+                            <Input
+                                value={this.state.email}
+                                onChangeText={this.handleEmailChange}
+                                placeholder={"Email..."}
+                            />
+                            <Input
+                                value={this.state.password}
+                                onChangeText={this.handlePasswordChange}
+                                placeholder={"Password..."}
+                            />
+                            <Button
+                                label={"Sign Up"}
+                                onPress={this.handleSignUpPress}
+                                disabled={!this.state.username || !this.state.fullname || !this.state.email || !this.state.password}
 
-                    />
-                    <TouchableOpacity onPress={this.goToLogIn} >
-                        <Text style={styles.buttonTextStyle}>
-                            Already have an account? Login here.
+                            />
+                            <TouchableOpacity onPress={this.goToLogIn} >
+                                <Text style={styles.buttonTextStyle}>
+                                    Already have an account? Login here.
                         </Text>
-                    </TouchableOpacity>
-                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
             </View>
         );
     }

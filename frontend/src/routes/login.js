@@ -7,7 +7,8 @@
 
 // External imports
 import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
+import { Image, View, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
+
 import { Actions } from 'react-native-router-flux';
 // import axios from "axios";
 
@@ -41,8 +42,7 @@ export default class Login extends Component {
 
     // Route to the signup page when sign up button is pressed
     goToSignUp = () => {
-        // Actions.signup()
-        console.log(api)
+        Actions.signup()
     }
 
     // Set the email state variable when it is changed on UI
@@ -121,29 +121,33 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Image source={blue} style={styles.backgroundImage} />
                 <Image source={logo} style={styles.logo} />
-                <View style={styles.form}>
-                    <Input
-                        value={this.state.email}
-                        onChangeText={this.handleEmailChange}
-                        placeholder={"Email"}
-                    />
-                    <Input
-                        value={this.state.password}
-                        onChangeText={this.handlePasswordChange}
-                        placeholder={"Password"}
-                        secureTextEntry={true}
-                    />
-                    <Button
-                        label={"Login"}
-                        onPress={this.handleLoginPress}
-                        disabled={!this.state.email || !this.state.password}
-                    />
-                    <TouchableOpacity onPress={this.goToSignUp} >
-                        <TextField style={styles.buttonTextStyle}>
-                            Do not have an account? Register here.
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.form}>
+                            <Input
+                                value={this.state.email}
+                                onChangeText={this.handleEmailChange}
+                                placeholder={"Email"}
+                            />
+                            <Input
+                                value={this.state.password}
+                                onChangeText={this.handlePasswordChange}
+                                placeholder={"Password"}
+                                secureTextEntry={true}
+                            />
+                            <Button
+                                label={"Login"}
+                                onPress={this.handleLoginPress}
+                                disabled={!this.state.email || !this.state.password}
+                            />
+                            <TouchableOpacity onPress={this.goToSignUp} >
+                                <TextField style={styles.buttonTextStyle}>
+                                    Do not have an account? Register here.
                     </TextField>
-                    </TouchableOpacity>
-                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
             </View>
         );
     }

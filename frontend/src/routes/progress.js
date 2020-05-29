@@ -163,11 +163,11 @@ export default class Progress extends Component {
                                 style={{ width: "100%", height: 200, opacity: 1.8, position: 'absolute' }}
                                 source={blue}
                             />
-                                <NavBar 
-                                    left={{uri: `data:image/gif;base64,${this.state.avatar}`}} 
-                                    leftOnPress={this.goToProfile}>
-                                </NavBar>
-                                <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
+                            <NavBar
+                                left={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                                leftOnPress={this.goToProfile}>
+                            </NavBar>
+                            <Text style={styles.headerStyle}>Hi {this.state.fullname}!</Text>
                         </View>
                     </Col>
                 </Row>
@@ -215,7 +215,7 @@ export default class Progress extends Component {
                                 />
                             </Col>
                             <Col>
-                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[1]].level}</Text>
+                                <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[1]].level}</Text>
                             </Col>
                         </Row>
                         <Row>
@@ -231,7 +231,7 @@ export default class Progress extends Component {
                                 />
                             </Col>
                             <Col>
-                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[2]].level}</Text>
+                                <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[2]].level}</Text>
                             </Col>
                         </Row>
                         <Row>
@@ -247,7 +247,7 @@ export default class Progress extends Component {
                                 />
                             </Col>
                             <Col>
-                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[3]].level}</Text>
+                                <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[3]].level}</Text>
                             </Col>
                         </Row><Row>
                             <Col>
@@ -262,7 +262,7 @@ export default class Progress extends Component {
                                 />
                             </Col>
                             <Col>
-                            <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
+                                <Text style={styles.textStyle}>{this.state.progress[this.state.body_parts[4]].level}</Text>
                             </Col>
                         </Row>
                     </View>
@@ -286,14 +286,14 @@ export default class Progress extends Component {
                         </View>
                     </Col>
                     <Col>
-                    <Row>
-                    <View style={styles.buttonView}>
-                        <Button 
-                            label={"Activity Log"}
-                            onPress={this.goToActivityLog} 
-                        />
-                    </View>
-                </Row>
+                        <Row>
+                            <View style={styles.buttonView}>
+                                <Button
+                                    label={"Activity Log"}
+                                    onPress={this.goToActivityLog}
+                                />
+                            </View>
+                        </Row>
                     </Col>
                 </Row>
             </Grid>
