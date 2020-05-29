@@ -56,6 +56,7 @@ export default class Settings extends Component {
             );
         } else {
             Actions.pop()
+        }
     }
 
     editsMade = () => {
