@@ -74,15 +74,15 @@ export default class Profile extends Component {
                 Alert.alert(
                     'You have some unsaved changes!',
                     "Are you sure you want to go back?",
-                    [{ text: 'YES', onPress: () => Actions.pop() },
+                    [{ text: 'YES', onPress: () => Actions.progress({ uid: this.state.uid }) },
                     { text: 'NO' }],
                     { cancelable: false }
                 );
             } else {
-                Actions.pop()
+                Actions.progress({ uid: this.state.uid })
             }
         } else {
-            Actions.pop()
+            Actions.progress({ uid: this.state.uid })
         }
     }
 
