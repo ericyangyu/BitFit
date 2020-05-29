@@ -11,8 +11,12 @@ import React, { Component } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
-// import PhotoUpload from 'react-native-photo-upload'
 import axios from 'axios'
+
+// DEBUG
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 // Internal imports
 import api from '../config'
@@ -84,6 +88,7 @@ export default class Profile extends Component {
 
     onEditPress = () => {
         Actions.profile({ uid: this.state.uid, edit: true })
+        this.getPermissionAsync()
     }
 
     onSavePress = () => {
@@ -222,6 +227,32 @@ export default class Profile extends Component {
         Actions.settings({ uid: this.state.uid })
     }
 
+    _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+                base64: true
+            });
+            if (!result.cancelled) {
+                this.onEditPhotoPress(result.base64)
+            }
+        } catch (E) {
+            console.log(E);
+        }
+    }
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    };
+
     componentDidMount = () => {
         // Call user API to get user info
         let url1 = 'user/get';
@@ -307,20 +338,13 @@ export default class Profile extends Component {
                     >
                     </NavBar>
 
-                    <PhotoUpload style={{ margin: 0 }}
-                        photoPickerTitle={'Upload a Profile Picture'}
-                        onPhotoSelect={eAvatar => {
-                            if (eAvatar) {
-                                this.onEditPhotoPress(eAvatar)
-                            }
-                        }}
-                    >
+                    <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
                         <Image
                             style={styles.photo}
                             resizeMode='cover'
-                            source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
+                            source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
                         />
-                    </PhotoUpload>
+                    </TouchableOpacity>
 
                     <View style={deletePhotoStyle}>
                         <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
