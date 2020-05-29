@@ -7,9 +7,9 @@
 
 // External imports
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image, Icon } from 'react-native'
+import { Text, View, TouchableOpacity, Image, Icon, Picker } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { Picker } from '@react-native-community/picker';
+// import { Picker } from '@react-native-community/picker';
 import { Actions } from 'react-native-router-flux';
 
 // Internal imports
@@ -172,7 +172,7 @@ export default class MainFocusPage extends Component {
 						</View> */}
 				{/* </Col>
 				</Row> */}
-				<Row>
+				{/* <Row>
 					<View elevation={5} style={{
 						backgroundColor: 'white',
 						width: 380,
@@ -186,21 +186,21 @@ export default class MainFocusPage extends Component {
 					}}>
 						<Row>
 							<Col>
-								{/* <View style={{
-								flexDirection: 'row',
-								alignSelf: 'center',
-								alignContent: 'center',
-								flexWrap: 'wrap',
-								marginVertical: 100
-							}}> */}
-								<Text style={{
-									fontSize: 20,
-									// fontFamily: 'monospace',
-									textAlign: 'center'
+								<View style={{
+									flexDirection: 'row',
+									alignSelf: 'center',
+									alignContent: 'center',
+									flexWrap: 'wrap',
+									marginVertical: 100
 								}}>
-									Select a Main Focus for your Workout:
+									<Text style={{
+										fontSize: 20,
+										// fontFamily: 'monospace',
+										textAlign: 'center'
+									}}>
+										Select a Main Focus for your Workout:
 							</Text>
-								{/* </View> */}
+								</View>
 							</Col>
 						</Row>
 						<Row>
@@ -251,9 +251,37 @@ export default class MainFocusPage extends Component {
 						</View>
 					</Col>
 					<Col></Col>
-				</Row>
+				</Row> */}
 				<Row></Row>
+				<Text style={{
+					fontSize: 20,
+					// fontFamily: 'monospace',
+					textAlign: 'center'
+				}}>
+					Select a Main Focus for your Workout:
+							</Text>
+				<View style={{
+					flexDirection: 'row',
+					alignSelf: 'center',
+					marginVertical: 50
+				}}>
+					<Picker
+						selectedValue={this.state.focus}
+						style={{ backgroundColor: '#e7e7e7', height: 50, width: 200, marginTop: 20 }}
+						onValueChange={(itemValue, _) =>
+							this.updateDropdown(itemValue)
+						}
+					>
+						{this.dropdownOptions()}
+					</Picker>
+				</View>
+				<View style={styles.buttonView}>
+					<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
+						label="Continue"
+					/>
+				</View>
 			</Grid >
+
 		);
 	}
 }

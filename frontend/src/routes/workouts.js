@@ -10,8 +10,8 @@
 
 // External imports
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image } from 'react-native'
-import { Picker } from '@react-native-community/picker';
+import { Text, View, TouchableOpacity, Image, Picker } from 'react-native'
+// import { Picker } from '@react-native-community/picker';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
 
