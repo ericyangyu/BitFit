@@ -137,13 +137,13 @@ export default class WorkoutTimer extends Component {
         if (level == 0) {
             if (exp >= 1) {
                 level = 1;
-                while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+                while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
                     level = level + 1;
                     leveledUp = true;
                 }
             }
         } else {
-            while ((exp - (2 * (level) - 1)) >= (2 * level)) {
+            while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
                 level = level + 1;
                 leveledUp = true;
             }
