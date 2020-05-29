@@ -8,9 +8,10 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
+
 // Stylesheet
 import styles from '../style/r_activitylog';
 
@@ -62,12 +63,12 @@ export default class ActivityLog extends Component {
     // Makes the Axios call get the completed workouts for this user, then calls function to parse it
     componentDidMount() {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/workouts/get_completed_workouts';
+        let url = 'workouts/get_completed_workouts';
         let info = {
             'uid': this.props.uid
         };
         // Make API call
-        axios.post(url, info)
+        api.post(url, info)
             // Success
             .then(response => {
                 // Save the list of trophies returned and now loading screen can be removed

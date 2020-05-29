@@ -10,9 +10,9 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from "axios";
 
 // internal imports (useful components)
+import api from '../config'
 import Clock from '../components/timer_components/clock';
 import ButtonsRow from '../components/timer_components/button_row';
 import RoundButton from '../components/timer_components/round_button';
@@ -54,8 +54,8 @@ export default class WorkoutTimer extends Component {
 
     get_body_parts = () => {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
-        axios.post(url)
+        let url = 'bodyparts/get_body_parts';
+        api.post(url)
             // Success
             .then(response => {
                 let body_parts = {}
@@ -104,14 +104,14 @@ export default class WorkoutTimer extends Component {
         /**
          * Save progress in backend
          */
-        let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+        let url = 'progress/update_stats';
         let data = {
             'uid': this.props.uid,
             'body_part_id': body_part_id,
             'exp': exp,
             'level': level
         };
-        axios.post(url, data)
+        api.post(url, data)
             .then(response => {
                 // console.log(response.data)
                 console.log("In updateStats()...")
@@ -154,12 +154,12 @@ export default class WorkoutTimer extends Component {
 
     getStats = () => {
         let body_part_id = this.state.body_parts[this.props.focus]
-        let url = 'http://10.0.2.2:4200/apis/progress/get';
+        let url = 'progress/get';
         let data = {
             'uid': this.props.uid
         };
 
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then(response => {
                 // need to come back here and make sure user actually has focus defined

@@ -10,10 +10,10 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
-import axios from 'axios';
-
 
 // Internal Imports
+import api from '../config'
+
 // Components
 import Trophy_component from "../components/trophy"
 
@@ -38,13 +38,13 @@ export default class Trophy extends Component {
 
   componentDidMount() {
     // Indicate which API to call and what data to pass in
-    let url = 'http://10.0.2.2:4200/apis/trophy/get_user_trophies';
+    let url = 'trophy/get_user_trophies';
     let info = {
       'uid': this.props.uid
     };
 
     // Make API call
-    axios.post(url, info)
+    api.post(url, info)
       // Success
       .then(response => {
         // Save the list of trophies returned and now loading screen can be removed

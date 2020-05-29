@@ -12,9 +12,10 @@ import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-na
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
 // import PhotoUpload from 'react-native-photo-upload'
-import axios from 'axios';
+import axios from 'axios'
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_profile';
@@ -92,7 +93,7 @@ export default class Profile extends Component {
             [{
                 text: 'YES', onPress: () => {
                     // Call user API to get user info
-                    let url = 'http://10.0.2.2:4200/apis/user/update';
+                    let url = 'user/update';
                     let data = {
                         'uid': this.props.uid
                     };
@@ -110,7 +111,7 @@ export default class Profile extends Component {
                     }
 
                     // Make API call
-                    axios.post(url, data)
+                    api.post(url, data)
                         // Success
                         .then(() => {
                             /* Set the state for this page to include the relevant user 
@@ -167,19 +168,17 @@ export default class Profile extends Component {
 
     resetStats = () => {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/progress/reset_stats';
+        let url = 'progress/reset_stats';
         let info = {
             'uid': this.props.uid
         };
 
         // Make API call
-        axios.post(url, info)
+        api.post(url, info)
             // Success
             .then(response => {
                 this.setState({
-                    sessions: 0,
                     eSessions: 0,
-                    time: 0.0,
                     eTime: 0.0
                 })
             })
@@ -225,19 +224,19 @@ export default class Profile extends Component {
 
     componentDidMount = () => {
         // Call user API to get user info
-        let url1 = 'http://10.0.2.2:4200/apis/user/get';
+        let url1 = 'user/get';
         let data1 = {
             'uid': this.props.uid
         };
 
         // Indicate which API to call and what data to pass in
-        let url2 = 'http://10.0.2.2:4200/apis/workouts/get_completed_workouts';
+        let url2 = 'workouts/get_completed_workouts';
         let data2 = {
             'uid': this.props.uid
         };
 
-        const requestOne = axios.post(url1, data1);
-        const requestTwo = axios.post(url2, data2);
+        const requestOne = api.post(url1, data1);
+        const requestTwo = api.post(url2, data2);
 
         axios
             .all([requestOne, requestTwo])

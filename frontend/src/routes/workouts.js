@@ -14,9 +14,10 @@ import { Text, View, TouchableOpacity, Image } from 'react-native'
 import { Picker } from '@react-native-community/picker';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
+
 // Stylesheet
 import styles from '../style/r_workouts';
 
@@ -85,13 +86,13 @@ export default class SuggestedWorkoutsPage extends Component {
 	getWorkouts = () => {
 
 		// Indicate which API to call and what data to pass in
-		let url = 'http://10.0.2.2:4200/apis/workouts/get_workouts';
+		let url = 'workouts/get_workouts';
 		let info = {
 			'body_part_name': this.props.focus
 		};
 
 		// make API call
-		axios.post(url, info)
+		api.post(url, info)
 			// Success
 			.then(response => {
 				let workouts = []

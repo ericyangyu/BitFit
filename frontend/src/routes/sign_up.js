@@ -12,9 +12,9 @@ import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
 // import PhotoUpload from 'react-native-photo-upload'
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal inports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_sign_up';
@@ -96,7 +96,7 @@ export default class SignUp extends Component {
         */
 
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/user/signup';
+        let url = 'user/signup';
         let data = {
             'username': this.state.username,
             'fullname': this.state.fullname,
@@ -106,7 +106,7 @@ export default class SignUp extends Component {
         };
 
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows

@@ -9,9 +9,9 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_settings';
@@ -95,7 +95,7 @@ export default class Settings extends Component {
         }
 
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/update_credentials';
+        let url = 'user/update_credentials';
         let data = {
             'uid': this.state.uid,
             'email': this.state.currEmail,
@@ -104,7 +104,7 @@ export default class Settings extends Component {
         };
         
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then( () => {
                 Alert.alert(
@@ -155,7 +155,7 @@ export default class Settings extends Component {
         }
 
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/update_credentials';
+        let url = 'user/update_credentials';
         let data = {
             'uid': this.state.uid,
             'email': this.state.email,
@@ -164,7 +164,7 @@ export default class Settings extends Component {
         };
         
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then( () => {
                 Alert.alert(
@@ -216,7 +216,7 @@ export default class Settings extends Component {
             "All your data will be lost. Are you sure you want to continue?",
             [{ text: 'YES', onPress: () => { 
                 // Call user API to get user info
-                let url = 'http://10.0.2.2:4200/apis/user/delete';
+                let url = 'user/delete';
                 let data = {
                     'uid': this.state.uid,
                     'email': this.state.emailD,
@@ -224,7 +224,7 @@ export default class Settings extends Component {
                 };
                 
                 // Make API call
-                axios.post(url, data)
+                api.post(url, data)
                     // Success
                     .then( () => {
                         Alert.alert(
@@ -252,13 +252,13 @@ export default class Settings extends Component {
 
     componentDidMount() {
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/get';
+        let url = 'user/get';
         let data = {
             'uid': this.props.uid
         };
         
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then( () => {
                 /* Set the state for this page to include the relevant user 

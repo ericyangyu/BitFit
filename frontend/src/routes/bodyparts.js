@@ -11,9 +11,9 @@ import { Text, View, TouchableOpacity, Image, Icon } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Picker } from '@react-native-community/picker';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
 
 // Components
 import LoadingScreen from "../components/loading"
@@ -45,8 +45,8 @@ export default class MainFocusPage extends Component {
 
 	get_body_parts = () => {
 		// Indicate which API to call and what data to pass in
-		let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
-		axios.post(url)
+		let url = 'bodyparts/get_body_parts';
+		api.post(url)
 			// Success
 			.then(response => {
 

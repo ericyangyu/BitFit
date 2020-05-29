@@ -12,9 +12,10 @@ import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
+import axios from 'axios'
 
 // Internal imports
+import api from '../config'
 
 // Components
 import Button from "../components/button";
@@ -67,23 +68,23 @@ export default class Progress extends Component {
     }
 
     getData = () => {
-        let url1 = 'http://10.0.2.2:4200/apis/user/get';
+        let url1 = 'user/get';
         let data1 = {
             'uid': this.props.uid
         };
 
-        let url2 = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
+        let url2 = 'bodyparts/get_body_parts';
         let data2 = {}
 
 
-        let url3 = 'http://10.0.2.2:4200/apis/progress/get';
+        let url3 = 'progress/get';
         let data3 = {
             'uid': this.props.uid
         };
 
-        const requestOne = axios.post(url1, data1);
-        const requestTwo = axios.post(url2, data2);
-        const requestThree = axios.post(url3, data3);
+        const requestOne = api.post(url1, data1);
+        const requestTwo = api.post(url2, data2);
+        const requestThree = api.post(url3, data3);
 
         axios
             .all([requestOne, requestTwo, requestThree])

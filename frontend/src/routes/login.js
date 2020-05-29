@@ -9,9 +9,10 @@
 import React, { Component } from 'react';
 import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
 import { Actions } from 'react-native-router-flux';
-import axios from "axios";
+// import axios from "axios";
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_login';
@@ -40,7 +41,8 @@ export default class Login extends Component {
 
     // Route to the signup page when sign up button is pressed
     goToSignUp = () => {
-        Actions.signup()
+        // Actions.signup()
+        console.log(api)
     }
 
     // Set the email state variable when it is changed on UI
@@ -72,7 +74,7 @@ export default class Login extends Component {
         */
 
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/user/login';
+        let url = 'user/login';
         let data = {
             'email': this.state.email,
             'password': this.state.password
@@ -80,7 +82,7 @@ export default class Login extends Component {
         // let uid = "";
 
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
