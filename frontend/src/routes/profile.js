@@ -342,7 +342,7 @@ export default class Profile extends Component {
                         <Image
                             style={styles.photo}
                             resizeMode='cover'
-                            source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                            source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
                         />
                     </TouchableOpacity>
 
