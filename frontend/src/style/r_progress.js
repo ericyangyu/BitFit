@@ -49,14 +49,14 @@ export default StyleSheet.create({
     },
     headerStyle: {
         fontSize: 50,
-        fontFamily: 'sans-serif-light',
+        // // fontFamily: 'sans-serif-light',
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
     },
     textStyle: {
         fontSize: 20,
-        fontFamily: 'monospace',
+        // // fontFamily: 'monospace',
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0

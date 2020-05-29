@@ -16,9 +16,9 @@ export default StyleSheet.create({
     scrollView: {
         width: "100%",
     },
-    backImage: { 
-        width: "100%", 
-        height: 290, 
+    backImage: {
+        width: "100%",
+        height: 290,
         opacity: 1.8,
         position: "absolute"
     },
@@ -48,14 +48,14 @@ export default StyleSheet.create({
         fontSize: 30,
         color: "#243454",
         textAlign: 'center',
-        fontFamily: 'sans-serif-light'
+        // fontFamily: 'sans-serif-light'
     },
     stats: {
         width: "100%",
         fontSize: 40,
         color: "#243454",
         textAlign: 'center',
-        fontFamily: 'sans-serif-light'
+        // fontFamily: 'sans-serif-light'
     },
     infoGrid: {
         backgroundColor: 'white',
@@ -68,7 +68,7 @@ export default StyleSheet.create({
     },
     info: {
         fontSize: 20,
-        fontFamily: 'monospace',
+        // fontFamily: 'monospace',
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: "2.5%",

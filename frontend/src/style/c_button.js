@@ -4,7 +4,7 @@
  * Authors: ?
  */
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     // Style the button itself
@@ -24,7 +24,7 @@ export default StyleSheet.create({
         textAlign: "center",
         height: 26,
         fontSize: 20,
-        // fontFamily: 'sans-serif-light',
+        // // fontFamily: 'sans-serif-light',
         fontWeight: '100'
     },
     disabled: {

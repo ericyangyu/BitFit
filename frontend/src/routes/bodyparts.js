@@ -137,7 +137,7 @@ export default class MainFocusPage extends Component {
 					</View>
 					<Text style={{
 						fontSize: 50,
-						fontFamily: 'sans-serif-light',
+						// fontFamily: 'sans-serif-light',
 						color: 'white',
 						textAlign: 'center',
 						fontWeight: '100',
@@ -165,7 +165,7 @@ export default class MainFocusPage extends Component {
 						}}>
 							<Text style={{
 								fontSize: 30,
-								fontFamily: 'sans-serif-condensed'
+								// fontFamily: 'sans-serif-condensed'
 							}}>
 								Main Focus
 							</Text>
@@ -195,7 +195,7 @@ export default class MainFocusPage extends Component {
 							}}> */}
 								<Text style={{
 									fontSize: 20,
-									fontFamily: 'monospace',
+									// fontFamily: 'monospace',
 									textAlign: 'center'
 								}}>
 									Select a Main Focus for your Workout:
