@@ -18,7 +18,7 @@ import api from '../config'
 // Components
 import LoadingScreen from "../components/loading"
 import Button from '../components/button';
-import blue from '../images/blue.jpg';
+import blue from '../images/background.jpg';
 
 // Stylesheet
 import styles from '../style/r_bodyparts';

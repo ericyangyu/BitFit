@@ -47,6 +47,16 @@ export default StyleSheet.create({
         borderRadius: 10,
         borderColor: '#fff',
     },
+    whiteBox2: {
+        backgroundColor: 'white',
+        width: "90%",
+        padding: 20,
+        marginVertical: 0,
+        marginTop: -90,
+        marginBottom: -50,
+        marginHorizontal: 5,
+        borderRadius: 20
+    },
     buttonTextStyle: {
         fontSize: 20,
         textAlign: 'center',

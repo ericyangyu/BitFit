@@ -53,6 +53,7 @@ export default StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
+
     },
     textStyle: {
         fontSize: 20,
@@ -68,11 +69,11 @@ export default StyleSheet.create({
     },
     whiteBox1: {
         backgroundColor: 'white',
-        width: "85%",
+        width: "90%",
         height: 75,
-        paddingTop: 25,
+        paddingTop: 20,
         padding: 20,
-        marginVertical: -20,
+        marginVertical: "10%",
         marginHorizontal: 5,
         borderRadius: 20
 
@@ -98,20 +99,21 @@ export default StyleSheet.create({
         color: "#ffffff",
         textAlign: "center",
         height: 26,
-        fontSize: 20,
-        fontWeight: '100'
+        fontSize: 13,
+        fontWeight: '100',
+        paddingBottom: "30%"
     },
     disabled: {
         opacity: 0.4
     },
      buttonContainer: {
-        width: 125,
+        width: "101%",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#778899",
-        borderColor: '#000000',
+        borderColor: '#778899',
         paddingBottom: "50%",
-        paddingTop: 20,
+        paddingTop: "15%",
         paddingVertical: 10,
         borderRadius: 0,
         borderWidth: StyleSheet.hairlineWidth,

@@ -9,8 +9,8 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         width: "100%",
-        paddingBottom: 0,
-        paddingTop: "12%",
+        paddingBottom: "0%",
+        paddingTop: "10%",
         paddingLeft: "5%",
         paddingRight: "5%",
         flexDirection: "row",
