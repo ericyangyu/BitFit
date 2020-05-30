@@ -8,7 +8,7 @@
 
 // External Imports
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { Image, View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // internal imports (useful components)
@@ -19,6 +19,7 @@ import RoundButton from '../components/timer_components/round_button';
 
 // Stylesheet
 import styles from '../style/r_timer';
+import blue from '../images/login_background.jpg';
 
 /**
  * Renders the timer page, and handles calculation of leveling
@@ -225,6 +226,7 @@ export default class WorkoutTimer extends Component {
         const timer = now - start
         return (
             <View style={styles.container} >
+                <Image source={blue} style={styles.backgroundImage} />
                 <Clock
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}

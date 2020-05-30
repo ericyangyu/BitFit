@@ -20,7 +20,7 @@ export default StyleSheet.create({
         width: 55,
         height: 55,
         borderRadius: 100,
-        backgroundColor: 'white'
+        //backgroundColor: 'white'
     },
     disabled: {
         opacity: 0.4
