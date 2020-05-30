@@ -26,6 +26,7 @@ import styles from '../style/r_bodyparts';
 // Images
 import backButton from '../images/back_button.png';
 import { abs_photo } from '../images/abs';
+import { arms_photo } from '../images/arms';
 
 /**
  * Class that returns the Main Focus page with correct components and API calls.
@@ -288,8 +289,7 @@ export default class MainFocusPage extends Component {
 				}}>
 					<Image
 						style={styles.focusImage}
-
-						source={{ uri: `data:image/gif;base64,${abs_photo}` }}
+						source={{ uri: `data:image/gif;base64,${arms_photo}` }}
 					/>
 				</View>
 

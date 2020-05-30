@@ -28,6 +28,7 @@ import Button from '../components/button';
 // Images
 import backButton from '../images/back_button.png';
 import blue from '../images/background.jpg'
+import { russian_twists_photo } from '../images/russian_twists'
 
 /**
  * Class that returns the Workouts page with correct components and API calls.
@@ -235,7 +236,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						}}>
 							<Image
 								style={{ width: 150, height: 150, alignSelf: 'center' }}
-								source={{ uri: this.state.selected_workout_image }}
+								source={{ uri: `data:image/gif;base64,${russian_twists_photo}` }}
 							/>
 						</View>
 					</Col>
