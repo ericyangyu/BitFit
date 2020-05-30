@@ -271,13 +271,6 @@ export default class Progress extends Component {
 
                 <Row>
                     <Col>
-                        {/* <View style={styles.buttonView}>
-                            <Button
-                                label={"Workout"}
-                                onPress={this.goToMainFocus}
-                                style={styles.buttonContainer}
-                            />
-                        </View> */}
                         <View style={styles.buttonView}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
                             <Icon style={{marginTop: "5%"}} size="30%" color="#FFFFFF" name='timer' />
@@ -286,13 +279,6 @@ export default class Progress extends Component {
                         </View>
                     </Col>
                     <Col>
-                        {/* <View style={styles.buttonView}>
-                            <Button
-                                label={"Trophy Case"}
-                                onPress={this.goToTrophy}
-                                style={styles.buttonContainer}
-                            />
-                        </View> */}
                         <View style={styles.buttonView}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
                             <Icon style={{marginTop: "5%"}} size="30%" color="#FFFFFF" name='lock' />
@@ -302,13 +288,6 @@ export default class Progress extends Component {
                         </View>
                     </Col>
                     <Col>
-                        {/* <View style={styles.buttonView}>
-                            <Button
-                                label={"Activity Log"}
-                                onPress={this.goToActivityLog}
-                                style={styles.buttonContainer}
-                            /> 
-                        </View> */}
                         <View style={styles.buttonView}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
                             <Icon style={{marginTop: "5%"}} size="30%" color="#FFFFFF" name='assignment' />

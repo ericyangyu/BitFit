@@ -49,12 +49,13 @@ export default StyleSheet.create({
     },
     whiteBox2: {
         backgroundColor: 'white',
+        alignSelf: 'center',
         width: "90%",
-        padding: 20,
-        marginVertical: 0,
-        marginTop: -90,
-        marginBottom: -50,
-        marginHorizontal: 5,
+        padding: "7%",
+        paddingBottom: "-7%",
+        marginTop: "-100%",
+        marginBottom: "-5%",
+        marginHorizontal: "5%",
         borderRadius: 20
     },
     buttonTextStyle: {

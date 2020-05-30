@@ -49,7 +49,6 @@ export default StyleSheet.create({
     },
     headerStyle: {
         fontSize: 50,
-        // // fontFamily: 'sans-serif-light',
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
@@ -81,10 +80,10 @@ export default StyleSheet.create({
     whiteBox2: {
         backgroundColor: 'white',
         width: "90%",
-        padding: 20,
-        marginVertical: 0,
-        marginTop: -90,
-        marginBottom: -50,
+        padding: "7%",
+        paddingBottom: "-7%",
+        marginTop: "-18%",
+        marginBottom: "-5%",
         marginHorizontal: 5,
         borderRadius: 20
     },
