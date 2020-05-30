@@ -23,7 +23,7 @@ export default StyleSheet.create({
     },
     logo: {
         flex: 1,
-        width: "90%",
+        width: "65%",
         resizeMode: "contain",
         alignSelf: "center",
         marginVertical: 0,
@@ -43,7 +43,7 @@ export default StyleSheet.create({
         width: '100%',
         padding: 20,
         marginVertical: 0,
-        marginBottom: 30,
+        marginBottom: 60,
         marginHorizontal: 0,
         borderRadius: 15
     }

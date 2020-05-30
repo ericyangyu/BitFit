@@ -56,36 +56,64 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 20,
-        // // fontFamily: 'monospace',
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 0
     },
+    textStyle2: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: '100',
+        marginBottom: 0, 
+    },
     whiteBox1: {
         backgroundColor: 'white',
-        width: 380,
+        width: "85%",
         height: 75,
+        paddingTop: 25,
         padding: 20,
-        marginVertical: 0,
+        marginVertical: -20,
         marginHorizontal: 5,
         borderRadius: 20
 
     },
     whiteBox2: {
         backgroundColor: 'white',
-        width: 380,
+        width: "90%",
         padding: 20,
         marginVertical: 0,
-        marginTop: -70,
+        marginTop: -90,
         marginBottom: -50,
         marginHorizontal: 5,
         borderRadius: 20
     },
     buttonView: {
         backgroundColor: '#e7e7e7',
-        marginTop: 90,
-        marginLeft: 20,
-        marginRight: 20,
+        marginTop: 115,
+        marginLeft: 0,
+        marginRight: 0,
         alignItems: 'center'
+    },
+    text: {
+        color: "#ffffff",
+        textAlign: "center",
+        height: 26,
+        fontSize: 20,
+        fontWeight: '100'
+    },
+    disabled: {
+        opacity: 0.4
+    },
+     buttonContainer: {
+        width: 125,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#778899",
+        borderColor: '#000000',
+        paddingBottom: "50%",
+        paddingTop: 20,
+        paddingVertical: 10,
+        borderRadius: 0,
+        borderWidth: StyleSheet.hairlineWidth,
     }
 });

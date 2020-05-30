@@ -10,7 +10,7 @@ export default StyleSheet.create({
     container: {
         width: "100%",
         paddingBottom: 0,
-        paddingTop: "5%",
+        paddingTop: "12%",
         paddingLeft: "5%",
         paddingRight: "5%",
         flexDirection: "row",

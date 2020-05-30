@@ -8,7 +8,8 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Actions } from 'react-native-router-flux';
@@ -23,7 +24,7 @@ import NavBar from "../components/nav_bar";
 import LoadingScreen from "../components/loading";
 
 // Images
-import blue from '../images/blue.jpg'
+import blue from '../images/background.jpg'
 
 // Stylesheet
 import styles from '../style/r_progress';
@@ -130,7 +131,7 @@ export default class Progress extends Component {
 
         } else {
             progressBar = (parseFloat(exp) - (Math.pow(parseInt(level), 2) - (parseInt(level) - 1)))
-                           / (2 * parseInt(level)) * 100
+                / (2 * parseInt(level)) * 100
         }
         return progressBar
     }
@@ -173,7 +174,7 @@ export default class Progress extends Component {
                 </Row>
                 <Row>
                     <View elevation={5} style={styles.whiteBox1}>
-                        <Text style={styles.textStyle}>Overall Level: {this.state.overallLv} </Text>
+                        <Text style={styles.textStyle2}>Overall Level: {this.state.overallLv} </Text>
                     </View>
 
                 </Row>
@@ -192,7 +193,7 @@ export default class Progress extends Component {
                             <Col>
                                 <ProgressBarAnimated
                                     useNativeDriver={true}
-                                    width={150}
+                                    width={110}
                                     value={this.state.progress[this.state.body_parts[0]].progressBar}
                                     backgroundColorOnComplete="#6CC644"
                                 />
@@ -209,7 +210,7 @@ export default class Progress extends Component {
                             <Col>
                                 <ProgressBarAnimated
                                     useNativeDriver={true}
-                                    width={150}
+                                    width={110}
                                     value={this.state.progress[this.state.body_parts[1]].progressBar}
                                     backgroundColorOnComplete="#6CC644"
                                 />
@@ -225,7 +226,7 @@ export default class Progress extends Component {
                             <Col>
                                 <ProgressBarAnimated
                                     useNativeDriver={true}
-                                    width={150}
+                                    width={110}
                                     value={this.state.progress[this.state.body_parts[2]].progressBar}
                                     backgroundColorOnComplete="#6CC644"
                                 />
@@ -241,7 +242,7 @@ export default class Progress extends Component {
                             <Col>
                                 <ProgressBarAnimated
                                     useNativeDriver={true}
-                                    width={150}
+                                    width={110}
                                     value={this.state.progress[this.state.body_parts[3]].progressBar}
                                     backgroundColorOnComplete="#6CC644"
                                 />
@@ -256,7 +257,7 @@ export default class Progress extends Component {
                             <Col>
                                 <ProgressBarAnimated
                                     useNativeDriver={true}
-                                    width={150}
+                                    width={110}
                                     value={this.state.progress[this.state.body_parts[4]].progressBar}
                                     backgroundColorOnComplete="#6CC644"
                                 />
@@ -270,30 +271,49 @@ export default class Progress extends Component {
 
                 <Row>
                     <Col>
-                        <View style={styles.buttonView}>
+                        {/* <View style={styles.buttonView}>
                             <Button
                                 label={"Workout"}
                                 onPress={this.goToMainFocus}
+                                style={styles.buttonContainer}
                             />
+                        </View> */}
+                        <View style={styles.buttonView}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
+                            <Text style={styles.text}>Workout</Text>
+                            <Icon style={{marginTop: 5}} color="#FFFFFF" name='timer' />
+                        </TouchableOpacity>
                         </View>
                     </Col>
                     <Col>
-                        <View style={styles.buttonView}>
+                        {/* <View style={styles.buttonView}>
                             <Button
                                 label={"Trophy Case"}
                                 onPress={this.goToTrophy}
+                                style={styles.buttonContainer}
                             />
+                        </View> */}
+                        <View style={styles.buttonView}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
+                            <Text style={styles.text}>Trophy Case</Text>
+                            <Icon style={{marginTop: 5}} color="#FFFFFF" name='lock' />
+                        </TouchableOpacity>
                         </View>
                     </Col>
                     <Col>
-                        <Row>
-                            <View style={styles.buttonView}>
-                                <Button
-                                    label={"Activity Log"}
-                                    onPress={this.goToActivityLog}
-                                />
-                            </View>
-                        </Row>
+                        {/* <View style={styles.buttonView}>
+                            <Button
+                                label={"Activity Log"}
+                                onPress={this.goToActivityLog}
+                                style={styles.buttonContainer}
+                            /> 
+                        </View> */}
+                        <View style={styles.buttonView}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
+                            <Text style={styles.text}>Activity Log</Text>
+                            <Icon style={{marginTop: 5}} color="#FFFFFF" name='assignment' />
+                        </TouchableOpacity>
+                        </View>
                     </Col>
                 </Row>
             </Grid>
