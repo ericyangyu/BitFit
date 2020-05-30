@@ -64,6 +64,7 @@ export default class MainFocusPage extends Component {
 					focus_image: images[body_parts[0]],
 					isLoading: false
 				})
+				console.log(images[body_parts[0]])
 			})
 			.catch(error => {
 				// Log error 
@@ -120,7 +121,7 @@ export default class MainFocusPage extends Component {
 			)
 		} else return (
 			<Grid style={{ backgroundColor: '#e7e7e7' }}>
-				
+
 				<View>
 					<Image
 						style={{ width: window.width, height: 200, opacity: 1.8 }}
@@ -254,34 +255,49 @@ export default class MainFocusPage extends Component {
 					<Col></Col>
 				</Row> */}
 				<Row>
-				<View style={styles.whiteBox2}>
-				<Text style={{
-					fontSize: 20,
-					textAlign: 'center'
-				}}>
-					Select a Main Focus for your Workout:
+					<View style={styles.whiteBox2}>
+						<Text style={{
+							fontSize: 20,
+							textAlign: 'center'
+						}}>
+							Select a Main Focus for your Workout:
 							</Text>
+						<View style={{
+							flexDirection: 'row',
+							alignSelf: 'center'
+						}}>
+							<Picker
+								selectedValue={this.state.focus}
+								style={{ backgroundColor: '#FFFFFF', height: 50, width: 200, marginTop: 0 }}
+								onValueChange={(itemValue, _) =>
+									this.updateDropdown(itemValue)
+								}
+							>
+								{this.dropdownOptions()}
+							</Picker>
+						</View>
+					</View>
+
+				</Row>
+
 				<View style={{
 					flexDirection: 'row',
-					alignSelf: 'center'
+					alignSelf: 'center',
+					marginVertical: 0,
 				}}>
-					<Picker
-						selectedValue={this.state.focus}
-						style={{ backgroundColor: '#FFFFFF', height: 50, width: 200, marginTop: 0 }}
-						onValueChange={(itemValue, _) =>
-							this.updateDropdown(itemValue)
-						}
-					>
-						{this.dropdownOptions()}
-					</Picker>
+					<Image
+						style={styles.focusImage}
+						
+						 source={{ uri: this.state.focus_image}}
+					/>
 				</View>
-				</View>
+
 				<View style={styles.buttonView}>
 					<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 						label="Continue"
 					/>
 				</View>
-				</Row>
+
 			</Grid >
 
 		);
