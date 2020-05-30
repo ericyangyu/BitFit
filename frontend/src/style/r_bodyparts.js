@@ -36,7 +36,7 @@ export default StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 0,
     },
-    focusImage: { width: 180, height: 180, alignSelf: 'center' },
+    focusImage: { width: 180, height: 180, alignSelf: 'center', marginTop: "0%" },
     buttonStyle: {
         marginTop: 10,
         marginBottom: 10,
@@ -53,7 +53,7 @@ export default StyleSheet.create({
         width: "90%",
         padding: "7%",
         paddingBottom: "40%",
-        marginTop: "-55%",
+        marginTop: "10%",
         marginBottom: "-5%",
         marginHorizontal: "5%",
         borderRadius: 20

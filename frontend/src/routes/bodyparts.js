@@ -284,7 +284,7 @@ export default class MainFocusPage extends Component {
 				<View style={{
 					flexDirection: 'row',
 					alignSelf: 'center',
-					marginVertical: 0,
+					marginVertical: "30%",
 				}}>
 					<Image
 						style={styles.focusImage}
