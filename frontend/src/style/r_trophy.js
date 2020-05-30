@@ -17,17 +17,13 @@ export default StyleSheet.create({
         backgroundColor: '#F5FCFF'
     },
     container: {
-        backgroundColor: '#f3ebe1',
+        backgroundColor: '#e7e7e7',
         marginTop: 0,
         alignItems: 'center',
     },
     progressbar: {
         marginTop: 13,
     },
-    images: {
-        width: 75, height: 75
-    }
-    ,
     buttonStyle: {
         marginTop: 10,
         marginBottom: 10,
@@ -46,14 +42,29 @@ export default StyleSheet.create({
         color: '#fff',
     },
     headerStyle: {
-        fontSize: 36,
+        fontSize: 40,
+        color: 'white',
         textAlign: 'center',
+        fontWeight: '100',
+        marginTop: "-10%"
+    },
+    whiteBox1: {
+        backgroundColor: 'white',
+        width: "93%",
+        height: 75,
+        paddingTop: "10%",
+        paddingBottom: "120%",
+        marginVertical: "0%",
+        marginHorizontal: 5,
+        borderRadius: 20,
+        marginTop: "-1%"
     },
     textStyle: {
         fontSize: 20,
+        paddingTop: "5%",
         textAlign: 'center',
         fontWeight: '100',
-        marginBottom: 0,
+        marginBottom: 10,
     },
     box: {
         fontSize: 36,

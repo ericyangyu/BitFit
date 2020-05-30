@@ -17,5 +17,5 @@ export default StyleSheet.create({
         width: 75,
         height: 75,
         alignSelf: 'center',
-    }
+    },
 });

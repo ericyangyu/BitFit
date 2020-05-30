@@ -280,7 +280,7 @@ export default class Progress extends Component {
                     </Col>
                     <Col>
                         <View style={styles.buttonView}>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToTrophy}>
                             <Icon style={{marginTop: "5%"}} size="30%" color="#FFFFFF" name='lock' />
                             <Text style={styles.text}>Trophy Case</Text>
                             
@@ -289,7 +289,7 @@ export default class Progress extends Component {
                     </Col>
                     <Col>
                         <View style={styles.buttonView}>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToMainFocus}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.goToActivityLog}>
                             <Icon style={{marginTop: "5%"}} size="30%" color="#FFFFFF" name='assignment' />
                             <Text style={styles.text}>Activity Log</Text>
                         </TouchableOpacity>

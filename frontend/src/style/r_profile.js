@@ -46,16 +46,21 @@ export default StyleSheet.create({
     statsTitle: {
         width: "100%",
         fontSize: 30,
-        color: "#243454",
+        color: "#000000",
         textAlign: 'center',
-        // fontFamily: 'sans-serif-light'
+        fontSize: 20,
+        paddingTop: "5%",
+        paddingBottom: "15%",
+        textAlign: 'center',
+        fontWeight: '100',
+        marginBottom: 10,
     },
     stats: {
         width: "100%",
         fontSize: 40,
         color: "#243454",
-        textAlign: 'center',
-        // fontFamily: 'sans-serif-light'
+        paddingBottom: "35%",
+        textAlign: 'center'
     },
     infoGrid: {
         backgroundColor: 'white',
@@ -64,18 +69,26 @@ export default StyleSheet.create({
         padding: 20,
         borderRadius: 20,
         alignSelf: 'center',
-        marginBottom: "5%",
+        marginBottom: "5%"
     },
     info: {
         fontSize: 20,
-        // fontFamily: 'monospace',
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: "2.5%",
     },
     button: {
         width: "90%",
-        margin: "2.5%",
+        margin: "5%",
+        marginLeft: "15%",
+        marginTop: "15%",
+        alignSelf: 'center',
+    },
+    button2: {
+        width: "90%",
+        margin: "5%",
+        marginLeft: "14%",
+        paddingTop: "15%",
         alignSelf: 'center',
     },
     inputGrid: {

@@ -21,6 +21,7 @@ import LoadingScreen from "../components/loading"
 
 // Images
 import backButton from '../images/back_button.png'
+import blue from '../images/background.jpg';
 
 /**
  * Class that returns the the Activity Log page with the workouts rendered
@@ -112,6 +113,11 @@ export default class ActivityLog extends Component {
         if (this.state.workouts.length === 0) {
             return (
                 <View style={styles.container}>
+                    {/* <Image source={blue} style={styles.backgroundImage} /> */}
+                    <Image
+                        style={{ width: "120%", height: 200, opacity: 1.8, position: 'absolute' }}
+                        source={blue}
+                    />
                     <TouchableOpacity onPress={() => this.goToProgress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
@@ -127,6 +133,11 @@ export default class ActivityLog extends Component {
 
         return (
             <View style={styles.container}>
+                {/* <Image source={blue} style={styles.backgroundImage} /> */}
+                <Image
+                    style={{ width: "120%", height: 200, opacity: 1.8, position: 'absolute' }}
+                    source={blue}
+                />
                 <TouchableOpacity onPress={() => this.goToProgress()}>
                     <Image source={backButton} style={styles.topButton} />
                 </TouchableOpacity>

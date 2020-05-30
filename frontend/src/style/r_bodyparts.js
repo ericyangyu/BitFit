@@ -53,7 +53,7 @@ export default StyleSheet.create({
         width: "90%",
         padding: "7%",
         paddingBottom: "40%",
-        marginTop: "-50%",
+        marginTop: "-55%",
         marginBottom: "-5%",
         marginHorizontal: "5%",
         borderRadius: 20
@@ -71,7 +71,8 @@ export default StyleSheet.create({
     },
     buttonView: {
         backgroundColor: '#e7e7e7',
-        marginTop: "-10%",
+        marginTop: "-50%",
+        marginBottom: "10%",
         marginLeft: 20,
         marginRight: 20,
         alignItems: 'center'

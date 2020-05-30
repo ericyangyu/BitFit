@@ -35,7 +35,7 @@ import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
 import saveButton from '../images/save_button.png'
 import { defaultPhoto } from '../images/default_photo.js';
-import blue from '../images/blue.jpg'
+import blue from '../images/background.jpg'
 
 /**
  * Class that returns the Profile page with correct components and API calls.
@@ -321,7 +321,7 @@ export default class Profile extends Component {
 
     render() {
         const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button
-        const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button
+        const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button2
         const backImgStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImage : [styles.backImage, styles.longerImg]
 
         return (this.props.edit ? (

@@ -8,22 +8,32 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     flatList: {
-        width: '100%'
+        width: '100%',
+        borderRadius: 10
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        opacity: 0.8
     },
     container: {
         flex: 1,
         paddingTop: 40,
         paddingHorizontal: 20,
-        backgroundColor: '#f3ebe1',
+        backgroundColor: '#e7e7e7',
     },
     header: {
-        color: "#000000",
-        textAlign: "center",
-        height: 50,
-        fontSize: 30,
+        fontSize: 50,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: '100',
+        marginBottom: "20%"
     },
     topButton: {
-        width: 55,
-        height: 55
+        width: 45,
+        height: 45
     },
 });
