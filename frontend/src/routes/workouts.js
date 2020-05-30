@@ -27,6 +27,7 @@ import Button from '../components/button';
 
 // Images
 import backButton from '../images/back_button.png';
+import blue from '../images/background.jpg'
 
 /**
  * Class that returns the Workouts page with correct components and API calls.
@@ -139,10 +140,14 @@ export default class SuggestedWorkoutsPage extends Component {
 		}
 
 		return (
-			<Grid style={{ backgroundColor: '#f3ebe1' }}>
+			<Grid style={{ backgroundColor: '#e7e7e7' }}>
 				<Row>
 					<Col>
-						<View style={{ backgroundColor: '#f3ebe1', marginTop: 20, marginLeft: 20 }}>
+						<Image
+							style={{ width: "300%", height: 200, opacity: 1.8, position: 'absolute' }}
+							source={blue}
+						/>
+						<View style={{ marginTop: "30%", marginLeft: "15%" }}>
 							<TouchableOpacity onPress={() => this.goBack()}>
 								<Image
 									style={{ width: 45, height: 45 }}
@@ -161,7 +166,10 @@ export default class SuggestedWorkoutsPage extends Component {
 							alignSelf: 'center',
 						}}>
 							<Text style={{
-								fontSize: 30
+								fontSize: 35,
+								color: 'white',
+								textAlign: 'center',
+								fontWeight: '100',
 							}}>
 								Suggested Workouts
 							</Text>
@@ -175,10 +183,23 @@ export default class SuggestedWorkoutsPage extends Component {
 							alignSelf: 'center',
 							alignContent: 'center',
 							flexWrap: 'wrap',
-							marginVertical: 10
+							marginTop: "5%",
+							marginVertical: 10,
+							backgroundColor: 'white',
+							width: "90%",
+							height: "230%",
+							paddingTop: 20,
+							padding: 20,
+							paddingLeft: "17%",
+							marginVertical: "10%",
+							marginHorizontal: 5,
+							borderRadius: 20
 						}}>
 							<Text style={{
-								fontSize: 20
+								fontSize: 25,
+								textAlign: 'center',
+								fontWeight: '100',
+								marginBottom: 0
 							}}>
 								Select Your Workout:
 							</Text>
@@ -190,7 +211,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: -40
+							marginVertical: "-15%"
 						}}>
 							<Picker
 								selectedValue={this.state.selected_workout}
@@ -210,7 +231,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						<View style={{
 							flexDirection: 'row',
 							alignSelf: 'center',
-							marginVertical: -50,
+							marginVertical: "50%"
 						}}>
 							<Image
 								style={{ width: 150, height: 150, alignSelf: 'center' }}
@@ -221,7 +242,7 @@ export default class SuggestedWorkoutsPage extends Component {
 					<Col></Col>
 
 				</Row>
-				<Row>
+				{/* <Row>
 					<Col>
 						<View style={{
 							flexDirection: 'row',
@@ -236,7 +257,7 @@ export default class SuggestedWorkoutsPage extends Component {
 							</Text>
 						</View>
 					</Col>
-				</Row>
+				</Row> */}
 				<Row>
 					<Col></Col>
 					<Col>

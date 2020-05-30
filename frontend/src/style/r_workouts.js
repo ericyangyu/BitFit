@@ -40,7 +40,8 @@ export default StyleSheet.create({
     buttonStyle: {
         flexDirection: 'row',
         alignSelf: 'center',
-        marginVertical: 40,
+        paddingTop: 80,
+        marginBottom: "-30%"
     },
     buttonTextStyle: {
         fontSize: 20,

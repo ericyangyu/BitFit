@@ -133,7 +133,6 @@ export default class ActivityLog extends Component {
 
         return (
             <View style={styles.container}>
-                {/* <Image source={blue} style={styles.backgroundImage} /> */}
                 <Image
                     style={{ width: "120%", height: 200, opacity: 1.8, position: 'absolute' }}
                     source={blue}
@@ -144,7 +143,7 @@ export default class ActivityLog extends Component {
                 <Text style={styles.header}>
                     Activity Log
                 </Text>
-                <View>
+                <View style={{marginBottom:"15%"}}>
                     <FlatList
                         style={styles.flatList}
                         data={this.state.workouts}

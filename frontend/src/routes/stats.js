@@ -6,7 +6,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { Actions } from 'react-native-router-flux';
 
 // Internal imports
@@ -17,6 +17,9 @@ import styles from '../style/r_stats';
 
 // Components
 import Button from "../components/button";
+
+//Images
+import blue from '../images/login_background.jpg';
 
 /**
  * Class that returns the stats page
@@ -91,9 +94,10 @@ export default class Stats extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image source={blue} style={styles.backgroundImage} />
                 <View style={styles.form}>
-
-                    {this.props.leveledUp ?
+                    <View style={styles.form2}>
+                {this.props.leveledUp ?
                         <Text style={styles.finishTextStyle}>
                             Leveled Up {this.props.focus}!
                         </Text> :
@@ -113,9 +117,12 @@ export default class Stats extends Component {
                     <Text style={styles.detailsTextStyle}>
                         Hours spent: {this.props.duration}
                     </Text>
+                    <View style={styles.buttonView}>
                     <Button onPress={() => this.goToProgress()}
                         label="Continue"
                     />
+                    </View>
+                    </View>
                 </View>
             </View>
         );

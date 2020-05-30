@@ -75,7 +75,6 @@ export default StyleSheet.create({
         marginVertical: "10%",
         marginHorizontal: 5,
         borderRadius: 20
-
     },
     whiteBox2: {
         backgroundColor: 'white',
