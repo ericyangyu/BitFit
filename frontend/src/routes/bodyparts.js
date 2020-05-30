@@ -120,6 +120,7 @@ export default class MainFocusPage extends Component {
 			)
 		} else return (
 			<Grid style={{ backgroundColor: '#e7e7e7' }}>
+				
 				<View>
 					<Image
 						style={{ width: window.width, height: 200, opacity: 1.8 }}
@@ -127,7 +128,7 @@ export default class MainFocusPage extends Component {
 					/>
 					<View>
 						<TouchableOpacity
-							style={{ marginTop: -180, marginLeft: 10 }}
+							style={{ paddingLeft: "1%", marginTop: "-41%", marginLeft: 10 }}
 							onPress={() => this.goBackProgress()}>
 							<Image
 								style={{ width: 45, height: 45 }}
@@ -137,13 +138,13 @@ export default class MainFocusPage extends Component {
 					</View>
 					<Text style={{
 						fontSize: 50,
-						// fontFamily: 'sans-serif-light',
 						color: 'white',
 						textAlign: 'center',
 						fontWeight: '100',
-						marginTop: -130
+						marginTop: "-25%"
 					}}> Main Focus </Text>
 				</View>
+				{/* <Row></Row> */}
 				{/* <View style={{ backgroundColor: '#e7e7e7', marginTop: 20, marginLeft: 20 }}>
 							<TouchableOpacity onPress={() => this.goBackProgress()}>
 								<Image
@@ -252,22 +253,21 @@ export default class MainFocusPage extends Component {
 					</Col>
 					<Col></Col>
 				</Row> */}
-				<Row></Row>
+				<Row>
+				<View style={styles.whiteBox2}>
 				<Text style={{
 					fontSize: 20,
-					// fontFamily: 'monospace',
 					textAlign: 'center'
 				}}>
 					Select a Main Focus for your Workout:
 							</Text>
 				<View style={{
 					flexDirection: 'row',
-					alignSelf: 'center',
-					marginVertical: 50
+					alignSelf: 'center'
 				}}>
 					<Picker
 						selectedValue={this.state.focus}
-						style={{ backgroundColor: '#e7e7e7', height: 50, width: 200, marginTop: 20 }}
+						style={{ backgroundColor: '#FFFFFF', height: 50, width: 200, marginTop: 0 }}
 						onValueChange={(itemValue, _) =>
 							this.updateDropdown(itemValue)
 						}
@@ -275,11 +275,13 @@ export default class MainFocusPage extends Component {
 						{this.dropdownOptions()}
 					</Picker>
 				</View>
+				</View>
 				<View style={styles.buttonView}>
 					<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
 						label="Continue"
 					/>
 				</View>
+				</Row>
 			</Grid >
 
 		);
