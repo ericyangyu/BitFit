@@ -39,6 +39,7 @@ export default class MainFocusPage extends Component {
 		this.state = {
 			bodyparts: [],
 			images: {},
+			localImages: { "Core": abs_photo, "Arms": arms_photo },
 			focus: "",
 			focus_image: "",
 			isLoading: true
@@ -63,10 +64,10 @@ export default class MainFocusPage extends Component {
 					bodyparts: body_parts,
 					images: images,
 					focus: body_parts[0],
-					focus_image: images[body_parts[0]],
+					// focus_image: images[body_parts[0]],
+					focus_image: this.state.localImages[body_parts[0]],
 					isLoading: false
 				})
-				console.log(images[body_parts[0]])
 			})
 			.catch(error => {
 				// Log error 
@@ -105,7 +106,7 @@ export default class MainFocusPage extends Component {
 	updateDropdown = (value) => {
 		this.setState({
 			focus: value,
-			focus_image: this.state.images[value]
+			focus_image: this.state.localImages[value]
 		})
 	}
 
@@ -289,7 +290,7 @@ export default class MainFocusPage extends Component {
 				}}>
 					<Image
 						style={styles.focusImage}
-						source={{ uri: `data:image/gif;base64,${arms_photo}` }}
+						source={{ uri: `data:image/gif;base64,${this.state.focus_image}` }}
 					/>
 				</View>
 
