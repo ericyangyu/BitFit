@@ -28,7 +28,7 @@ export default StyleSheet.create({
         opacity: 0.8
     },
     finishTextStyle: {
-        fontSize: 32,
+        fontSize: 26,
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: -40,
@@ -46,7 +46,7 @@ export default StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         fontWeight: '100',
-        paddingTop: "60%",
+        paddingTop: "40%",
         paddingBottom: "10%",
         marginBottom: 10,
         color: 'black'
@@ -58,8 +58,8 @@ export default StyleSheet.create({
         color: 'black'
     },
     buttonView: {
-        marginTop: 115,
-        marginLeft: 15,
+        marginTop: 50,
+        marginLeft: 0,
         marginRight: 0,
         alignItems: 'center'
     },
