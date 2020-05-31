@@ -11,10 +11,9 @@ export default StyleSheet.create({
     buttonContainer: {
         width: 320,
         alignItems: "center",
-        justifyContent: "center",
         backgroundColor: "#778899",
         marginBottom: 10,
-        paddingVertical: 10,
+        paddingVertical: 0,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
     },
@@ -22,9 +21,10 @@ export default StyleSheet.create({
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 26,
+        height: 45,
         fontSize: 20,
-        fontWeight: '100'
+        fontWeight: '100',
+        paddingTop: 12
     },
     disabled: {
         opacity: 0.4

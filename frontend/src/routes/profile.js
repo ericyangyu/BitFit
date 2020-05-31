@@ -73,11 +73,11 @@ export default class Profile extends Component {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'YES', onPress: () => {
+                [{ text: 'Yes', onPress: () => {
                     Actions.pop()
                     setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
                 } },
-                { text: 'NO' }],
+                { text: 'No' }],
                 { cancelable: false }
             );
         } else {
@@ -96,7 +96,7 @@ export default class Profile extends Component {
             'Are you sure you want to save your changes?',
             "",
             [{
-                text: 'YES', onPress: () => {
+                text: 'Yes', onPress: () => {
                     // Call user API to get user info
                     let url = 'user/update';
                     let data = {
@@ -150,7 +150,7 @@ export default class Profile extends Component {
                     // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
                 }
             },
-            { text: 'NO' }],
+            { text: 'No' }],
             { cancelable: false }
         );
 
@@ -161,8 +161,8 @@ export default class Profile extends Component {
         Alert.alert(
             'Are you sure you want to log out?',
             "You will be taken to the log in screen.",
-            [{ text: 'YES', onPress: () => Actions.login() },
-            { text: 'NO' }],
+            [{ text: 'Yes', onPress: () => Actions.login() },
+            { text: 'No' }],
             { cancelable: false }
         );
     }
@@ -209,8 +209,8 @@ export default class Profile extends Component {
         Alert.alert(
             'This will reset all your stats!',
             "If you save, they will be lost forever. Are you sure you want to proceed?",
-            [{ text: 'YES', onPress: () => this.resetStats() },
-            { text: 'NO' }],
+            [{ text: 'Yes', onPress: () => this.resetStats() },
+            { text: 'No' }],
             { cancelable: false }
         );
     }

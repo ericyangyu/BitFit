@@ -118,7 +118,9 @@ export default class Trophy extends Component {
           <Text style={styles.headerStyle}>Congratulations! </Text>
         </Row>
         <Row> 
-          <Text style={styles.textStyle}> Keep Working Out to Earn More Trophies! </Text> 
+          <View style={{flexDirection:'row'}}>
+          <Text style={styles.textStyle}> Keep Working Out ! </Text> 
+          </View> 
           </Row>
         <Row>
           <View style={styles.whiteBox1}></View>

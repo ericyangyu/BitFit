@@ -61,10 +61,14 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 20,
-        paddingTop: "5%",
+        paddingTop: "0%",
         textAlign: 'center',
         fontWeight: '100',
         marginBottom: 10,
+        marginLeft: 40,
+        marginRight: 40,
+        flexWrap: 'wrap',
+        flexShrink: 1,
     },
     box: {
         fontSize: 36,
