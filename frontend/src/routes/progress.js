@@ -136,6 +136,10 @@ export default class Progress extends Component {
         return progressBar
     }
 
+    componentWillReceiveProps = () => {
+        this.componentDidMount()
+    }
+
     // Make API calls when the screen mounts
     componentDidMount() {
         this.getData()

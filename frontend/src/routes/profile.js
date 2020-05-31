@@ -69,20 +69,17 @@ export default class Profile extends Component {
     }
 
     onBackPress = () => {
-        if (this.state.edit) {
-            if (this.editsMade()) {
-                Alert.alert(
-                    'You have some unsaved changes!',
-                    "Are you sure you want to go back?",
-                    [{ text: 'YES', onPress: () => Actions.progress({ uid: this.state.uid }) },
-                    { text: 'NO' }],
-                    { cancelable: false }
-                );
-            } else {
-                Actions.progress({ uid: this.state.uid })
-            }
+        if (this.state.edit && this.editsMade()) {
+            Alert.alert(
+                'You have some unsaved changes!',
+                "Are you sure you want to go back?",
+                [{ text: 'YES', onPress: () => Actions.progress({ uid: this.state.uid }) },
+                { text: 'NO' }],
+                { cancelable: false }
+            );
         } else {
-            Actions.progress({ uid: this.state.uid })
+            Actions.pop()
+            setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
         }
     }
 
@@ -126,8 +123,8 @@ export default class Profile extends Component {
                                 fullname: this.state.eFullname,
                                 avatar: this.state.eAvatar
                             })
-
-                            Actions.profile({ uid: this.state.uid })
+                            Actions.pop()
+                            Actions.refresh()
                         })
 
                         // Error
@@ -252,6 +249,10 @@ export default class Profile extends Component {
             }
         }
     };
+
+    componentWillReceiveProps = () => {
+        this.componentDidMount()
+    }
 
     componentDidMount = () => {
         // Call user API to get user info
