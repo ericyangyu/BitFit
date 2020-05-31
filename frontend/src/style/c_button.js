@@ -9,12 +9,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     // Style the button itself
     buttonContainer: {
-        width: 300,
+        width: 320,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#778899",
         marginBottom: 10,
-        paddingVertical: 12,
+        paddingVertical: 0,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
     },
@@ -22,8 +22,8 @@ export default StyleSheet.create({
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 20,
-        fontSize: 14,
+        height: 35,
+        fontSize: 20,
         fontWeight: '100'
     },
     disabled: {
