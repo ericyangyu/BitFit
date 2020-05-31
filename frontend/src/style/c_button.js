@@ -14,7 +14,7 @@ export default StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#778899",
         marginBottom: 10,
-        paddingVertical: 10,
+        paddingVertical: 12,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
     },
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 26,
+        height: 20,
         fontSize: 20,
         fontWeight: '100'
     },

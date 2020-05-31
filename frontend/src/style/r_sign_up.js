@@ -7,23 +7,19 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    photoPicker: {
+    pickerButton: {
         flex: 1,
         width: "65%",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column-reverse",
         marginBottom: "5%",
         marginTop: "10%",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 0
     },
-    pickerButton: {
+    photo: {
         aspectRatio: 1,
         width: "100%",
         maxHeight: "100%",
-    },
-    photo: {
-        width: "100%",
-        height: "100%",
         borderRadius: 150,
         resizeMode: "contain",
     },

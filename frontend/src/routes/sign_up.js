@@ -123,7 +123,7 @@ export default class SignUp extends Component {
                 Alert.alert(
                     'Invalid Credentials',
                     "Please try again.",
-                    [{ text: 'OK' }],
+                    [{ text: 'Ok' }],
                     { cancelable: false }
                 );
 
@@ -180,15 +180,13 @@ export default class SignUp extends Component {
             <View style={styles.container}>
                 <Image source={blue} style={styles.backgroundImage} />
 
-                <View style ={styles.photoPicker} >
-                    <TouchableOpacity style={styles.pickerButton} onPress={this._pickImage}>
-                        <Image
-                            style={styles.photo}
-                            resizeMode='cover'
-                            source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
-                        />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.pickerButton} onPress={this._pickImage}>
+                    <Image
+                        style={styles.photo}
+                        resizeMode='cover'
+                        source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                    />
+                </TouchableOpacity>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -197,21 +195,30 @@ export default class SignUp extends Component {
                                 value={this.state.username}
                                 onChangeText={this.handleUserNameChange}
                                 placeholder={"Username"}
+                                autoCorrect={false}
+                                textContentType="oneTimeCode"
                             />
                             <Input
                                 value={this.state.fullname}
                                 onChangeText={this.handleFullNameChange}
-                                placeholder={"Full name"}
+                                placeholder={"Name"}
+                                autoCorrect={false}
+                                textContentType="oneTimeCode"
                             />
                             <Input
                                 value={this.state.email}
                                 onChangeText={this.handleEmailChange}
                                 placeholder={"Email"}
+                                autoCorrect={false}
+                                textContentType="oneTimeCode"
                             />
                             <Input
                                 value={this.state.password}
                                 onChangeText={this.handlePasswordChange}
                                 placeholder={"Password"}
+                                autoCorrect={false}
+                                secureTextEntry={true}
+                                textContentType="oneTimeCode"
                             />
                             <Button
                                 label={"Sign Up"}

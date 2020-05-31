@@ -97,7 +97,7 @@ export default class Login extends React.Component {
                 Alert.alert(
                     'Invalid Credentials',
                     "Please try again.",
-                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    [{ text: 'Ok'}],
                     { cancelable: false }
                 );
 
@@ -129,12 +129,14 @@ export default class Login extends React.Component {
                                 value={this.state.email}
                                 onChangeText={this.handleEmailChange}
                                 placeholder={"Email"}
+                                autoCorrect={false}
                             />
                             <Input
                                 value={this.state.password}
                                 onChangeText={this.handlePasswordChange}
                                 placeholder={"Password"}
                                 secureTextEntry={true}
+                                autoCorrect={false}
                             />
                             <Button
                                 label={"Login"}
@@ -144,7 +146,7 @@ export default class Login extends React.Component {
                             <TouchableOpacity onPress={this.goToSignUp} >
                                 <TextField style={styles.buttonTextStyle}>
                                     Do not have an account? Register here.
-                    </TextField>
+                                </TextField>
                             </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>
