@@ -178,37 +178,40 @@ export default class SignUp extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={styles.backgroundImage} source={blue} />
-                <TouchableOpacity onPress={this._pickImage}>
-                    <Image
-                        style={styles.photoStyle}
-                        resizeMode='cover'
-                        source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
-                    />
-                </TouchableOpacity>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <Image source={blue} style={styles.backgroundImage} />
+
+                <View style ={styles.photoPicker} >
+                    <TouchableOpacity style={styles.pickerButton} onPress={this._pickImage}>
+                        <Image
+                            style={styles.photo}
+                            resizeMode='cover'
+                            source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View style={styles.form}>
                             <Input
                                 value={this.state.username}
                                 onChangeText={this.handleUserNameChange}
-                                placeholder={"Username..."}
+                                placeholder={"Username"}
                             />
                             <Input
                                 value={this.state.fullname}
                                 onChangeText={this.handleFullNameChange}
-                                placeholder={"Full name..."}
+                                placeholder={"Full name"}
                             />
                             <Input
                                 value={this.state.email}
                                 onChangeText={this.handleEmailChange}
-                                placeholder={"Email..."}
+                                placeholder={"Email"}
                             />
                             <Input
                                 value={this.state.password}
                                 onChangeText={this.handlePasswordChange}
-                                placeholder={"Password..."}
+                                placeholder={"Password"}
                             />
                             <Button
                                 label={"Sign Up"}
@@ -219,7 +222,7 @@ export default class SignUp extends Component {
                             <TouchableOpacity onPress={this.goToLogIn} >
                                 <Text style={styles.buttonTextStyle}>
                                     Already have an account? Login here.
-                        </Text>
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>

@@ -6,8 +6,8 @@
  */
 
 // External imports
-import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
+import React from 'react';
+import { Image, View,TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 import { Actions } from 'react-native-router-flux';
 // import axios from "axios";
@@ -30,7 +30,8 @@ import blue from '../images/login_background.jpg';
 /**
  * Class that returns the Login page with correct components and API calls.
  */
-export default class Login extends Component {
+export default class Login extends React.Component {
+
     // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)

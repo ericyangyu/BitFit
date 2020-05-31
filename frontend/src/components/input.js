@@ -6,7 +6,7 @@
 
  // External imports
 import React, { Component } from 'react';
-import { StyleSheet, TextInput } from "react-native";
+import { TextInput } from "react-native";
 
 // Internal imports
 import styles from "../style/c_input";

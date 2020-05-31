@@ -7,13 +7,25 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    photoStyle: {
-        marginTop: 110,
-        marginBottom: 0,
-        paddingVertical: 0,
-        width: 230,
-        height: 230,
-        borderRadius: 150
+    photoPicker: {
+        flex: 1,
+        width: "65%",
+        marginBottom: "5%",
+        marginTop: "10%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 0
+    },
+    pickerButton: {
+        aspectRatio: 1,
+        width: "100%",
+        maxHeight: "100%",
+    },
+    photo: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 150,
+        resizeMode: "contain",
     },
     backgroundImage: {
         position: 'absolute',
@@ -24,10 +36,10 @@ export default StyleSheet.create({
         opacity: 0.8
     },
     container: {
-        flex: 1,
+        height: "100%",
         backgroundColor: "#e7e7e7",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: 'space-between'
     },
     buttonTextStyle: {
         fontSize: 16,
@@ -38,14 +50,10 @@ export default StyleSheet.create({
     },
     form: {
         justifyContent: "center",
-        width: "80%",
         backgroundColor: 'white',
-        width: 350,
+        width: '100%',
         padding: 20,
-        paddingTop: 30,
-        marginTop: 0,
-        marginBottom: 30,
-        marginHorizontal: 0,
-        borderRadius: 15
+        borderRadius: 15,
+        marginBottom: "10%"
     }
 });
