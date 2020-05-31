@@ -5,6 +5,7 @@
  */
 
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -12,36 +13,32 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: '#e7e7e7',
-    },
-    scrollView: {
-        width: "100%",
+        paddingBottom: "2.5%"
     },
     backImage: {
         width: "100%",
-        height: 290,
+        height: "35%",
         opacity: 1.8,
         position: "absolute"
     },
     longerImg: {
-        height: 365
+        height: Dimensions.get('window').height * 0.35 + 32
     },
     photo: {
         width: "30%",
         height: undefined,
         aspectRatio: 1,
         alignSelf: "center",
-        borderRadius: 100,
-        marginBottom: "5%",
+        borderRadius: 150,
         backgroundColor: "white"
     },
     statsGrid: {
-        backgroundColor: 'white',
         width: "90%",
         height: 125,
-        padding: 20,
+        backgroundColor: 'white',
+        padding: 5,
         borderRadius: 20,
-        alignSelf: 'center',
-        marginBottom: "5%",
+        flexDirection: 'row'
     },
     statsTitle: {
         width: "100%",
@@ -52,37 +49,37 @@ export default StyleSheet.create({
         paddingBottom: "15%",
         textAlign: 'center',
         fontWeight: '100',
-        marginBottom: 10,
     },
     stats: {
         width: "100%",
-        fontSize: 40,
+        fontSize: 50,
         color: "#243454",
         paddingBottom: "35%",
         textAlign: 'center'
     },
     infoGrid: {
         backgroundColor: 'white',
+        justifyContent: 'space-between',
         width: "90%",
         height: 140,
         padding: 20,
         borderRadius: 20,
-        alignSelf: 'center',
-        marginBottom: "5%"
     },
     info: {
         fontSize: 20,
         textAlign: 'center',
         fontWeight: '100',
-        marginBottom: "2.5%",
     },
     button: {
         width: "90%",
-        margin: "5%",
-        marginLeft: "15%",
-        marginTop: "15%",
-        alignSelf: 'center',
     },
+
+
+
+
+
+
+
     button2: {
         width: "90%",
         margin: "5%",
@@ -97,7 +94,6 @@ export default StyleSheet.create({
         padding: 20,
         borderRadius: 20,
         alignSelf: 'center',
-        marginBottom: "5%",
     },
     input: {
         width: "80%",
