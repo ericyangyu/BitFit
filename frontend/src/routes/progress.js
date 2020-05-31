@@ -273,17 +273,6 @@ export default class Progress extends Component {
                     </TouchableOpacity></Col>
                 </View> 
             </View>
-
-
-
-
-
-
-
-
-
-
-
         );
     }
 }
