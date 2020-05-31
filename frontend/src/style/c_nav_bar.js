@@ -18,7 +18,7 @@ export default StyleSheet.create({
     button: {
         width: 55,
         height: 55,
-        borderRadius: 100,
+        borderRadius: 150,
         //backgroundColor: 'white'
     },
     disabled: {

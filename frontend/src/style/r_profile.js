@@ -13,16 +13,19 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: '#e7e7e7',
-        paddingBottom: "2.5%"
+        paddingBottom: "5%"
     },
     backImage: {
         width: "100%",
-        height: "35%",
+        height: "36%",
         opacity: 1.8,
         position: "absolute"
     },
-    longerImg: {
-        height: Dimensions.get('window').height * 0.35 + 32
+    backImageE: {
+        width: "100%",
+        height: "48%",
+        opacity: 1.8,
+        position: "absolute"
     },
     photo: {
         width: "30%",
@@ -70,22 +73,13 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontWeight: '100',
     },
-    button: {
-        width: "90%",
+    viewnButton: {
+        width: "100%",
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     },
-
-
-
-
-
-
-
     button2: {
-        width: "90%",
-        margin: "5%",
-        marginLeft: "14%",
-        paddingTop: "15%",
-        alignSelf: 'center',
+        marginTop: "2.5%"
     },
     inputGrid: {
         backgroundColor: 'white',

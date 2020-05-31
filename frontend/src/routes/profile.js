@@ -73,7 +73,10 @@ export default class Profile extends Component {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'YES', onPress: () => Actions.progress({ uid: this.state.uid }) },
+                [{ text: 'YES', onPress: () => {
+                    Actions.pop()
+                    setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                } },
                 { text: 'NO' }],
                 { cancelable: false }
             );
@@ -321,13 +324,14 @@ export default class Profile extends Component {
     }
 
     render() {
-        const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button
+        const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button2
         const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button2
         const backImgStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImage : [styles.backImage, styles.longerImg]
+        const backImgEStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImageE : [styles.backImage, styles.longerImg]
 
         return (this.props.edit ? (
             <View style={styles.container}>
-                <Image style={backImgStyle} source={blue} />
+                <Image style={styles.backImageE} source={blue} />
 
                 <NavBar
                     left={backButton}
@@ -337,44 +341,48 @@ export default class Profile extends Component {
                     rightDisabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eAvatar)}
                 >
                 </NavBar>
-
-                <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
-                    <Image
-                        style={styles.photo}
-                        resizeMode='cover'
-                        source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
-                    />
-                </TouchableOpacity>
-
-                <View style={deletePhotoStyle}>
-                    <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
+                <View style={styles.viewnButton}>
+                    <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
+                        <Image
+                            style={styles.photo}
+                            resizeMode='cover'
+                            source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
+                        />
+                    </TouchableOpacity>
+                    
+                    <View style={deletePhotoStyle}>
+                        <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
+                    </View>
                 </View>
 
-                <Grid elevation={5} style={styles.statsGrid}>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Sessions</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.eSessions}
-                            </Text>
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Time</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.eTime}
-                            </Text>
-                        </Row>
-                    </Col>
-                </Grid>
+                <View style={styles.viewnButton}>
+                    <View elevation={5} style={styles.statsGrid}>
+                        <Col>
+                            <Row>
+                                <Text style={styles.statsTitle}>Sessions</Text>
+                            </Row>
+                            <Row>
+                                <Text style={styles.stats}>
+                                    {this.state.sessions}
+                                </Text>
+                            </Row>
+                        </Col>
+                        <Col>
+                            <Row>
+                                <Text style={styles.statsTitle}>Time</Text>
+                            </Row>
+                            <Row>
+                                <Text style={styles.stats}>
+                                    {this.state.time}
+                                </Text>
+                            </Row>
+                        </Col>
+                    </View>
+                    
 
-                <View style={resetStatsStyle}>
-                    <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                    <View style={resetStatsStyle}>
+                        <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                    </View>
                 </View>
 
                 <View elevation={5} style={styles.inputGrid}>
