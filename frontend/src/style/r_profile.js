@@ -48,7 +48,6 @@ export default StyleSheet.create({
         fontSize: 30,
         color: "#000000",
         textAlign: 'center',
-        fontSize: 20,
         paddingTop: "5%",
         paddingBottom: "15%",
         textAlign: 'center',
