@@ -11,14 +11,16 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: '#0D0D0D', // EDE0D3   color of other pages
         alignItems: 'center',
-        paddingTop: 130,
-        paddingHorizontal: 20,
+        paddingTop: 150,
+        paddingHorizontal: 35,
     },
     timer: {
         color: '#FFFFFF',
-        fontSize: 76,
+        fontSize: 63,
         fontWeight: '200',
         width: 110,
+        alignItems: 'center'
+
     },
     backgroundImage: {
         position: 'absolute',
@@ -29,9 +31,9 @@ export default StyleSheet.create({
         opacity: 0.8
     },
     button: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -39,9 +41,9 @@ export default StyleSheet.create({
         fontSize: 18,
     },
     buttonBorder: {
-        width: 76,
-        height: 76,
-        borderRadius: 38,
+        width: 98,
+        height: 98,
+        borderRadius: 48,
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -67,5 +69,6 @@ export default StyleSheet.create({
     },
     timerContainer: {
         flexDirection: 'row',
+        //alignItems: 'center'
     }
 });

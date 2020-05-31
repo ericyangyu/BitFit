@@ -263,11 +263,11 @@ export default class Progress extends Component {
                             <Icon size={40} color='white' name='timer' />
                             <Text style={styles.navText}>Workout</Text>
                     </TouchableOpacity></Col>
-                    <Col><TouchableOpacity onPress={this.goToMainFocus}>
+                    <Col><TouchableOpacity onPress={this.goToTrophy}>
                             <Icon size={40} color='white' name='lock' />
                             <Text style={styles.navText}>Trophy Case</Text>
                     </TouchableOpacity></Col>
-                    <Col><TouchableOpacity onPress={this.goToMainFocus}>
+                    <Col><TouchableOpacity onPress={this.goToActivityLog}>
                             <Icon size={40} color='white' name='assignment' />
                             <Text style={styles.navText}>Activity Log</Text>
                     </TouchableOpacity></Col>

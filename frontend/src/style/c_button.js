@@ -23,7 +23,7 @@ export default StyleSheet.create({
         color: "#ffffff",
         textAlign: "center",
         height: 20,
-        fontSize: 20,
+        fontSize: 14,
         fontWeight: '100'
     },
     disabled: {
