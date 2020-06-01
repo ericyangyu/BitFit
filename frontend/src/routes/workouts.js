@@ -152,7 +152,7 @@ export default class SuggestedWorkoutsPage extends Component {
 							<TouchableOpacity onPress={() => this.goBack()}>
 								<Image
 									style={{ width: 45, height: 45 }}
-									source={require('../images/back_button.png')}
+									source={backButton} style={styles.topButton}
 								/>
 							</TouchableOpacity>
 						</View>
