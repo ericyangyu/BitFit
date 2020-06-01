@@ -9,13 +9,14 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
-import Spinner from 'react-native-loading-spinner-overlay';
+
 
 // Internal Imports
 import api from '../config'
 
 // Components
-import Trophy_component from "../components/trophy"
+import Trophy_component from "../components/trophy";
+import LoadingScreen from "../components/loading";
 
 // Images
 import backButton from '../images/back_button.png'
@@ -83,13 +84,7 @@ export default class Trophy extends Component {
     // If the API call is not complete, display the loading screen
     if (this.state.isLoading) {
       return (
-        <View style={styles.spinnerContainer}>
-          <Spinner
-            visible={this.state.isLoading}
-            textContent={'Loading...'}
-            textStyle={styles.spinnerTextStyle}
-          />
-        </View>
+        <LoadingScreen></LoadingScreen>
       )
     }
 
@@ -117,11 +112,11 @@ export default class Trophy extends Component {
         <Row>
           <Text style={styles.headerStyle}>Congratulations! </Text>
         </Row>
-        <Row> 
-          <View style={{flexDirection:'row'}}>
-          <Text style={styles.textStyle}> Keep Working Out ! </Text> 
-          </View> 
-          </Row>
+        <Row>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.textStyle}> Keep Working Out ! </Text>
+          </View>
+        </Row>
         <Row>
           <View style={styles.whiteBox1}></View>
         </Row>
