@@ -143,7 +143,7 @@ export default class ActivityLog extends Component {
                 <Text style={styles.header}>
                     Activity Log
                 </Text>
-                <View style={{marginBottom:"15%"}}>
+                <View style={{ marginBottom: "15%", flex: 1 }}>
                     <FlatList
                         style={styles.flatList}
                         data={this.state.workouts}

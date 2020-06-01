@@ -35,6 +35,7 @@ import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
 import saveButton from '../images/save_button.png'
 import { defaultPhoto } from '../images/default_photo.js';
+import { profile_image } from '../images/profile_image'
 import blue from '../images/background.jpg'
 
 /**
@@ -73,10 +74,12 @@ export default class Profile extends Component {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'Yes', onPress: () => {
-                    Actions.pop()
-                    setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
-                } },
+                [{
+                    text: 'Yes', onPress: () => {
+                        Actions.pop()
+                        setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                    }
+                },
                 { text: 'No' }],
                 { cancelable: false }
             );
@@ -324,39 +327,101 @@ export default class Profile extends Component {
     }
 
     render() {
-        const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button2
+        const deletePhotoStyle = this.state.eAvatar == `${profile_image}` ? null : styles.button2
         const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button2
-       
+
         return (this.props.edit ? (
-            <KeyboardAvoidingView style={{width: "100%", height: "100%"}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
-            <ScrollView style={{width: "100%", height: "100%"}}>
-            
-            <View style={styles.container}>
-                <Image style={styles.backImageE} source={blue} />
+            <KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <ScrollView style={{ width: "100%", height: "100%" }}>
 
-                <NavBar
-                    left={backButton}
-                    leftOnPress={this.onBackPress}
-                    right={saveButton}
-                    rightOnPress={this.onSavePress}
-                    rightDisabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eAvatar)}
-                >
-                </NavBar>
-                <View style={styles.viewnButton}>
-                    <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
-                        <Image
-                            style={styles.photo}
-                            resizeMode='cover'
-                            source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
-                        />
-                    </TouchableOpacity>
-                    
-                    <View style={deletePhotoStyle}>
-                        <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
+                    <View style={styles.container}>
+                        <Image style={styles.backImageE} source={blue} />
+
+                        <NavBar
+                            left={backButton}
+                            leftOnPress={this.onBackPress}
+                            right={saveButton}
+                            rightOnPress={this.onSavePress}
+                            rightDisabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eAvatar)}
+                        >
+                        </NavBar>
+                        <View style={styles.viewnButton}>
+                            <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
+                                <Image
+                                    style={styles.photo}
+                                    resizeMode='cover'
+                                    source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
+                                />
+                            </TouchableOpacity>
+
+                            <View style={deletePhotoStyle}>
+                                <Button hide={this.state.eAvatar == `${profile_image}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${profile_image}`)} />
+                            </View>
+                        </View>
+
+                        <View style={styles.viewnButton}>
+                            <View elevation={5} style={styles.statsGrid}>
+                                <Col>
+                                    <Row>
+                                        <Text style={styles.statsTitle}>Sessions</Text>
+                                    </Row>
+                                    <Row>
+                                        <Text style={styles.stats}>
+                                            {this.state.sessions}
+                                        </Text>
+                                    </Row>
+                                </Col>
+                                <Col>
+                                    <Row>
+                                        <Text style={styles.statsTitle}>Time</Text>
+                                    </Row>
+                                    <Row>
+                                        <Text style={styles.stats}>
+                                            {this.state.time}
+                                        </Text>
+                                    </Row>
+                                </Col>
+                            </View>
+
+
+                            <View style={resetStatsStyle}>
+                                <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                            </View>
+                        </View>
+
+                        <View elevation={5} style={styles.inputGrid}>
+                            <Input
+                                style={styles.input}
+                                value={this.state.eFullname}
+                                onChangeText={this.onNameChange}
+                                placeholder={"Name"}
+                            />
+                            <Input
+                                style={styles.input}
+                                value={this.state.eUsername}
+                                onChangeText={this.onUsernameChange}
+                                placeholder={"Username"}
+                            />
+                        </View>
                     </View>
-                </View>
 
-                <View style={styles.viewnButton}>
+                </ScrollView>
+            </KeyboardAvoidingView>
+
+        ) : (
+                <View style={styles.container}>
+                    <Image style={styles.backImage} source={blue} />
+
+                    <NavBar
+                        left={backButton}
+                        leftOnPress={this.onBackPress}
+                        right={editButton}
+                        rightOnPress={this.onEditPress}
+                    >
+                    </NavBar>
+
+                    <Image source={{ uri: `data:image/gif;base64,${this.state.avatar}` }} style={styles.photo} />
+
                     <View elevation={5} style={styles.statsGrid}>
                         <Col>
                             <Row>
@@ -379,78 +444,16 @@ export default class Profile extends Component {
                             </Row>
                         </Col>
                     </View>
-                    
 
-                    <View style={resetStatsStyle}>
-                        <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                    <View elevation={5} style={styles.infoGrid}>
+                        <Text style={styles.info}>{this.state.fullname}</Text>
+                        <Text style={styles.info}>@{this.state.username}</Text>
+                        <Text style={styles.info}>{this.state.email}</Text>
                     </View>
-                </View>
-
-                <View elevation={5} style={styles.inputGrid}>
-                    <Input
-                        style={styles.input}
-                        value={this.state.eFullname}
-                        onChangeText={this.onNameChange}
-                        placeholder={"Name"}
-                    />
-                    <Input
-                        style={styles.input}
-                        value={this.state.eUsername}
-                        onChangeText={this.onUsernameChange}
-                        placeholder={"Username"}
-                    />
-                </View>
-            </View>
-            
-            </ScrollView>
-            </KeyboardAvoidingView>
-
-        ) : (
-            <View style={styles.container}>
-                <Image style={styles.backImage} source={blue} />
-
-                <NavBar
-                    left={backButton}
-                    leftOnPress={this.onBackPress}
-                    right={editButton}
-                    rightOnPress={this.onEditPress}
-                >
-                </NavBar>
-
-                <Image source={{ uri: `data:image/gif;base64,${this.state.avatar}` }} style={styles.photo} />
-
-                <View elevation={5} style={styles.statsGrid}>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Sessions</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.sessions}
-                            </Text>
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Time</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.time}
-                            </Text>
-                        </Row>
-                    </Col>
-                </View>
-
-                <View elevation={5} style={styles.infoGrid}>
-                    <Text style={styles.info}>{this.state.fullname}</Text>
-                    <Text style={styles.info}>@{this.state.username}</Text>
-                    <Text style={styles.info}>{this.state.email}</Text>
-                </View>
 
                     <Button label={'Account Settings'} onPress={() => this.onAccountSettingsPress()} />
                     <Button label={'Log Out'} onPress={() => this.onLogoutPress()} />
-            </View>
-        ))
+                </View>
+            ))
     }
 }
