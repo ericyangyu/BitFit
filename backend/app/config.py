@@ -45,8 +45,8 @@ real_config = {
 
 # Initalize a Firebase connection to the databse using pyrebase
 # Choose which credentials to initalize the app with
-firebase = pyrebase.initialize_app(test_config)
-# firebase = pyrebase.initialize_app(real_config)
+# firebase = pyrebase.initialize_app(test_config)
+firebase = pyrebase.initialize_app(real_config)
 
 # Create database and authentification variables for Firebase
 db = firebase.database()
