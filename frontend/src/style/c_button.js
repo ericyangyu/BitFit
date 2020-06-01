@@ -4,17 +4,16 @@
  * Authors: ?
  */
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     // Style the button itself
     buttonContainer: {
-        width: "100%",
+        width: 320,
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#000020",
+        backgroundColor: "#778899",
         marginBottom: 10,
-        paddingVertical: 10,
+        paddingVertical: 0,
         borderRadius: 5,
         borderWidth: StyleSheet.hairlineWidth,
     },
@@ -22,10 +21,10 @@ export default StyleSheet.create({
     text: {
         color: "#ffffff",
         textAlign: "center",
-        height: 26,
+        height: 45,
         fontSize: 20,
-        fontFamily: 'sans-serif-light',
-        fontWeight: '100'
+        fontWeight: '100',
+        paddingTop: 12
     },
     disabled: {
         opacity: 0.4

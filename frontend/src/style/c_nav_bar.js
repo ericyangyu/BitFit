@@ -9,8 +9,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         width: "100%",
-        paddingBottom: 0,
-        paddingTop: "5%",
+        paddingTop: "10%",
         paddingLeft: "5%",
         paddingRight: "5%",
         flexDirection: "row",
@@ -19,8 +18,8 @@ export default StyleSheet.create({
     button: {
         width: 55,
         height: 55,
-        borderRadius: 100,
-        backgroundColor: 'white'
+        borderRadius: 150,
+        //backgroundColor: 'white'
     },
     disabled: {
         opacity: 0.4

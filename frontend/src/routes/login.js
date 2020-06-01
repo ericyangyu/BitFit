@@ -6,12 +6,14 @@
  */
 
 // External imports
-import React, { Component } from 'react';
-import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
+import React from 'react';
+import { Image, View,TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
+
 import { Actions } from 'react-native-router-flux';
-import axios from "axios";
+// import axios from "axios";
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_login';
@@ -23,12 +25,13 @@ import TextField from "../components/text_field";
 
 // Images
 import logo from "../images/logo.png";
-import blue from '../images/login_background.png';
+import blue from '../images/login_background.jpg';
 
 /**
  * Class that returns the Login page with correct components and API calls.
  */
-export default class Login extends Component {
+export default class Login extends React.Component {
+
     // Call the super constructor and initalize a state variable
     constructor(props) {
         super(props)
@@ -72,7 +75,7 @@ export default class Login extends Component {
         */
 
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/user/login';
+        let url = 'user/login';
         let data = {
             'email': this.state.email,
             'password': this.state.password
@@ -80,7 +83,7 @@ export default class Login extends Component {
         // let uid = "";
 
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then(response => {
                 /* Navigate to progress page and pass uid as prop. This allows
@@ -94,7 +97,7 @@ export default class Login extends Component {
                 Alert.alert(
                     'Invalid Credentials',
                     "Please try again.",
-                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    [{ text: 'Ok'}],
                     { cancelable: false }
                 );
 
@@ -119,29 +122,35 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Image source={blue} style={styles.backgroundImage} />
                 <Image source={logo} style={styles.logo} />
-                <View style={styles.form}>
-                    <Input
-                        value={this.state.email}
-                        onChangeText={this.handleEmailChange}
-                        placeholder={"Email"}
-                    />
-                    <Input
-                        value={this.state.password}
-                        onChangeText={this.handlePasswordChange}
-                        placeholder={"Password"}
-                        secureTextEntry={true}
-                    />
-                    <Button
-                        label={"Login"}
-                        onPress={this.handleLoginPress}
-                        disabled={!this.state.email || !this.state.password}
-                    />
-                    <TouchableOpacity onPress={this.goToSignUp} >
-                        <TextField style={styles.buttonTextStyle}>
-                            Do not have an account? Register here.
-                    </TextField>
-                    </TouchableOpacity>
-                </View>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.form}>
+                            <Input
+                                value={this.state.email}
+                                onChangeText={this.handleEmailChange}
+                                placeholder={"Email"}
+                                autoCorrect={false}
+                            />
+                            <Input
+                                value={this.state.password}
+                                onChangeText={this.handlePasswordChange}
+                                placeholder={"Password"}
+                                secureTextEntry={true}
+                                autoCorrect={false}
+                            />
+                            <Button
+                                label={"Login"}
+                                onPress={this.handleLoginPress}
+                                disabled={!this.state.email || !this.state.password}
+                            />
+                            <TouchableOpacity onPress={this.goToSignUp} >
+                                <TextField style={styles.buttonTextStyle}>
+                                    Do not have an account? Register here.
+                                </TextField>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
             </View>
         );
     }

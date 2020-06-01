@@ -7,85 +7,64 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    spinnerTextStyle: {
-        color: '#FFF'
-    },
-    spinnerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF'
-    },
     container: {
+        flex: 1,
         backgroundColor: '#e7e7e7',
-        marginTop: 0,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
-    progressbar: {
-        marginTop: 13
+    backImage: {
+        width: "100%",
+        height: "30%",
+        opacity: 1.8,
+        position: "absolute"
     },
-    imageStyle: {
-        width: 65,
-        height: 65,
-        backgroundColor: 'white',
-        borderRadius: 100
-    },
-    buttonStyle: {
-        marginTop: 10,
-        marginBottom: 10,
-        paddingBottom: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        backgroundColor: '#212143',
-        borderRadius: 10,
-        borderColor: '#fff',
-    },
-    buttonTextStyle: {
-        fontSize: 20,
-        textAlign: 'center',
-        fontWeight: '100',
-        marginBottom: 0,
-        color: '#fff'
-    },
-    headerStyle: {
-        fontSize: 50,
-        fontFamily: 'sans-serif-light',
+    header: {
+        fontSize: 60,
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
     },
-    textStyle: {
-        fontSize: 20,
-        fontFamily: 'monospace',
-        textAlign: 'center',
-        fontWeight: '100',
-        marginBottom: 0
-    },
     whiteBox1: {
         backgroundColor: 'white',
-        width: 380,
-        height: 75,
-        padding: 20,
-        marginVertical: 0,
-        marginHorizontal: 5,
-        borderRadius: 20
-
+        width: "90%",
+        borderRadius: 20,
+        justifyContent: 'center',
+        padding: 25
+    },
+    levelText: {
+        width: "100%",
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: 'center',
+        fontWeight: '100',
     },
     whiteBox2: {
         backgroundColor: 'white',
-        width: 380,
-        padding: 20,
-        marginVertical: 0,
-        marginTop: -70,
-        marginBottom: -50,
-        marginHorizontal: 5,
-        borderRadius: 20
+        width: "90%",
+        borderRadius: 20,
+        justifyContent: 'space-between',
+        paddingTop: 20
     },
-    buttonView: {
-        backgroundColor: '#e7e7e7',
-        marginTop: 90,
-        marginLeft: 20,
-        marginRight: 20,
-        alignItems: 'center'
+    progressText: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: '100',
+    },
+    row: {
+        height: 40
+    },
+    nav: {
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        width: "100%",
+        backgroundColor: "#778899",
+        height: "10%"
+    },
+    navText: {
+        color: 'white',
+        textAlign: "center",
+        width: "100%"
     }
 });

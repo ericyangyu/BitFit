@@ -21,7 +21,7 @@ export default class NavBar extends Component {
 
         const leftStyle = leftDisabled ? [styles.button, styles.disabled] : styles.button
         const rightStyle = rightDisabled ? [styles.button, styles.disabled] : styles.button
-
+        console.log(leftDisabled);
         return right ? (
             <View style={styles.container}>
                 <TouchableOpacity disabled={leftDisabled} onPress={leftOnPress}>

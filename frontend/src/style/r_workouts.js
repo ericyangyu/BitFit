@@ -36,11 +36,17 @@ export default StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 0,
     },
-    focusImage: { width: 180, height: 180, alignSelf: 'center' },
+    focusImage: { 
+        width: 180, 
+        height: 180, 
+        alignSelf: 'center',
+        //marginBottom: "50%"
+    },
     buttonStyle: {
         flexDirection: 'row',
         alignSelf: 'center',
-        marginVertical: 40,
+        paddingTop: 100,
+        marginBottom: "-30%"
     },
     buttonTextStyle: {
         fontSize: 20,
@@ -51,6 +57,7 @@ export default StyleSheet.create({
     },
     topButton: {
         width: 55,
-        height: 55
+        height: 55,
+        borderRadius: 150,
     },
 });

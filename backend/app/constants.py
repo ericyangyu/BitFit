@@ -1,6 +1,5 @@
 """
 File that contains all data for BitFit.
-
 Author: Imran Matin
 """
 

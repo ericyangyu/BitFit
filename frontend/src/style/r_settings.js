@@ -5,77 +5,76 @@
  */
 
 import {StyleSheet} from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "#f3ebe1"
-    },
-    scrollView: {
+        backgroundColor: '#e7e7e7',
+        alignItems: 'center',
         width: "100%",
+        height: Dimensions.get('window').height
+        
     },
-    topBar: {
+    scroll: {
         width: "100%",
-        paddingBottom: 0,
-        paddingTop: "5%",
-        paddingLeft: "5%",
-        paddingRight: "5%",
-        flexDirection: "row",
-        justifyContent: "space-between"
+        height: "100%",
     },
-    topButton: {
-        width: 55,
-        height: 55
+    innerContainer: {
+        position: 'absolute',
+        top: "30%",
+        width: "100%",
+        height: "70%",
+    },
+    backImage: {
+        width: "100%",
+        height: "30%",
+        opacity: 1.8,
+        position: "absolute"
+    },
+    top: {
+        width: "100%",
+        height: "30%",
+        position: 'absolute',
     },
     header: {
-        width: "100%",
-        fontSize: 30,
-        color: "#243454",
-        fontWeight: 'bold',
-        fontStyle: 'italic',
-        margin: "5%",
-        marginBottom: "2.5%"
+        fontSize: 55,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: '100',
+        marginTop: "12.5%"
     },
-    input: {
-        height: 55,
-        width: "80%",
-        fontSize: 25,
-        marginBottom: "5%",
-        alignSelf: 'center',
-        color: "#434343",
-        borderColor: "#434343",
-        borderBottomWidth: StyleSheet.hairlineWidth,
+    dropDownButton: {
+        aspectRatio: 1,
+        width: 30,
+        height: 30 
+    },
+    box: {
+        backgroundColor: 'white',
+        width: "90%",
+        height: 65,
+        padding: 20,
+        paddingBottom: 0,
+        borderRadius: 20,
+        marginTop: "10%",
+        alignSelf: 'center'
+    },
+    longBox: {
+        height: 355
+    },
+    headerBox: {
+        width: "100%",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10
+    },
+    title: {
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: '100',
+        justifyContent: 'center'
     },
     button: {
-        width: "80%",
         alignSelf: 'center',
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#243454",
-        margin: "2.5%",
-        marginTop: 0,
-        marginBottom: 0,
-        paddingVertical: 12,
-        borderRadius: 4,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "rgba(255,255,255,0.7)"
-    },
-    delete: {
-        backgroundColor: '#910000',
-        marginBottom: "5%"
-    },
-    disabledB: {
-        opacity: 0.3,
-        backgroundColor: "#243454"
-    },
-    buttonT: {
-        color: "#ffffff",
-        textAlign: "center",
-        height: 20
-    },
-    disabledT: {
-        color: 'black'
     }
 });

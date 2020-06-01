@@ -8,9 +8,10 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
+
 // Stylesheet
 import styles from '../style/r_activitylog';
 
@@ -20,6 +21,7 @@ import LoadingScreen from "../components/loading"
 
 // Images
 import backButton from '../images/back_button.png'
+import blue from '../images/background.jpg';
 
 /**
  * Class that returns the the Activity Log page with the workouts rendered
@@ -33,7 +35,7 @@ export default class ActivityLog extends Component {
 
     // Route to the progress page when progress button is pressed
     goToProgress = () => {
-        Actions.progress({ uid: this.props.uid })
+        Actions.pop()
     }
 
     // Creates a new state variable that contains a list of reformatted workout objects of size x
@@ -62,12 +64,12 @@ export default class ActivityLog extends Component {
     // Makes the Axios call get the completed workouts for this user, then calls function to parse it
     componentDidMount() {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/workouts/get_completed_workouts';
+        let url = 'workouts/get_completed_workouts';
         let info = {
             'uid': this.props.uid
         };
         // Make API call
-        axios.post(url, info)
+        api.post(url, info)
             // Success
             .then(response => {
                 // Save the list of trophies returned and now loading screen can be removed
@@ -111,6 +113,11 @@ export default class ActivityLog extends Component {
         if (this.state.workouts.length === 0) {
             return (
                 <View style={styles.container}>
+                    {/* <Image source={blue} style={styles.backgroundImage} /> */}
+                    <Image
+                        style={{ width: "120%", height: 200, opacity: 1.8, position: 'absolute' }}
+                        source={blue}
+                    />
                     <TouchableOpacity onPress={() => this.goToProgress()}>
                         <Image source={backButton} style={styles.topButton} />
                     </TouchableOpacity>
@@ -126,13 +133,17 @@ export default class ActivityLog extends Component {
 
         return (
             <View style={styles.container}>
+                <Image
+                    style={{ width: "120%", height: 200, opacity: 1.8, position: 'absolute' }}
+                    source={blue}
+                />
                 <TouchableOpacity onPress={() => this.goToProgress()}>
                     <Image source={backButton} style={styles.topButton} />
                 </TouchableOpacity>
                 <Text style={styles.header}>
                     Activity Log
                 </Text>
-                <View>
+                <View style={{marginBottom:"15%"}}>
                     <FlatList
                         style={styles.flatList}
                         data={this.state.workouts}

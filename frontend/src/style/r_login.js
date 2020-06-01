@@ -23,30 +23,73 @@ export default StyleSheet.create({
     },
     logo: {
         flex: 1,
-        width: "80%",
+        width: "65%",
         resizeMode: "contain",
         alignSelf: "center",
-        marginVertical: 0,
-        marginTop: 10,
-        marginBottom: 10
+        marginBottom: "5%",
+        marginTop: "10%"
     },
     buttonTextStyle: {
         fontSize: 16,
         textAlign: 'center',
         fontWeight: '100',
-        marginBottom: 0,
-        color: '#838383',
-        fontFamily:'sans-serif-light'
+        color: '#778899',
     },
     form: {
         justifyContent: "center",
-        width: "80%",
         backgroundColor: 'white',
-        width: 380,
+        width: '100%',
         padding: 20,
-        marginVertical: 0,
-        marginBottom: 30,
-        marginHorizontal: 0,
-        borderRadius: 15
+        borderRadius: 15,
+        marginBottom: "10%"
     }
 });
+/*
+<View style={styles.container}>
+<Image style={styles.backgroundImage} source={blue} />
+<TouchableOpacity onPress={this._pickImage}>
+    <Image
+        style={styles.photoStyle}
+        resizeMode='cover'
+        source={{ uri: `data:image/gif;base64,${this.state.avatar}` }}
+    />
+</TouchableOpacity>
+<KeyboardAvoidingView
+    behavior={Platform.OS == "ios" ? "padding" : "height"}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.form}>
+            <Input
+                value={this.state.username}
+                onChangeText={this.handleUserNameChange}
+                placeholder={"Username..."}
+            />
+            <Input
+                value={this.state.fullname}
+                onChangeText={this.handleFullNameChange}
+                placeholder={"Full name..."}
+            />
+            <Input
+                value={this.state.email}
+                onChangeText={this.handleEmailChange}
+                placeholder={"Email..."}
+            />
+            <Input
+                value={this.state.password}
+                onChangeText={this.handlePasswordChange}
+                placeholder={"Password..."}
+            />
+            <Button
+                label={"Sign Up"}
+                onPress={this.handleSignUpPress}
+                disabled={!this.state.username || !this.state.fullname || !this.state.email || !this.state.password}
+
+            />
+            <TouchableOpacity onPress={this.goToLogIn} >
+                <Text style={styles.buttonTextStyle}>
+                    Already have an account? Login here.
+        </Text>
+            </TouchableOpacity>
+        </View>
+    </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+</View> */

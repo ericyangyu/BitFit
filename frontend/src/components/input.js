@@ -6,7 +6,7 @@
 
  // External imports
 import React, { Component } from 'react';
-import { StyleSheet, TextInput } from "react-native";
+import { TextInput } from "react-native";
 
 // Internal imports
 import styles from "../style/c_input";
@@ -18,10 +18,10 @@ export default class Input extends Component {
     // save the props from when the button is rendered
     // TODO: How does ...otherProps work?
     render() {
-        const { style, ...otherProps } = this.props;
+        const { style, hide, ...otherProps } = this.props;
     
         // Return a styled TextInput component with its original props
-        return (
+        return hide ? null : (
             <TextInput
             selectionColor={"#02075d"}
             style={[styles.input, style]}

@@ -4,23 +4,28 @@
  * 
  * Author: Nour
  */
- 
+
 // External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_settings';
 
 // Components
 import Input from "../components/input";
+import Button from "../components/button";
+import NavBar from "../components/nav_bar";
 
 // Images
 import backButton from '../images/back_button.png'
+import blue from '../images/background.jpg'
+import sideButton from '../images/sideButton.png'
+import downButton from '../images/downButton.png'
 
 /**
  * Class that returns the Account Settings page with correct components and API calls.
@@ -41,12 +46,12 @@ export default class Settings extends Component {
             newPassword: "",
             rePassword: "",
             emailD: "",
-            passwordD: ""
+            passwordD: "",
+            showEmail: false,
+            showPassword: false,
+            showDelete: false,
+            title: "Account Settings"
         }
-    }
-
-    onBackPress = () => {
-        Actions.profile({ uid: this.state.uid })
     }
 
     onBackPress = () => {
@@ -54,24 +59,51 @@ export default class Settings extends Component {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid}) },
-                 { text: 'NO' }],
+                [{ text: 'Yes', onPress: () => {
+                    Actions.pop()
+                    setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                } },
+                { text: 'No' }],
                 { cancelable: false }
             );
         } else {
-            Actions.profile({ uid: this.state.uid})
+            Actions.pop()
         }
     }
 
+    onEmailDropDownPress = () => {
+        this.setState({
+            showEmail: !this.state.showEmail,
+            showPassword: false,
+            showDelete: false
+        })
+    }
+
+    onPasswordDropDownPress = () => {
+        this.setState({
+            showEmail: false,
+            showPassword: !this.state.showPassword,
+            showDelete: false
+        })
+    }
+
+    onDeleteDropDownPress = () => {
+        this.setState({
+            showEmail: false,
+            showPassword: false,
+            showDelete: !this.state.showDelete
+        })
+    }
+
     editsMade = () => {
-        return (this.state.currEmail || this.state.password || this.state.newEmail || this.state.reEmail || 
-                this.state.email || this.state.currPassword || this.state.newPassword || this.state.rePassword || 
-                 this.state.emailD || this.state.passwordD)
+        return (this.state.currEmail || this.state.password || this.state.newEmail || this.state.reEmail ||
+            this.state.email || this.state.currPassword || this.state.newPassword || this.state.rePassword ||
+            this.state.emailD || this.state.passwordD)
     }
 
     disableEmail = () => {
         return !(this.state.currEmail && this.state.password && this.state.newEmail && this.state.reEmail)
-        
+
     }
 
     disablePassword = () => {
@@ -87,7 +119,7 @@ export default class Settings extends Component {
             Alert.alert(
                 'Mismatched Emails',
                 "New email fields must match.",
-                [{text: 'OK', onPress: () => { this.setState({ currEmail: "", password: "", newEmail: "", reEmail: "" }) }}],
+                [{ text: 'OK', onPress: () => { this.setState({ currEmail: "", password: "", newEmail: "", reEmail: "" }) } }],
                 { cancelable: false }
             );
 
@@ -95,32 +127,32 @@ export default class Settings extends Component {
         }
 
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/update_credentials';
+        let url = 'user/update_credentials';
         let data = {
             'uid': this.state.uid,
             'email': this.state.currEmail,
             'password': this.state.password,
             'u_email': this.state.newEmail
         };
-        
+
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
-            .then( () => {
+            .then(() => {
                 Alert.alert(
                     'Email updated.',
                     "You can now use your updated email to login.",
-                    [{text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) }}],
+                    [{ text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) } }],
                     { cancelable: false }
                 );
             })
-            
+
             // Error
-            .catch( () => {
+            .catch(() => {
                 Alert.alert(
                     'Invalid Credentials',
                     "You either entered an incorrect email/password combination or your new email is invalid or taken. Please try again.",
-                    [{text: 'OK', onPress: () => { this.setState({ currEmail: "", password: "", newEmail: "", reEmail: "" }) }}],
+                    [{ text: 'OK', onPress: () => { this.setState({ currEmail: "", password: "", newEmail: "", reEmail: "" }) } }],
                     { cancelable: false }
                 );
             });
@@ -147,7 +179,7 @@ export default class Settings extends Component {
             Alert.alert(
                 'Mismatched Passwords',
                 "New password fields must match.",
-                [{text: 'OK', onPress: () => { this.setState({ email: "", currPassword: "", newPassword: "", rePassword: "" }) }}],
+                [{ text: 'OK', onPress: () => { this.setState({ email: "", currPassword: "", newPassword: "", rePassword: "" }) } }],
                 { cancelable: false }
             );
 
@@ -155,32 +187,32 @@ export default class Settings extends Component {
         }
 
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/update_credentials';
+        let url = 'user/update_credentials';
         let data = {
             'uid': this.state.uid,
             'email': this.state.email,
             'password': this.state.currPassword,
             'u_password': this.state.newPassword
         };
-        
+
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
-            .then( () => {
+            .then(() => {
                 Alert.alert(
                     'Password updated.',
                     "You can now use your updated password to login.",
-                    [{text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) }}],
+                    [{ text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) } }],
                     { cancelable: false }
                 );
             })
-            
+
             // Error
-            .catch( () => {
+            .catch(() => {
                 Alert.alert(
                     'Invalid Credentials',
                     "You either entered an incorrect email/password combination or your new password is less than 6 characters. Please try again.",
-                    [{text: 'OK', onPress: () => { this.setState({ email: "", currPassword: "", newPassword: "", rePassword: "" }) }}],
+                    [{ text: 'OK', onPress: () => { this.setState({ email: "", currPassword: "", newPassword: "", rePassword: "" }) } }],
                     { cancelable: false }
                 );
             });
@@ -214,60 +246,62 @@ export default class Settings extends Component {
         Alert.alert(
             'This action in irevertible!',
             "All your data will be lost. Are you sure you want to continue?",
-            [{ text: 'YES', onPress: () => { 
-                // Call user API to get user info
-                let url = 'http://10.0.2.2:4200/apis/user/delete';
-                let data = {
-                    'uid': this.state.uid,
-                    'email': this.state.emailD,
-                    'password': this.state.passwordD,
-                };
-                
-                // Make API call
-                axios.post(url, data)
-                    // Success
-                    .then( () => {
-                        Alert.alert(
-                            'Account deleted.',
-                            "We're sad to see you go!",
-                            [{text: 'OK', onPress: () => Actions.login() }],
-                            { cancelable: false }
-                        );
-                    })
-                    
-                    // Error
-                    .catch( () => {
-                        Alert.alert(
-                            'Invalid Credentials',
-                            "Please try again.",
-                            [{text: 'OK', onPress: () => { this.setState({ emailD: "", passwordD: "" }) }}],
-                            { cancelable: false }
-                        );
-                    });
-            }},
-            { text: 'NO', onPress: () => this.setState({ emailD: "", passwordD: "" }) }],
+            [{
+                text: 'Yes', onPress: () => {
+                    // Call user API to get user info
+                    let url = 'user/delete';
+                    let data = {
+                        'uid': this.state.uid,
+                        'email': this.state.emailD,
+                        'password': this.state.passwordD,
+                    };
+
+                    // Make API call
+                    api.post(url, data)
+                        // Success
+                        .then(() => {
+                            Alert.alert(
+                                'Account deleted.',
+                                "We're sad to see you go!",
+                                [{ text: 'OK', onPress: () => Actions.login() }],
+                                { cancelable: false }
+                            );
+                        })
+
+                        // Error
+                        .catch(() => {
+                            Alert.alert(
+                                'Invalid Credentials',
+                                "Please try again.",
+                                [{ text: 'OK', onPress: () => { this.setState({ emailD: "", passwordD: "" }) } }],
+                                { cancelable: false }
+                            );
+                        });
+                }
+            },
+            { text: 'No', onPress: () => this.setState({ emailD: "", passwordD: "" }) }],
             { cancelable: false }
         );
     }
 
     componentDidMount() {
         // Call user API to get user info
-        let url = 'http://10.0.2.2:4200/apis/user/get';
+        let url = 'user/get';
         let data = {
             'uid': this.props.uid
         };
-        
+
         // Make API call
-        axios.post(url, data)
+        api.post(url, data)
             // Success
-            .then( () => {
+            .then(() => {
                 /* Set the state for this page to include the relevant user 
                 information returned from the API call */
                 this.setState({
                     uid: this.props.uid
                 })
             })
-            
+
             // Error
             .catch(error => {
                 // Log error 
@@ -286,111 +320,162 @@ export default class Settings extends Component {
     }
 
     render() {
-        let emailButtonStyle = !this.disableEmail() ? styles.button : [styles.button, styles.disabledB];
-        let emailTextStyle = !this.disableEmail() ? styles.buttonT : [styles.buttonT, styles.disabledT];
-
-        let passwordButtonStyle = !this.disablePassword() ? styles.button : [styles.button, styles.disabledB];
-        let passwordTextStyle = !this.disablePassword() ? styles.buttonT : [styles.buttonT, styles.disabledT];
-
-        let deleteButtonStyle = !this.disableDelete() ? [styles.button, styles.delete] : [styles.button, styles.delete, styles.disabledB];
-        let deleteTextStyle = !this.disableDelete() ? styles.buttonT : [styles.buttonT, styles.disabledT];
+        let emailButton = this.state.showEmail ? downButton : sideButton
+        let emailBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
+        let passwordButton = this.state.showPassword ? downButton : sideButton
+        let passwordBoxStyle = this.state.showPassword ? [styles.box, styles.longBox] : styles.box
+        let deleteButton = this.state.showDelete ? downButton : sideButton
+        let deleteBoxStyle = this.state.showDelete ? [styles.box, styles.longBox, {height: 245}] : styles.box
 
         return (
-        <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                <View style={styles.topBar}>
-                    <TouchableOpacity onPress={() => this.onBackPress()}>
-                        <Image source={backButton} style={styles.topButton} />
-                    </TouchableOpacity>
-                </View>
+            <ScrollView style={styles.scroll}>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                    <View style={styles.container}>
+                        
+                        <Image style={styles.backImage} source={blue} />
 
-                <Text style={styles.header}>Change Email</Text>
-                
-                <Input
-                    value={this.state.currEmail}
-                    style={styles.input}
-                    onChangeText={this.onCurrEmailChange}
-                    placeholder={"Email"}
-                />
-                <Input
-                    value={this.state.password}
-                    style={styles.input}
-                    onChangeText={this.onPasswordChange}
-                    placeholder={"Password"}
-                    secureTextEntry={true}
-                />
-                <Input
-                    value={this.state.newEmail}
-                    style={styles.input}
-                    onChangeText={this.onNewEmailChange}
-                    placeholder={"New Email"}
-                />
-                <Input
-                    value={this.state.reEmail}
-                    style={styles.input}
-                    onChangeText={this.onReEmailChange}
-                    placeholder={"Re-enter New Email"}
-                />
+                        <NavBar
+                            left={backButton}
+                            leftDisabled={false}
+                            leftOnPress={this.onBackPress}>
+                        </NavBar>
 
-                <TouchableOpacity disabled={this.disableEmail()} style={emailButtonStyle} onPress={this.onEmailPress}>
-                    <Text style={emailTextStyle}>CHANGE EMAIL</Text>
-                </TouchableOpacity>
+                        
+                        <Text style={styles.header}>{this.state.title}</Text>
 
-                <Text style={styles.header}>Change Password</Text>
+                        <View style={styles.innerContainer}>
+                            
+                            <View style={emailBoxStyle}>
+                                <View style={styles.headerBox}>
+                                    <Text style={styles.title}>Update Email</Text>
+                                    <TouchableOpacity onPress={this.onEmailDropDownPress}>
+                                        <Image source={emailButton} style={styles.dropDownButton}></Image>
+                                    </TouchableOpacity>
+                                </View>
 
-                <Input
-                    value={this.state.email}
-                    style={styles.input}
-                    onChangeText={this.onEmailChange}
-                    placeholder={"Email"}
-                />
-                <Input
-                    value={this.state.currPassword}
-                    style={styles.input}
-                    onChangeText={this.onCurrPasswordChange}
-                    placeholder={"Password"}
-                    secureTextEntry={true}
-                />
-                <Input
-                    value={this.state.newPassword}
-                    style={styles.input}
-                    onChangeText={this.onNewPasswordChange}
-                    placeholder={"New Password"}
-                    secureTextEntry={true}
-                />
-                <Input
-                    value={this.state.rePassword}
-                    style={styles.input}
-                    onChangeText={this.onRePasswordChange}
-                    placeholder={"Re-enter New Password"}
-                    secureTextEntry={true}
-                />
+                                <Input
+                                    hide={!this.state.showEmail}
+                                    value={this.state.currEmail}
+                                    style={styles.input}
+                                    onChangeText={this.onCurrEmailChange}
+                                    placeholder={"Email"}
+                                />
+                                <Input
+                                    hide={!this.state.showEmail}
+                                    value={this.state.password}
+                                    style={styles.input}
+                                    onChangeText={this.onPasswordChange}
+                                    placeholder={"Password"}
+                                    secureTextEntry={true}
+                                />
+                                <Input
+                                    hide={!this.state.showEmail}
+                                    value={this.state.newEmail}
+                                    style={styles.input}
+                                    onChangeText={this.onNewEmailChange}
+                                    placeholder={"New Email"}
+                                />
+                                <Input
+                                    hide={!this.state.showEmail}
+                                    value={this.state.reEmail}
+                                    style={styles.input}
+                                    onChangeText={this.onReEmailChange}
+                                    placeholder={"Confirm New Email"}
+                                />
+                                <Button 
+                                    style={styles.button} 
+                                    hide={!this.state.showEmail}
+                                    disabled={this.disableEmail()}
+                                    label="Update Email"
+                                    onPress={this.onEmailPress} >
 
-                <TouchableOpacity disabled={this.disablePassword()} style={passwordButtonStyle} onPress={this.onPasswordPress}>
-                    <Text style={passwordTextStyle}>CHANGE PASSWORD</Text>
-                </TouchableOpacity>
-                
-                <Text style={styles.header}>Delete Account</Text>
+                                </Button>
+                            </View>
 
-                <Input
-                    value={this.state.emailD}
-                    style={styles.input}
-                    onChangeText={this.onEmailDChange}
-                    placeholder={"Email"}
-                />
-                <Input
-                    value={this.state.passwordD}
-                    style={styles.input}
-                    onChangeText={this.onPasswordDChange}
-                    placeholder={"Password"}
-                    secureTextEntry={true}
-                />
+                            <View style={passwordBoxStyle}>
+                                <View style={styles.headerBox}>
+                                    <Text style={styles.title}>Update Password</Text>
+                                    <TouchableOpacity onPress={this.onPasswordDropDownPress}>
+                                        <Image source={passwordButton} style={styles.dropDownButton}></Image>
+                                    </TouchableOpacity>
+                                </View>
 
-                <TouchableOpacity disabled={this.disableDelete()} style={deleteButtonStyle} onPress={this.onDeletePress}>
-                    <Text style={deleteTextStyle}>DELETE ACCOUNT </Text>
-                </TouchableOpacity>
+                                <Input
+                                    hide={!this.state.showPassword}
+                                    value={this.state.email}
+                                    style={styles.input}
+                                    onChangeText={this.onEmailChange}
+                                    placeholder={"Email"}
+                                />
+                                <Input
+                                    hide={!this.state.showPassword}
+                                    value={this.state.currPassword}
+                                    style={styles.input}
+                                    onChangeText={this.onCurrPasswordChange}
+                                    placeholder={"Password"}
+                                    secureTextEntry={true}
+                                />
+                                <Input
+                                    hide={!this.state.showPassword}
+                                    value={this.state.newPassword}
+                                    style={styles.input}
+                                    onChangeText={this.onNewPasswordChange}
+                                    placeholder={"New Password"}
+                                    secureTextEntry={true}
+                                />
+                                <Input
+                                    hide={!this.state.showPassword}
+                                    value={this.state.rePassword}
+                                    style={styles.input}
+                                    onChangeText={this.onRePasswordChange}
+                                    placeholder={"Confirm New Password"}
+                                    secureTextEntry={true}
+                                />
+
+                                <Button 
+                                    style={styles.button} 
+                                    hide={!this.state.showPassword}
+                                    disabled={this.disablePassword()}
+                                    label="Update Password"
+                                    onPress={this.onPasswordPress} >
+                                </Button>
+                            </View>
+
+                            <View style={[deleteBoxStyle]}>
+                                <View style={styles.headerBox}>
+                                    <Text style={styles.title}>Delete Account</Text>
+                                    <TouchableOpacity onPress={this.onDeleteDropDownPress}>
+                                        <Image source={deleteButton} style={styles.dropDownButton}></Image>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <Input
+                                    hide={!this.state.showDelete}
+                                    value={this.state.emailD}
+                                    style={styles.input}
+                                    onChangeText={this.onEmailDChange}
+                                    placeholder={"Email"}
+                                />
+                                <Input
+                                    hide={!this.state.showDelete}
+                                    value={this.state.passwordD}
+                                    style={styles.input}
+                                    onChangeText={this.onPasswordDChange}
+                                    placeholder={"Password"}
+                                    secureTextEntry={true}
+                                />
+                                <Button 
+                                    style={styles.button} 
+                                    hide={!this.state.showDelete}
+                                    disabled={this.disableDelete()}
+                                    label="Delete Account"
+                                    onPress={this.onDeletePress} >
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </KeyboardAvoidingView>
             </ScrollView>
-        </View>
         )
     }
 }

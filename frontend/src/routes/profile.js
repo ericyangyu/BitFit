@@ -8,13 +8,18 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
-import PhotoUpload from 'react-native-photo-upload'
-import axios from 'axios';
+import axios from 'axios'
+
+// DEBUG
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 // Internal imports
+import api from '../config'
 
 // Stylesheet
 import styles from '../style/r_profile';
@@ -29,8 +34,8 @@ import LoadingScreen from "../components/loading"
 import backButton from '../images/back_button.png'
 import editButton from '../images/edit_button.png'
 import saveButton from '../images/save_button.png'
-import {defaultPhoto} from '../images/default_photo.js';
-import blue from '../images/blue.jpg'
+import { defaultPhoto } from '../images/default_photo.js';
+import blue from '../images/background.jpg'
 
 /**
  * Class that returns the Profile page with correct components and API calls.
@@ -64,25 +69,26 @@ export default class Profile extends Component {
     }
 
     onBackPress = () => {
-        if (this.state.edit) {
-            if (this.editsMade()) {
-                Alert.alert(
-                    'You have some unsaved changes!',
-                    "Are you sure you want to go back?",
-                    [{ text: 'YES', onPress: () => Actions.profile({ uid: this.state.uid }) },
-                    { text: 'NO' }],
-                    { cancelable: false }
-                );
-            } else {
-                Actions.profile({ uid: this.state.uid })
-            }
+        if (this.state.edit && this.editsMade()) {
+            Alert.alert(
+                'You have some unsaved changes!',
+                "Are you sure you want to go back?",
+                [{ text: 'Yes', onPress: () => {
+                    Actions.pop()
+                    setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                } },
+                { text: 'No' }],
+                { cancelable: false }
+            );
         } else {
-            Actions.progress({ uid: this.state.uid })
+            Actions.pop()
+            setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
         }
     }
 
     onEditPress = () => {
         Actions.profile({ uid: this.state.uid, edit: true })
+        this.getPermissionAsync()
     }
 
     onSavePress = () => {
@@ -90,9 +96,9 @@ export default class Profile extends Component {
             'Are you sure you want to save your changes?',
             "",
             [{
-                text: 'YES', onPress: () => {
+                text: 'Yes', onPress: () => {
                     // Call user API to get user info
-                    let url = 'http://10.0.2.2:4200/apis/user/update';
+                    let url = 'user/update';
                     let data = {
                         'uid': this.props.uid
                     };
@@ -110,7 +116,7 @@ export default class Profile extends Component {
                     }
 
                     // Make API call
-                    axios.post(url, data)
+                    api.post(url, data)
                         // Success
                         .then(() => {
                             /* Set the state for this page to include the relevant user 
@@ -120,8 +126,8 @@ export default class Profile extends Component {
                                 fullname: this.state.eFullname,
                                 avatar: this.state.eAvatar
                             })
-
-                            Actions.profile({ uid: this.state.uid })
+                            Actions.pop()
+                            Actions.refresh()
                         })
 
                         // Error
@@ -144,7 +150,7 @@ export default class Profile extends Component {
                     // AXIOS CALL WHEN COMPLETED WORKOUTS API IS DONE
                 }
             },
-            { text: 'NO' }],
+            { text: 'No' }],
             { cancelable: false }
         );
 
@@ -155,8 +161,8 @@ export default class Profile extends Component {
         Alert.alert(
             'Are you sure you want to log out?',
             "You will be taken to the log in screen.",
-            [{ text: 'YES', onPress: () => Actions.login() },
-            { text: 'NO' }],
+            [{ text: 'Yes', onPress: () => Actions.login() },
+            { text: 'No' }],
             { cancelable: false }
         );
     }
@@ -167,19 +173,17 @@ export default class Profile extends Component {
 
     resetStats = () => {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/progress/reset_stats';
+        let url = 'progress/reset_stats';
         let info = {
             'uid': this.props.uid
         };
 
         // Make API call
-        axios.post(url, info)
+        api.post(url, info)
             // Success
             .then(response => {
                 this.setState({
-                    sessions: 0,
                     eSessions: 0,
-                    time: 0.0,
                     eTime: 0.0
                 })
             })
@@ -205,8 +209,8 @@ export default class Profile extends Component {
         Alert.alert(
             'This will reset all your stats!',
             "If you save, they will be lost forever. Are you sure you want to proceed?",
-            [{ text: 'YES', onPress: () => this.resetStats() },
-            { text: 'NO' }],
+            [{ text: 'Yes', onPress: () => this.resetStats() },
+            { text: 'No' }],
             { cancelable: false }
         );
     }
@@ -223,21 +227,51 @@ export default class Profile extends Component {
         Actions.settings({ uid: this.state.uid })
     }
 
+    _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+                base64: true
+            });
+            if (!result.cancelled) {
+                this.onEditPhotoPress(result.base64)
+            }
+        } catch (E) {
+            console.log(E);
+        }
+    }
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    };
+
+    componentWillReceiveProps = () => {
+        this.componentDidMount()
+    }
+
     componentDidMount = () => {
         // Call user API to get user info
-        let url1 = 'http://10.0.2.2:4200/apis/user/get';
+        let url1 = 'user/get';
         let data1 = {
             'uid': this.props.uid
         };
 
         // Indicate which API to call and what data to pass in
-        let url2 = 'http://10.0.2.2:4200/apis/workouts/get_completed_workouts';
+        let url2 = 'workouts/get_completed_workouts';
         let data2 = {
             'uid': this.props.uid
         };
 
-        const requestOne = axios.post(url1, data1);
-        const requestTwo = axios.post(url2, data2);
+        const requestOne = api.post(url1, data1);
+        const requestTwo = api.post(url2, data2);
 
         axios
             .all([requestOne, requestTwo])
@@ -290,103 +324,40 @@ export default class Profile extends Component {
     }
 
     render() {
-        const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button
-        const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button
-        const backImgStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImage : [styles.backImage, styles.longerImg]
-
+        const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button2
+        const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button2
+       
         return (this.props.edit ? (
-        <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                <Image style={backImgStyle} source={blue} />
+            <KeyboardAvoidingView style={{width: "100%", height: "100%"}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+            <ScrollView style={{width: "100%", height: "100%"}}>
+            
+            <View style={styles.container}>
+                <Image style={styles.backImageE} source={blue} />
 
-                <NavBar 
-                    left={backButton} 
+                <NavBar
+                    left={backButton}
                     leftOnPress={this.onBackPress}
                     right={saveButton}
                     rightOnPress={this.onSavePress}
                     rightDisabled={!(this.editsMade() && this.state.eUsername && this.state.eFullname && this.state.eAvatar)}
                 >
                 </NavBar>
-    
-                <PhotoUpload style={{margin: 0}}
-                    photoPickerTitle={'Upload a Profile Picture'}
-                    onPhotoSelect={eAvatar => {
-                        if (eAvatar) {
-                            this.onEditPhotoPress(eAvatar)
-                        }
-                    }}
-                >
-                    <Image
-                        style={styles.photo}
-                        resizeMode='cover'
-                        source={{uri: `data:image/gif;base64,${this.state.eAvatar}`}}
-                    />
-                </PhotoUpload>
-
-                <View style={deletePhotoStyle}>
-                    <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
-                </View>   
-
-                <Grid elevation={5} style={styles.statsGrid}>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Sessions</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.eSessions}
-                            </Text>
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            <Text style={styles.statsTitle}>Time</Text>
-                        </Row>
-                        <Row>
-                            <Text style={styles.stats}>
-                                {this.state.eTime}
-                            </Text>
-                        </Row>
-                    </Col>
-                </Grid>
-
-                <View style={resetStatsStyle}>
-                    <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                <View style={styles.viewnButton}>
+                    <TouchableOpacity onPress={this._pickImage} style={{ margin: 0 }} >
+                        <Image
+                            style={styles.photo}
+                            resizeMode='cover'
+                            source={{ uri: `data:image/gif;base64,${this.state.eAvatar}` }}
+                        />
+                    </TouchableOpacity>
+                    
+                    <View style={deletePhotoStyle}>
+                        <Button hide={this.state.eAvatar == `${defaultPhoto}`} label={'Delete Profile Photo'} onPress={() => this.onEditPhotoPress(`${defaultPhoto}`)} />
+                    </View>
                 </View>
-                
-                <View elevation={5} style={styles.inputGrid}>
-                    <Input
-                        style={styles.input}
-                        value={this.state.eFullname}
-                        onChangeText={this.onNameChange}
-                        placeholder={"Name"}
-                    />
-                    <Input
-                        style={styles.input}
-                        value={this.state.eUsername}
-                        onChangeText={this.onUsernameChange}
-                        placeholder={"Username"}
-                    />
-                </View>
-            </ScrollView>
-        </View>
 
-        ) : (
-            <View style={styles.container}>
-                <ScrollView style={styles.scrollView}>
-                    <Image style={styles.backImage} source={blue} />
-
-                    <NavBar 
-                        left={backButton} 
-                        leftOnPress={this.onBackPress}
-                        right={editButton}
-                        rightOnPress={this.onEditPress}
-                    >
-                    </NavBar>
-
-                    <Image source={{uri: `data:image/gif;base64,${this.state.avatar}`}} style={styles.photo} />
-
-                    <Grid elevation={5} style={styles.statsGrid}>
+                <View style={styles.viewnButton}>
+                    <View elevation={5} style={styles.statsGrid}>
                         <Col>
                             <Row>
                                 <Text style={styles.statsTitle}>Sessions</Text>
@@ -407,22 +378,79 @@ export default class Profile extends Component {
                                 </Text>
                             </Row>
                         </Col>
-                    </Grid>
-
-                    <View elevation={5} style={styles.infoGrid}>
-                        <Text style={styles.info}>{this.state.fullname}</Text>
-                        <Text style={styles.info}>@{this.state.username}</Text>
-                        <Text style={styles.info}>{this.state.email}</Text>
                     </View>
+                    
 
-                    <View style={styles.button}>
-                        <Button label={'Account Settings'} onPress={() => this.onAccountSettingsPress()} />
-                        <Button label={'Log Out'} onPress={() => this.onLogoutPress()} />
-                    </View> 
+                    <View style={resetStatsStyle}>
+                        <Button hide={this.state.eSessions == 0 && this.state.eTime == 0} label={'Reset Stats'} onPress={() => this.onResetStatsPress()} />
+                    </View>
+                </View>
 
-                </ScrollView>
+                <View elevation={5} style={styles.inputGrid}>
+                    <Input
+                        style={styles.input}
+                        value={this.state.eFullname}
+                        onChangeText={this.onNameChange}
+                        placeholder={"Name"}
+                    />
+                    <Input
+                        style={styles.input}
+                        value={this.state.eUsername}
+                        onChangeText={this.onUsernameChange}
+                        placeholder={"Username"}
+                    />
+                </View>
             </View>
+            
+            </ScrollView>
+            </KeyboardAvoidingView>
 
+        ) : (
+            <View style={styles.container}>
+                <Image style={styles.backImage} source={blue} />
+
+                <NavBar
+                    left={backButton}
+                    leftOnPress={this.onBackPress}
+                    right={editButton}
+                    rightOnPress={this.onEditPress}
+                >
+                </NavBar>
+
+                <Image source={{ uri: `data:image/gif;base64,${this.state.avatar}` }} style={styles.photo} />
+
+                <View elevation={5} style={styles.statsGrid}>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Sessions</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.sessions}
+                            </Text>
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Text style={styles.statsTitle}>Time</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.stats}>
+                                {this.state.time}
+                            </Text>
+                        </Row>
+                    </Col>
+                </View>
+
+                <View elevation={5} style={styles.infoGrid}>
+                    <Text style={styles.info}>{this.state.fullname}</Text>
+                    <Text style={styles.info}>@{this.state.username}</Text>
+                    <Text style={styles.info}>{this.state.email}</Text>
+                </View>
+
+                    <Button label={'Account Settings'} onPress={() => this.onAccountSettingsPress()} />
+                    <Button label={'Log Out'} onPress={() => this.onLogoutPress()} />
+            </View>
         ))
     }
 }

@@ -8,17 +8,18 @@
 
 // External Imports
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { Image, View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from "axios";
 
 // internal imports (useful components)
+import api from '../config'
 import Clock from '../components/timer_components/clock';
 import ButtonsRow from '../components/timer_components/button_row';
 import RoundButton from '../components/timer_components/round_button';
 
 // Stylesheet
 import styles from '../style/r_timer';
+import blue from '../images/login_background.jpg';
 
 /**
  * Renders the timer page, and handles calculation of leveling
@@ -54,8 +55,8 @@ export default class WorkoutTimer extends Component {
 
     get_body_parts = () => {
         // Indicate which API to call and what data to pass in
-        let url = 'http://10.0.2.2:4200/apis/bodyparts/get_body_parts';
-        axios.post(url)
+        let url = 'bodyparts/get_body_parts';
+        api.post(url)
             // Success
             .then(response => {
                 let body_parts = {}
@@ -104,14 +105,14 @@ export default class WorkoutTimer extends Component {
         /**
          * Save progress in backend
          */
-        let url = 'http://10.0.2.2:4200/apis/progress/update_stats';
+        let url = 'progress/update_stats';
         let data = {
             'uid': this.props.uid,
             'body_part_id': body_part_id,
             'exp': exp,
             'level': level
         };
-        axios.post(url, data)
+        api.post(url, data)
             .then(response => {
                 // console.log(response.data)
                 console.log("In updateStats()...")
@@ -128,7 +129,7 @@ export default class WorkoutTimer extends Component {
         const { laps, now, start } = this.state;
         const timer = now - start;
         // calculates the duration of the workout in hours rounded to 2 decimal places
-        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
+        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600 * 60).toFixed(2));
         let leveledUp = false;
 
         exp = exp + duration;
@@ -137,13 +138,13 @@ export default class WorkoutTimer extends Component {
         if (level == 0) {
             if (exp >= 1) {
                 level = 1;
-                while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
+                while (exp >= (Math.pow((level + 1), 2) - (level))) {
                     level = level + 1;
                     leveledUp = true;
                 }
             }
         } else {
-            while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
+            while (exp >= (Math.pow((level + 1), 2) - (level))) {
                 level = level + 1;
                 leveledUp = true;
             }
@@ -154,12 +155,12 @@ export default class WorkoutTimer extends Component {
 
     getStats = () => {
         let body_part_id = this.state.body_parts[this.props.focus]
-        let url = 'http://10.0.2.2:4200/apis/progress/get';
+        let url = 'progress/get';
         let data = {
             'uid': this.props.uid
         };
 
-        axios.post(url, data)
+        api.post(url, data)
             // Success
             .then(response => {
                 // need to come back here and make sure user actually has focus defined
@@ -225,6 +226,7 @@ export default class WorkoutTimer extends Component {
         const timer = now - start
         return (
             <View style={styles.container} >
+                <Image source={blue} style={styles.backgroundImage} />
                 <Clock
                     interval={laps.reduce((total, curr) => total + curr, 0) + timer}
                     style={styles.timer}
