@@ -27,6 +27,9 @@ import styles from '../style/r_bodyparts';
 import backButton from '../images/back_button.png';
 import { abs_photo } from '../images/abs';
 import { arms_photo } from '../images/arms';
+import { back_photo } from '../images/back';
+import { chest_photo } from '../images/chest';
+import { legs_photo } from '../images/legs';
 
 /**
  * Class that returns the Main Focus page with correct components and API calls.
@@ -39,7 +42,7 @@ export default class MainFocusPage extends Component {
 		this.state = {
 			bodyparts: [],
 			images: {},
-			localImages: { "Core": abs_photo, "Arms": arms_photo },
+			localImages: { "Core": abs_photo, "Arms": arms_photo, "Legs": legs_photo, "Back": back_photo, "Chest": chest_photo},
 			focus: "",
 			focus_image: "",
 			isLoading: true
