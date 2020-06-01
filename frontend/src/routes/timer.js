@@ -129,7 +129,7 @@ export default class WorkoutTimer extends Component {
         const { laps, now, start } = this.state;
         const timer = now - start;
         // calculates the duration of the workout in hours rounded to 2 decimal places
-        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600).toFixed(2));
+        const duration = parseFloat(((laps.reduce((total, curr) => total + curr, 0) + timer) / 1000 / 3600 * 60).toFixed(2));
         let leveledUp = false;
 
         exp = exp + duration;
@@ -138,13 +138,13 @@ export default class WorkoutTimer extends Component {
         if (level == 0) {
             if (exp >= 1) {
                 level = 1;
-                while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
+                while (exp >= (Math.pow((level + 1), 2) - (level))) {
                     level = level + 1;
                     leveledUp = true;
                 }
             }
         } else {
-            while ( exp >= (Math.pow((level+1), 2) - (level)) ) {
+            while (exp >= (Math.pow((level + 1), 2) - (level))) {
                 level = level + 1;
                 leveledUp = true;
             }
