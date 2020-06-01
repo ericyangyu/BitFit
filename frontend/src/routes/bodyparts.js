@@ -298,7 +298,7 @@ export default class MainFocusPage extends Component {
 				</View>
 
 				<View style={styles.buttonView}>
-					<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
+					<Button onPress={() => this.goToSuggestedWorkouts()}
 						label="Continue"
 					/>
 				</View>
