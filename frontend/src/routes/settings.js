@@ -7,7 +7,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // Internal imports
@@ -18,6 +18,7 @@ import styles from '../style/r_settings';
 
 // Components
 import Input from "../components/input";
+import Button from "../components/button";
 import NavBar from "../components/nav_bar";
 
 // Images
@@ -48,7 +49,8 @@ export default class Settings extends Component {
             passwordD: "",
             showEmail: false,
             showPassword: false,
-            showDelete: false
+            showDelete: false,
+            title: "Account Settings"
         }
     }
 
@@ -57,13 +59,40 @@ export default class Settings extends Component {
             Alert.alert(
                 'You have some unsaved changes!',
                 "Are you sure you want to go back?",
-                [{ text: 'YES', onPress: () => Actions.pop() },
-                { text: 'NO' }],
+                [{ text: 'Yes', onPress: () => {
+                    Actions.pop()
+                    setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                } },
+                { text: 'No' }],
                 { cancelable: false }
             );
         } else {
             Actions.pop()
         }
+    }
+
+    onEmailDropDownPress = () => {
+        this.setState({
+            showEmail: !this.state.showEmail,
+            showPassword: false,
+            showDelete: false
+        })
+    }
+
+    onPasswordDropDownPress = () => {
+        this.setState({
+            showEmail: false,
+            showPassword: !this.state.showPassword,
+            showDelete: false
+        })
+    }
+
+    onDeleteDropDownPress = () => {
+        this.setState({
+            showEmail: false,
+            showPassword: false,
+            showDelete: !this.state.showDelete
+        })
     }
 
     editsMade = () => {
@@ -254,8 +283,24 @@ export default class Settings extends Component {
             { cancelable: false }
         );
     }
+    
+      componentWillUnmount () {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+      }
+    
+      _keyboardDidHide = () => {
+        this.setState({title: "Account Settings"})
+      }
+    
+      _keyboardDidShow = () => {
+        this.setState({title: ""})
+      }
 
     componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+
         // Call user API to get user info
         let url = 'user/get';
         let data = {
@@ -291,24 +336,16 @@ export default class Settings extends Component {
     }
 
     render() {
-        let emailButtonStyle = !this.disableEmail() ? styles.button : [styles.button, styles.disabledB];
-        let emailTextStyle = !this.disableEmail() ? styles.buttonT : [styles.buttonT, styles.disabledT];
-
-        let passwordButtonStyle = !this.disablePassword() ? styles.button : [styles.button, styles.disabledB];
-        let passwordTextStyle = !this.disablePassword() ? styles.buttonT : [styles.buttonT, styles.disabledT];
-
-        let deleteButtonStyle = !this.disableDelete() ? [styles.button, styles.delete] : [styles.button, styles.delete, styles.disabledB];
-        let deleteTextStyle = !this.disableDelete() ? styles.buttonT : [styles.buttonT, styles.disabledT];
-
         let emailButton = this.state.showEmail ? downButton : sideButton
         let emailBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
-        let passwordButton = this.state.showEmail ? downButton : sideButton
-        let passwordBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
-        let deleteButton = this.state.showEmail ? downButton : sideButton
-        let deleteBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
+        let passwordButton = this.state.showPassword ? downButton : sideButton
+        let passwordBoxStyle = this.state.showPassword ? [styles.box, styles.longBox] : styles.box
+        let deleteButton = this.state.showDelete ? downButton : sideButton
+        let deleteBoxStyle = this.state.showDelete ? [styles.box, styles.longBox, {height: 245}] : styles.box
 
         return (
             <View style={styles.container}>
+                <KeyboardAvoidingView style={styles.kv} behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <Image style={styles.backImage} source={blue} />
 
                 <NavBar
@@ -317,22 +354,141 @@ export default class Settings extends Component {
                 </NavBar>
 
                 <View style={styles.top}>
-                    <Text style={styles.header}>Account Settings</Text>
+                    <Text style={styles.header}>{this.state.title}</Text>
                 </View>
-                <View style={styles.innerContainer}>
+
+                <ScrollView style={styles.innerContainer}>
+                    
                     <View style={emailBoxStyle}>
-                        <Text style={styles.title}>Update Email</Text>
-                        <TouchableOpacity>
-                            <Image source={emailButton} style={styles.dropDownButton}></Image>
-                        </TouchableOpacity>
+                        <View style={styles.headerBox}>
+                            <Text style={styles.title}>Update Email</Text>
+                            <TouchableOpacity onPress={this.onEmailDropDownPress}>
+                                <Image source={emailButton} style={styles.dropDownButton}></Image>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Input
+                            hide={!this.state.showEmail}
+                            value={this.state.currEmail}
+                            style={styles.input}
+                            onChangeText={this.onCurrEmailChange}
+                            placeholder={"Email"}
+                        />
+                        <Input
+                            hide={!this.state.showEmail}
+                            value={this.state.password}
+                            style={styles.input}
+                            onChangeText={this.onPasswordChange}
+                            placeholder={"Password"}
+                            secureTextEntry={true}
+                        />
+                        <Input
+                            hide={!this.state.showEmail}
+                            value={this.state.newEmail}
+                            style={styles.input}
+                            onChangeText={this.onNewEmailChange}
+                            placeholder={"New Email"}
+                        />
+                        <Input
+                            hide={!this.state.showEmail}
+                            value={this.state.reEmail}
+                            style={styles.input}
+                            onChangeText={this.onReEmailChange}
+                            placeholder={"Confirm New Email"}
+                        />
+                        <Button 
+                            style={styles.button} 
+                            hide={!this.state.showEmail}
+                            disabled={this.disableEmail()}
+                            label="Update Email"
+                            onPress={this.onEmailPress} >
+
+                        </Button>
                     </View>
 
                     <View style={passwordBoxStyle}>
+                        <View style={styles.headerBox}>
+                            <Text style={styles.title}>Update Password</Text>
+                            <TouchableOpacity onPress={this.onPasswordDropDownPress}>
+                                <Image source={passwordButton} style={styles.dropDownButton}></Image>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Input
+                            hide={!this.state.showPassword}
+                            value={this.state.email}
+                            style={styles.input}
+                            onChangeText={this.onEmailChange}
+                            placeholder={"Email"}
+                        />
+                        <Input
+                            hide={!this.state.showPassword}
+                            value={this.state.currPassword}
+                            style={styles.input}
+                            onChangeText={this.onCurrPasswordChange}
+                            placeholder={"Password"}
+                            secureTextEntry={true}
+                        />
+                        <Input
+                            hide={!this.state.showPassword}
+                            value={this.state.newPassword}
+                            style={styles.input}
+                            onChangeText={this.onNewPasswordChange}
+                            placeholder={"New Password"}
+                            secureTextEntry={true}
+                        />
+                        <Input
+                            hide={!this.state.showPassword}
+                            value={this.state.rePassword}
+                            style={styles.input}
+                            onChangeText={this.onRePasswordChange}
+                            placeholder={"Confirm New Password"}
+                            secureTextEntry={true}
+                        />
+
+                        <Button 
+                            style={styles.button} 
+                            hide={!this.state.showPassword}
+                            disabled={this.disablePassword()}
+                            label="Update Password"
+                            onPress={this.onPasswordPress} >
+                        </Button>
                     </View>
 
-                    <View style={deleteBoxStyle}>
+                    <View style={[deleteBoxStyle, {marginBottom: "10%"}]}>
+                        <View style={styles.headerBox}>
+                            <Text style={styles.title}>Delete Account</Text>
+                            <TouchableOpacity onPress={this.onDeleteDropDownPress}>
+                                <Image source={deleteButton} style={styles.dropDownButton}></Image>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Input
+                            hide={!this.state.showDelete}
+                            value={this.state.emailD}
+                            style={styles.input}
+                            onChangeText={this.onEmailDChange}
+                            placeholder={"Email"}
+                        />
+                        <Input
+                            hide={!this.state.showDelete}
+                            value={this.state.passwordD}
+                            style={styles.input}
+                            onChangeText={this.onPasswordDChange}
+                            placeholder={"Password"}
+                            secureTextEntry={true}
+                        />
+                        <Button 
+                            style={styles.button} 
+                            hide={!this.state.showDelete}
+                            disabled={this.disableEmail()}
+                            label="Delete Account"
+                            onPress={this.onDeletePress} >
+                        </Button>
                     </View>
-                </View>
+                    
+                </ScrollView>
+                </KeyboardAvoidingView>
             </View>
         )
     }
