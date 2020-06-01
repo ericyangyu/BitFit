@@ -139,7 +139,7 @@ export default class MainFocusPage extends Component {
 							onPress={() => this.goBackProgress()}>
 							<Image
 								style={{ width: 45, height: 45 }}
-								source={require('../images/back_button.png')}
+								source={backButton} style={styles.topButton}
 							/>
 						</TouchableOpacity>
 					</View>
@@ -298,7 +298,7 @@ export default class MainFocusPage extends Component {
 				</View>
 
 				<View style={styles.buttonView}>
-					<Button style={styles.buttonStyle} onPress={() => this.goToSuggestedWorkouts()}
+					<Button onPress={() => this.goToSuggestedWorkouts()}
 						label="Continue"
 					/>
 				</View>

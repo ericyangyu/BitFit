@@ -96,8 +96,8 @@ export default class Stats extends Component {
             <View style={styles.container}>
                 <Image source={blue} style={styles.backgroundImage} />
                 <View style={styles.form}>
-                 {   /*<View style={styles.form2}> */}
-                {this.props.leveledUp ?
+                    {   /*<View style={styles.form2}> */}
+                    {this.props.leveledUp ?
                         <Text style={styles.finishTextStyle}>
                             Leveled Up {this.props.focus}!
                         </Text> :
@@ -115,13 +115,13 @@ export default class Stats extends Component {
                         Focus: {this.props.focus}
                     </Text>
                     <Text style={styles.detailsTextStyle}>
-                        Hours spent: {this.props.duration}
+                        Minutes spent: {this.props.duration}
                     </Text>
                     <View style={styles.buttonView}>
-                    <Button onPress={() => this.goToProgress()}
-                        label="Continue"
-                    />
-                    {/*</View>*/}
+                        <Button onPress={() => this.goToProgress()}
+                            label="Continue"
+                        />
+                        {/*</View>*/}
                     </View>
                 </View>
             </View>

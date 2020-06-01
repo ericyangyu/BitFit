@@ -43,7 +43,7 @@ export default StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: '#212143',
+        backgroundColor: "#778899",
         borderRadius: 10,
         borderColor: '#fff',
     },
@@ -67,7 +67,8 @@ export default StyleSheet.create({
     },
     topButton: {
         width: 55,
-        height: 55
+        height: 55,
+        borderRadius: 150,
     },
     buttonView: {
         backgroundColor: '#e7e7e7',

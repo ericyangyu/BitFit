@@ -18,7 +18,7 @@ import api from '../config'
 import Trophy_component from "../components/trophy"
 
 // Images
-import back_button from '../images/back_button.png'
+import backButton from '../images/back_button.png'
 import blue from '../images/background.jpg'
 
 // Stylesheet
@@ -107,7 +107,7 @@ export default class Trophy extends Component {
                 onPress={() => this.goToProgress()}>
                 <Image
                   style={{ width: 45, height: 45 }}
-                  source={require('../images/back_button.png')}
+                  source={backButton} style={styles.topButton}
                 />
               </TouchableOpacity>
             </View>

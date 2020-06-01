@@ -31,6 +31,7 @@ import Input from "../components/input";
 // Images 
 import { defaultPhoto } from '../images/default_photo.js';
 import blue from '../images/login_background.jpg';
+import { profile_image } from '../images/profile_image'
 
 /**
  * Class that returns the SignUp page with correct components and API calls.
@@ -45,7 +46,7 @@ export default class SignUp extends Component {
             fullname: "",
             email: "",
             password: "",
-            avatar: defaultPhoto,
+            avatar: profile_image,
         }
     }
 

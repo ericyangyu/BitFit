@@ -11,9 +11,8 @@ import { TouchableOpacity, Image, View, Alert } from 'react-native';
 // Internal imports
 
 // Images
-// TODO
-import trophy_img from "../images/trophy_1.png";
-import lock from "../images/lock.png";
+import { trophy_photo } from "../images/trophy";
+import { lock_photo } from "../images/lock";
 
 // Stylesheet
 import styles from "../style/c_trophy"
@@ -65,7 +64,7 @@ export default class Trophy_Component extends Component {
           <TouchableOpacity onPress={this.alertLocked}>
             <Image
               style={styles.lock}
-              source={{ uri: this.props.details.hidden_image }}
+              source={{ uri: `data:image/gif;base64,${lock_photo}` }}
             />
           </TouchableOpacity>
         </View>
@@ -77,7 +76,8 @@ export default class Trophy_Component extends Component {
       <TouchableOpacity onPress={this.alertUnlocked}>
         <Image
           style={styles.trophy_img}
-          source={{ uri: this.props.details.displayed_image }}
+
+          source={{ uri: `data:image/gif;base64,${trophy_photo}` }}
         />
       </TouchableOpacity>
     )

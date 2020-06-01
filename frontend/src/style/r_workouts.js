@@ -57,6 +57,7 @@ export default StyleSheet.create({
     },
     topButton: {
         width: 55,
-        height: 55
+        height: 55,
+        borderRadius: 150,
     },
 });

@@ -29,6 +29,23 @@ import Button from '../components/button';
 import backButton from '../images/back_button.png';
 import blue from '../images/background.jpg'
 import { russian_twists_photo } from '../images/russian_twists'
+import { crunches_photo } from '../images/crunches'
+import { leg_raise_photo } from '../images/leg_raise'
+import { squats_photo } from '../images/squats'
+import { side_lunges_photo } from '../images/side_lunges'
+import { lunges_photo } from '../images/lunges'
+import { bent_over_row_photo } from '../images/bent_over_row'
+import { overhead_press_photo } from '../images/overhead_press'
+import { alternating_supermans_photo } from '../images/alternating_supermans'
+
+import { bicep_curls_photo } from '../images/bicep_curls'
+import { pushups_photo } from '../images/pushups'
+import { lateral_raise_photo } from '../images/lateral_raise'
+
+
+import { chest_press_photo } from '../images/chest_press'
+import { dumbbell_pullover_photo } from '../images/dumbbell_pullover'
+import { chest_fly_photo } from '../images/chest_fly'
 
 /**
  * Class that returns the Workouts page with correct components and API calls.
@@ -45,6 +62,7 @@ export default class SuggestedWorkoutsPage extends Component {
 			selected_workout: "",
 			selected_workout_image: "",
 			selected_workout_description: "",
+			localImages: { "Russian Twists": russian_twists_photo, "Crunches": crunches_photo, "Leg Raises": leg_raise_photo, "Squat": squats_photo, "Side Lunges": side_lunges_photo, "Lunges": lunges_photo, "Bent Over Row": bent_over_row_photo, "Overhead Press": overhead_press_photo, "Supermans": alternating_supermans_photo, "Bicep Curls": bicep_curls_photo, "Push-ups": pushups_photo, "Lateral Raise": lateral_raise_photo, "Bench Press": chest_press_photo, "Dumbbell Pullover": dumbbell_pullover_photo, "Chest Fly": chest_fly_photo },
 			isLoading: true
 		}
 	}
@@ -72,9 +90,10 @@ export default class SuggestedWorkoutsPage extends Component {
 
 	// Updates the selcted value from the user when selecting a workout
 	updateDropdown = (value) => {
+		console.log(value)
 		this.setState({
 			selected_workout: value,
-			selected_workout_image: this.state.workouts_info[value].image,
+			selected_workout_image: this.state.localImages[value],
 			selected_workout_description: this.state.workouts_info[value].description,
 		})
 	}
@@ -110,7 +129,7 @@ export default class SuggestedWorkoutsPage extends Component {
 					workouts: workouts,
 					workouts_info: workouts_info,
 					selected_workout: workouts[0],
-					selected_workout_image: workouts_info[workouts[0]].image,
+					selected_workout_image: this.state.localImages[workouts[0]],
 					selected_workout_description: workouts_info[workouts[0]].description,
 					isLoading: false
 				})
@@ -152,7 +171,7 @@ export default class SuggestedWorkoutsPage extends Component {
 							<TouchableOpacity onPress={() => this.goBack()}>
 								<Image
 									style={{ width: 45, height: 45 }}
-									source={require('../images/back_button.png')}
+									source={backButton} style={styles.topButton}
 								/>
 							</TouchableOpacity>
 						</View>
@@ -236,7 +255,7 @@ export default class SuggestedWorkoutsPage extends Component {
 						}}>
 							<Image
 								style={{ width: 150, height: 150, alignSelf: 'center' }}
-								source={{ uri: `data:image/gif;base64,${russian_twists_photo}` }}
+								source={{ uri: `data:image/gif;base64,${this.state.selected_workout_image}` }}
 							/>
 						</View>
 					</Col>
