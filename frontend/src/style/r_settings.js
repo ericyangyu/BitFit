@@ -5,16 +5,24 @@
  */
 
 import {StyleSheet} from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#e7e7e7',
         alignItems: 'center',
+        width: "100%",
+        height: Dimensions.get('window').height
+        
     },
     kv: {
         width: "100%",
-        height: "100%"
+        height: Dimensions.get('window').height,
+    },
+    scroll: {
+        width: "100%",
+        height: "100%",
     },
     innerContainer: {
         position: 'absolute',
@@ -34,7 +42,7 @@ export default StyleSheet.create({
         position: 'absolute',
     },
     header: {
-        fontSize: 60,
+        fontSize: 55,
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',

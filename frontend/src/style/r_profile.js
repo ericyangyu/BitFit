@@ -13,7 +13,8 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: '#e7e7e7',
-        paddingBottom: "5%"
+        paddingBottom: "5%",
+        height: Dimensions.get('window').height
     },
     backImage: {
         width: "100%",

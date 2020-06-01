@@ -19,7 +19,6 @@ import axios from 'axios'
 import api from '../config'
 
 // Components
-import Button from "../components/button";
 import NavBar from "../components/nav_bar";
 import LoadingScreen from "../components/loading";
 

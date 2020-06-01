@@ -8,7 +8,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Grid, Row, Col } from "react-native-easy-grid";
 import axios from 'axios'
@@ -326,10 +326,11 @@ export default class Profile extends Component {
     render() {
         const deletePhotoStyle = this.state.eAvatar == `${defaultPhoto}` ? null : styles.button2
         const resetStatsStyle = this.state.eSessions == 0 && this.state.eTime == 0 ? null : styles.button2
-        const backImgStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImage : [styles.backImage, styles.longerImg]
-        const backImgEStyle = this.state.eAvatar == `${defaultPhoto}` ? styles.backImageE : [styles.backImage, styles.longerImg]
-
+       
         return (this.props.edit ? (
+            <KeyboardAvoidingView style={{width: "100%", height: "100%"}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+            <ScrollView style={{width: "100%", height: "100%"}}>
+            
             <View style={styles.container}>
                 <Image style={styles.backImageE} source={blue} />
 
@@ -400,6 +401,9 @@ export default class Profile extends Component {
                     />
                 </View>
             </View>
+            
+            </ScrollView>
+            </KeyboardAvoidingView>
 
         ) : (
             <View style={styles.container}>
