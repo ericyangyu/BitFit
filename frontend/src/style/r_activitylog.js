@@ -33,7 +33,8 @@ export default StyleSheet.create({
         marginBottom: "20%"
     },
     topButton: {
-        width: 45,
-        height: 45
+        width: 55,
+        height: 55,
+        borderRadius: 150,
     },
 });

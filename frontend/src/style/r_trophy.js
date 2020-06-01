@@ -84,4 +84,9 @@ export default StyleSheet.create({
         marginRight: 24,
         marginBottom: 24,
     },
+    topButton: {
+        width: 55,
+        height: 55,
+        borderRadius: 150,
+    },
 });
