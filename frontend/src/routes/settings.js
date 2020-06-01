@@ -328,8 +328,9 @@ export default class Settings extends Component {
         let deleteBoxStyle = this.state.showDelete ? [styles.box, styles.longBox, {height: 245}] : styles.box
 
         return (
+            <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
             <ScrollView style={styles.scroll}>
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                
                     <View style={styles.container}>
                         
                         <Image style={styles.backImage} source={blue} />
@@ -474,8 +475,9 @@ export default class Settings extends Component {
                             </View>
                         </View>
                     </View>
-                </KeyboardAvoidingView>
+                
             </ScrollView>
+            </KeyboardAvoidingView>
         )
     }
 }

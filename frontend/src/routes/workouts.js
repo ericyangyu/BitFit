@@ -24,6 +24,7 @@ import styles from '../style/r_workouts';
 // Components
 import LoadingScreen from "../components/loading"
 import Button from '../components/button';
+import NavBar from "../components/nav_bar";
 
 // Images
 import backButton from '../images/back_button.png';
@@ -167,14 +168,10 @@ export default class SuggestedWorkoutsPage extends Component {
 							style={{ width: "300%", height: 200, opacity: 1.8, position: 'absolute' }}
 							source={blue}
 						/>
-						<View style={{ marginTop: "30%", marginLeft: "15%" }}>
-							<TouchableOpacity onPress={() => this.goBack()}>
-								<Image
-									style={{ width: 45, height: 45 }}
-									source={backButton} style={styles.topButton}
-								/>
-							</TouchableOpacity>
-						</View>
+						<NavBar
+                    		left={backButton}
+                    		leftOnPress={this.goBack}>
+                		</NavBar>
 					</Col>
 					<Col></Col>
 					<Col></Col>
