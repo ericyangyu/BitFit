@@ -7,7 +7,7 @@
 
 // External imports
 import React, { Component } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { View, ScrollView, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // Internal imports
@@ -247,7 +247,7 @@ export default class Settings extends Component {
             'This action in irevertible!',
             "All your data will be lost. Are you sure you want to continue?",
             [{
-                text: 'YES', onPress: () => {
+                text: 'Yes', onPress: () => {
                     // Call user API to get user info
                     let url = 'user/delete';
                     let data = {
@@ -279,28 +279,12 @@ export default class Settings extends Component {
                         });
                 }
             },
-            { text: 'NO', onPress: () => this.setState({ emailD: "", passwordD: "" }) }],
+            { text: 'No', onPress: () => this.setState({ emailD: "", passwordD: "" }) }],
             { cancelable: false }
         );
     }
-    
-      componentWillUnmount () {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-      }
-    
-      _keyboardDidHide = () => {
-        this.setState({title: "Account Settings"})
-      }
-    
-      _keyboardDidShow = () => {
-        this.setState({title: ""})
-      }
 
     componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-
         // Call user API to get user info
         let url = 'user/get';
         let data = {
@@ -345,7 +329,7 @@ export default class Settings extends Component {
 
         return (
             <ScrollView style={styles.scroll}>
-                <KeyboardAvoidingView style={styles.kv} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                     <View style={styles.container}>
                         
                         <Image style={styles.backImage} source={blue} />
@@ -356,9 +340,8 @@ export default class Settings extends Component {
                             leftOnPress={this.onBackPress}>
                         </NavBar>
 
-                        <View style={styles.top}>
-                            <Text style={styles.header}>{this.state.title}</Text>
-                        </View>
+                        
+                        <Text style={styles.header}>{this.state.title}</Text>
 
                         <View style={styles.innerContainer}>
                             

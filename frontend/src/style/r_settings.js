@@ -16,10 +16,6 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height
         
     },
-    kv: {
-        width: "100%",
-        height: Dimensions.get('window').height,
-    },
     scroll: {
         width: "100%",
         height: "100%",
@@ -46,7 +42,7 @@ export default StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontWeight: '100',
-        marginTop: "27.5%"
+        marginTop: "12.5%"
     },
     dropDownButton: {
         aspectRatio: 1,
