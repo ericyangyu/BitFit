@@ -8,13 +8,14 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    spinnerTextStyle: {
-        color: '#FFF'
+    wheel: {
+        width: 100,
+        height: 100
     },
-    spinnerContainer: {
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF'
+        backgroundColor: 'white'
     }
 });
