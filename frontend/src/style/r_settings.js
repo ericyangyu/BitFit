@@ -9,6 +9,53 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#e7e7e7',
+        alignItems: 'center',
+    },
+    innerContainer: {
+        position: 'absolute',
+        top: "30%",
+        width: "100%",
+        height: "70%",
+        alignItems: 'center',
+    },
+    backImage: {
+        width: "100%",
+        height: "30%",
+        opacity: 1.8,
+        position: "absolute"
+    },
+    top: {
+        width: "100%",
+        height: "30%",
+        position: 'absolute',
+    },
+    header: {
+        fontSize: 60,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: '100',
+        marginTop: "27.5%"
+    },
+    dropDownButton: {
+        aspectRatio: 1,
+        width: 30,
+        height: 30 
+    },
+    box: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        width: "90%",
+        height: 70,
+        padding: 20,
+        borderRadius: 20,
+        marginTop: "10%"
+    }
+    /*
+    container: {
+        flex: 1,
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#f3ebe1"
@@ -77,5 +124,5 @@ export default StyleSheet.create({
     },
     disabledT: {
         color: 'black'
-    }
+    } */
 });

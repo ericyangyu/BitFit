@@ -18,9 +18,13 @@ import styles from '../style/r_settings';
 
 // Components
 import Input from "../components/input";
+import NavBar from "../components/nav_bar";
 
 // Images
 import backButton from '../images/back_button.png'
+import blue from '../images/background.jpg'
+import sideButton from '../images/sideButton.png'
+import downButton from '../images/downButton.png'
 
 /**
  * Class that returns the Account Settings page with correct components and API calls.
@@ -41,7 +45,10 @@ export default class Settings extends Component {
             newPassword: "",
             rePassword: "",
             emailD: "",
-            passwordD: ""
+            passwordD: "",
+            showEmail: false,
+            showPassword: false,
+            showDelete: false
         }
     }
 
@@ -293,105 +300,39 @@ export default class Settings extends Component {
         let deleteButtonStyle = !this.disableDelete() ? [styles.button, styles.delete] : [styles.button, styles.delete, styles.disabledB];
         let deleteTextStyle = !this.disableDelete() ? styles.buttonT : [styles.buttonT, styles.disabledT];
 
+        let emailButton = this.state.showEmail ? downButton : sideButton
+        let emailBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
+        let passwordButton = this.state.showEmail ? downButton : sideButton
+        let passwordBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
+        let deleteButton = this.state.showEmail ? downButton : sideButton
+        let deleteBoxStyle = this.state.showEmail ? [styles.box, styles.longBox] : styles.box
+
         return (
             <View style={styles.container}>
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <ScrollView style={styles.scrollView}>
-                            <View style={styles.topBar}>
-                                <TouchableOpacity onPress={() => this.onBackPress()}>
-                                    <Image source={backButton} style={styles.topButton} />
-                                </TouchableOpacity>
-                            </View>
+                <Image style={styles.backImage} source={blue} />
 
-                            <Text style={styles.header}>Change Email</Text>
+                <NavBar
+                    left={backButton}
+                    leftOnPress={this.onBackPress}>
+                </NavBar>
 
-                            <Input
-                                value={this.state.currEmail}
-                                style={styles.input}
-                                onChangeText={this.onCurrEmailChange}
-                                placeholder={"Email"}
-                            />
-                            <Input
-                                value={this.state.password}
-                                style={styles.input}
-                                onChangeText={this.onPasswordChange}
-                                placeholder={"Password"}
-                                secureTextEntry={true}
-                            />
-                            <Input
-                                value={this.state.newEmail}
-                                style={styles.input}
-                                onChangeText={this.onNewEmailChange}
-                                placeholder={"New Email"}
-                            />
-                            <Input
-                                value={this.state.reEmail}
-                                style={styles.input}
-                                onChangeText={this.onReEmailChange}
-                                placeholder={"Re-enter New Email"}
-                            />
+                <View style={styles.top}>
+                    <Text style={styles.header}>Account Settings</Text>
+                </View>
+                <View style={styles.innerContainer}>
+                    <View style={emailBoxStyle}>
+                        <Text style={styles.title}>Update Email</Text>
+                        <TouchableOpacity>
+                            <Image source={emailButton} style={styles.dropDownButton}></Image>
+                        </TouchableOpacity>
+                    </View>
 
-                            <TouchableOpacity disabled={this.disableEmail()} style={emailButtonStyle} onPress={this.onEmailPress}>
-                                <Text style={emailTextStyle}>CHANGE EMAIL</Text>
-                            </TouchableOpacity>
+                    <View style={passwordBoxStyle}>
+                    </View>
 
-                            <Text style={styles.header}>Change Password</Text>
-
-                            <Input
-                                value={this.state.email}
-                                style={styles.input}
-                                onChangeText={this.onEmailChange}
-                                placeholder={"Email"}
-                            />
-                            <Input
-                                value={this.state.currPassword}
-                                style={styles.input}
-                                onChangeText={this.onCurrPasswordChange}
-                                placeholder={"Password"}
-                                secureTextEntry={true}
-                            />
-                            <Input
-                                value={this.state.newPassword}
-                                style={styles.input}
-                                onChangeText={this.onNewPasswordChange}
-                                placeholder={"New Password"}
-                                secureTextEntry={true}
-                            />
-                            <Input
-                                value={this.state.rePassword}
-                                style={styles.input}
-                                onChangeText={this.onRePasswordChange}
-                                placeholder={"Re-enter New Password"}
-                                secureTextEntry={true}
-                            />
-
-                            <TouchableOpacity disabled={this.disablePassword()} style={passwordButtonStyle} onPress={this.onPasswordPress}>
-                                <Text style={passwordTextStyle}>CHANGE PASSWORD</Text>
-                            </TouchableOpacity>
-
-                            <Text style={styles.header}>Delete Account</Text>
-
-                            <Input
-                                value={this.state.emailD}
-                                style={styles.input}
-                                onChangeText={this.onEmailDChange}
-                                placeholder={"Email"}
-                            />
-                            <Input
-                                value={this.state.passwordD}
-                                style={styles.input}
-                                onChangeText={this.onPasswordDChange}
-                                placeholder={"Password"}
-                                secureTextEntry={true}
-                            />
-
-                            <TouchableOpacity disabled={this.disableDelete()} style={deleteButtonStyle} onPress={this.onDeletePress}>
-                                <Text style={deleteTextStyle}>DELETE ACCOUNT </Text>
-                            </TouchableOpacity>
-                        </ScrollView>
-                    </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
+                    <View style={deleteBoxStyle}>
+                    </View>
+                </View>
             </View>
         )
     }
