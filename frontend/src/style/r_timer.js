@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     timer: {
         color: '#FFFFFF',
-        fontSize: 63,
+        fontSize: 77,
         fontWeight: '200',
         width: 110,
         alignItems: 'center'
