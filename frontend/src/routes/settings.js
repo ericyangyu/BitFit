@@ -142,7 +142,10 @@ export default class Settings extends Component {
                 Alert.alert(
                     'Email updated.',
                     "You can now use your updated email to login.",
-                    [{ text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) } }],
+                    [{ text: 'OK', onPress: () => {
+                        Actions.pop()
+                        setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                    }}],
                     { cancelable: false }
                 );
             })
@@ -202,7 +205,10 @@ export default class Settings extends Component {
                 Alert.alert(
                     'Password updated.',
                     "You can now use your updated password to login.",
-                    [{ text: 'OK', onPress: () => { Actions.profile({ uid: this.state.uid, edit: false }) } }],
+                    [{ text: 'OK', onPress: () => {
+                        Actions.pop()
+                        setTimeout(() => { Actions.refresh({ r: Math.random() }); }, 0);
+                    }}],
                     { cancelable: false }
                 );
             })
