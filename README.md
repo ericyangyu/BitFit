@@ -1,6 +1,6 @@
 # BitFit
 
-BitFit was created as an project for CSE 110 Software Engineering taught by Professor Gary Gillespie during Spring Quarter 2020.
+BitFit was created as a project for the UCSD course CSE 110 "Software Engineering" taught by Professor Gary Gillespie during Spring Quarter 2020.
 
 
 ## Introduction
