@@ -19,7 +19,6 @@ We have provided the following tester accounts for testing purposes.
 
 
 ## Requirements
-* 2017 MacBook Pro: 16GB Memory
 * macOS Catalina Version: 10.15.4
 * Docker Desktop Version: 2.3.0.3 or latest
 * Homebrew Version: latest
@@ -65,20 +64,26 @@ We have provided the following tester accounts for testing purposes.
     docker-compose up --build -d 
     ```
 
-4. Execute the following command to start Expo.
+4. Navigate to the following directory.
+    ```
+    cd BitFit/frontend
+    ``` 
+
+5. Execute the following command to start Expo.
     ```
     expo start
     ```
 
-5. In the Expo Developer Tool that opens in your browser, press `Run on iOS simulator`.
+6. In the Expo Developer Tool that opens in your browser, press `Run on iOS simulator`.
 
-6. Click `Open` if there is a popup to open Expo that says `Open in "Expo"?`.
+7. Click `Open` if there is a popup to open Expo that says `Open in "Expo"?`.
 
-7. In the `Simulator` menu at the top of the screen, press `File -> Open Device -> iOS 13.5 -> iPhone 11`.
+8. In the `Simulator` menu at the top of the screen, press `File -> Open Device -> iOS 13.5 -> iPhone 11`.
 
 
 ## Known Bugs
 * On all pages, the transition between pages is sometimes slow. For example, when you are on the Signup page and press the “Signup” button, it will take a couple of seconds for the screen to either alert you of invalid credentials or navigate you to the next screen. To handle this please only press buttons ONCE and then wait for at least 5 seconds before pressing it again.
+
 
 ## Troubleshooting
 * To reload the app, in the simulator press ‘CMD-D’ and that will open a developer window in the simulator. Click reload to reload the app and this will take you back to the login page.
